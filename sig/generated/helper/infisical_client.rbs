@@ -1,0 +1,8 @@
+# Generated from helper/infisical_client.rb with RBS::Inline
+
+module InfisicalClient
+  @client: untyped
+
+  # @rbs () -> untyped
+  def self.client: () -> untyped
+end

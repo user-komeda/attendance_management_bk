@@ -1,0 +1,25 @@
+# Generated from lib/presentation/controller/controller_pay_load.rb with RBS::Inline
+
+module Presentation
+  module Controller
+    class ControllerPayLoad
+      # @rbs @id: String
+      # @rbs @status_code: Integer
+      # @rbs @data: Array[untyped]
+      attr_reader id: untyped
+
+      # @rbs @id: String
+      # @rbs @status_code: Integer
+      # @rbs @data: Array[untyped]
+      attr_reader status_code: untyped
+
+      # @rbs @id: String
+      # @rbs @status_code: Integer
+      # @rbs @data: Array[untyped]
+      attr_reader data: untyped
+
+      # @rbs (?id: String, ?status_code: Integer, ?data: Hash[Symbol, untyped] | Array[Hash[Symbol, untyped]]) -> void
+      def initialize: (?id: String, ?status_code: Integer, ?data: Hash[Symbol, untyped] | Array[Hash[Symbol, untyped]]) -> void
+    end
+  end
+end

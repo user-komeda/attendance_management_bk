@@ -1,0 +1,10 @@
+# Generated from lib/presentation/exception/bad_request_exception.rb with RBS::Inline
+
+module Presentation
+  module Exception
+    class BadRequestException < ::AppException::ApiError
+      # @rbs (message: String) -> void
+      def initialize: (message: String) -> void
+    end
+  end
+end

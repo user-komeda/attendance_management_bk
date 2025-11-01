@@ -1,0 +1,16 @@
+# Generated from lib/infrastructure/entity/base_entity.rb with RBS::Inline
+
+module Infrastructure
+  module Entity
+    class BaseEntity < ROM::Struct
+      # @rbs () -> ::Domain::Entity::DomainEntity
+      def self.to_domain: () -> ::Domain::Entity::DomainEntity
+
+      # @rbs (untyped struct) -> ::Domain::Entity::DomainEntity
+      def self.struct_to_domain: (untyped struct) -> ::Domain::Entity::DomainEntity
+
+      # @rbs (::Domain::Entity::DomainEntity entity) -> BaseEntity
+      def self.build_from_domain_entity: (::Domain::Entity::DomainEntity entity) -> BaseEntity
+    end
+  end
+end

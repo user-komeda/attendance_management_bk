@@ -1,0 +1,42 @@
+# Generated from lib/application/dto/user/user_dto.rb with RBS::Inline
+
+module Application
+  module Dto
+    module User
+      class UserDto < Application::Dto::BaseDto
+        # @rbs @id: String?
+        # @rbs @first_name: String
+        # @rbs @last_name: String
+        # @rbs @email: String
+        attr_reader id: untyped
+
+        # @rbs @id: String?
+        # @rbs @first_name: String
+        # @rbs @last_name: String
+        # @rbs @email: String
+        attr_reader first_name: untyped
+
+        # @rbs @id: String?
+        # @rbs @first_name: String
+        # @rbs @last_name: String
+        # @rbs @email: String
+        attr_reader last_name: untyped
+
+        # @rbs @id: String?
+        # @rbs @first_name: String
+        # @rbs @last_name: String
+        # @rbs @email: String
+        attr_reader email: untyped
+
+        # @rbs (first_name: String, last_name: String, email: String, ?id: String?) -> void
+        def initialize: (first_name: String, last_name: String, email: String, ?id: String?) -> void
+
+        # @rbs (::Domain::Entity::User::UserEntity value) -> UserDto
+        def self.build: (::Domain::Entity::User::UserEntity value) -> UserDto
+
+        # @rbs (Array[::Domain::Entity::User::UserEntity] user_list) -> Array[UserDto]
+        def self.build_from_array: (Array[::Domain::Entity::User::UserEntity] user_list) -> Array[UserDto]
+      end
+    end
+  end
+end

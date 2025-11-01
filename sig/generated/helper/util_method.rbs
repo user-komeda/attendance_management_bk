@@ -1,0 +1,6 @@
+# Generated from helper/util_method.rb with RBS::Inline
+
+module UtilMethod
+  # @rbs (untyped object) -> bool
+  def self.nil_or_empty: (untyped object) -> bool
+end

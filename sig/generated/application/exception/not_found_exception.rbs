@@ -1,0 +1,10 @@
+# Generated from lib/application/exception/not_found_exception.rb with RBS::Inline
+
+module Application
+  module Exception
+    class NotFoundException < ::AppException::ApiError
+      # @rbs (message: String) -> void
+      def initialize: (message: String) -> void
+    end
+  end
+end

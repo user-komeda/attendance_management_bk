@@ -1,0 +1,16 @@
+# Generated from lib/presentation/response/base_response.rb with RBS::Inline
+
+module Presentation
+  module Response
+    class BaseResponse
+      # @rbs (untyped value) -> Hash[Symbol, untyped]
+      def self.build: (untyped value) -> Hash[Symbol, untyped]
+
+      # @rbs (Array[untyped] _value_list) -> Array[Hash[Symbol, untyped]]
+      def self.build_from_array: (Array[untyped] _value_list) -> Array[Hash[Symbol, untyped]]
+
+      # @rbs () -> Hash[Symbol, untyped]
+      def to_h: () -> Hash[Symbol, untyped]
+    end
+  end
+end

@@ -1,0 +1,15 @@
+# Generated from lib/presentation/controller/controller_base.rb with RBS::Inline
+
+module Presentation
+  module Controller
+    class ControllerBase
+      include ContainerHelper
+
+      # @rbs (Hash[Symbol, untyped] request_payload, Class class_name) -> untyped
+      def create_build_request: (Hash[Symbol, untyped] request_payload, Class class_name) -> untyped
+
+      # @rbs (Symbol key, *untyped args) -> untyped
+      def invoke_use_case: (Symbol key, *untyped args) -> untyped
+    end
+  end
+end

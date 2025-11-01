@@ -1,0 +1,16 @@
+# Generated from lib/app_exception/api_error.rb with RBS::Inline
+
+module AppException
+  class ApiError < StandardError
+    # @rbs @status_code: Symbol
+    # @rbs @error_code: Symbol
+    attr_reader status_code: untyped
+
+    # @rbs @status_code: Symbol
+    # @rbs @error_code: Symbol
+    attr_reader error_code: untyped
+
+    # @rbs (message: String, status_code: Symbol, error_code: Symbol) -> void
+    def initialize: (message: String, status_code: Symbol, error_code: Symbol) -> void
+  end
+end

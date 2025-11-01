@@ -1,0 +1,42 @@
+# Generated from lib/domain/entity/User/user_entity.rb with RBS::Inline
+
+module Domain
+  module Entity
+    module User
+      class UserEntity
+        ID: untyped
+
+        UN: untyped
+
+        UE: untyped
+
+        # @rbs @id: ::Domain::ValueObject::IdentityId?
+        # @rbs @user_name: ::Domain::ValueObject::User::UserName
+        # @rbs @email: ::Domain::ValueObject::User::UserEmail
+        attr_accessor id: untyped
+
+        # @rbs @id: ::Domain::ValueObject::IdentityId?
+        # @rbs @user_name: ::Domain::ValueObject::User::UserName
+        # @rbs @email: ::Domain::ValueObject::User::UserEmail
+        attr_accessor user_name: untyped
+
+        # @rbs @id: ::Domain::ValueObject::IdentityId?
+        # @rbs @user_name: ::Domain::ValueObject::User::UserName
+        # @rbs @email: ::Domain::ValueObject::User::UserEmail
+        attr_accessor email: untyped
+
+        # @rbs (user_name: ::Domain::ValueObject::User::UserName, email: ::Domain::ValueObject::User::UserEmail, ?id: ::Domain::ValueObject::IdentityId?) -> void
+        def initialize: (user_name: ::Domain::ValueObject::User::UserName, email: ::Domain::ValueObject::User::UserEmail, ?id: ::Domain::ValueObject::IdentityId?) -> void
+
+        # @rbs (first_name: String?, last_name: String?, email: String?) -> void
+        def change: (first_name: String?, last_name: String?, email: String?) -> void
+
+        # @rbs (first_name: String, last_name: String, email: String) -> UserEntity
+        def self.build: (first_name: String, last_name: String, email: String) -> UserEntity
+
+        # @rbs (id: String, first_name: String, last_name: String, email: String) -> UserEntity
+        def self.build_with_id: (id: String, first_name: String, last_name: String, email: String) -> UserEntity
+      end
+    end
+  end
+end

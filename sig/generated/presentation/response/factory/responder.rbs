@@ -1,0 +1,12 @@
+# Generated from lib/presentation/response/factory/responder.rb with RBS::Inline
+
+module Presentation
+  module Response
+    module Factory
+      class Responder
+        # @rbs (response: untyped, payload: ::Presentation::Controller::ControllerPayLoad) -> untyped
+        def self.build_responder: (response: untyped, payload: ::Presentation::Controller::ControllerPayLoad) -> untyped
+      end
+    end
+  end
+end

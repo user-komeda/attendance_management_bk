@@ -1,0 +1,27 @@
+
+module ROM
+  class Relation
+    type adapter = :sql | :http | :yaml | untyped
+
+    def self.[]: (adapter) -> singleton(Relation)
+
+    def where: (**untyped) -> Relation
+    def order: (*Symbol | String) -> Relation
+    def limit: (Integer) -> Relation
+    def offset: (Integer) -> Relation
+    def select: (*Symbol | String) -> Relation
+    def by_pk: (untyped) -> Relation
+    def by_email: (untyped) -> Relation
+    def one: () -> untyped
+    def one!: () -> untyped
+    def first: () -> untyped
+    def to_a: () -> Array[untyped]
+    def map_to: (untyped) -> Relation
+    def combine: (*Symbol) -> Relation
+    def wrap: (*Symbol) -> Relation
+    def group: (*Symbol) -> Relation
+    def each: () { (untyped) -> void } -> void
+
+    def self.schema: (Symbol, ?infer: bool) ?{ () -> void } -> void
+  end
+end

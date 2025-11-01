@@ -1,0 +1,23 @@
+# Generated from lib/presentation/request/user/update_user_request.rb with RBS::Inline
+
+module Presentation
+  module Request
+    module User
+      class UpdateUserRequest < UserBaseRequest
+        # @rbs () -> ::Application::Dto::User::UpdateUserInputDto
+        def convert_to_dto: () -> ::Application::Dto::User::UpdateUserInputDto
+
+        # @rbs (Hash[Symbol, untyped] params) -> UpdateUserRequest
+        def self.build: (Hash[Symbol, untyped] params) -> UpdateUserRequest
+
+        # @rbs (Hash[Symbol, untyped] params) -> void
+        def self.validate: (Hash[Symbol, untyped] params) -> void
+
+        private
+
+        # @rbs (Hash[Symbol, untyped] params) -> void
+        def initialize: (Hash[Symbol, untyped] params) -> void
+      end
+    end
+  end
+end

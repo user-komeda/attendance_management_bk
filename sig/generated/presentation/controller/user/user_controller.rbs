@@ -1,0 +1,24 @@
+# Generated from lib/presentation/controller/user/user_controller.rb with RBS::Inline
+
+module Presentation
+  module Controller
+    module User
+      class UserController < UserControllerBase
+        # @rbs () -> Array[untyped]
+        def index: () -> Array[untyped]
+
+        # @rbs (String id) -> untyped
+        def show: (String id) -> untyped
+
+        # @rbs (Hash[Symbol, untyped] params) -> untyped
+        def create: (Hash[Symbol, untyped] params) -> untyped
+
+        # @rbs (Hash[Symbol, untyped] params, String id) -> untyped
+        def update: (Hash[Symbol, untyped] params, String id) -> untyped
+
+        # @rbs (String id) -> void
+        def destroy: (String id) -> void
+      end
+    end
+  end
+end

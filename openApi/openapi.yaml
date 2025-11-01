@@ -1,0 +1,214 @@
+﻿openapi: 3.0.1
+info:
+  title: Attendance Management API
+  description: |
+    縺薙・API縺ｯ繝ｦ繝ｼ繧ｶ繝ｼ縺ｮ菴懈・繝ｻ蜿門ｾ励・譖ｴ譁ｰ繝ｻ蜑企勁繧定｡後≧縺溘ａ縺ｮ繧ｨ繝ｳ繝峨・繧､繝ｳ繝医ｒ謠蝉ｾ帙＠縺ｾ縺吶・    迴ｾ蝨ｨ縺ｯ User 繝ｪ繧ｽ繝ｼ繧ｹ縺ｮ縺ｿ繧呈署萓帙＠縺ｦ縺・∪縺吶・  version: "1.0.0"
+servers:
+  - url: http://localhost:4567
+    description: Local server
+tags:
+  - name: user
+    description: 繝ｦ繝ｼ繧ｶ繝ｼ縺ｫ髢｢縺吶ｋ謫堺ｽ・paths:
+  "/":
+    get:
+      tags: [user]
+      summary: 繝ｦ繝ｼ繧ｶ繝ｼ荳隕ｧ縺ｮ蜿門ｾ・      operationId: listUsers
+      responses:
+        "200":
+          description: 豁｣蟶ｸ縺ｫ蜿門ｾ励＆繧後∪縺励◆
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+        default:
+          description: 莠域悄縺励↑縺・お繝ｩ繝ｼ
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      tags: [user]
+      summary: 繝ｦ繝ｼ繧ｶ繝ｼ縺ｮ菴懈・
+      operationId: createUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserRequest'
+      responses:
+        "201":
+          description: 菴懈・縺ｫ謌仙粥縺励∪縺励◆
+          headers:
+            Location:
+              description: 菴懈・縺輔ｌ縺溘Θ繝ｼ繧ｶ繝ｼ縺ｮ蜿門ｾ誘RL
+              schema:
+                type: string
+                example: http://localhost:8080/users/00000000-0000-0000-0000-000000000000
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        "400":
+          description: 繝ｪ繧ｯ繧ｨ繧ｹ繝井ｸ肴ｭ｣
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        default:
+          description: 莠域悄縺励↑縺・お繝ｩ繝ｼ
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  "/{id}":
+    parameters:
+      - name: id
+        in: path
+        required: true
+        description: 繝ｦ繝ｼ繧ｶ繝ｼID(UUID)
+        schema:
+          type: string
+          format: uuid
+          pattern: "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+    get:
+      tags: [user]
+      summary: 繝ｦ繝ｼ繧ｶ繝ｼ隧ｳ邏ｰ縺ｮ蜿門ｾ・      operationId: getUser
+      responses:
+        "200":
+          description: 豁｣蟶ｸ縺ｫ蜿門ｾ励＆繧後∪縺励◆
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        "400":
+          description: 繝ｪ繧ｯ繧ｨ繧ｹ繝井ｸ肴ｭ｣・・D蠖｢蠑上お繝ｩ繝ｼ縺ｪ縺ｩ・・          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "404":
+          description: 蟇ｾ雎｡繝ｦ繝ｼ繧ｶ繝ｼ縺悟ｭ伜惠縺励∪縺帙ｓ
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        default:
+          description: 莠域悄縺励↑縺・お繝ｩ繝ｼ
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    patch:
+      tags: [user]
+      summary: 繝ｦ繝ｼ繧ｶ繝ｼ縺ｮ譖ｴ譁ｰ
+      operationId: updateUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUserRequest'
+      responses:
+        "204":
+          description: 譖ｴ譁ｰ縺ｫ謌仙粥縺励∪縺励◆・医Ξ繧ｹ繝昴Φ繧ｹ繝懊ョ繧｣縺ｪ縺暦ｼ・          headers:
+            ETag:
+              description: 譖ｴ譁ｰ蟇ｾ雎｡縺ｮID・亥ｮ溯｣・〒縺ｯ譖ｴ譁ｰ蠕後・ID遲峨ｒ霑泌唆・・              schema:
+                type: string
+        "400":
+          description: 繝ｪ繧ｯ繧ｨ繧ｹ繝井ｸ肴ｭ｣
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "404":
+          description: 蟇ｾ雎｡繝ｦ繝ｼ繧ｶ繝ｼ縺悟ｭ伜惠縺励∪縺帙ｓ
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        default:
+          description: 莠域悄縺励↑縺・お繝ｩ繝ｼ
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      tags: [user]
+      summary: 繝ｦ繝ｼ繧ｶ繝ｼ縺ｮ蜑企勁
+      operationId: deleteUser
+      responses:
+        "204":
+          description: 蜑企勁縺ｫ謌仙粥縺励∪縺励◆・医Ξ繧ｹ繝昴Φ繧ｹ繝懊ョ繧｣縺ｪ縺暦ｼ・        "400":
+          description: 繝ｪ繧ｯ繧ｨ繧ｹ繝井ｸ肴ｭ｣
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "404":
+          description: 蟇ｾ雎｡繝ｦ繝ｼ繧ｶ繝ｼ縺悟ｭ伜惠縺励∪縺帙ｓ
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        default:
+          description: 莠域悄縺励↑縺・お繝ｩ繝ｼ
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    User:
+      type: object
+      description: 繝ｬ繧ｹ繝昴Φ繧ｹ逕ｨ繝ｦ繝ｼ繧ｶ繝ｼ繧ｪ繝悶ず繧ｧ繧ｯ繝・      properties:
+        id:
+          type: string
+          format: uuid
+          example: 4b0a3b44-2b8f-4a7c-9f08-6b7e1b2c3d4e
+        first_name:
+          type: string
+          example: Taro
+        last_name:
+          type: string
+          example: Yamada
+        email:
+          type: string
+          format: email
+          example: taro.yamada@example.com
+      required: [id, first_name, last_name, email]
+    CreateUserRequest:
+      type: object
+      description: 繝ｦ繝ｼ繧ｶ繝ｼ菴懈・譎ゅ・繝ｪ繧ｯ繧ｨ繧ｹ繝医・繝・ぅ
+      properties:
+        first_name:
+          type: string
+        last_name:
+          type: string
+        email:
+          type: string
+          format: email
+      required: [first_name, last_name, email]
+    UpdateUserRequest:
+      type: object
+      description: 繝ｦ繝ｼ繧ｶ繝ｼ譖ｴ譁ｰ譎ゅ・繝ｪ繧ｯ繧ｨ繧ｹ繝医・繝・ぅ・亥・縺ｦ莉ｻ諢城・岼・・      properties:
+        first_name:
+          type: string
+        last_name:
+          type: string
+        email:
+          type: string
+          format: email
+      additionalProperties: false
+    Error:
+      type: object
+      description: 繧ｨ繝ｩ繝ｼ繝ｬ繧ｹ繝昴Φ繧ｹ
+      properties:
+        error_code:
+          type: string
+          description: 繧｢繝励Μ繧ｱ繝ｼ繧ｷ繝ｧ繝ｳ螳夂ｾｩ縺ｮ繧ｨ繝ｩ繝ｼ繧ｳ繝ｼ繝・          example: BAD_REQUEST
+        message:
+          type: string
+          description: 繧ｨ繝ｩ繝ｼ繝｡繝・そ繝ｼ繧ｸ
+          example: invalid request body

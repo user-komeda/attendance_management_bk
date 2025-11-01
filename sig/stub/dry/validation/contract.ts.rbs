@@ -1,0 +1,13 @@
+
+# sig/stub/dry/validation/contract.rbs
+module Dry
+  module Validation
+    class Contract
+      # initialize は最低限定義しておく
+      def initialize: (*untyped) -> void
+
+      # call メソッド（典型的に使用する）
+      def call: (*untyped) -> untyped
+    end
+  end
+end

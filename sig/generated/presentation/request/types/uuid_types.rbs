@@ -1,0 +1,12 @@
+# Generated from lib/presentation/request/types/uuid_types.rb with RBS::Inline
+
+module Presentation
+  module Request
+    module Contract
+      module UUIDTypes
+        # @rbs UUID: untyped
+        UUID: untyped
+      end
+    end
+  end
+end

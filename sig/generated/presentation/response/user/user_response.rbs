@@ -1,0 +1,45 @@
+# Generated from lib/presentation/response/user/user_response.rb with RBS::Inline
+
+module Presentation
+  module Response
+    module User
+      class UserResponse < Presentation::Response::BaseResponse
+        # @rbs @id: String
+        # @rbs @first_name: String
+        # @rbs @last_name: String
+        # @rbs @email: String
+        attr_reader id: untyped
+
+        # @rbs @id: String
+        # @rbs @first_name: String
+        # @rbs @last_name: String
+        # @rbs @email: String
+        attr_reader first_name: untyped
+
+        # @rbs @id: String
+        # @rbs @first_name: String
+        # @rbs @last_name: String
+        # @rbs @email: String
+        attr_reader last_name: untyped
+
+        # @rbs @id: String
+        # @rbs @first_name: String
+        # @rbs @last_name: String
+        # @rbs @email: String
+        attr_reader email: untyped
+
+        # @rbs (id: String, first_name: String, last_name: String, email: String) -> void
+        def initialize: (id: String, first_name: String, last_name: String, email: String) -> void
+
+        # @rbs (::Application::Dto::User::UserDto user) -> Hash[Symbol, String]
+        def self.build: (::Application::Dto::User::UserDto user) -> Hash[Symbol, String]
+
+        # @rbs (Array[::Application::Dto::User::UserDto] user_list) -> Array[Hash[Symbol, String]]
+        def self.build_from_array: (Array[::Application::Dto::User::UserDto] user_list) -> Array[Hash[Symbol, String]]
+
+        # @rbs () -> Hash[Symbol, String]
+        def to_h: () -> Hash[Symbol, String]
+      end
+    end
+  end
+end

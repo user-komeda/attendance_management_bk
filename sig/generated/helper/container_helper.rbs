@@ -1,0 +1,6 @@
+# Generated from helper/container_helper.rb with RBS::Inline
+
+module ContainerHelper
+  # @rbs (String key) -> untyped
+  def resolve: (String key) -> untyped
+end

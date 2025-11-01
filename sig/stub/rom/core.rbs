@@ -1,0 +1,6 @@
+module ROM
+  module Types
+    # Placeholder for ROM::Types::String
+    String: untyped
+  end
+end

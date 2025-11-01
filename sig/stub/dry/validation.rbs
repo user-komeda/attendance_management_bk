@@ -1,0 +1,13 @@
+module Dry
+  module Validation
+    class Contract
+      def self.params: () { () -> void } -> untyped
+      def self.required: (Symbol) -> untyped
+      def self.optional: (Symbol) -> untyped
+
+      # Chainable rule builders (DSL usually used within `params` block)
+      def filled: (*untyped) -> untyped
+      def value: (*untyped) -> untyped
+    end
+  end
+end

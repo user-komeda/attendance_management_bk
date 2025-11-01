@@ -1,0 +1,12 @@
+# Generated from lib/application/use_case/user/create_user_use_case.rb with RBS::Inline
+
+module Application
+  module UseCase
+    module User
+      class CreateUserUseCase < UserBaseUseCase
+        # @rbs (::Application::Dto::User::CreateUserInputDto input_dto) -> ::Application::Dto::User::UserDto
+        def invoke: (::Application::Dto::User::CreateUserInputDto input_dto) -> ::Application::Dto::User::UserDto
+      end
+    end
+  end
+end

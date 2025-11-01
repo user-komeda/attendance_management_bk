@@ -1,0 +1,13 @@
+# sig/rom/struct.rbs
+module ROM
+  class Struct
+    # ROM::Struct DSL to define attributes in subclasses
+    def self.attribute: (Symbol, untyped) -> void
+
+    # ROM::Struct subclasses are instantiated with keyword args; be permissive
+    def self.new: (*untyped) -> instance
+
+    # Convert struct to a hash
+    def to_h: () -> Hash[Symbol, untyped]
+  end
+end

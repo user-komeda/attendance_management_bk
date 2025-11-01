@@ -1,0 +1,16 @@
+# Generated from lib/presentation/request/base_request.rb with RBS::Inline
+
+module Presentation
+  module Request
+    class BaseRequest
+      # @rbs () -> ::Application::Dto::InputBaseDto
+      def convert_to_dto: () -> ::Application::Dto::InputBaseDto
+
+      # @rbs (Hash[Symbol, untyped] params) -> BaseRequest
+      def self.build: (Hash[Symbol, untyped] params) -> BaseRequest
+
+      # @rbs (Hash[Symbol, untyped] params) -> void
+      def self.validate: (Hash[Symbol, untyped] params) -> void
+    end
+  end
+end

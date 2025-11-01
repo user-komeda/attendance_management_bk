@@ -1,0 +1,39 @@
+# Generated from lib/application/dto/user/update_user_input_dto.rb with RBS::Inline
+
+module Application
+  module Dto
+    module User
+      class UpdateUserInputDto < InputBaseDto
+        # @rbs @id: String
+        # @rbs @first_name: String
+        # @rbs @last_name: String
+        # @rbs @email: String
+        attr_reader id: untyped
+
+        # @rbs @id: String
+        # @rbs @first_name: String
+        # @rbs @last_name: String
+        # @rbs @email: String
+        attr_reader first_name: untyped
+
+        # @rbs @id: String
+        # @rbs @first_name: String
+        # @rbs @last_name: String
+        # @rbs @email: String
+        attr_reader last_name: untyped
+
+        # @rbs @id: String
+        # @rbs @first_name: String
+        # @rbs @last_name: String
+        # @rbs @email: String
+        attr_reader email: untyped
+
+        # @rbs ({ id: String, first_name: String, last_name: String, email: String }) -> void
+        def initialize: ({ id: String, first_name: String, last_name: String, email: String }) -> void
+
+        # @rbs () -> ::Domain::Entity::User::UserEntity
+        def convert_to_entity: () -> ::Domain::Entity::User::UserEntity
+      end
+    end
+  end
+end

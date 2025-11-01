@@ -1,0 +1,19 @@
+
+module Infrastructure
+  module Repository
+    module Rom
+      module User
+        class UserBaseRomRepository < ROM::Repository
+          include Infrastructure::Repository::Rom::RomRepositoryBase
+
+          @container: untyped
+
+          def users: () -> ROM::Relation
+          def create: (untyped) -> untyped
+          def update: (untyped, untyped) -> untyped
+          def delete: (untyped) -> untyped
+        end
+      end
+    end
+  end
+end

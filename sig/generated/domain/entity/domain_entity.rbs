@@ -1,0 +1,8 @@
+# Generated from lib/domain/entity/domain_entity.rb with RBS::Inline
+
+module Domain
+  module Entity
+    class DomainEntity
+    end
+  end
+end
