@@ -1,9 +1,12 @@
-# frozen_string_literal: true
+﻿# frozen_string_literal: true
+
+# rbs_inline: enabled
 
 module Application
   module UseCase
     module User
       class UpdateUserUseCase < UserBaseUseCase
+        # @rbs (::Application::Dto::User::UpdateUserInputDto input_dto) -> ::Application::Dto::User::UserDto
         def invoke(input_dto)
           pp input_dto.id
           caller = resolve(KEY)

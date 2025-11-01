@@ -1,11 +1,14 @@
-# rubocop:disable  Metrics/AbcSize
+﻿# rubocop:disable  Metrics/AbcSize
 # rubocop:disable  Metrics/MethodLength
 
 # frozen_string_literal: true
 
+# rbs_inline: enabled
+
 module RouteHelper
   DEFAULT_ACTIONS = %i[index show create update destroy].freeze
 
+  # @rbs (Hash[Symbol, untyped] route) -> void
   def route_resources(route)
     base_path = route[:base_path]
     controller = route[:controller]
@@ -43,6 +46,7 @@ module RouteHelper
     end
   end
 
+  # @rbs (untyped request) -> Hash[Symbol, untyped]
   def parse_params(request)
     begin
       payload = JSON.parse(request.body.read, symbolize_names: true)

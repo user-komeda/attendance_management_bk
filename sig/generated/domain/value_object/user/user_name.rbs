@@ -1,0 +1,33 @@
+# Generated from lib/domain/value_object/user/user_name.rb with RBS::Inline
+
+module Domain
+  module ValueObject
+    module User
+      class UserName < BaseValueObject
+        # @rbs @first_name: String
+        # @rbs @last_name: String
+        attr_reader first_name: untyped
+
+        # @rbs @first_name: String
+        # @rbs @last_name: String
+        attr_reader last_name: untyped
+
+        # @rbs (String? first_name, String? last_name) -> void
+        def initialize: (String? first_name, String? last_name) -> void
+
+        # @rbs (String first_name, String last_name) -> UserName
+        def self.build: (String first_name, String last_name) -> UserName
+
+        # @rbs () -> String
+        def full_name: () -> String
+
+        # インスタンスメソッドとして定義
+        # @rbs () -> Array[String]
+        def values: () -> Array[String]
+
+        # @rbs (String first_name, String _last_name) -> void
+        def self.validate!: (String first_name, String _last_name) -> void
+      end
+    end
+  end
+end

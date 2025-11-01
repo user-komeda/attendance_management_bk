@@ -1,9 +1,13 @@
-# frozen_string_literal: true
+﻿# frozen_string_literal: true
+
+# rbs_inline: enabled
+
 
 module Presentation
   module Request
     module User
       class UpdateUserRequest < UserBaseRequest
+        # @rbs () -> ::Application::Dto::User::UpdateUserInputDto
         def convert_to_dto
           UPDATE_INPUT_DTO.new(
             id: @id,
@@ -13,11 +17,13 @@ module Presentation
           )
         end
 
+        # @rbs (Hash[Symbol, untyped] params) -> UpdateUserRequest
         def self.build(params)
           UpdateUserRequest.validate(params)
           UpdateUserRequest.new(params)
         end
 
+        # @rbs (Hash[Symbol, untyped] params) -> void
         def self.validate(params)
           result = UPDATE_CONTRACT.new.call(params)
           return unless result.failure?
@@ -27,6 +33,7 @@ module Presentation
 
         private
 
+        # @rbs (Hash[Symbol, untyped] params) -> void
         def initialize(params)
           super()
           @id = params[:id]

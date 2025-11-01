@@ -1,0 +1,15 @@
+# Generated from lib/presentation/response/factory/response_factory.rb with RBS::Inline
+
+module Presentation
+  module Response
+    module Factory
+      class ResponseFactory
+        # @rbs (response: untyped, ?status_code: Integer, ?id: String, ?data: Hash[Symbol, untyped] | Array[Hash[Symbol, untyped]]) -> String?
+        def self.create_response: (response: untyped, ?status_code: Integer, ?id: String, ?data: Hash[Symbol, untyped] | Array[Hash[Symbol, untyped]]) -> String?
+
+        # @rbs (response: untyped, payload: ::Presentation::Controller::ControllerPayLoad) -> untyped
+        def self.responder: (response: untyped, payload: ::Presentation::Controller::ControllerPayLoad) -> untyped
+      end
+    end
+  end
+end

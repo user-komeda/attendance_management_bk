@@ -1,9 +1,13 @@
-# frozen_string_literal: true
+﻿# frozen_string_literal: true
+
+# rbs_inline: enabled
+
 
 module Presentation
   module Request
     module User
       class CreateUserRequest < UserBaseRequest
+        # @rbs () -> ::Application::Dto::User::CreateUserInputDto
         def convert_to_dto
           CREATE_INPUT_DTO.new(
             first_name: @first_name,
@@ -12,18 +16,25 @@ module Presentation
           )
         end
 
+        # @rbs (Hash[Symbol, untyped] params) -> CreateUserRequest
         def self.build(params)
           CreateUserRequest.validate(params)
           CreateUserRequest.new(params)
         end
 
-        def self.validate(params)
-          result = CREATE_CONTRACT.new.call(params)
-          raise NotImplementedError if result.failure?
-        end
+        # @rbs (Hash[Symbol, untyped] params) -> void
+
 
         private
 
+        def self.validate(params)
+          result = CREATE_CONTRACT.new.call(params)
+          return unless result.failure?
+
+          raise ::Presentation::Exception::BadRequestException.new(message: result.errors.to_h.to_json)
+        end
+
+        # @rbs (Hash[Symbol, untyped] params) -> void
         def initialize(params)
           super()
           @first_name = params[:first_name]

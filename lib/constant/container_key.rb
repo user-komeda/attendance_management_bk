@@ -1,9 +1,14 @@
+﻿
 # frozen_string_literal: true
+
+# rbs_inline: enabled
 
 module Constant
   module ContainerKey
     module ApplicationKey
       UseCase = Struct.new(:key, keyword_init: true)
+
+      # @rbs USER_USE_CASE: Hash[Symbol, UseCase]
       USER_USE_CASE = {
         get_all: UseCase.new(
           key: 'application.use_case.user.get_all_user_use_case'
@@ -22,6 +27,8 @@ module Constant
 
     module ServiceKey
       Service = Struct.new(:key, keyword_init: true)
+
+      # @rbs SERVICE: Hash[Symbol, Service]
       SERVICE = {
         user: Service.new(
           key: 'domain.service.user.user_service'
@@ -31,6 +38,8 @@ module Constant
 
     module DomainRepositoryKey
       DomainRepository = Struct.new(:key, keyword_init: true)
+
+      # @rbs DOMAIN_REPOSITORY: Hash[Symbol, DomainRepository]
       DOMAIN_REPOSITORY = {
         user: DomainRepository.new(
           key: 'domain.repository.user.user_repository'
@@ -40,6 +49,8 @@ module Constant
 
     module RepositoryKey
       Repository = Struct.new(:key, keyword_init: true)
+
+      # @rbs REPOSITORY: Hash[Symbol, Repository]
       REPOSITORY = {
         user: Repository.new(
           key: 'infrastructure.repository.user.user_repository'
@@ -49,6 +60,8 @@ module Constant
 
     module RomRepositoryKey
       RomRepository = Struct.new(:key, keyword_init: true)
+
+      # @rbs ROM_REPOSITORY: Hash[Symbol, RomRepository]
       ROM_REPOSITORY = {
         user: RomRepository.new(
           key: 'infrastructure.repository.rom.user.user_rom_repository'

@@ -1,0 +1,24 @@
+# Generated from lib/constant/errors.rb with RBS::Inline
+
+module Constant
+  module Errors
+    module Codes
+      # @rbs BAD_REQUEST: Symbol
+      BAD_REQUEST: ::Symbol
+
+      # @rbs NOT_FOUND: Symbol
+      NOT_FOUND: ::Symbol
+
+      # @rbs DUPLICATE: Symbol
+      DUPLICATE: ::Symbol
+
+      # @rbs ALREADY_DELETED: Symbol
+      ALREADY_DELETED: ::Symbol
+    end
+
+    module Status
+      # @rbs MAP: Hash[Symbol, Integer]
+      MAP: untyped
+    end
+  end
+end

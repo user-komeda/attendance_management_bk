@@ -1,11 +1,18 @@
-# frozen_string_literal: true
+﻿# frozen_string_literal: true
+
+# rbs_inline: enabled
 
 module Presentation
   module Response
     module User
       class UserResponse < Presentation::Response::BaseResponse
+        # @rbs @id: String
+        # @rbs @first_name: String
+        # @rbs @last_name: String
+        # @rbs @email: String
         attr_reader :id, :first_name, :last_name, :email
 
+        # @rbs (id: String, first_name: String, last_name: String, email: String) -> void
         def initialize(id:, first_name:, last_name:, email:)
           super()
           @id = id
@@ -14,6 +21,7 @@ module Presentation
           @email = email
         end
 
+        # @rbs (::Application::Dto::User::UserDto user) -> Hash[Symbol, String]
         def self.build(user)
           new(
             id: user.id,
@@ -23,12 +31,14 @@ module Presentation
           ).to_h
         end
 
+        # @rbs (Array[::Application::Dto::User::UserDto] user_list) -> Array[Hash[Symbol, String]]
         def self.build_from_array(user_list)
           user_list.map do |user|
             build(user)
           end
         end
 
+        # @rbs () -> Hash[Symbol, String]
         def to_h
           {
             id: id,

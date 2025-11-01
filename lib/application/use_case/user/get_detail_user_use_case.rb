@@ -1,9 +1,12 @@
-# frozen_string_literal: true
+﻿# frozen_string_literal: true
+
+# rbs_inline: enabled
 
 module Application
   module UseCase
     module User
       class GetDetailUserUseCase < Application::UseCase::User::UserBaseUseCase
+        # @rbs (String id) -> ::Application::Dto::User::UserDto
         def invoke(id)
           caller = resolve(KEY)
           user = caller.get_by_id(id)

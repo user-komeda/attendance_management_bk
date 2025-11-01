@@ -1,0 +1,35 @@
+
+
+
+module Dry
+  module Types
+    type constrained_string = Constrained[String]
+    type definition = String | Symbol
+
+    def self.[]: (definition) -> Constructor[untyped]
+
+    class Constructor[T]
+      def constrained: (?format: Regexp, ?size: Range[Integer] | Integer, ?min_size: Integer, ?max_size: Integer) -> Constrained[T]
+      def optional: () -> Optional[T]
+      def default: (T) -> Default[T]
+    end
+
+    class Constrained[T]
+      def call: (untyped) -> T
+      def valid?: (untyped) -> bool
+      def []: (untyped) -> T
+    end
+
+    class Optional[T]
+      def call: (untyped) -> T?
+      def valid?: (untyped) -> bool
+      def []: (untyped) -> T?
+    end
+
+    class Default[T]
+      def call: (untyped) -> T
+      def valid?: (untyped) -> bool
+      def []: (untyped) -> T
+    end
+  end
+end

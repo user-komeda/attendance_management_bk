@@ -1,0 +1,12 @@
+# Generated from lib/domain/service/user/user_service.rb with RBS::Inline
+
+module Domain
+  module Service
+    module User
+      class UserService < UserBaseService
+        # @rbs (String email) -> bool
+        def exist?: (String email) -> bool
+      end
+    end
+  end
+end

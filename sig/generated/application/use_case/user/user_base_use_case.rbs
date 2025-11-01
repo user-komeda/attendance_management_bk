@@ -1,0 +1,15 @@
+# Generated from lib/application/use_case/user/user_base_use_case.rb with RBS::Inline
+
+module Application
+  module UseCase
+    module User
+      class UserBaseUseCase < BaseUseCase
+        KEY: untyped
+
+        SERVICE_KEY: untyped
+
+        USER_DTO: untyped
+      end
+    end
+  end
+end

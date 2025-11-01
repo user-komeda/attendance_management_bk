@@ -1,0 +1,26 @@
+# Generated from lib/infrastructure/repository/rom/user/user_rom_repository.rb with RBS::Inline
+
+module Infrastructure
+  module Repository
+    module Rom
+      module User
+        class UserRomRepository < UserBaseRomRepository
+          # @rbs () -> Array[::Domain::Entity::User::UserEntity]
+          def rom_get_all: () -> Array[::Domain::Entity::User::UserEntity]
+
+          # @rbs (String id) -> ::Infrastructure::Entity::User::UserEntity?
+          def rom_get_by_id: (String id) -> ::Infrastructure::Entity::User::UserEntity?
+
+          # @rbs (::Infrastructure::Entity::User::UserEntity entity) -> untyped
+          def rom_create: (::Infrastructure::Entity::User::UserEntity entity) -> untyped
+
+          # @rbs (::Infrastructure::Entity::User::UserEntity entity) -> untyped
+          def rom_update: (::Infrastructure::Entity::User::UserEntity entity) -> untyped
+
+          # @rbs (String email) -> ::Infrastructure::Entity::User::UserEntity?
+          def find_by_email: (String email) -> ::Infrastructure::Entity::User::UserEntity?
+        end
+      end
+    end
+  end
+end

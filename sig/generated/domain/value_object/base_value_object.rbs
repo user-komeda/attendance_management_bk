@@ -1,0 +1,27 @@
+# Generated from lib/domain/value_object/base_value_object.rb with RBS::Inline
+
+module Domain
+  module ValueObject
+    class BaseValueObject
+      # @rbs (*untyped args) -> BaseValueObject
+      def self.build: (*untyped args) -> BaseValueObject
+
+      # 等価性は基底クラスで共通化
+      # @rbs (untyped other) -> bool
+      def ==: (untyped other) -> bool
+
+      # @rbs (untyped other) -> bool
+      def eql?: (untyped other) -> bool
+
+      # @rbs () -> Integer
+      def hash: () -> Integer
+
+      # サブクラスで比較対象値を返す（インスタンスメソッド）
+      # @rbs () -> Array[untyped]
+      def values: () -> Array[untyped]
+
+      # @rbs (*untyped args) -> void
+      def self.validate!: (*untyped args) -> void
+    end
+  end
+end

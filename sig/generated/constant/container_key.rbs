@@ -1,0 +1,65 @@
+# Generated from lib/constant/container_key.rb with RBS::Inline
+
+module Constant
+  module ContainerKey
+    module ApplicationKey
+      class UseCase < Struct[untyped]
+        attr_accessor key(): untyped
+
+        def self.new: (?key: untyped) -> instance
+                    | ({ ?key: untyped }) -> instance
+      end
+
+      # @rbs USER_USE_CASE: Hash[Symbol, UseCase]
+      USER_USE_CASE: untyped
+    end
+
+    module ServiceKey
+      class Service < Struct[untyped]
+        attr_accessor key(): untyped
+
+        def self.new: (?key: untyped) -> instance
+                    | ({ ?key: untyped }) -> instance
+      end
+
+      # @rbs SERVICE: Hash[Symbol, Service]
+      SERVICE: untyped
+    end
+
+    module DomainRepositoryKey
+      class DomainRepository < Struct[untyped]
+        attr_accessor key(): untyped
+
+        def self.new: (?key: untyped) -> instance
+                    | ({ ?key: untyped }) -> instance
+      end
+
+      # @rbs DOMAIN_REPOSITORY: Hash[Symbol, DomainRepository]
+      DOMAIN_REPOSITORY: untyped
+    end
+
+    module RepositoryKey
+      class Repository < Struct[untyped]
+        attr_accessor key(): untyped
+
+        def self.new: (?key: untyped) -> instance
+                    | ({ ?key: untyped }) -> instance
+      end
+
+      # @rbs REPOSITORY: Hash[Symbol, Repository]
+      REPOSITORY: untyped
+    end
+
+    module RomRepositoryKey
+      class RomRepository < Struct[untyped]
+        attr_accessor key(): untyped
+
+        def self.new: (?key: untyped) -> instance
+                    | ({ ?key: untyped }) -> instance
+      end
+
+      # @rbs ROM_REPOSITORY: Hash[Symbol, RomRepository]
+      ROM_REPOSITORY: untyped
+    end
+  end
+end

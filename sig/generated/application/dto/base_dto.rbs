@@ -1,0 +1,13 @@
+# Generated from lib/application/dto/base_dto.rb with RBS::Inline
+
+module Application
+  module Dto
+    class BaseDto
+      # @rbs (::Domain::Entity::DomainEntity value) -> BaseDto
+      def self.build: (::Domain::Entity::DomainEntity value) -> BaseDto
+
+      # @rbs (Array[::Domain::Entity::DomainEntity] value_list) -> Array[BaseDto]
+      def self.build_from_array: (Array[::Domain::Entity::DomainEntity] value_list) -> Array[BaseDto]
+    end
+  end
+end

@@ -34,3 +34,8 @@ gem 'rack-protection'
 gem 'rake'
 gem 'rbs-inline', '~> 0.11.0'
 gem 'ridgepole'
+
+gem 'dotenv', '~> 3.1'
+
+gem 'rspec'
+gem 'rack-test'

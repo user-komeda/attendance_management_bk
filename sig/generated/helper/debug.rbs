@@ -1,0 +1,6 @@
+# Generated from helper/debug.rb with RBS::Inline
+
+module Debug
+  # @rbs (untyped obj) -> void
+  def debug_object: (untyped obj) -> void
+end

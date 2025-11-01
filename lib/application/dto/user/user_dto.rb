@@ -1,13 +1,21 @@
+﻿
 # frozen_string_literal: true
+
+# rbs_inline: enabled
 
 module Application
   module Dto
     module User
       class UserDto < Application::Dto::BaseDto
+        # @rbs @id: String?
+        # @rbs @first_name: String
+        # @rbs @last_name: String
+        # @rbs @email: String
         attr_reader :id, :first_name, :last_name, :email
 
         private_class_method :new
 
+        # @rbs (first_name: String, last_name: String, email: String, ?id: String?) -> void
         def initialize(first_name:, last_name:, email:, id: nil)
           super()
           @id = id
@@ -16,6 +24,7 @@ module Application
           @email = email
         end
 
+        # @rbs (::Domain::Entity::User::UserEntity value) -> UserDto
         def self.build(value)
           new(
             id: value.id.value,
@@ -25,6 +34,7 @@ module Application
           )
         end
 
+        # @rbs (Array[::Domain::Entity::User::UserEntity] user_list) -> Array[UserDto]
         def self.build_from_array(user_list)
           user_list.map do |user|
             build(user)

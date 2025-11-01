@@ -1,0 +1,26 @@
+# Generated from lib/infrastructure/entity/user/user_entity.rb with RBS::Inline
+
+module Infrastructure
+  module Entity
+    module User
+      class UserEntity < Infrastructure::Entity::BaseEntity
+        attr_reader id: String
+
+        attr_reader first_name: String
+
+        attr_reader last_name: String
+
+        attr_reader email: String
+
+        # @rbs () -> ::Domain::Entity::User::UserEntity
+        def to_domain: () -> ::Domain::Entity::User::UserEntity
+
+        # @rbs (untyped struct) -> ::Domain::Entity::User::UserEntity
+        def self.struct_to_domain: (untyped struct) -> ::Domain::Entity::User::UserEntity
+
+        # @rbs (::Domain::Entity::User::UserEntity entity) -> UserEntity
+        def self.build_from_domain_entity: (::Domain::Entity::User::UserEntity entity) -> UserEntity
+      end
+    end
+  end
+end

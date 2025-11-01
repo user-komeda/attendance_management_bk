@@ -1,13 +1,22 @@
-# frozen_string_literal: true
+﻿# frozen_string_literal: true
+
+# rbs_inline: enabled
 
 module Infrastructure
   module Entity
     class BaseEntity < ROM::Struct
-      def to_domain(entity)
+      # @rbs () -> ::Domain::Entity::DomainEntity
+      def self.to_domain
         raise NotImplementedError
       end
 
-      def self.build(entity)
+      # @rbs (untyped struct) -> ::Domain::Entity::DomainEntity
+      def self.struct_to_domain(struct)
+        raise NotImplementedError
+      end
+
+      # @rbs (::Domain::Entity::DomainEntity entity) -> BaseEntity
+      def self.build_from_domain_entity(entity)
         raise NotImplementedError
       end
     end

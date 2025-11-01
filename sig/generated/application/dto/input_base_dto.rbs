@@ -1,0 +1,10 @@
+# Generated from lib/application/dto/input_base_dto.rb with RBS::Inline
+
+module Application
+  module Dto
+    class InputBaseDto
+      # @rbs () -> ::Domain::Entity::DomainEntity
+      def convert_to_entity: () -> ::Domain::Entity::DomainEntity
+    end
+  end
+end

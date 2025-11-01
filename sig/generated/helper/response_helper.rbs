@@ -1,0 +1,9 @@
+# Generated from helper/response_helper.rb with RBS::Inline
+
+module ResponseHelper
+  # @rbs (?status_code: Integer, ?id: String, ?data: Array[untyped]) -> untyped
+  def respond_with_data: (?status_code: Integer, ?id: String, ?data: Array[untyped]) -> untyped
+
+  # @rbs (::AppException::ApiError error) -> String
+  def respond_with_error: (::AppException::ApiError error) -> String
+end

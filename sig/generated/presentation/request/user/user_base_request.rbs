@@ -1,0 +1,41 @@
+# Generated from lib/presentation/request/user/user_base_request.rb with RBS::Inline
+
+module Presentation
+  module Request
+    module User
+      class UserBaseRequest < BaseRequest
+        # @rbs @id: String?
+        # @rbs @first_name: String
+        # @rbs @last_name: String
+        # @rbs @email: String
+        attr_reader id: untyped
+
+        # @rbs @id: String?
+        # @rbs @first_name: String
+        # @rbs @last_name: String
+        # @rbs @email: String
+        attr_reader first_name: untyped
+
+        # @rbs @id: String?
+        # @rbs @first_name: String
+        # @rbs @last_name: String
+        # @rbs @email: String
+        attr_reader last_name: untyped
+
+        # @rbs @id: String?
+        # @rbs @first_name: String
+        # @rbs @last_name: String
+        # @rbs @email: String
+        attr_reader email: untyped
+
+        CREATE_INPUT_DTO: untyped
+
+        UPDATE_INPUT_DTO: untyped
+
+        CREATE_CONTRACT: untyped
+
+        UPDATE_CONTRACT: untyped
+      end
+    end
+  end
+end

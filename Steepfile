@@ -3,6 +3,7 @@
 D = Steep::Diagnostic
 target :lib do
   signature 'sig'
+  library "securerandom"  # この行を追加
   ignore_signature 'sig/test'
   check 'lib' # Directory name
   configure_code_diagnostics(D::Ruby.default) # `default` diagnostics setting (applies by default)

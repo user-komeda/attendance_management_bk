@@ -1,9 +1,12 @@
-# frozen_string_literal: true
+﻿# frozen_string_literal: true
+
+# rbs_inline: enabled
 
 module Application
   module UseCase
     module User
       class CreateUserUseCase < UserBaseUseCase
+        # @rbs (::Application::Dto::User::CreateUserInputDto input_dto) -> ::Application::Dto::User::UserDto
         def invoke(input_dto)
           service_caller = resolve(SERVICE_KEY)
           if service_caller.exist?(input_dto.email)

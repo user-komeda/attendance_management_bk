@@ -1,0 +1,24 @@
+# Generated from lib/domain/repository/base_repository.rb with RBS::Inline
+
+module Domain
+  module Repository
+    module BaseRepository
+      include ContainerHelper
+
+      # @rbs () -> Array[::Domain::Entity::DomainEntity]
+      def get_all: () -> Array[::Domain::Entity::DomainEntity]
+
+      # @rbs (String id) -> ::Domain::Entity::DomainEntity?
+      def get_by_id: (String id) -> ::Domain::Entity::DomainEntity?
+
+      # @rbs (::Domain::Entity::DomainEntity object) -> ::Domain::Entity::DomainEntity
+      def create: (::Domain::Entity::DomainEntity object) -> ::Domain::Entity::DomainEntity
+
+      # @rbs (::Domain::Entity::DomainEntity object) -> ::Domain::Entity::DomainEntity
+      def update: (::Domain::Entity::DomainEntity object) -> ::Domain::Entity::DomainEntity
+
+      # @rbs (::Domain::Entity::DomainEntity object) -> void
+      def delete: (::Domain::Entity::DomainEntity object) -> void
+    end
+  end
+end

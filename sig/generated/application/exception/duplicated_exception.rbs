@@ -1,0 +1,10 @@
+# Generated from lib/application/exception/duplicated_exception.rb with RBS::Inline
+
+module Application
+  module Exception
+    class DuplicatedException < ::AppException::ApiError
+      # @rbs (message: String) -> void
+      def initialize: (message: String) -> void
+    end
+  end
+end

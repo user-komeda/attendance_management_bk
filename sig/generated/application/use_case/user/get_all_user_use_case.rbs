@@ -1,0 +1,12 @@
+# Generated from lib/application/use_case/user/get_all_user_use_case.rb with RBS::Inline
+
+module Application
+  module UseCase
+    module User
+      class GetAllUserUseCase < UserBaseUseCase
+        # @rbs () -> Array[::Application::Dto::User::UserDto]
+        def invoke: () -> Array[::Application::Dto::User::UserDto]
+      end
+    end
+  end
+end

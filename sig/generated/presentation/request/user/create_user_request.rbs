@@ -1,0 +1,22 @@
+# Generated from lib/presentation/request/user/create_user_request.rb with RBS::Inline
+
+module Presentation
+  module Request
+    module User
+      class CreateUserRequest < UserBaseRequest
+        # @rbs () -> ::Application::Dto::User::CreateUserInputDto
+        def convert_to_dto: () -> ::Application::Dto::User::CreateUserInputDto
+
+        # @rbs (Hash[Symbol, untyped] params) -> CreateUserRequest
+        def self.build: (Hash[Symbol, untyped] params) -> CreateUserRequest
+
+        private
+
+        def self.validate: (untyped params) -> untyped
+
+        # @rbs (Hash[Symbol, untyped] params) -> void
+        def initialize: (Hash[Symbol, untyped] params) -> void
+      end
+    end
+  end
+end

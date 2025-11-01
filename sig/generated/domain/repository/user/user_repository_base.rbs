@@ -1,0 +1,13 @@
+# Generated from lib/domain/repository/user/user_repository_base.rb with RBS::Inline
+
+module Domain
+  module Repository
+    module User
+      class UserRepositoryBase
+        include Domain::Repository::BaseRepository
+
+        KEY: untyped
+      end
+    end
+  end
+end

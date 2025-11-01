@@ -1,8 +1,11 @@
-# frozen_string_literal: true
+﻿# frozen_string_literal: true
+
+# rbs_inline: enabled
 
 require 'dry-validation'
 require_relative '../types/email_types'
 require_relative '../types/uuid_types'
+
 module Presentation
   module Request
     module Contract

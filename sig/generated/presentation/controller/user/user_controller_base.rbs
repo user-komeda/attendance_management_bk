@@ -1,0 +1,25 @@
+# Generated from lib/presentation/controller/user/user_controller_base.rb with RBS::Inline
+
+module Presentation
+  module Controller
+    module User
+      class UserControllerBase < Presentation::Controller::ControllerBase
+        USER_USE_CASE: untyped
+
+        RESPONSE: untyped
+
+        BASE_REQUEST: untyped
+
+        CREATE_REQUEST: untyped
+
+        UPDATE_REQUEST: untyped
+
+        # @rbs (Hash[Symbol, untyped] request_payload, untyped request_class) -> ::Presentation::Request::User::UserBaseRequest
+        def build_request: (Hash[Symbol, untyped] request_payload, untyped request_class) -> ::Presentation::Request::User::UserBaseRequest
+
+        # @rbs (Symbol key, *untyped args) -> untyped
+        def invoke_use_case: (Symbol key, *untyped args) -> untyped
+      end
+    end
+  end
+end

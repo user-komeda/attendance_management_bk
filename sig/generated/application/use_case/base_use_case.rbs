@@ -1,0 +1,12 @@
+# Generated from lib/application/use_case/base_use_case.rb with RBS::Inline
+
+module Application
+  module UseCase
+    class BaseUseCase
+      include ContainerHelper
+
+      # @rbs (::Application::Dto::InputBaseDto | String | nil arg) -> ::Application::Dto::BaseDto
+      def invoke: (::Application::Dto::InputBaseDto | String | nil arg) -> ::Application::Dto::BaseDto
+    end
+  end
+end

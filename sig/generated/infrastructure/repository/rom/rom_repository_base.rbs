@@ -1,0 +1,24 @@
+# Generated from lib/infrastructure/repository/rom/rom_repository_base.rb with RBS::Inline
+
+module Infrastructure
+  module Repository
+    module Rom
+      module RomRepositoryBase
+        # @rbs () -> Array[::Domain::Entity::DomainEntity]
+        def rom_get_all: () -> Array[::Domain::Entity::DomainEntity]
+
+        # @rbs (String id) -> ::Infrastructure::Entity::BaseEntity?
+        def rom_get_by_id: (String id) -> ::Infrastructure::Entity::BaseEntity?
+
+        # @rbs (::Infrastructure::Entity::BaseEntity entity) -> untyped
+        def rom_create: (::Infrastructure::Entity::BaseEntity entity) -> untyped
+
+        # @rbs (::Infrastructure::Entity::BaseEntity entity) -> untyped
+        def rom_update: (::Infrastructure::Entity::BaseEntity entity) -> untyped
+
+        # @rbs (String id) -> void
+        def rom_delete: (String id) -> void
+      end
+    end
+  end
+end

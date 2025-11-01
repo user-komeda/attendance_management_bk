@@ -1,0 +1,15 @@
+# Generated from lib/infrastructure/repository/user/user_base_repository.rb with RBS::Inline
+
+module Infrastructure
+  module Repository
+    module User
+      class UserBaseRepository
+        include Infrastructure::Repository::RepositoryBase
+
+        KEY: untyped
+
+        USER_ENTITY: untyped
+      end
+    end
+  end
+end

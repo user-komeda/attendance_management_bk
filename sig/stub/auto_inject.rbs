@@ -1,0 +1,11 @@
+module AutoInject
+  # Returns a module to be included, providing dependency injection helpers
+  def self.[]: (String | Symbol | Array[String | Symbol]) -> Module
+end
+
+module Dry
+  module AutoInject
+    def self.new: (untyped) -> Module
+    def self.[]: (String | Symbol | Array[String | Symbol]) -> Module
+  end
+end

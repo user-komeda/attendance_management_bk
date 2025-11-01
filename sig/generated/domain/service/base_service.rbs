@@ -1,0 +1,9 @@
+# Generated from lib/domain/service/base_service.rb with RBS::Inline
+
+module Domain
+  module Service
+    class BaseService
+      include ContainerHelper
+    end
+  end
+end
