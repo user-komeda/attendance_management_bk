@@ -5,8 +5,8 @@ on:
 jobs:
   ci:
     env:
-      CLIENT_SECRET: ${{ variables.CLIENT_SECRET }}
-      CLIENT_ID: ${{ variables.CLIENT_ID }}
+      CLIENT_SECRET: ${{ vars.CLIENT_SECRET }}
+      CLIENT_ID: ${{ vars.CLIENT_ID }}
     runs-on: ubuntu-latest
     steps:
       - uses: Infisical/secrets-action@v1.0.9
