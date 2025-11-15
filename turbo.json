@@ -1,0 +1,21 @@
+{
+  "$schema": "https://turborepo.com/schema.json",
+  "globalEnv": ["IMPORTANT_GLOBAL_VARIABLE"],
+  "tasks": {
+    "dev": {
+      "dependsOn": ["^dev"],
+      "persistent": true,
+      "cache": false
+    },
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": [".output/**", ".vinxi/**"],
+      "cache": true,
+      "env": ["CLIENT_SECRET", "CLIENT_ID"]
+    },
+    "check": {
+      "env": ["CLIENT_SECRET", "CLIENT_ID"]
+    },
+    "test": {}
+  }
+}

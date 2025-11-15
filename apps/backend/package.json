@@ -1,0 +1,9 @@
+{
+  "name": "backend",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check": "bundle exec rake code_quality:all"
+  },
+  "packageManager": "yarn@4.11.0"
+}
