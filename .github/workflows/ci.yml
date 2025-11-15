@@ -13,7 +13,7 @@ jobs:
         with:
           node-version: 22
       - name: install libpq-dev
-        run: sudo apt-get install -y libpq-dev
+        run: sudo apt-get install -y libpq-dev  postgresql postgresql-contrib
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: "3.4" # Not needed with a .ruby-version, .tool-versions or mise.toml
