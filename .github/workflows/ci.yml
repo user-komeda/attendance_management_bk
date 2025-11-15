@@ -9,27 +9,50 @@ jobs:
       CLIENT_ID: ${{ secrets.CLIENT_ID }}
     runs-on: ubuntu-latest
     steps:
+      - name: Check environment variables
+        run: |
+          if [ -z "$CLIENT_ID" ]; then
+            echo "CLIENT_ID is not set"
+            exit 1
+          else
+            echo "CLIENT_ID is set"
+          fi
+
+          if [ -z "$CLIENT_SECRET" ]; then
+            echo "CLIENT_SECRET is not set"
+            exit 1
+          else
+            echo "CLIENT_SECRET is set"
+          fi
+
       - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5
         with:
           fetch-depth: 0
+
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: 22
+
       - name: install libpq-dev
         run: sudo apt-get install -y libpq-dev
+
       - uses: ruby/setup-ruby@v1
         with:
-          ruby-version: "3.4" # Not needed with a .ruby-version, .tool-versions or mise.toml
-          bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+          ruby-version: "3.4"
+          bundler-cache: true
           working-directory: apps/backend
-      # Git safe.directory の設定
+
       - name: Mark repo as safe for git
         run: git config --global --add safe.directory $GITHUB_WORKSPACE
+
       - name: enable corepack
         run: corepack enable
+
       - name: yarn set v4
         run: yarn set version stable
+
       - name: yarn install
         run: yarn install
+
       - name: yarn check
         run: yarn check
