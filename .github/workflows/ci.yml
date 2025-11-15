@@ -5,14 +5,14 @@ on:
 jobs:
   ci:
     env:
-      CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
-      CLIENT_ID: ${{ secrets.CLIENT_ID }}
+      CLIENT_SECRET: ${{ variables.CLIENT_SECRET }}
+      CLIENT_ID: ${{ variables.CLIENT_ID }}
     runs-on: ubuntu-latest
     steps:
       - uses: Infisical/secrets-action@v1.0.9
         with:
-          client-id: ${{ secrets.CLIENT_ID }}
-          client-secret: ${{ secrets.CLIENT_SECRET }}
+          client-id: ${{ variables.CLIENT_ID }}
+          client-secret: ${{ variables.CLIENT_SECRET }}
           project-slug: example-project-p-e38
           env-slug: "dev"
       - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5
