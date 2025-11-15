@@ -9,7 +9,6 @@ jobs:
       CLIENT_ID: ${{ secrets.CLIENT_ID }}
     runs-on: ubuntu-latest
     steps:
-      - name: Fetch secrets from Infisical
       - uses: Infisical/secrets-action@v1.0.9
         with:
           client-id: ${{ secrets.INFISICAL_CLIENT_ID }}
