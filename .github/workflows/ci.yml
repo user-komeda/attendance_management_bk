@@ -13,6 +13,7 @@ jobs:
         with:
           client-id: ${{ secrets.CLIENT_ID }}
           client-secret: ${{ secrets.CLIENT_SECRET }}
+          project-slug: 7f77ea6e-c225-4c3a-844e-039f6467f07f/
       - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5
         with:
           fetch-depth: 0
