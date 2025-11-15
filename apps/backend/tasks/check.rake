@@ -10,7 +10,7 @@ namespace :code_quality do
   end
 
   task :lint do
-    sh 'bundle exec rubocop -a --parallel'
+    sh 'bundle exec rubocop -a --parallel --quit'
   rescue RuntimeError
     puts "RuboCop finished with some offenses (but task won't fail)"
   end
