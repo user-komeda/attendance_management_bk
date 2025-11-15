@@ -9,22 +9,11 @@ jobs:
       CLIENT_ID: ${{ secrets.CLIENT_ID }}
     runs-on: ubuntu-latest
     steps:
-      - name: Check environment variables
-        run: |
-          if [ -z "$CLIENT_ID" ]; then
-            echo "CLIENT_ID is not set"
-            exit 1
-          else
-            echo "CLIENT_ID is set"
-          fi
-
-          if [ -z "$CLIENT_SECRET" ]; then
-            echo "CLIENT_SECRET is not set"
-            exit 1
-          else
-            echo "CLIENT_SECRET is set"
-          fi
-
+      - name: Fetch secrets from Infisical
+        uses: Infisical/secrets-action@v1 # Use the latest version
+        with:
+          client-id: ${{ secrets.INFISICAL_CLIENT_ID }}
+          client-secret: ${{ secrets.INFISICAL_CLIENT_SECRET }}
       - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5
         with:
           fetch-depth: 0
