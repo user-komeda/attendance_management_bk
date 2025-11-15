@@ -13,11 +13,12 @@ jobs:
         with:
           node-version: 22
       - name: install libpq-dev
-        run: sudo apt-get install -y libpq-dev  postgresql postgresql-contrib
+        run: sudo apt-get install -y libpq-dev
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: "3.4" # Not needed with a .ruby-version, .tool-versions or mise.toml
           bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+          working-directory: apps/backend
       # Git safe.directory の設定
       - name: Mark repo as safe for git
         run: git config --global --add safe.directory $GITHUB_WORKSPACE
