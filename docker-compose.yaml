@@ -1,0 +1,38 @@
+services:
+  frontend:
+    container_name: frontend
+    build:
+      context: .
+      dockerfile: ./apps/frontend/Dockerfile
+    profiles:
+      - frontend
+    restart: always
+    ports:
+      - "3000:3000"
+  backend:
+    container_name: backend
+    build:
+      context: .
+      dockerfile: ./apps/backend/Dockerfile
+    profiles:
+      - backend
+    restart: always
+    ports:
+      - "4567:4567"
+  db:
+    container_name: db
+    image: postgres:16
+    restart: always
+    profiles:
+      - db
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
