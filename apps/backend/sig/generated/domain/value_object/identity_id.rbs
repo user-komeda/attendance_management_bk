@@ -1,0 +1,23 @@
+# Generated from lib/domain/value_object/identity_id.rb with RBS::Inline
+
+module Domain
+  module ValueObject
+    class IdentityId < BaseValueObject
+      # @rbs @value: String
+      attr_reader value: untyped
+
+      # @rbs (String args) -> void
+      def initialize: (String args) -> void
+
+      # @rbs (String args) -> IdentityId
+      def self.build: (String args) -> IdentityId
+
+      # 繧､繝ｳ繧ｹ繧ｿ繝ｳ繧ｹ繝｡繧ｽ繝・ラ縺ｨ縺励※螳夂ｾｩ
+      # @rbs () -> Array[String]
+      def values: () -> Array[String]
+
+      # @rbs (String args) -> void
+      def self.validate!: (String args) -> void
+    end
+  end
+end
