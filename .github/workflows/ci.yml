@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Fetch secrets from Infisical
-        uses: Infisical/secrets-action@v1 # Use the latest version
+      - uses: Infisical/secrets-action@v1.0.9
         with:
           client-id: ${{ secrets.INFISICAL_CLIENT_ID }}
           client-secret: ${{ secrets.INFISICAL_CLIENT_SECRET }}
