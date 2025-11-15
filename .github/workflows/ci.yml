@@ -11,8 +11,8 @@ jobs:
     steps:
       - uses: Infisical/secrets-action@v1.0.9
         with:
-          client-id: ${{ variables.CLIENT_ID }}
-          client-secret: ${{ variables.CLIENT_SECRET }}
+          client-id: ${{ vars.CLIENT_ID }}
+          client-secret: ${{ vars.CLIENT_SECRET }}
           project-slug: example-project-p-e38
           env-slug: "dev"
       - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5
@@ -22,10 +22,6 @@ jobs:
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: 22
-      - name: Set Infisical env for all steps
-        run: |
-          echo "CLIENT_ID=${{ secrets.CLIENT_ID }}" >> $GITHUB_ENV
-          echo "CLIENT_SECRET=${{ secrets.CLIENT_SECRET }}" >> $GITHUB_ENV
       - name: install libpq-dev
         run: sudo apt-get install -y libpq-dev
 
@@ -49,7 +45,4 @@ jobs:
 
       - name: yarn check
         run: yarn check
-        env:
-          CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
-          CLIENT_ID: ${{ secrets.CLIENT_ID }}
         
