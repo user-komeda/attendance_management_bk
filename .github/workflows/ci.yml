@@ -12,12 +12,12 @@ jobs:
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: 22
+      - name: install libpq-dev
+        run: sudo apt-get install -y libpq-dev
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: "3.4" # Not needed with a .ruby-version, .tool-versions or mise.toml
           bundler-cache: true # runs 'bundle install' and caches installed gems automatically
-      - name: Mark repo as safe for git
-        run: sudo apt-get install -y libpq-dev
       # Git safe.directory の設定
       - name: Mark repo as safe for git
         run: git config --global --add safe.directory $GITHUB_WORKSPACE
