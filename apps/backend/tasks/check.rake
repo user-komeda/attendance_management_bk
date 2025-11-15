@@ -20,6 +20,6 @@ namespace :code_quality do
   end
 
   task :test do
-    sh 'bundle exec rspec'
+    sh 'bundle exec rake db:schema_apply_local && bundle exec rspec'
   end
 end

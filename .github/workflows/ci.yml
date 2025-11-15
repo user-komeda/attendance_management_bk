@@ -8,6 +8,20 @@ jobs:
       CLIENT_SECRET: ${{ vars.CLIENT_SECRET }}
       CLIENT_ID: ${{ vars.CLIENT_ID }}
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: sample_db
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd="pg_isready -U postgres"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
     steps:
       - uses: Infisical/secrets-action@v1.0.9
         with:

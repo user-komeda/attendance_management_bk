@@ -3,7 +3,7 @@
 namespace :app do
   desc 'Run Sinatra app with Infisical environment'
   task :start do
-    ENV['RACK_ENV'] = 'local_dev'
+    ENV['RACK_ENV'] = 'local'
 
     port = Secrets.get('PORT')
     host = Secrets.get('HOST')
@@ -11,8 +11,8 @@ namespace :app do
     sh "bundle exec rackup -p #{port} -o #{host}"
   end
 
-  task :start_local do
-    ENV['RACK_ENV'] = 'local'
+  task :start_local_dev do
+    ENV['RACK_ENV'] = 'local_dev'
 
     port = Secrets.get('PORT')
     host = Secrets.get('HOST')

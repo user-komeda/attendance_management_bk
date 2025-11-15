@@ -17,12 +17,26 @@ namespace :db do
   end
 
   desc 'Apply schema to DB from split files'
-  task :schema_apply do
-    env = ENV['RACK_ENV'] || 'dev'
+  task :schema_apply_local do
+    ENV['RACK_ENV'] = 'local'
     db_url = Secrets.get('DB_URL')
-    puts "[#{env}] Applying schema to DB: #{db_url}"
     sh "bundle exec ridgepole -c '#{db_url}' --apply --split -f #{SCHEMA_DIR}"
   end
+
+  desc 'Apply schema to DB from split files'
+  task :schema_apply_dev do
+    ENV['RACK_ENV'] = 'dev'
+    db_url = Secrets.get('DB_URL')
+    sh "bundle exec ridgepole -c '#{db_url}' --apply --split -f #{SCHEMA_DIR}"
+  end
+
+  desc 'Apply schema to DB from split files'
+  task :schema_apply_prod do
+    ENV['RACK_ENV'] = 'prod'
+    db_url = Secrets.get('DB_URL')
+    sh "bundle exec ridgepole -c '#{db_url}' --apply --split -f #{SCHEMA_DIR}"
+  end
+
 
   desc 'Dry-run schema apply'
   task :schema_dryrun do

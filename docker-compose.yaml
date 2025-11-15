@@ -4,6 +4,8 @@ services:
     build:
       context: .
       dockerfile: ./apps/frontend/Dockerfile
+    profiles:
+      - frontend
     restart: always
     ports:
       - "3000:3000"
@@ -12,6 +14,8 @@ services:
     build:
       context: .
       dockerfile: ./apps/backend/Dockerfile
+    profiles:
+      - backend
     restart: always
     ports:
       - "4567:4567"
@@ -20,7 +24,7 @@ services:
     image: postgres:16
     restart: always
     profiles:
-      - local
+      - db
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}

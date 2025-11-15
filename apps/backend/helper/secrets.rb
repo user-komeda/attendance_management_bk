@@ -8,7 +8,7 @@ module Secrets
         secret_name: name,
         project_id: '7f77ea6e-c225-4c3a-844e-039f6467f07f',
         environment: 'dev',
-        path: %w[local test].include?(env) ? '/sinatra' : '/sinatra/local'
+        path: %w[local_dev].include?(env) ? '/sinatra' : '/sinatra/local'
       )['secretValue']
     else
       ENV[name]
