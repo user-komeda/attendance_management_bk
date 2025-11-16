@@ -1,5 +1,5 @@
 # ベースは Ruby イメージ
-FROM ghcr.io/user-komeda/docker_ruby:sha-02f0c64
+FROM ghcr.io/user-komeda/docker_ruby:sha-02f0c64@sha256:7c959cee61a374f88606510d356da848c80c7e15271009707dd7b66abe3fb5ae
 # 作業ディレクトリ作成（root）
 WORKDIR /app
 
