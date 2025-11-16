@@ -746,7 +746,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eslint/js@npm:9.39.1, @eslint/js@npm:^9.39.0":
+"@eslint/js@npm:9.39.1":
   version: 9.39.1
   resolution: "@eslint/js@npm:9.39.1"
   checksum: 10c0/6f7f26f8cdb7ad6327bbf9741973b6278eb946f18f70e35406e88194b0d5c522d0547a34a02f2a208eec95c5d1388cdf7ccb20039efd2e4cb6655615247a50f1
@@ -1595,7 +1595,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@solidjs/testing-library@npm:^0.8.10":
+"@solidjs/testing-library@npm:0.8.10":
   version: 0.8.10
   resolution: "@solidjs/testing-library@npm:0.8.10"
   dependencies:
@@ -1775,7 +1775,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tailwindcss/vite@npm:^4.1.17":
+"@tailwindcss/vite@npm:4.1.17":
   version: 4.1.17
   resolution: "@tailwindcss/vite@npm:4.1.17"
   dependencies:
@@ -1839,7 +1839,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@testing-library/dom@npm:^10.4.0, @testing-library/dom@npm:^10.4.1":
+"@testing-library/dom@npm:10.4.1, @testing-library/dom@npm:^10.4.0":
   version: 10.4.1
   resolution: "@testing-library/dom@npm:10.4.1"
   dependencies:
@@ -1855,7 +1855,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@testing-library/jest-dom@npm:^6.9.1":
+"@testing-library/jest-dom@npm:6.9.1":
   version: 6.9.1
   resolution: "@testing-library/jest-dom@npm:6.9.1"
   dependencies:
@@ -1869,7 +1869,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@testing-library/user-event@npm:^14.6.1":
+"@testing-library/user-event@npm:14.6.1":
   version: 14.6.1
   resolution: "@testing-library/user-event@npm:14.6.1"
   peerDependencies:
@@ -1975,7 +1975,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/jsdom@npm:^27":
+"@types/jsdom@npm:27.0.0":
   version: 27.0.0
   resolution: "@types/jsdom@npm:27.0.0"
   dependencies:
@@ -2413,7 +2413,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vitest/eslint-plugin@npm:^1.4.0":
+"@vitest/eslint-plugin@npm:1.4.2":
   version: 1.4.2
   resolution: "@vitest/eslint-plugin@npm:1.4.2"
   dependencies:
@@ -2852,8 +2852,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "attendance_management_bk@workspace:."
   dependencies:
-    lefthook: "npm:^2.0.2"
-    turbo: "npm:^2.6.0"
+    lefthook: "npm:2.0.4"
+    turbo: "npm:2.6.1"
   languageName: unknown
   linkType: soft
 
@@ -3329,7 +3329,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"concurrently@npm:^9.2.1":
+"concurrently@npm:9.2.1":
   version: 9.2.1
   resolution: "concurrently@npm:9.2.1"
   dependencies:
@@ -4127,7 +4127,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-config-prettier@npm:^10.1.8":
+"eslint-config-prettier@npm:10.1.8":
   version: 10.1.8
   resolution: "eslint-config-prettier@npm:10.1.8"
   peerDependencies:
@@ -4164,7 +4164,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-import-resolver-typescript@npm:^4.4.4":
+"eslint-import-resolver-typescript@npm:4.4.4":
   version: 4.4.4
   resolution: "eslint-import-resolver-typescript@npm:4.4.4"
   dependencies:
@@ -4200,7 +4200,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-import@npm:^2.32.0":
+"eslint-plugin-import@npm:2.32.0":
   version: 2.32.0
   resolution: "eslint-plugin-import@npm:2.32.0"
   dependencies:
@@ -4229,14 +4229,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-no-relative-import-paths@npm:^1.6.1":
+"eslint-plugin-no-relative-import-paths@npm:1.6.1":
   version: 1.6.1
   resolution: "eslint-plugin-no-relative-import-paths@npm:1.6.1"
   checksum: 10c0/952d136ae959408d7f50fc6a630a010421ac39e7b8ccb0980817ae058941d19d6abe60233eabb5e9f32198de17d5d6ce9432f87ee8e2f2a243d71605b2e247ef
   languageName: node
   linkType: hard
 
-"eslint-plugin-testing-library@npm:^7.13.3":
+"eslint-plugin-testing-library@npm:7.13.4":
   version: 7.13.4
   resolution: "eslint-plugin-testing-library@npm:7.13.4"
   dependencies:
@@ -4248,7 +4248,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-unused-imports@npm:^4.3.0":
+"eslint-plugin-unused-imports@npm:4.3.0":
   version: 4.3.0
   resolution: "eslint-plugin-unused-imports@npm:4.3.0"
   peerDependencies:
@@ -4285,7 +4285,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:^9.39.0":
+"eslint@npm:9.39.1":
   version: 9.39.1
   resolution: "eslint@npm:9.39.1"
   dependencies:
@@ -4639,34 +4639,34 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "frontend@workspace:apps/frontend"
   dependencies:
-    "@eslint/js": "npm:^9.39.0"
+    "@eslint/js": "npm:9.39.1"
     "@solidjs/router": "npm:^0.15.0"
     "@solidjs/start": "npm:^1.1.0"
-    "@solidjs/testing-library": "npm:^0.8.10"
-    "@tailwindcss/vite": "npm:^4.1.17"
-    "@testing-library/dom": "npm:^10.4.1"
-    "@testing-library/jest-dom": "npm:^6.9.1"
-    "@testing-library/user-event": "npm:^14.6.1"
-    "@types/jsdom": "npm:^27"
-    "@vitest/eslint-plugin": "npm:^1.4.0"
-    concurrently: "npm:^9.2.1"
-    eslint: "npm:^9.39.0"
-    eslint-config-prettier: "npm:^10.1.8"
-    eslint-import-resolver-typescript: "npm:^4.4.4"
-    eslint-plugin-import: "npm:^2.32.0"
-    eslint-plugin-no-relative-import-paths: "npm:^1.6.1"
-    eslint-plugin-testing-library: "npm:^7.13.3"
-    eslint-plugin-unused-imports: "npm:^4.3.0"
-    jsdom: "npm:^27.1.0"
-    prettier: "npm:^3.6.2"
-    prettier-plugin-tailwindcss: "npm:^0.7.1"
+    "@solidjs/testing-library": "npm:0.8.10"
+    "@tailwindcss/vite": "npm:4.1.17"
+    "@testing-library/dom": "npm:10.4.1"
+    "@testing-library/jest-dom": "npm:6.9.1"
+    "@testing-library/user-event": "npm:14.6.1"
+    "@types/jsdom": "npm:27.0.0"
+    "@vitest/eslint-plugin": "npm:1.4.2"
+    concurrently: "npm:9.2.1"
+    eslint: "npm:9.39.1"
+    eslint-config-prettier: "npm:10.1.8"
+    eslint-import-resolver-typescript: "npm:4.4.4"
+    eslint-plugin-import: "npm:2.32.0"
+    eslint-plugin-no-relative-import-paths: "npm:1.6.1"
+    eslint-plugin-testing-library: "npm:7.13.4"
+    eslint-plugin-unused-imports: "npm:4.3.0"
+    jsdom: "npm:27.2.0"
+    prettier: "npm:3.6.2"
+    prettier-plugin-tailwindcss: "npm:0.7.1"
     solid-js: "npm:^1.9.5"
-    tailwindcss: "npm:^4.0.7"
-    typescript: "npm:^5.9.3"
-    typescript-eslint: "npm:^8.46.2"
+    tailwindcss: "npm:4.1.17"
+    typescript: "npm:5.9.3"
+    typescript-eslint: "npm:8.46.4"
     vinxi: "npm:^0.5.7"
-    vite: "npm:^7.2.2"
-    vitest: "npm:^4.0.6"
+    vite: "npm:7.2.2"
+    vitest: "npm:4.0.9"
   languageName: unknown
   linkType: soft
 
@@ -5719,7 +5719,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jsdom@npm:^27.1.0":
+"jsdom@npm:27.2.0":
   version: 27.2.0
   resolution: "jsdom@npm:27.2.0"
   dependencies:
@@ -5911,7 +5911,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lefthook@npm:^2.0.2":
+"lefthook@npm:2.0.4":
   version: 2.0.4
   resolution: "lefthook@npm:2.0.4"
   dependencies:
@@ -7172,7 +7172,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier-plugin-tailwindcss@npm:^0.7.1":
+"prettier-plugin-tailwindcss@npm:0.7.1":
   version: 0.7.1
   resolution: "prettier-plugin-tailwindcss@npm:0.7.1"
   peerDependencies:
@@ -7230,7 +7230,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:^3.6.2":
+"prettier@npm:3.6.2":
   version: 3.6.2
   resolution: "prettier@npm:3.6.2"
   bin:
@@ -8440,7 +8440,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tailwindcss@npm:4.1.17, tailwindcss@npm:^4.0.7":
+"tailwindcss@npm:4.1.17":
   version: 4.1.17
   resolution: "tailwindcss@npm:4.1.17"
   checksum: 10c0/1fecf618ba9895e068e5a6d842b978f56a815bc849a28338cebbcb07b13df763715c2f8848def938403c73d59f08ffff33a4b83a977a9e38fa56adc60d1d56c8
@@ -8702,7 +8702,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"turbo@npm:^2.6.0":
+"turbo@npm:2.6.1":
   version: 2.6.1
   resolution: "turbo@npm:2.6.1"
   dependencies:
@@ -8809,7 +8809,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript-eslint@npm:^8.46.2":
+"typescript-eslint@npm:8.46.4":
   version: 8.46.4
   resolution: "typescript-eslint@npm:8.46.4"
   dependencies:
@@ -8824,7 +8824,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:^5.9.3":
+"typescript@npm:5.9.3":
   version: 5.9.3
   resolution: "typescript@npm:5.9.3"
   bin:
@@ -8834,7 +8834,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@npm%3A^5.9.3#optional!builtin<compat/typescript>":
+"typescript@patch:typescript@npm%3A5.9.3#optional!builtin<compat/typescript>":
   version: 5.9.3
   resolution: "typescript@patch:typescript@npm%3A5.9.3#optional!builtin<compat/typescript>::version=5.9.3&hash=5786d5"
   bin:
@@ -9348,7 +9348,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite@npm:^6.0.0 || ^7.0.0, vite@npm:^7.2.2":
+"vite@npm:7.2.2, vite@npm:^6.0.0 || ^7.0.0":
   version: 7.2.2
   resolution: "vite@npm:7.2.2"
   dependencies:
@@ -9470,7 +9470,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vitest@npm:^4.0.6":
+"vitest@npm:4.0.9":
   version: 4.0.9
   resolution: "vitest@npm:4.0.9"
   dependencies:
