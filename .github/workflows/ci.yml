@@ -23,7 +23,7 @@ jobs:
           --health-timeout=5s
           --health-retries=5
     steps:
-      - uses: Infisical/secrets-action@8a06c1bdcd5b8635d510c52d4b57a92c1ccef785 # v1.0.9
+      - uses: Infisical/secrets-action@8802effbe453d0576cd923567dcc2c97a1f54058 # v1.0.15
         with:
           client-id: ${{ secrets.CLIENT_ID }}
           client-secret: ${{ secrets.CLIENT_SECRET }}
