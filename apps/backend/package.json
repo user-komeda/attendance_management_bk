@@ -5,5 +5,5 @@
   "scripts": {
     "check": "bundle exec rake code_quality:all"
   },
-  "packageManager": "yarn@4.11.0"
+  "packageManager": "yarn@4.12.0"
 }
