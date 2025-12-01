@@ -2413,9 +2413,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vitest/eslint-plugin@npm:1.4.3":
-  version: 1.4.3
-  resolution: "@vitest/eslint-plugin@npm:1.4.3"
+"@vitest/eslint-plugin@npm:1.5.0":
+  version: 1.5.0
+  resolution: "@vitest/eslint-plugin@npm:1.5.0"
   dependencies:
     "@typescript-eslint/scope-manager": "npm:^8.46.1"
     "@typescript-eslint/utils": "npm:^8.46.1"
@@ -2428,7 +2428,7 @@ __metadata:
       optional: true
     vitest:
       optional: true
-  checksum: 10c0/7fd1843a13c7227d7bb4e1492f4b8c8d8d163c2001cd406e5b6b9d54819b153f8e1270d34c89b3e7bcb4207764823af0879cd7385bfdcd7df6184caf3bdafd05
+  checksum: 10c0/d672566c95438ade40b5837feeabe1b1e1d5a4e05b4a67d426f250eea3ec00b682266f726617233ebc428c687f23dd10305a0e201ae579a917b6aab58d18f73e
   languageName: node
   linkType: hard
 
@@ -4648,7 +4648,7 @@ __metadata:
     "@testing-library/jest-dom": "npm:6.9.1"
     "@testing-library/user-event": "npm:14.6.1"
     "@types/jsdom": "npm:27.0.0"
-    "@vitest/eslint-plugin": "npm:1.4.3"
+    "@vitest/eslint-plugin": "npm:1.5.0"
     concurrently: "npm:9.2.1"
     eslint: "npm:9.39.1"
     eslint-config-prettier: "npm:10.1.8"
