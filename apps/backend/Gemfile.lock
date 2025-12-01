@@ -177,10 +177,10 @@ GEM
       activerecord (>= 6.1, < 8.2)
       diffy
       logger
-    rom (5.4.2)
+    rom (5.4.3)
       rom-changeset (~> 5.4)
       rom-core (~> 5.4)
-      rom-repository (~> 5.4, >= 5.4.2)
+      rom-repository (~> 5.4, >= 5.4.3)
     rom-changeset (5.4.0)
       dry-core (~> 1.0)
       rom-core (~> 5.4)
@@ -194,7 +194,7 @@ GEM
       dry-struct (~> 1.0)
       dry-types (~> 1.6)
       transproc (~> 1.1)
-    rom-repository (5.4.2)
+    rom-repository (5.4.3)
       dry-core (~> 1.0)
       dry-initializer (~> 3.2)
       rom-core (~> 5.4)
