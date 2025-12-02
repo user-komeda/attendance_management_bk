@@ -7,10 +7,11 @@ RSpec.describe ::Domain::Entity::User::UserEntity do
     described_class.build(first_name: first_name, last_name: last_name, email: email)
   end
 
+  # rubocop:disable RSpec/MultipleExpectations, RSpec/ExampleLength
   it 'creates value objects and nil id on build' do
     entity = build_entity(first_name: 'Hanako', last_name: 'Suzuki', email: 'hanako@example.com')
 
-    expect(entity).to be_a(::Domain::Entity::User::UserEntity)
+    expect(entity).to be_a(described_class)
     expect(entity.id).to be_nil
 
     expect(entity.user_name).to be_a(::Domain::ValueObject::User::UserName)
@@ -20,7 +21,9 @@ RSpec.describe ::Domain::Entity::User::UserEntity do
     expect(entity.email).to be_a(::Domain::ValueObject::User::UserEmail)
     expect(entity.email.value).to eq('hanako@example.com')
   end
+  # rubocop:enable RSpec/MultipleExpectations, RSpec/ExampleLength
 
+  # rubocop:disable RSpec/MultipleExpectations, RSpec/ExampleLength
   it 'updates only provided fields when changed' do
     entity = build_entity(first_name: 'Old', last_name: 'Name', email: 'old@example.com')
 
@@ -38,7 +41,9 @@ RSpec.describe ::Domain::Entity::User::UserEntity do
     expect(entity.user_name.last_name).to eq('Name')
     expect(entity.email.value).to eq('new@example.com')
   end
+  # rubocop:enable RSpec/MultipleExpectations, RSpec/ExampleLength
 
+  # rubocop:disable RSpec/MultipleExpectations, RSpec/ExampleLength
   it 'does nothing when all change params are nil or empty' do
     entity = build_entity(first_name: 'A', last_name: 'B', email: 'a@example.com')
 
@@ -54,12 +59,14 @@ RSpec.describe ::Domain::Entity::User::UserEntity do
     expect(entity.user_name.last_name).to eq('B')
     expect(entity.email.value).to eq('a@example.com')
   end
+  # rubocop:enable RSpec/MultipleExpectations, RSpec/ExampleLength
 
   describe '.build_with_id' do
+    # rubocop:disable RSpec/MultipleExpectations, RSpec/ExampleLength
     it 'wraps values into value objects' do
       entity = described_class.build_with_id(id: '10', first_name: 'Ken', last_name: 'Tanaka', email: 'ken@example.com')
 
-      expect(entity).to be_a(::Domain::Entity::User::UserEntity)
+      expect(entity).to be_a(described_class)
 
       expect(entity.id).to be_a(::Domain::ValueObject::IdentityId)
       expect(entity.id.value).to eq('10')
@@ -71,5 +78,6 @@ RSpec.describe ::Domain::Entity::User::UserEntity do
       expect(entity.email).to be_a(::Domain::ValueObject::User::UserEmail)
       expect(entity.email.value).to eq('ken@example.com')
     end
+    # rubocop:enable RSpec/MultipleExpectations, RSpec/ExampleLength
   end
 end

@@ -12,33 +12,31 @@ RSpec.describe ::Application::UseCase::User::GetAllUserUseCase do
   end
 
   it 'returns empty array when no users' do
-    fake_repo = double('UserRepository', get_all: [])
+    fake_repo = instance_double(::Domain::Repository::User::UserRepository)
+    allow(fake_repo).to receive(:get_all).and_return([])
     allow(use_case).to receive(:resolve).and_return(fake_repo)
 
     result = use_case.invoke
-    expect(result).to be_a(Array)
-    expect(result).to be_empty
+    expect(result).to eq([])
   end
 
-  it 'returns user dto list' do
-    u1 = build_user(id: 1, first_name: 'Taro', last_name: 'Yamada', email: 'taro@example.com')
-    u2 = build_user(id: 2, first_name: 'Hanako', last_name: 'Suzuki', email: 'hanako@example.com')
+  context 'when users exist' do
+    subject(:result) { use_case.invoke }
 
-    fake_repo = double('UserRepository', get_all: [u1, u2])
-    allow(use_case).to receive(:resolve).and_return(fake_repo)
+    let(:taro) { build_user(id: 1, first_name: 'Taro', last_name: 'Yamada', email: 'taro@example.com') }
+    let(:hanako) { build_user(id: 2, first_name: 'Hanako', last_name: 'Suzuki', email: 'hanako@example.com') }
+    let(:fake_repo) { instance_double(::Domain::Repository::User::UserRepository) }
 
-    result = use_case.invoke
-    expect(result.size).to eq(2)
-    expect(result.first).to be_a(::Application::Dto::User::UserDto)
+    before do
+      allow(fake_repo).to receive(:get_all).and_return([taro, hanako])
+      allow(use_case).to receive(:resolve).and_return(fake_repo)
+    end
 
-    expect(result.first.id).to eq(1)
-    expect(result.first.first_name).to eq('Taro')
-    expect(result.first.last_name).to eq('Yamada')
-    expect(result.first.email).to eq('taro@example.com')
-
-    expect(result.last.id).to eq(2)
-    expect(result.last.first_name).to eq('Hanako')
-    expect(result.last.last_name).to eq('Suzuki')
-    expect(result.last.email).to eq('hanako@example.com')
+    it 'returns user dto list' do
+      expect(result).to contain_exactly(
+        have_attributes(id: 1, first_name: 'Taro', last_name: 'Yamada', email: 'taro@example.com'),
+        have_attributes(id: 2, first_name: 'Hanako', last_name: 'Suzuki', email: 'hanako@example.com')
+      )
+    end
   end
 end

@@ -7,19 +7,21 @@ module Presentation
     class BaseResponse
       protected
 
-      # @rbs (untyped value) -> Hash[Symbol, untyped]
-      def self.build(value)
-        raise NotImplementedError
-      end
-
-      # @rbs (Array[untyped] _value_list) -> Array[Hash[Symbol, untyped]]
-      def self.build_from_array(_value_list)
-        raise NotImplementedError
-      end
-
       # @rbs () -> Hash[Symbol, untyped]
       def to_h
         raise NotImplementedError
+      end
+
+      class << self
+        # @rbs (untyped value) -> Hash[Symbol, untyped]
+        def build(value)
+          raise NotImplementedError
+        end
+
+        # @rbs (Array[untyped] _value_list) -> Array[Hash[Symbol, untyped]]
+        def build_from_array(_value_list)
+          raise NotImplementedError
+        end
       end
     end
   end

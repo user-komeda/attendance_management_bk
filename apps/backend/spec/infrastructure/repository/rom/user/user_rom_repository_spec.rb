@@ -3,30 +3,39 @@
 require 'spec_helper'
 
 RSpec.describe ::Infrastructure::Repository::Rom::User::UserRomRepository do
-  FakeRelation = Struct.new(:rows, :mapped_class) do
-    def map_to(klass)
-      self.mapped_class = klass
-      self
-    end
+  let(:fake_relation_class) do
+    Class.new do
+      attr_accessor :rows, :mapped_class
 
-    def to_a
-      rows
-    end
+      def initialize(rows, mapped_class = nil)
+        @rows = rows
+        @mapped_class = mapped_class
+      end
 
-    def by_pk(_id)
-      self
-    end
+      def map_to(klass)
+        self.mapped_class = klass
+        self
+      end
 
-    def one
-      rows.first
-    end
+      def to_a
+        rows
+      end
 
-    def by_email(_email)
-      self
-    end
+      def by_pk(_id)
+        self
+      end
 
-    def first
-      rows.first
+      def one
+        rows.first
+      end
+
+      def by_email(_email)
+        self
+      end
+
+      def first
+        rows.first
+      end
     end
   end
 
@@ -35,87 +44,156 @@ RSpec.describe ::Infrastructure::Repository::Rom::User::UserRomRepository do
   end
 
   def create_repo_instance
-    mock_container = double('Container')
+    mock_container = instance_double(Object)
     repo = described_class.allocate
     repo.instance_variable_set(:@container, mock_container)
     repo.send(:initialize, container: mock_container)
     repo
   end
 
-  it 'maps rom_get_all to domain entities' do
-    repo = create_repo_instance
-    mapped = [build_infra_entity(id: '00000000-0000-0000-0000-000000000001'),
-              build_infra_entity(id: '00000000-0000-0000-0000-000000000002', first_name: 'Hanako', last_name: 'Suzuki',
-                                 email: 'hanako@example.com')]
-    fake_users = FakeRelation.new(mapped, nil)
+  context 'when rom_get_all is called' do
+    subject(:result) { repo.rom_get_all }
 
-    allow(repo).to receive(:users).and_return(fake_users)
+    let(:repo) { create_repo_instance }
+    let(:mapped) do
+      [
+        build_infra_entity(id: '00000000-0000-0000-0000-000000000001'),
+        build_infra_entity(id: '00000000-0000-0000-0000-000000000002', first_name: 'Hanako', last_name: 'Suzuki',
+                           email: 'hanako@example.com')
+      ]
+    end
+    let(:fake_users) { fake_relation_class.new(mapped, nil) }
 
-    result = repo.rom_get_all
-    expect(result.size).to eq(2)
-    expect(result.first).to be_a(::Domain::Entity::User::UserEntity)
-    expect(result.first.id.value).to eq('00000000-0000-0000-0000-000000000001')
-    expect(result.last.user_name.first_name).to eq('Hanako')
-  end
-
-  it 'returns infra entity on rom_get_by_id' do
-    repo = create_repo_instance
-    fake_users = FakeRelation.new(
-      [build_infra_entity(id: '00000000-0000-0000-0000-000000000001', first_name: 'Ken', last_name: 'Tanaka',
-                          email: 'ken@example.com')], nil
-    )
-
-    allow(repo).to receive(:users).and_return(fake_users)
-
-    result = repo.rom_get_by_id('00000000-0000-0000-0000-000000000001')
-    expect(result).to be_a(::Infrastructure::Entity::User::UserEntity)
-    expect(result.first_name).to eq('Ken')
-  end
-
-  it 'delegates rom_create to create' do
-    repo = create_repo_instance
-    input = build_infra_entity(id: '00000000-0000-0000-0000-000000000001', first_name: 'A', last_name: 'B',
-                               email: 'a@example.com')
-    created = build_infra_entity(id: '00000000-0000-0000-0000-000000000001', first_name: 'A', last_name: 'B',
-                                 email: 'a@example.com')
-
-    allow(repo).to receive(:create).and_return(created)
-
-    result = repo.rom_create(input)
-    expect(result.id).to eq('00000000-0000-0000-0000-000000000001')
-    expect(result.first_name).to eq('A')
-  end
-
-  it 'delegates rom_update to update with sliced fields' do
-    repo = create_repo_instance
-    input = build_infra_entity(id: '00000000-0000-0000-0000-000000000001', first_name: 'New', last_name: 'Name',
-                               email: 'new@example.com')
-    updated = build_infra_entity(id: '00000000-0000-0000-0000-000000000001', first_name: 'New', last_name: 'Name',
-                                 email: 'new@example.com')
-
-    called = []
-    allow(repo).to receive(:update) do |id, attrs|
-      called << [id, attrs]
-      updated
+    before do
+      allow(repo).to receive(:users).and_return(fake_users)
     end
 
-    result = repo.rom_update(input)
-    expect(result.id).to eq('00000000-0000-0000-0000-000000000001')
-    expect(called.first[1].keys.sort).to eq(%i[first_name last_name email].sort)
-    expect(called.first[0]).to eq('00000000-0000-0000-0000-000000000001')
+    it 'returns two records' do
+      expect(result.size).to eq(2)
+    end
+
+    it 'maps to domain entities' do
+      expect(result.first).to be_a(::Domain::Entity::User::UserEntity)
+    end
+
+    it 'maps id correctly' do
+      expect(result.first.id.value).to eq('00000000-0000-0000-0000-000000000001')
+    end
+
+    it 'maps first_name correctly for second record' do
+      expect(result.last.user_name.first_name).to eq('Hanako')
+    end
   end
 
-  it 'finds by email and returns first mapped' do
-    repo = create_repo_instance
-    fake_users = FakeRelation.new(
-      [build_infra_entity(id: '00000000-0000-0000-0000-000000000001', first_name: 'X', last_name: 'Y',
-                          email: 'x@example.com')], nil
-    )
+  context 'when rom_get_by_id is called' do
+    subject(:result) { repo.rom_get_by_id('00000000-0000-0000-0000-000000000001') }
 
-    allow(repo).to receive(:users).and_return(fake_users)
+    let(:repo) { create_repo_instance }
+    let(:fake_users) do
+      fake_relation_class.new(
+        [build_infra_entity(id: '00000000-0000-0000-0000-000000000001', first_name: 'Ken', last_name: 'Tanaka',
+                            email: 'ken@example.com')], nil
+      )
+    end
 
-    result = repo.find_by_email('x@example.com')
-    expect(result).to be_a(::Infrastructure::Entity::User::UserEntity)
-    expect(result.email).to eq('x@example.com')
+    before do
+      allow(repo).to receive(:users).and_return(fake_users)
+    end
+
+    it 'returns infra entity' do
+      expect(result).to be_a(::Infrastructure::Entity::User::UserEntity)
+    end
+
+    it 'has expected first_name' do
+      expect(result.first_name).to eq('Ken')
+    end
+  end
+
+  context 'when rom_create is called' do
+    subject(:result) { repo.rom_create(input) }
+
+    let(:repo) { create_repo_instance }
+    let(:input) do
+      build_infra_entity(id: '00000000-0000-0000-0000-000000000001', first_name: 'A', last_name: 'B',
+                         email: 'a@example.com')
+    end
+    let(:created) do
+      build_infra_entity(id: '00000000-0000-0000-0000-000000000001', first_name: 'A', last_name: 'B',
+                         email: 'a@example.com')
+    end
+
+    before do
+      allow(repo).to receive(:create).and_return(created)
+    end
+
+    it 'returns created id' do
+      expect(result.id).to eq('00000000-0000-0000-0000-000000000001')
+    end
+
+    it 'returns created first_name' do
+      expect(result.first_name).to eq('A')
+    end
+  end
+
+  context 'when rom_update is called' do
+    subject(:result) { repo.rom_update(input) }
+
+    let(:repo) { create_repo_instance }
+    let(:input) do
+      build_infra_entity(id: '00000000-0000-0000-0000-000000000001', first_name: 'New', last_name: 'Name',
+                         email: 'new@example.com')
+    end
+    let(:updated) do
+      build_infra_entity(id: '00000000-0000-0000-0000-000000000001', first_name: 'New', last_name: 'Name',
+                         email: 'new@example.com')
+    end
+    let(:called) { [] }
+
+    before do
+      allow(repo).to receive(:update) do |id, attrs|
+        called << [id, attrs]
+        updated
+      end
+    end
+
+    it 'returns updated id' do
+      expect(result.id).to eq('00000000-0000-0000-0000-000000000001')
+    end
+
+    it 'passes sliced fields to update' do
+      # ensure subject is evaluated so the stubbed update is called
+      result
+      expect(called.first[1].keys.sort).to eq(%i[first_name last_name email].sort)
+    end
+
+    it 'passes id to update' do
+      # ensure subject is evaluated so the stubbed update is called
+      result
+      expect(called.first[0]).to eq('00000000-0000-0000-0000-000000000001')
+    end
+  end
+
+  context 'when finding by email' do
+    subject(:result) { repo.find_by_email('x@example.com') }
+
+    let(:repo) { create_repo_instance }
+    let(:fake_users) do
+      fake_relation_class.new(
+        [build_infra_entity(id: '00000000-0000-0000-0000-000000000001', first_name: 'X', last_name: 'Y',
+                            email: 'x@example.com')], nil
+      )
+    end
+
+    before do
+      allow(repo).to receive(:users).and_return(fake_users)
+    end
+
+    it 'returns an infra entity' do
+      expect(result).to be_a(::Infrastructure::Entity::User::UserEntity)
+    end
+
+    it 'returns the matched email' do
+      expect(result.email).to eq('x@example.com')
+    end
   end
 end

@@ -15,13 +15,16 @@ module Domain
         # @rbs @email: ::Domain::ValueObject::User::UserEmail
         attr_accessor :id, :user_name, :email
 
+        # rubocop:disable Layout/LineLength
         # @rbs (user_name: ::Domain::ValueObject::User::UserName, email: ::Domain::ValueObject::User::UserEmail, ?id: ::Domain::ValueObject::IdentityId?) -> void
+        # rubocop:enable Layout/LineLength
         def initialize(user_name:, email:, id: nil)
           @id = id
           @user_name = user_name
           @email = email
         end
 
+        # rubocop:disable Metrics/AbcSize
         # @rbs (first_name: String?, last_name: String?, email: String?) -> void
         def change(first_name:, last_name:, email:)
           if UtilMethod.nil_or_empty(first_name) && UtilMethod.nil_or_empty(last_name) && UtilMethod.nil_or_empty(email)
@@ -40,6 +43,7 @@ module Domain
           self.user_name = ::Domain::ValueObject::User::UserName.build(new_first_name, new_last_name)
           self.email = ::Domain::ValueObject::User::UserEmail.build(new_email)
         end
+        # rubocop:enable Metrics/AbcSize
 
         # @rbs (first_name: String, last_name: String, email: String) -> UserEntity
         def self.build(first_name:, last_name:, email:)

@@ -1,5 +1,8 @@
 # Generated from helper/route_helper.rb with RBS::Inline
 
+# rubocop:disable Metrics/MethodLength
+# rubocop:disable Metrics/AbcSize
+# rbs_inline: enabled
 module RouteHelper
   DEFAULT_ACTIONS: untyped
 

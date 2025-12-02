@@ -18,12 +18,21 @@ RSpec.describe Presentation::Controller::User::UserControllerBase do
 
   describe '#build_request' do
     context 'with valid CreateUserRequest class' do
-      it 'returns CreateUserRequest instance' do
-        req = controller.send(:build_request, valid_create_params, create_user_request_klass)
+      subject(:req) { controller.send(:build_request, valid_create_params, create_user_request_klass) }
 
+      it 'returns CreateUserRequest instance' do
         expect(req).to be_a(create_user_request_klass)
+      end
+
+      it 'sets first_name' do
         expect(req.first_name).to eq('Taro')
+      end
+
+      it 'sets last_name' do
         expect(req.last_name).to eq('Yamada')
+      end
+
+      it 'sets email' do
         expect(req.email).to eq('taro.yamada@example.com')
       end
     end
@@ -49,52 +58,82 @@ RSpec.describe Presentation::Controller::User::UserControllerBase do
 
   describe '#invoke_use_case' do
     context 'when calling use case' do
-      it 'resolves container key and invokes the use case' do
-        mock_use_case = double('GetAllUserUseCase')
-        stub_dto1 = double('UserDto', id: '1', first_name: 'Taro')
-        stub_dto2 = double('UserDto', id: '2', first_name: 'Hanako')
+      let(:mock_use_case) { instance_spy(Application::UseCase::User::GetAllUserUseCase) }
+      let(:dtos) do
+        [
+          instance_double(Application::Dto::User::UserDto, id: '1', first_name: 'Taro'),
+          instance_double(Application::Dto::User::UserDto, id: '2', first_name: 'Hanako')
+        ]
+      end
 
-        expected_key = 'application.use_case.user.get_all_user_use_case'
+      before do
         allow(controller).to receive(:resolve)
-          .with(expected_key)
+          .with('application.use_case.user.get_all_user_use_case')
           .and_return(mock_use_case)
 
-        expect(mock_use_case).to receive(:invoke)
-          .and_return([stub_dto1, stub_dto2])
+        allow(mock_use_case).to receive(:invoke).and_return(dtos)
+      end
 
+      it 'returns an array' do
         result = controller.send(:invoke_use_case, :get_all)
-
         expect(result).to be_a(Array)
+      end
+
+      it 'returns two elements' do
+        result = controller.send(:invoke_use_case, :get_all)
         expect(result.size).to eq(2)
+      end
+
+      it 'returns first id' do
+        result = controller.send(:invoke_use_case, :get_all)
         expect(result.first.id).to eq('1')
+      end
+
+      it 'returns last id' do
+        result = controller.send(:invoke_use_case, :get_all)
         expect(result.last.id).to eq('2')
       end
     end
   end
 
   describe 'constants' do
-    it 'defines USER_USE_CASE as frozen hash' do
+    it 'has USER_USE_CASE frozen' do
       expect(described_class::USER_USE_CASE).to be_frozen
+    end
+
+    it 'has USER_USE_CASE equal to constant value' do
       expect(described_class::USER_USE_CASE).to eq(Constant::ContainerKey::ApplicationKey::USER_USE_CASE)
     end
 
-    it 'defines RESPONSE as UserResponse class' do
+    it 'has RESPONSE frozen' do
       expect(described_class::RESPONSE).to be_frozen
+    end
+
+    it 'has RESPONSE set to UserResponse' do
       expect(described_class::RESPONSE).to eq(Presentation::Response::User::UserResponse)
     end
 
-    it 'defines BASE_REQUEST as UserBaseRequest class' do
+    it 'has BASE_REQUEST frozen' do
       expect(described_class::BASE_REQUEST).to be_frozen
+    end
+
+    it 'has BASE_REQUEST set to UserBaseRequest' do
       expect(described_class::BASE_REQUEST).to eq(Presentation::Request::User::UserBaseRequest)
     end
 
-    it 'defines CREATE_REQUEST as frozen CreateUserRequest class' do
+    it 'has CREATE_REQUEST frozen' do
       expect(described_class::CREATE_REQUEST).to be_frozen
+    end
+
+    it 'has CREATE_REQUEST set to CreateUserRequest' do
       expect(described_class::CREATE_REQUEST).to eq(Presentation::Request::User::CreateUserRequest)
     end
 
-    it 'defines UPDATE_REQUEST as frozen UpdateUserRequest class' do
+    it 'has UPDATE_REQUEST frozen' do
       expect(described_class::UPDATE_REQUEST).to be_frozen
+    end
+
+    it 'has UPDATE_REQUEST set to UpdateUserRequest' do
       expect(described_class::UPDATE_REQUEST).to eq(Presentation::Request::User::UpdateUserRequest)
     end
   end
