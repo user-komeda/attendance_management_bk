@@ -4,9 +4,19 @@ require 'spec_helper'
 
 RSpec.describe ::Domain::Repository::User::UserRepository do
   let(:repo) { described_class.new }
+  let(:infra_repo_interface) do
+    Class.new do
+      def get_all; end
+      def get_by_id(_id); end
+      def create(_obj); end
+      def update(_obj); end
+      def delete(_obj); end
+      def find_by_email(_email); end
+    end
+  end
 
   it 'delegates get_all' do
-    fake = double('InfraRepo', get_all: [:ok])
+    fake = instance_spy(infra_repo_interface, get_all: [:ok])
     allow(repo).to receive(:resolve).and_return(fake)
 
     result = repo.get_all
@@ -14,8 +24,7 @@ RSpec.describe ::Domain::Repository::User::UserRepository do
   end
 
   it 'delegates get_by_id' do
-    fake = double('InfraRepo')
-    expect(fake).to receive(:get_by_id).with(123).and_return(:user)
+    fake = instance_spy(infra_repo_interface, get_by_id: :user)
     allow(repo).to receive(:resolve).and_return(fake)
 
     result = repo.get_by_id(123)
@@ -24,8 +33,7 @@ RSpec.describe ::Domain::Repository::User::UserRepository do
 
   it 'delegates create' do
     obj = Object.new
-    fake = double('InfraRepo')
-    expect(fake).to receive(:create).with(obj).and_return(:created)
+    fake = instance_spy(infra_repo_interface, create: :created)
     allow(repo).to receive(:resolve).and_return(fake)
 
     result = repo.create(obj)
@@ -34,8 +42,7 @@ RSpec.describe ::Domain::Repository::User::UserRepository do
 
   it 'delegates update' do
     obj = Object.new
-    fake = double('InfraRepo')
-    expect(fake).to receive(:update).with(obj).and_return(:updated)
+    fake = instance_spy(infra_repo_interface, update: :updated)
     allow(repo).to receive(:resolve).and_return(fake)
 
     result = repo.update(obj)
@@ -44,8 +51,7 @@ RSpec.describe ::Domain::Repository::User::UserRepository do
 
   it 'delegates delete' do
     obj = Object.new
-    fake = double('InfraRepo')
-    expect(fake).to receive(:delete).with(obj).and_return(:deleted)
+    fake = instance_spy(infra_repo_interface, delete: :deleted)
     allow(repo).to receive(:resolve).and_return(fake)
 
     result = repo.delete(obj)
@@ -53,8 +59,7 @@ RSpec.describe ::Domain::Repository::User::UserRepository do
   end
 
   it 'delegates find_by_email' do
-    fake = double('InfraRepo')
-    expect(fake).to receive(:find_by_email).with('a@example.com').and_return(:found)
+    fake = instance_spy(infra_repo_interface, find_by_email: :found)
     allow(repo).to receive(:resolve).and_return(fake)
 
     result = repo.find_by_email('a@example.com')

@@ -12,14 +12,16 @@ module Presentation
         raise NotImplementedError
       end
 
-      # @rbs (Hash[Symbol, untyped] params) -> BaseRequest
-      def self.build(params)
-        raise NotImplementedError
-      end
+      class << self
+        # @rbs (Hash[Symbol, untyped] params) -> BaseRequest
+        def build(params)
+          raise NotImplementedError
+        end
 
-      # @rbs (Hash[Symbol, untyped] params) -> void
-      def self.validate(params)
-        raise NotImplementedError
+        # @rbs (Hash[Symbol, untyped] params) -> void
+        def validate(params)
+          raise NotImplementedError
+        end
       end
     end
   end

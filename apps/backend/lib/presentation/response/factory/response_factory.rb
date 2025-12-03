@@ -6,7 +6,9 @@ module Presentation
   module Response
     module Factory
       class ResponseFactory
+        # rubocop:disable Layout/LineLength
         # @rbs (response: untyped, ?status_code: Integer, ?id: String, ?data: Hash[Symbol, untyped] | Array[Hash[Symbol, untyped]]) -> String?
+        # rubocop:enable Layout/LineLength
         def self.create_response(response:, status_code: 200, id: '', data: [])
           payload = ::Presentation::Controller::ControllerPayLoad.new(id: id, status_code: status_code, data: data)
           responder(response: response, payload: payload)

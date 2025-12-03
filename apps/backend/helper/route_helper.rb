@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-# rubocop:disable  Metrics/MethodLength
+# rubocop:disable Metrics/MethodLength
+# rubocop:disable Metrics/AbcSize
 # rbs_inline: enabled
-
 module RouteHelper
   DEFAULT_ACTIONS = %i[index show create update destroy].freeze
 
@@ -55,3 +55,4 @@ module RouteHelper
   end
 end
 # rubocop:enable Metrics/MethodLength
+# rubocop:enable Metrics/AbcSize

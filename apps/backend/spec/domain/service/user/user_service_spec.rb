@@ -12,21 +12,21 @@ RSpec.describe ::Domain::Service::User::UserService do
   end
 
   it 'returns true when repository finds user' do
-    fake_repo = double('UserRepository')
-    expect(fake_repo).to receive(:find_by_email).with('foo@example.com').and_return(build_user(id: 9,
-                                                                                               email: 'foo@example.com'))
+    fake_repo = instance_double(::Domain::Repository::User::UserRepository)
+    allow(fake_repo).to receive(:find_by_email).with('foo@example.com').and_return(build_user(id: 9,
+                                                                                              email: 'foo@example.com'))
 
     allow(service).to receive(:resolve).and_return(fake_repo)
 
-    expect(service.exist?('foo@example.com')).to eq(true)
+    expect(service.exist?('foo@example.com')).to be(true)
   end
 
   it 'returns false when repository returns nil' do
-    fake_repo = double('UserRepository')
-    expect(fake_repo).to receive(:find_by_email).with('bar@example.com').and_return(nil)
+    fake_repo = instance_double(::Domain::Repository::User::UserRepository)
+    allow(fake_repo).to receive(:find_by_email).with('bar@example.com').and_return(nil)
 
     allow(service).to receive(:resolve).and_return(fake_repo)
 
-    expect(service.exist?('bar@example.com')).to eq(false)
+    expect(service.exist?('bar@example.com')).to be(false)
   end
 end

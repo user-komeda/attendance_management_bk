@@ -4,10 +4,13 @@ require_relative '../../../spec_helper'
 
 RSpec.describe Presentation::Response::User::UserResponse do
   def build_user_dto(id:, first_name:, last_name:, email:)
-    Application::Dto::User::UserDto.build(::Domain::Entity::User::UserEntity.build_with_id(id: id,
-                                                                                           first_name: first_name,
-                                                                                           last_name: last_name,
-                                                                                           email: email))
+    entity = ::Domain::Entity::User::UserEntity.build_with_id(
+      id: id,
+      first_name: first_name,
+      last_name: last_name,
+      email: email
+    )
+    Application::Dto::User::UserDto.build(entity)
   end
 
   def params
@@ -37,65 +40,107 @@ RSpec.describe Presentation::Response::User::UserResponse do
   end
 
   describe '.build' do
-    it 'builds single response hash' do
-      res = described_class.build(params)
+    subject(:res) { described_class.build(params) }
 
+    it 'returns a hash' do
       expect(res).to be_a(Hash)
+    end
+
+    it 'sets id' do
       expect(res[:id]).to eq('00000000-0000-0000-0000-000000000001')
+    end
+
+    it 'sets first_name' do
       expect(res[:first_name]).to eq('Taro')
+    end
+
+    it 'sets last_name' do
       expect(res[:last_name]).to eq('Yamada')
+    end
+
+    it 'sets email' do
       expect(res[:email]).to eq('taro.yamada@example.com')
     end
   end
 
   describe '.build_from_array' do
-    it 'builds array response' do
-      res = described_class.build_from_array(array_params)
+    subject(:res) { described_class.build_from_array(array_params) }
 
-      # 驟榊・縺ｧ縺ゅｋ縺薙→繧堤｢ｺ隱・      expect(res).to be_a(Array)
-      expect(res.size).to eq(2)
-
-      # 蜷・ｦ∫ｴ縺粂ash縺ｧ縺ゅｋ縺薙→繧堤｢ｺ隱・      expect(res.first).to be_a(Hash)
-      expect(res.last).to be_a(Hash)
-
-      # 1逡ｪ逶ｮ縺ｮ隕∫ｴ繧呈､懆ｨｼ
-      expect(res.first[:id]).to eq('00000000-0000-0000-0000-000000000001')
-      expect(res.first[:first_name]).to eq('Taro')
-      expect(res.first[:last_name]).to eq('Yamada')
-      expect(res.first[:email]).to eq('taro.yamada@example.com')
-
-      # 2逡ｪ逶ｮ縺ｮ隕∫ｴ繧呈､懆ｨｼ
-      expect(res.last[:id]).to eq('00000000-0000-0000-0000-000000000002')
-      expect(res.last[:first_name]).to eq('taichi')
-      expect(res.last[:last_name]).to eq('yosida')
-      expect(res.last[:email]).to eq('taichi.yosida@example.com')
+    it 'returns an array' do
+      expect(res).to be_a(Array)
     end
 
-    it 'returns empty array when given empty array' do
-      res = described_class.build_from_array([])
+    it 'has two elements' do
+      expect(res.size).to eq(2)
+    end
 
-      expect(res).to be_a(Array)
-      expect(res).to be_empty
+    it 'has hash elements (first)' do
+      expect(res.first).to be_a(Hash)
+    end
+
+    it 'has hash elements (last)' do
+      expect(res.last).to be_a(Hash)
+    end
+
+    context 'with first element' do
+      it 'has id' do
+        expect(res.first[:id]).to eq('00000000-0000-0000-0000-000000000001')
+      end
+
+      it 'has first_name' do
+        expect(res.first[:first_name]).to eq('Taro')
+      end
+
+      it 'has last_name' do
+        expect(res.first[:last_name]).to eq('Yamada')
+      end
+
+      it 'has email' do
+        expect(res.first[:email]).to eq('taro.yamada@example.com')
+      end
+    end
+
+    context 'with last element' do
+      it 'has id' do
+        expect(res.last[:id]).to eq('00000000-0000-0000-0000-000000000002')
+      end
+
+      it 'has first_name' do
+        expect(res.last[:first_name]).to eq('taichi')
+      end
+
+      it 'has last_name' do
+        expect(res.last[:last_name]).to eq('yosida')
+      end
+
+      it 'has email' do
+        expect(res.last[:email]).to eq('taichi.yosida@example.com')
+      end
+    end
+
+    describe 'when given empty array' do
+      subject(:empty_res) { described_class.build_from_array([]) }
+
+      it 'returns an array' do
+        expect(empty_res).to be_a(Array)
+      end
+
+      it 'returns empty' do
+        expect(empty_res).to be_empty
+      end
     end
   end
 
   describe '#to_h' do
+    subject(:result) { response.to_h }
+
+    let(:response) do
+      described_class.new(id: '123', first_name: 'Taro', last_name: 'Yamada', email: 'taro@example.com')
+    end
+
+
     it 'returns hash representation' do
-      response = described_class.new(
-        id: '123',
-        first_name: 'Taro',
-        last_name: 'Yamada',
-        email: 'taro@example.com'
-      )
-
-      result = response.to_h
-
-      expect(result).to eq({
-                             id: '123',
-                             first_name: 'Taro',
-                             last_name: 'Yamada',
-                             email: 'taro@example.com'
-                           })
+      expect(result).to eq({ id: '123', first_name: 'Taro', last_name: 'Yamada', email: 'taro@example.com' })
     end
   end
 end

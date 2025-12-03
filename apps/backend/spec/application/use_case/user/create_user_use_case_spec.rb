@@ -12,32 +12,35 @@ RSpec.describe ::Application::UseCase::User::CreateUserUseCase do
   end
 
   it 'raises duplicated when email exists' do
-    fake_service = double('UserService', exist?: true)
+    fake_service = instance_double(::Domain::Service::User::UserService, exist?: true)
     allow(use_case).to receive(:resolve).and_return(fake_service)
 
     input = ::Application::Dto::User::CreateUserInputDto.new(first_name: 'A', last_name: 'B', email: 'dup@example.com')
     expect { use_case.invoke(input) }.to raise_error(::Application::Exception::DuplicatedException)
   end
 
-  it 'creates and returns user dto' do
-    fake_service = double('UserService', exist?: false)
+  context 'when email does not exist' do
+    let(:fake_service) { instance_double(::Domain::Service::User::UserService, exist?: false) }
+    let(:created) { build_user(id: 77, first_name: 'Ken', last_name: 'Tanaka', email: 'new@example.com') }
+    let(:fake_repo) { instance_double(::Domain::Repository::User::UserRepository) }
+    let(:input) { ::Application::Dto::User::CreateUserInputDto.new(first_name: 'Ken', last_name: 'Tanaka', email: 'new@example.com') }
 
-    created = build_user(id: 77, first_name: 'Ken', last_name: 'Tanaka', email: 'new@example.com')
-    fake_repo = double('UserRepository')
-    expect(fake_repo).to receive(:create).with(instance_of(::Domain::Entity::User::UserEntity)).and_return(created)
-    # Return service on first resolve call, then repo
-    call_count = 0
-    allow(use_case).to receive(:resolve) do |_key|
-      call_count += 1
-      call_count == 1 ? fake_service : fake_repo
+    before do
+      allow(fake_repo).to receive(:create)
+        .with(instance_of(::Domain::Entity::User::UserEntity))
+        .and_return(created)
+      # Return service on first resolve call, then repo
+      call_count = 0
+      allow(use_case).to receive(:resolve) do |_key|
+        call_count += 1
+        call_count == 1 ? fake_service : fake_repo
+      end
     end
 
-    input = ::Application::Dto::User::CreateUserInputDto.new(first_name: 'Ken', last_name: 'Tanaka',
-                                                             email: 'new@example.com')
-    dto = use_case.invoke(input)
-    expect(dto.id).to eq(77)
-    expect(dto.first_name).to eq('Ken')
-    expect(dto.last_name).to eq('Tanaka')
-    expect(dto.email).to eq('new@example.com')
+    it 'creates and returns user dto' do
+      expect(use_case.invoke(input)).to have_attributes(
+        id: 77, first_name: 'Ken', last_name: 'Tanaka', email: 'new@example.com'
+      )
+    end
   end
 end

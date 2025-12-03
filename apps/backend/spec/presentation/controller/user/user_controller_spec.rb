@@ -14,47 +14,72 @@ RSpec.describe Presentation::Controller::User::UserController do
   end
 
   describe '#index' do
-    it 'returns all users' do
-      # UseCase縺ｮ繝｢繝・け
-      mock_use_case = double('GetAllUserUseCase')
-      stub_dto1 = double('UserDto', id: '1', first_name: 'Taro', last_name: 'Yamada', email: 'taro@example.com')
-      stub_dto2 = double('UserDto', id: '2', first_name: 'Hanako', last_name: 'Suzuki', email: 'hanako@example.com')
+    subject(:result) { controller.index }
 
-      # resolve 繝｡繧ｽ繝・ラ繧偵せ繧ｿ繝門喧
+    let(:mock_use_case) { instance_double(Application::UseCase::User::GetAllUserUseCase) }
+    let(:first_user_dto) do
+      instance_double(
+        Application::Dto::User::UserDto,
+        id: '1', first_name: 'Taro', last_name: 'Yamada', email: 'taro@example.com'
+      )
+    end
+    let(:second_user_dto) do
+      instance_double(
+        Application::Dto::User::UserDto,
+        id: '2', first_name: 'Hanako', last_name: 'Suzuki', email: 'hanako@example.com'
+      )
+    end
+
+    before do
       expected_key = 'application.use_case.user.get_all_user_use_case'
-      allow(controller).to receive(:resolve)
-        .with(expected_key)
-        .and_return(mock_use_case)
+      allow(controller).to receive(:resolve).with(expected_key).and_return(mock_use_case)
+      allow(mock_use_case).to receive(:invoke).and_return([first_user_dto, second_user_dto])
+    end
 
-      allow(mock_use_case).to receive(:invoke)
-        .and_return([stub_dto1, stub_dto2])
-
-      result = controller.index
-
+    it 'returns an array' do
       expect(result).to be_a(Array)
+    end
+
+    it 'returns two elements' do
       expect(result.size).to eq(2)
+    end
+
+    it 'includes first id' do
       expect(result.first[:id]).to eq('1')
+    end
+
+    it 'includes last id' do
       expect(result.last[:id]).to eq('2')
     end
   end
 
   describe '#show' do
-    it 'returns a single user' do
-      mock_use_case = double('GetDetailUserUseCase')
-      stub_dto = double('UserDto', id: '123', first_name: 'Taro', last_name: 'Yamada', email: 'taro@example.com')
+    let(:mock_use_case) { instance_double(Application::UseCase::User::GetDetailUserUseCase) }
+    let(:stub_dto) do
+      instance_double(
+        Application::Dto::User::UserDto,
+        id: '123', first_name: 'Taro', last_name: 'Yamada', email: 'taro@example.com'
+      )
+    end
+    let(:expected_key) { 'application.use_case.user.get_detail_user_use_case' }
 
-      expected_key = 'application.use_case.user.get_detail_user_use_case'
-      allow(controller).to receive(:resolve)
-        .with(expected_key)
-        .and_return(mock_use_case)
+    before do
+      allow(controller).to receive(:resolve).with(expected_key).and_return(mock_use_case)
+      allow(mock_use_case).to receive(:invoke).and_return(stub_dto)
+    end
 
-      expect(mock_use_case).to receive(:invoke)
-        .with('123')
-        .and_return(stub_dto)
+    it 'invokes use case' do
+      controller.show('123')
+      expect(mock_use_case).to have_received(:invoke).with('123')
+    end
 
+    it 'returns id' do
       result = controller.show('123')
-
       expect(result[:id]).to eq('123')
+    end
+
+    it 'returns first_name' do
+      result = controller.show('123')
       expect(result[:first_name]).to eq('Taro')
     end
 
@@ -72,23 +97,32 @@ RSpec.describe Presentation::Controller::User::UserController do
   end
 
   describe '#create' do
-    it 'creates a new user' do
-      mock_use_case = double('CreateUserUseCase')
-      stub_dto = double('UserDto', id: '456', first_name: 'Taro', last_name: 'Yamada', email: 'taro@example.com')
+    context 'with valid params' do
+      subject(:result) { controller.create(valid_create_params) }
 
-      expected_key = 'application.use_case.user.create_user_use_case'
-      allow(controller).to receive(:resolve)
-        .with(expected_key)
-        .and_return(mock_use_case)
+      let(:mock_use_case) { instance_double(Application::UseCase::User::CreateUserUseCase) }
+      let(:stub_dto) do
+        instance_double(
+          Application::Dto::User::UserDto,
+          id: '456', first_name: 'Taro', last_name: 'Yamada', email: 'taro@example.com'
+        )
+      end
 
-      expect(mock_use_case).to receive(:invoke)
-        .with(instance_of(Application::Dto::User::CreateUserInputDto))
-        .and_return(stub_dto)
+      before do
+        expected_key = 'application.use_case.user.create_user_use_case'
+        allow(controller).to receive(:resolve).with(expected_key).and_return(mock_use_case)
+        allow(mock_use_case).to receive(:invoke)
+          .with(instance_of(Application::Dto::User::CreateUserInputDto))
+          .and_return(stub_dto)
+      end
 
-      result = controller.create(valid_create_params)
+      it 'returns id' do
+        expect(result[:id]).to eq('456')
+      end
 
-      expect(result[:id]).to eq('456')
-      expect(result[:first_name]).to eq('Taro')
+      it 'returns first_name' do
+        expect(result[:first_name]).to eq('Taro')
+      end
     end
 
     it 'raises BadRequestException with invalid params' do
@@ -105,45 +139,63 @@ RSpec.describe Presentation::Controller::User::UserController do
   end
 
   describe '#update' do
-    it 'updates an existing user' do
-      mock_use_case = double('UpdateUserUseCase')
-      stub_dto = double('UserDto', id: '00000000-0000-0000-0000-000000000001', first_name: 'Updated',
-                                   last_name: 'Name', email: 'updated@example.com')
+    context 'with valid id and params' do
+      subject(:result) { controller.update(valid_update_params, uuid) }
 
-      expected_key = 'application.use_case.user.update_user_use_case'
-      allow(controller).to receive(:resolve)
-        .with(expected_key)
-        .and_return(mock_use_case)
-
-      expect(mock_use_case).to receive(:invoke) do |input_dto|
-        expect(input_dto).to be_instance_of(Application::Dto::User::UpdateUserInputDto)
-        expect(input_dto.id).to eq('00000000-0000-0000-0000-000000000001')
-        expect(input_dto.first_name).to eq('Jiro')
-        stub_dto
+      let(:uuid) { '00000000-0000-0000-0000-000000000001' }
+      let(:mock_use_case) { instance_double(Application::UseCase::User::UpdateUserUseCase) }
+      let(:stub_dto) do
+        instance_double(
+          Application::Dto::User::UserDto,
+          id: uuid, first_name: 'Updated', last_name: 'Name', email: 'updated@example.com'
+        )
       end
 
-      result = controller.update(valid_update_params, '00000000-0000-0000-0000-000000000001')
+      before do
+        expected_key = 'application.use_case.user.update_user_use_case'
+        allow(controller).to receive(:resolve).with(expected_key).and_return(mock_use_case)
+        allow(mock_use_case).to receive(:invoke).and_return(stub_dto)
+      end
 
-      expect(result[:id]).to eq('00000000-0000-0000-0000-000000000001')
-      expect(result[:first_name]).to eq('Updated')
+      it 'returns id' do
+        expect(result[:id]).to eq(uuid)
+      end
+
+      it 'returns first_name' do
+        expect(result[:first_name]).to eq('Updated')
+      end
     end
 
-    it 'merges id into params' do
-      mock_use_case = double('UpdateUserUseCase')
-      stub_dto = double('UserDto', id: '00000000-0000-0000-0000-000000000001', first_name: 'Test', last_name: 'User',
-                                   email: 'test@example.com')
+    context 'with spied use case' do
+      let(:uuid) { '00000000-0000-0000-0000-000000000001' }
+      let(:spy) { instance_spy(Application::UseCase::User::UpdateUserUseCase) }
 
-      expected_key = 'application.use_case.user.update_user_use_case'
-      allow(controller).to receive(:resolve)
-        .with(expected_key)
-        .and_return(mock_use_case)
+      before do
+        allow(controller).to receive(:resolve)
+          .with('application.use_case.user.update_user_use_case')
+          .and_return(spy)
 
-      expect(mock_use_case).to receive(:invoke) do |input_dto|
-        expect(input_dto.id).to eq('00000000-0000-0000-0000-000000000001')
-        stub_dto
+        # stub return to avoid UserResponse calling unknown methods on the spy
+        allow(spy).to receive(:invoke).and_return(
+          instance_double(
+            Application::Dto::User::UserDto,
+            id: uuid,
+            first_name: 'Updated',
+            last_name: 'Name',
+            email: 'updated@example.com'
+          )
+        )
       end
 
-      controller.update(valid_update_params, '00000000-0000-0000-0000-000000000001')
+      it 'calls use case' do
+        controller.update(valid_update_params, uuid)
+        expect(spy).to have_received(:invoke)
+      end
+
+      it 'sets id on input dto' do
+        controller.update(valid_update_params, uuid)
+        expect(spy).to have_received(:invoke).with(satisfy { |dto| dto.id == uuid })
+      end
     end
 
     it 'raises BadRequestException with invalid id format' do

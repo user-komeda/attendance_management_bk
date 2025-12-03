@@ -11,77 +11,181 @@ RSpec.describe ::Infrastructure::Repository::User::UserRepository do
     entity
   end
 
-  it 'delegates get_all to rom_get_all' do
-    rom = double('RomRepo', rom_get_all: [])
-    allow(repo).to receive(:resolve).and_return(rom)
+  context 'when getting all users' do
+    subject(:result) { repo.get_all }
 
-    result = repo.get_all
-    expect(result).to be_a(Array)
-    expect(result).to be_empty
+    let(:rom) { instance_double(::Infrastructure::Repository::Rom::User::UserRomRepository, rom_get_all: []) }
+
+    before do
+      allow(repo).to receive(:resolve).and_return(rom)
+    end
+
+    it 'returns an Array' do
+      expect(result).to be_a(Array)
+    end
+
+    it 'returns empty when rom returns empty' do
+      expect(result).to be_empty
+    end
   end
 
-  it 'returns domain entity when found by id' do
-    infra_entity = ::Infrastructure::Entity::User::UserEntity.new(id: '00000000-0000-0000-0000-000000000001',
-                                                                  first_name: 'Hanako', last_name: 'Suzuki', email: 'hanako@example.com')
-    rom = double('RomRepo')
-    expect(rom).to receive(:rom_get_by_id).with('00000000-0000-0000-0000-000000000001').and_return(infra_entity)
+  context 'when found by id' do
+    subject(:result) { repo.get_by_id('00000000-0000-0000-0000-000000000001') }
 
-    allow(repo).to receive(:resolve).and_return(rom)
+    let(:infra_entity) do
+      ::Infrastructure::Entity::User::UserEntity.new(
+        id: '00000000-0000-0000-0000-000000000001',
+        first_name: 'Hanako',
+        last_name: 'Suzuki',
+        email: 'hanako@example.com'
+      )
+    end
+    let(:rom) { instance_double(::Infrastructure::Repository::Rom::User::UserRomRepository) }
 
-    result = repo.get_by_id('00000000-0000-0000-0000-000000000001')
-    expect(result).to be_a(::Domain::Entity::User::UserEntity)
-    expect(result.user_name.first_name).to eq('Hanako')
+    before do
+      allow(rom).to receive(:rom_get_by_id)
+        .with('00000000-0000-0000-0000-000000000001')
+        .and_return(infra_entity)
+      allow(repo).to receive(:resolve).and_return(rom)
+    end
+
+    it 'returns domain entity' do
+      expect(result).to be_a(::Domain::Entity::User::UserEntity)
+    end
+
+    it 'maps attributes' do
+      expect(result.user_name.first_name).to eq('Hanako')
+    end
+
+    it 'delegates to rom_get_by_id' do
+      result
+      expect(rom).to have_received(:rom_get_by_id).with('00000000-0000-0000-0000-000000000001')
+    end
   end
 
-  it 'returns nil when not found by id' do
-    rom = double('RomRepo')
-    expect(rom).to receive(:rom_get_by_id).with('00000000-0000-0000-0000-000000000001').and_return(nil)
+  context 'when not found by id' do
+    subject(:result) { repo.get_by_id('00000000-0000-0000-0000-000000000001') }
 
-    allow(repo).to receive(:resolve).and_return(rom)
+    let(:rom) { instance_double(::Infrastructure::Repository::Rom::User::UserRomRepository) }
 
-    expect(repo.get_by_id('00000000-0000-0000-0000-000000000001')).to be_nil
+    before do
+      allow(rom).to receive(:rom_get_by_id)
+        .with('00000000-0000-0000-0000-000000000001')
+        .and_return(nil)
+      allow(repo).to receive(:resolve).and_return(rom)
+    end
+
+    it 'returns nil' do
+      expect(result).to be_nil
+    end
+
+    it 'delegates to rom_get_by_id' do
+      result
+      expect(rom).to have_received(:rom_get_by_id).with('00000000-0000-0000-0000-000000000001')
+    end
   end
 
-  it 'builds infra on create and returns domain entity' do
-    domain = build_domain_user(id: '00000000-0000-0000-0000-000000000001', first_name: 'Ken', last_name: 'Tanaka',
-                               email: 'ken@example.com')
-    created_struct = Struct.new(:id, :first_name, :last_name, :email).new('00000000-0000-0000-0000-000000000001',
-                                                                          'Ken', 'Tanaka', 'ken@example.com')
+  context 'when creating a user' do
+    subject(:result) { repo.create(domain) }
 
-    rom = double('RomRepo')
-    expect(rom).to receive(:rom_create).with(instance_of(Infrastructure::Entity::User::UserEntity)).and_return(created_struct)
+    let(:domain) do
+      build_domain_user(id: '00000000-0000-0000-0000-000000000001', first_name: 'Ken', last_name: 'Tanaka',
+                        email: 'ken@example.com')
+    end
 
-    allow(repo).to receive(:resolve).and_return(rom)
+    let(:created_struct) do
+      Struct.new(:id, :first_name, :last_name, :email).new(
+        '00000000-0000-0000-0000-000000000001',
+        'Ken',
+        'Tanaka',
+        'ken@example.com'
+      )
+    end
 
-    result = repo.create(domain)
-    expect(result).to be_a(::Domain::Entity::User::UserEntity)
-    expect(result.user_name.first_name).to eq('Ken')
-    expect(result.email.value).to eq('ken@example.com')
+    let(:rom) { instance_double(::Infrastructure::Repository::Rom::User::UserRomRepository) }
+
+    before do
+      allow(rom).to receive(:rom_create)
+        .with(instance_of(Infrastructure::Entity::User::UserEntity))
+        .and_return(created_struct)
+      allow(repo).to receive(:resolve).and_return(rom)
+    end
+
+    it 'returns domain entity' do
+      expect(result).to be_a(::Domain::Entity::User::UserEntity)
+    end
+
+    it 'sets first_name' do
+      expect(result.user_name.first_name).to eq('Ken')
+    end
+
+    it 'sets email' do
+      expect(result.email.value).to eq('ken@example.com')
+    end
+
+    it 'delegates to rom_create' do
+      result
+      expect(rom).to have_received(:rom_create).with(instance_of(Infrastructure::Entity::User::UserEntity))
+    end
   end
 
-  it 'builds infra on update and returns domain entity' do
-    domain = build_domain_user(id: '00000000-0000-0000-0000-000000000001', first_name: 'New', last_name: 'Name',
-                               email: 'new@example.com')
-    updated_struct = Struct.new(:id, :first_name, :last_name, :email).new('00000000-0000-0000-0000-000000000001',
-                                                                          'New', 'Name', 'new@example.com')
+  context 'when updating a user' do
+    subject(:result) { repo.update(domain) }
 
-    rom = double('RomRepo')
-    expect(rom).to receive(:rom_update).with(instance_of(Infrastructure::Entity::User::UserEntity)).and_return(updated_struct)
+    let(:domain) do
+      build_domain_user(id: '00000000-0000-0000-0000-000000000001', first_name: 'New', last_name: 'Name',
+                        email: 'new@example.com')
+    end
+    let(:updated_struct) do
+      Struct.new(:id, :first_name, :last_name, :email).new(
+        '00000000-0000-0000-0000-000000000001',
+        'New',
+        'Name',
+        'new@example.com'
+      )
+    end
+    let(:rom) { instance_double(::Infrastructure::Repository::Rom::User::UserRomRepository) }
 
-    allow(repo).to receive(:resolve).and_return(rom)
+    before do
+      allow(rom).to receive(:rom_update).with(instance_of(Infrastructure::Entity::User::UserEntity)).and_return(updated_struct)
+      allow(repo).to receive(:resolve).and_return(rom)
+    end
 
-    result = repo.update(domain)
-    expect(result).to be_a(::Domain::Entity::User::UserEntity)
-    expect(result.user_name.first_name).to eq('New')
-    expect(result.email.value).to eq('new@example.com')
+    it 'returns domain entity' do
+      expect(result).to be_a(::Domain::Entity::User::UserEntity)
+    end
+
+    it 'updates first_name' do
+      expect(result.user_name.first_name).to eq('New')
+    end
+
+    it 'updates email' do
+      expect(result.email.value).to eq('new@example.com')
+    end
+
+    it 'delegates to rom_update' do
+      result
+      expect(rom).to have_received(:rom_update).with(instance_of(Infrastructure::Entity::User::UserEntity))
+    end
   end
 
-  it 'delegates find_by_email to rom repo' do
-    rom = double('RomRepo')
-    expect(rom).to receive(:find_by_email).with('x@example.com').and_return(nil)
+  context 'when finding by email' do
+    subject(:find_result) { repo.find_by_email('x@example.com') }
 
-    allow(repo).to receive(:resolve).and_return(rom)
+    let(:rom) { instance_double(::Infrastructure::Repository::Rom::User::UserRomRepository) }
 
-    expect(repo.find_by_email('x@example.com')).to be_nil
+    before do
+      allow(rom).to receive(:find_by_email).with('x@example.com').and_return(nil)
+      allow(repo).to receive(:resolve).and_return(rom)
+    end
+
+    it 'returns nil when not found' do
+      expect(find_result).to be_nil
+    end
+
+    it 'delegates to rom' do
+      find_result
+      expect(rom).to have_received(:find_by_email).with('x@example.com')
+    end
   end
 end

@@ -1,0 +1,10 @@
+paths:
+  - lib
+  - helper
+
+exclude:
+  - vendor/**
+  - vendor/bundle/**
+
+minimum_score: 10
+no_browser: true
