@@ -9,8 +9,8 @@ module Presentation
 
       protected
 
-      # @rbs (Hash[Symbol, untyped] request_payload, Class class_name) -> untyped
-      def create_build_request(request_payload, class_name)
+      # @rbs (Hash[Symbol, untyped] request_payload, untyped class_name) -> untyped
+      def build_request(request_payload, class_name)
         raise NotImplementedError, "#{self.class} must implement #build_form"
       end
 

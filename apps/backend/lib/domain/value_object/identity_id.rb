@@ -22,7 +22,6 @@ module Domain
         new(args).freeze
       end
 
-      # 繧､繝ｳ繧ｹ繧ｿ繝ｳ繧ｹ繝｡繧ｽ繝・ラ縺ｨ縺励※螳夂ｾｩ
       # @rbs () -> Array[String]
       def values
         [value]

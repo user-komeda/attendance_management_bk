@@ -38,7 +38,7 @@ module Presentation
           end
         end
 
-        # @rbs () -> Hash[Symbol, String]
+        # @rbs () -> {id: String, first_name: String, last_name: String, email: String }
         def to_h
           {
             id: id,

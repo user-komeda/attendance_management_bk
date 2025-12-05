@@ -10,7 +10,6 @@ module Domain
         raise NotImplementedError, 'Subclasses must implement .build'
       end
 
-      # 遲我ｾ｡諤ｧ縺ｯ蝓ｺ蠎輔け繝ｩ繧ｹ縺ｧ蜈ｱ騾壼喧
       # @rbs (untyped other) -> bool
       def ==(other)
         self.class == other.class && values == other.values
@@ -26,7 +25,7 @@ module Domain
         values.hash
       end
 
-      # 繧ｵ繝悶け繝ｩ繧ｹ縺ｧ豈碑ｼ・ｯｾ雎｡蛟､繧定ｿ斐☆・医う繝ｳ繧ｹ繧ｿ繝ｳ繧ｹ繝｡繧ｽ繝・ラ・・      # @rbs () -> Array[untyped]
+      # @rbs () -> Array[untyped]
       def values
         raise NotImplementedError, 'Subclasses must implement #values'
       end

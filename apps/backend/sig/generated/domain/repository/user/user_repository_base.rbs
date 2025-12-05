@@ -3,9 +3,7 @@
 module Domain
   module Repository
     module User
-      class UserRepositoryBase
-        include Domain::Repository::BaseRepository
-
+      class UserRepositoryBase < Domain::Repository::BaseRepository
         KEY: untyped
       end
     end

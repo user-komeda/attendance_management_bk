@@ -4,14 +4,19 @@ module Presentation
   module Controller
     module User
       class UserControllerBase < Presentation::Controller::ControllerBase
+        # @rbs USER_USE_CASE: Constant::ContainerKey::ApplicationKey::USER_USE_CASE
         USER_USE_CASE: untyped
 
+        # @rbs RESPONSE: ::Presentation::Response::User::UserResponse
         RESPONSE: untyped
 
+        # @rbs BASE_REQUEST: ::Presentation::Request::User::UserBaseRequest
         BASE_REQUEST: untyped
 
+        # @rbs CREATE_REQUEST: ::Presentation::Request::User::CreateUserRequest
         CREATE_REQUEST: untyped
 
+        # @rbs UPDATE_REQUEST: ::Presentation::Request::User::UpdateUserRequest
         UPDATE_REQUEST: untyped
 
         # @rbs (Hash[Symbol, untyped] request_payload, untyped request_class) -> ::Presentation::Request::User::UserBaseRequest

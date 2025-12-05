@@ -28,12 +28,16 @@ module Presentation
         # @rbs @email: String
         attr_reader email: untyped
 
+        # @rbs CREATE_INPUT_DTO: ::Application::Dto::User::CreateUserInputDto
         CREATE_INPUT_DTO: untyped
 
+        # @rbs UPDATE_INPUT_DTO: ::Application::Dto::User::UpdateUserInputDto
         UPDATE_INPUT_DTO: untyped
 
+        # @rbs CREATE_CONTRACT: ::Presentation::Request::Contract::CreateUserContract
         CREATE_CONTRACT: untyped
 
+        # @rbs UPDATE_CONTRACT: ::Presentation::Request::Contract::UpdateUserContract
         UPDATE_CONTRACT: untyped
       end
     end

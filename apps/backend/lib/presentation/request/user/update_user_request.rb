@@ -16,13 +16,13 @@ module Presentation
           )
         end
 
-        # @rbs (Hash[Symbol, untyped] params) -> UpdateUserRequest
+        # @rbs ({id: String, first_name: String, last_name: String, email: String }) -> UpdateUserRequest
         def self.build(params)
           UpdateUserRequest.validate(params)
           UpdateUserRequest.new(params)
         end
 
-        # @rbs (Hash[Symbol, untyped] params) -> void
+        # @rbs ({id: String, first_name: String, last_name: String, email: String }) -> void
         def self.validate(params)
           result = UPDATE_CONTRACT.new.call(params)
           return unless result.failure?
@@ -32,7 +32,7 @@ module Presentation
 
         private
 
-        # @rbs (Hash[Symbol, untyped] params) -> void
+        # @rbs ({id: String, first_name: String, last_name: String, email: String }) -> void
         def initialize(params)
           super()
           @id = params[:id]

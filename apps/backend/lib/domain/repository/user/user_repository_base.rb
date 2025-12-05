@@ -5,8 +5,7 @@
 module Domain
   module Repository
     module User
-      class UserRepositoryBase
-        include Domain::Repository::BaseRepository
+      class UserRepositoryBase < Domain::Repository::BaseRepository
         KEY = Constant::ContainerKey::RepositoryKey::REPOSITORY[:user].key.freeze
       end
     end

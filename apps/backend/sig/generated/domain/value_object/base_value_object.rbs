@@ -6,7 +6,6 @@ module Domain
       # @rbs (*untyped args) -> BaseValueObject
       def self.build: (*untyped args) -> BaseValueObject
 
-      # 遲我ｾ｡諤ｧ縺ｯ蝓ｺ蠎輔け繝ｩ繧ｹ縺ｧ蜈ｱ騾壼喧
       # @rbs (untyped other) -> bool
       def ==: (untyped other) -> bool
 
@@ -16,8 +15,8 @@ module Domain
       # @rbs () -> Integer
       def hash: () -> Integer
 
-      # 繧ｵ繝悶け繝ｩ繧ｹ縺ｧ豈碑ｼ・ｯｾ雎｡蛟､繧定ｿ斐☆・医う繝ｳ繧ｹ繧ｿ繝ｳ繧ｹ繝｡繧ｽ繝・ラ・・      # @rbs () -> Array[untyped]
-      def values: () -> untyped
+      # @rbs () -> Array[untyped]
+      def values: () -> Array[untyped]
 
       # @rbs (*untyped args) -> void
       def self.validate!: (*untyped args) -> void
