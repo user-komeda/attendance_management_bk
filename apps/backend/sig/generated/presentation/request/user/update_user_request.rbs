@@ -7,16 +7,16 @@ module Presentation
         # @rbs () -> ::Application::Dto::User::UpdateUserInputDto
         def convert_to_dto: () -> ::Application::Dto::User::UpdateUserInputDto
 
-        # @rbs (Hash[Symbol, untyped] params) -> UpdateUserRequest
-        def self.build: (Hash[Symbol, untyped] params) -> UpdateUserRequest
+        # @rbs ({id: String, first_name: String, last_name: String, email: String }) -> UpdateUserRequest
+        def self.build: ({ id: String, first_name: String, last_name: String, email: String }) -> UpdateUserRequest
 
-        # @rbs (Hash[Symbol, untyped] params) -> void
-        def self.validate: (Hash[Symbol, untyped] params) -> void
+        # @rbs ({id: String, first_name: String, last_name: String, email: String }) -> void
+        def self.validate: ({ id: String, first_name: String, last_name: String, email: String }) -> void
 
         private
 
-        # @rbs (Hash[Symbol, untyped] params) -> void
-        def initialize: (Hash[Symbol, untyped] params) -> void
+        # @rbs ({id: String, first_name: String, last_name: String, email: String }) -> void
+        def initialize: ({ id: String, first_name: String, last_name: String, email: String }) -> void
       end
     end
   end

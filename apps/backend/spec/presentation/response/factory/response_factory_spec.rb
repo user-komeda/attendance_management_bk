@@ -39,7 +39,6 @@ RSpec.describe Presentation::Response::Factory::ResponseFactory do
 
       let(:response) { DummyResponse.new }
 
-
       it 'sets status code to 200' do
         body
         expect(response.status).to eq(200)
@@ -87,7 +86,6 @@ RSpec.describe Presentation::Response::Factory::ResponseFactory do
       end
 
       let(:response) { DummyResponse.new }
-
 
       it 'sets status code to 201' do
         body
@@ -141,7 +139,6 @@ RSpec.describe Presentation::Response::Factory::ResponseFactory do
       end
 
       let(:response) { DummyResponse.new }
-
 
       it 'sets status code to 204' do
         body

@@ -12,9 +12,13 @@ module Presentation
         # @rbs @email: String
         attr_reader :id, :first_name, :last_name, :email
 
+        # @rbs CREATE_INPUT_DTO: ::Application::Dto::User::CreateUserInputDto
         CREATE_INPUT_DTO = ::Application::Dto::User::CreateUserInputDto.freeze
+        # @rbs UPDATE_INPUT_DTO: ::Application::Dto::User::UpdateUserInputDto
         UPDATE_INPUT_DTO = ::Application::Dto::User::UpdateUserInputDto.freeze
+        # @rbs CREATE_CONTRACT: ::Presentation::Request::Contract::CreateUserContract
         CREATE_CONTRACT = ::Presentation::Request::Contract::CreateUserContract
+        # @rbs UPDATE_CONTRACT: ::Presentation::Request::Contract::UpdateUserContract
         UPDATE_CONTRACT = ::Presentation::Request::Contract::UpdateUserContract
       end
     end

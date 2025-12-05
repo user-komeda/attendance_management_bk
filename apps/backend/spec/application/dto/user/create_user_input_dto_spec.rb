@@ -40,7 +40,6 @@ RSpec.describe ::Application::Dto::User::CreateUserInputDto do
       }
     end
 
-
     it 'returns a UserEntity' do
       expect(entity).to be_a(::Domain::Entity::User::UserEntity)
     end

@@ -138,7 +138,6 @@ RSpec.describe Presentation::Response::User::UserResponse do
       described_class.new(id: '123', first_name: 'Taro', last_name: 'Yamada', email: 'taro@example.com')
     end
 
-
     it 'returns hash representation' do
       expect(result).to eq({ id: '123', first_name: 'Taro', last_name: 'Yamada', email: 'taro@example.com' })
     end

@@ -4,17 +4,17 @@ module Presentation
   module Controller
     module User
       class UserController < UserControllerBase
-        # @rbs () -> Array[untyped]
-        def index: () -> Array[untyped]
+        # @rbs () -> Array[Hash[Symbol, String]]
+        def index: () -> Array[Hash[Symbol, String]]
 
-        # @rbs (String id) -> untyped
-        def show: (String id) -> untyped
+        # @rbs (String id) -> Hash[Symbol, String]
+        def show: (String id) -> Hash[Symbol, String]
 
-        # @rbs (Hash[Symbol, untyped] params) -> untyped
-        def create: (Hash[Symbol, untyped] params) -> untyped
+        # @rbs (Hash[Symbol, untyped] params) -> Hash[Symbol, String]
+        def create: (Hash[Symbol, untyped] params) -> Hash[Symbol, String]
 
-        # @rbs (Hash[Symbol, untyped] params, String id) -> untyped
-        def update: (Hash[Symbol, untyped] params, String id) -> untyped
+        # @rbs (Hash[Symbol, untyped] params, String id) -> Hash[Symbol, String]
+        def update: (Hash[Symbol, untyped] params, String id) -> Hash[Symbol, String]
 
         # @rbs (String id) -> void
         def destroy: (String id) -> void

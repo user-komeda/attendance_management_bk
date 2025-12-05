@@ -30,7 +30,6 @@ module Domain
           "#{first_name} #{last_name}"
         end
 
-        # 繧､繝ｳ繧ｹ繧ｿ繝ｳ繧ｹ繝｡繧ｽ繝・ラ縺ｨ縺励※螳夂ｾｩ
         # @rbs () -> Array[String]
         def values
           [first_name, last_name]

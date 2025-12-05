@@ -1,19 +1,19 @@
-[2] [90m.prettierrc[39m 16ms (unchanged)
-[2] [90mapp.config.ts[39m 37ms (unchanged)
-[2] [90meslint.config.mjs[39m 13ms (unchanged)
-[2] [90mpackage.json[39m 2ms (unchanged)
-[2] [90mREADME.md[39m 18ms (unchanged)
-[2] [90msrc/app.css[39m 15ms (unchanged)
-[2] [90msrc/app.tsx[39m 8ms (unchanged)
-[2] [90msrc/components/Counter.tsx[39m 11ms (unchanged)
-[2] [90msrc/components/Nav.tsx[39m 14ms (unchanged)
-[2] [90msrc/entry-client.tsx[39m 6ms (unchanged)
-[2] [90msrc/entry-server.tsx[39m 6ms (unchanged)
-[2] [90msrc/global.d.ts[39m 6ms (unchanged)
-[2] [90msrc/routes/[...404].tsx[39m 9ms (unchanged)
-[2] [90msrc/routes/about.tsx[39m 9ms (unchanged)
-[2] [90msrc/routes/index.tsx[39m 6ms (unchanged)
-[2] [90mtsconfig.json[39m 1ms (unchanged)
+[2] .prettierrc 24ms
+[2] app.config.ts 76ms
+[2] eslint.config.mjs 18ms
+[2] package.json 2ms
+[2] README.md 36ms
+[2] src/app.css 22ms
+[2] src/app.tsx 14ms
+[2] src/components/Counter.tsx 18ms
+[2] src/components/Nav.tsx 20ms
+[2] src/entry-client.tsx 9ms
+[2] src/entry-server.tsx 11ms
+[2] src/global.d.ts 8ms
+[2] src/routes/[...404].tsx 16ms
+[2] src/routes/about.tsx 19ms
+[2] src/routes/index.tsx 14ms
+[2] tsconfig.json 8ms
 [2] yarn format exited with code 0
 [0] yarn typecheck exited with code 0
 [1] yarn lint exited with code 0

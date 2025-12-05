@@ -4,7 +4,7 @@
 
 module Domain
   module Repository
-    module BaseRepository
+    class BaseRepository
       include ContainerHelper
 
       # @rbs () -> Array[::Domain::Entity::DomainEntity]

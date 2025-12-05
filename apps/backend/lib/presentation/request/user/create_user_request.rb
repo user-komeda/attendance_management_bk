@@ -6,7 +6,7 @@ module Presentation
   module Request
     module User
       class CreateUserRequest < UserBaseRequest
-        # @rbs (Hash[Symbol, untyped] params) -> void
+        # @rbs ({ first_name: String, last_name: String, email: String }) -> void
         def initialize(params)
           super()
           @first_name = params[:first_name]
@@ -23,7 +23,7 @@ module Presentation
           )
         end
 
-        # @rbs (Hash[Symbol, untyped] params) -> CreateUserRequest
+        # @rbs ({ first_name: String, last_name: String, email: String }) -> CreateUserRequest
         def self.build(params)
           validate(params)
           CreateUserRequest.new(params)
@@ -32,7 +32,7 @@ module Presentation
         class << self
           private
 
-          # @rbs (Hash[Symbol, untyped] params) -> void
+          # @rbs ({ first_name: String, last_name: String, email: String }) -> void
           def validate(params)
             result = UserBaseRequest::CREATE_CONTRACT.new.call(params)
             return unless result.failure?
