@@ -2,6 +2,7 @@
 
 module SinatraErrorHandler
   include ResponseHelper
+
   def self.registered(app)
     app.error do
       e = env['sinatra.error']

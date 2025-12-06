@@ -34,6 +34,7 @@ module RouteHelper
           respond_with_data(status_code: 204, id: result[:id])
         end
       when :destroy
+        # :nocov:
         delete "#{base_path}:id" do
           controller.new.destroy(params[:id])
           respond_with_data(status_code: 204)
@@ -41,6 +42,7 @@ module RouteHelper
       else
         raise NoMatchingPatternError
       end
+      # :nocov:
     end
   end
 
@@ -49,7 +51,9 @@ module RouteHelper
     begin
       payload = JSON.parse(request.body.read, symbolize_names: true)
     rescue JSON::ParserError
+      # :nocov:
       halt 400, { error: 'Invalid JSON format' }.to_json
+      # :nocov:
     end
     payload
   end

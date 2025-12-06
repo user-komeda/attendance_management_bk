@@ -27,22 +27,25 @@ module Domain
         # rubocop:disable Metrics/AbcSize
         # @rbs (first_name: String?, last_name: String?, email: String?) -> void
         def change(first_name:, last_name:, email:)
-          if UtilMethod.nil_or_empty(first_name) && UtilMethod.nil_or_empty(last_name) && UtilMethod.nil_or_empty(email)
+          if UtilMethod.nil_or_empty?(first_name) &&
+             UtilMethod.nil_or_empty?(last_name) &&
+             UtilMethod.nil_or_empty?(email)
             return
           end
 
           # @type var new_first_name: String
-          new_first_name = UtilMethod.nil_or_empty(first_name) ? user_name.first_name : first_name
+          new_first_name = UtilMethod.nil_or_empty?(first_name) ? user_name.first_name : first_name
 
           # @type var new_last_name: String
-          new_last_name = UtilMethod.nil_or_empty(last_name) ? user_name.last_name : last_name
+          new_last_name = UtilMethod.nil_or_empty?(last_name) ? user_name.last_name : last_name
 
           # @type var new_email: String
-          new_email = UtilMethod.nil_or_empty(email) ? self.email.value : email
+          new_email = UtilMethod.nil_or_empty?(email) ? self.email.value : email
 
           self.user_name = ::Domain::ValueObject::User::UserName.build(new_first_name, new_last_name)
           self.email = ::Domain::ValueObject::User::UserEmail.build(new_email)
         end
+
         # rubocop:enable Metrics/AbcSize
 
         # @rbs (first_name: String, last_name: String, email: String) -> UserEntity

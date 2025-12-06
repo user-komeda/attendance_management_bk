@@ -9,7 +9,7 @@ module Presentation
         # @rbs (response: untyped, payload: ::Presentation::Controller::ControllerPayLoad) -> void
         def self.build_responder(response:, payload:)
           response.status = payload.status_code
-          return if ::UtilMethod.nil_or_empty(payload.id)
+          return if ::UtilMethod.nil_or_empty?(payload.id)
 
           response['ETag'] = payload.id
           nil

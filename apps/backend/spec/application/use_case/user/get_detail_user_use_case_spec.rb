@@ -2,13 +2,13 @@
 
 require 'spec_helper'
 
-RSpec.describe ::Application::UseCase::User::GetDetailUserUseCase do
+RSpec.describe Application::UseCase::User::GetDetailUserUseCase do
   let(:use_case) { described_class.new }
-  let(:fake_repo) { instance_double(::Domain::Repository::User::UserRepository) }
+  let(:fake_repo) { instance_double(Domain::Repository::User::UserRepository) }
 
   def build_user(id: 1, first_name: 'Taro', last_name: 'Yamada', email: 'taro@example.com')
-    entity = ::Domain::Entity::User::UserEntity.build(first_name: first_name, last_name: last_name, email: email)
-    entity.id = ::Domain::ValueObject::IdentityId.build(id)
+    entity = Domain::Entity::User::UserEntity.build(first_name: first_name, last_name: last_name, email: email)
+    entity.id = Domain::ValueObject::IdentityId.build(id)
     entity
   end
 
@@ -31,7 +31,7 @@ RSpec.describe ::Application::UseCase::User::GetDetailUserUseCase do
     end
 
     it 'raises not found' do
-      expect { use_case.invoke(999) }.to raise_error(::Application::Exception::NotFoundException)
+      expect { use_case.invoke(999) }.to raise_error(Application::Exception::NotFoundException)
     end
   end
 end

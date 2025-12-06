@@ -2,10 +2,10 @@
 
 require 'spec_helper'
 
-RSpec.describe ::Application::Dto::User::UserDto do
+RSpec.describe Application::Dto::User::UserDto do
   def build_user(id:, first_name:, last_name:, email:)
-    entity = ::Domain::Entity::User::UserEntity.build(first_name: first_name, last_name: last_name, email: email)
-    entity.id = ::Domain::ValueObject::IdentityId.build(id)
+    entity = Domain::Entity::User::UserEntity.build(first_name: first_name, last_name: last_name, email: email)
+    entity.id = Domain::ValueObject::IdentityId.build(id)
     entity
   end
 

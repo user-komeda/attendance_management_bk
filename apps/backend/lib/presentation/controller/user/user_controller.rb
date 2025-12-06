@@ -14,7 +14,7 @@ module Presentation
 
         # @rbs (String id) -> Hash[Symbol, String]
         def show(id)
-          raise ArgumentError if ::UtilMethod.nil_or_empty(id)
+          raise ArgumentError if ::UtilMethod.nil_or_empty?(id)
 
           user = invoke_use_case(:get_detail, id)
           RESPONSE.build(user)
@@ -37,7 +37,7 @@ module Presentation
 
         # @rbs (String id) -> void
         def destroy(id)
-          raise ArgumentError if ::UtilMethod.nil_or_empty(id)
+          raise ArgumentError if ::UtilMethod.nil_or_empty?(id)
         end
       end
     end

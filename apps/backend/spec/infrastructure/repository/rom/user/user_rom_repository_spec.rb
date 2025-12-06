@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe ::Infrastructure::Repository::Rom::User::UserRomRepository do
+RSpec.describe Infrastructure::Repository::Rom::User::UserRomRepository do
   let(:fake_relation_class) do
     Class.new do
       attr_accessor :rows, :mapped_class
@@ -40,7 +40,7 @@ RSpec.describe ::Infrastructure::Repository::Rom::User::UserRomRepository do
   end
 
   def build_infra_entity(id: '1', first_name: 'Taro', last_name: 'Yamada', email: 'taro@example.com')
-    ::Infrastructure::Entity::User::UserEntity.new(id: id, first_name: first_name, last_name: last_name, email: email)
+    Infrastructure::Entity::User::UserEntity.new(id: id, first_name: first_name, last_name: last_name, email: email)
   end
 
   def create_repo_instance
@@ -73,7 +73,7 @@ RSpec.describe ::Infrastructure::Repository::Rom::User::UserRomRepository do
     end
 
     it 'maps to domain entities' do
-      expect(result.first).to be_a(::Domain::Entity::User::UserEntity)
+      expect(result.first).to be_a(Domain::Entity::User::UserEntity)
     end
 
     it 'maps id correctly' do
@@ -101,7 +101,7 @@ RSpec.describe ::Infrastructure::Repository::Rom::User::UserRomRepository do
     end
 
     it 'returns infra entity' do
-      expect(result).to be_a(::Infrastructure::Entity::User::UserEntity)
+      expect(result).to be_a(Infrastructure::Entity::User::UserEntity)
     end
 
     it 'has expected first_name' do
@@ -189,7 +189,7 @@ RSpec.describe ::Infrastructure::Repository::Rom::User::UserRomRepository do
     end
 
     it 'returns an infra entity' do
-      expect(result).to be_a(::Infrastructure::Entity::User::UserEntity)
+      expect(result).to be_a(Infrastructure::Entity::User::UserEntity)
     end
 
     it 'returns the matched email' do

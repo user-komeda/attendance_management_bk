@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe ::Domain::Entity::User::UserEntity do
+RSpec.describe Domain::Entity::User::UserEntity do
   def build_entity(first_name: 'Taro', last_name: 'Yamada', email: 'taro@example.com')
     described_class.build(first_name: first_name, last_name: last_name, email: email)
   end
@@ -14,11 +14,11 @@ RSpec.describe ::Domain::Entity::User::UserEntity do
     expect(entity).to be_a(described_class)
     expect(entity.id).to be_nil
 
-    expect(entity.user_name).to be_a(::Domain::ValueObject::User::UserName)
+    expect(entity.user_name).to be_a(Domain::ValueObject::User::UserName)
     expect(entity.user_name.first_name).to eq('Hanako')
     expect(entity.user_name.last_name).to eq('Suzuki')
 
-    expect(entity.email).to be_a(::Domain::ValueObject::User::UserEmail)
+    expect(entity.email).to be_a(Domain::ValueObject::User::UserEmail)
     expect(entity.email.value).to eq('hanako@example.com')
   end
   # rubocop:enable RSpec/MultipleExpectations, RSpec/ExampleLength
@@ -68,14 +68,14 @@ RSpec.describe ::Domain::Entity::User::UserEntity do
 
       expect(entity).to be_a(described_class)
 
-      expect(entity.id).to be_a(::Domain::ValueObject::IdentityId)
+      expect(entity.id).to be_a(Domain::ValueObject::IdentityId)
       expect(entity.id.value).to eq('10')
 
-      expect(entity.user_name).to be_a(::Domain::ValueObject::User::UserName)
+      expect(entity.user_name).to be_a(Domain::ValueObject::User::UserName)
       expect(entity.user_name.first_name).to eq('Ken')
       expect(entity.user_name.last_name).to eq('Tanaka')
 
-      expect(entity.email).to be_a(::Domain::ValueObject::User::UserEmail)
+      expect(entity.email).to be_a(Domain::ValueObject::User::UserEmail)
       expect(entity.email.value).to eq('ken@example.com')
     end
     # rubocop:enable RSpec/MultipleExpectations, RSpec/ExampleLength

@@ -3,16 +3,16 @@
 require 'spec_helper'
 require 'securerandom'
 
-RSpec.describe ::Infrastructure::Entity::User::UserEntity do
+RSpec.describe Infrastructure::Entity::User::UserEntity do
   def build_domain_user(id: nil, first_name: 'Taro', last_name: 'Yamada', email: 'taro@example.com')
-    entity = ::Domain::Entity::User::UserEntity.build(first_name: first_name, last_name: last_name, email: email)
-    entity.id = id.nil? ? nil : ::Domain::ValueObject::IdentityId.build(id)
+    entity = Domain::Entity::User::UserEntity.build(first_name: first_name, last_name: last_name, email: email)
+    entity.id = id.nil? ? nil : Domain::ValueObject::IdentityId.build(id)
     entity
   end
 
   def expect_domain_entity(domain, id:, first_name:, last_name:, email:)
     expect(domain).to(satisfy do |d|
-      d.is_a?(::Domain::Entity::User::UserEntity) &&
+      d.is_a?(Domain::Entity::User::UserEntity) &&
         d.id.value == id &&
         d.user_name.first_name == first_name &&
         d.user_name.last_name == last_name &&

@@ -2,7 +2,7 @@
 
 require_relative '../../../spec_helper'
 
-RSpec.describe ::Application::Dto::User::UpdateUserInputDto do
+RSpec.describe Application::Dto::User::UpdateUserInputDto do
   describe '#initialize' do
     it 'assigns attributes including id' do
       dto = described_class.new(id: 9, first_name: 'New', last_name: 'Name', email: 'new@example.com')
@@ -16,7 +16,7 @@ RSpec.describe ::Application::Dto::User::UpdateUserInputDto do
     end
 
     it 'returns a UserEntity' do
-      expect(entity).to be_a(::Domain::Entity::User::UserEntity)
+      expect(entity).to be_a(Domain::Entity::User::UserEntity)
     end
 
     it 'sets first_name' do

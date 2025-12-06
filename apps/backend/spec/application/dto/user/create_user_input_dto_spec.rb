@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe ::Application::Dto::User::CreateUserInputDto do
+RSpec.describe Application::Dto::User::CreateUserInputDto do
   let(:params) do
     {
       first_name: 'Ken',
@@ -41,7 +41,7 @@ RSpec.describe ::Application::Dto::User::CreateUserInputDto do
     end
 
     it 'returns a UserEntity' do
-      expect(entity).to be_a(::Domain::Entity::User::UserEntity)
+      expect(entity).to be_a(Domain::Entity::User::UserEntity)
     end
 
     it 'sets first_name' do

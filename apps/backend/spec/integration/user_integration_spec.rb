@@ -244,24 +244,4 @@ RSpec.describe 'User API integration', type: :request do
   def unique_email(base = 'user')
     "#{base}-#{SecureRandom.uuid}@example.com"
   end
-
-  def build_resolver; end
-
-  def resolver_mapping; end
-
-  def user_use_case_key(action)
-    Constant::ContainerKey::ApplicationKey::USER_USE_CASE[action].key
-  end
-
-  def service_key(name)
-    Constant::ContainerKey::ServiceKey::SERVICE[name].key
-  end
-
-  def repository_key(name)
-    Constant::ContainerKey::RepositoryKey::REPOSITORY[name].key
-  end
-
-  def domain_repository_key(name)
-    Constant::ContainerKey::DomainRepositoryKey::DOMAIN_REPOSITORY[name].key
-  end
 end

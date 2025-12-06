@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe ::Domain::Repository::User::UserRepository do
+RSpec.describe Domain::Repository::User::UserRepository do
   let(:repo) { described_class.new }
   let(:infra_repo_interface) do
     Class.new do

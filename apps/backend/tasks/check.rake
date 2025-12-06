@@ -8,12 +8,12 @@ namespace :code_quality do
 
   desc 'Run rubycritic code quality check'
   task :quality do
-    sh 'rubycritic --minimum-score 10 --no-browser'
+    sh 'rubycritic --minimum-score 90 --no-browser'
   end
 
   desc 'Run RuboCop lint with auto-correct'
   task :lint do
-    sh 'bundle exec rubocop -a --parallel'
+    sh 'bundle exec rubocop -a --parallel -D'
   end
 
   desc 'Run RBS inline generation and Steep type checking'
