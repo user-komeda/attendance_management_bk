@@ -36,7 +36,7 @@ module Infrastructure
         # @rbs (::Domain::Entity::User::UserEntity entity) -> UserEntity
         def self.build_from_domain_entity(entity)
           new(
-            id: ::UtilMethod.nil_or_empty(entity.id&.value) ? SecureRandom.uuid : entity.id.value,
+            id: ::UtilMethod.nil_or_empty?(entity.id&.value) ? SecureRandom.uuid : entity.id.value,
             first_name: entity.user_name.first_name,
             last_name: entity.user_name.last_name,
             email: entity.email.value

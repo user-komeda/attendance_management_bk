@@ -7,9 +7,9 @@
     "build": "vinxi build",
     "start": "vinxi start",
     "lint": "eslint .",
-    "format": "prettier --write .",
-    "typecheck": "tsc",
-    "check": "concurrently 'yarn typecheck' 'yarn lint' 'yarn format'"
+    "format": "prettier --check .",
+    "typecheck": "tsc --noEmit",
+    "check": "concurrently  'yarn format' 'yarn typecheck' 'yarn lint'"
   },
   "dependencies": {
     "@solidjs/router": "^0.15.0",

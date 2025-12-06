@@ -35,10 +35,10 @@ module Domain
           [first_name, last_name]
         end
 
-        # @rbs (String first_name, String _last_name) -> void
-        def self.validate!(first_name, _last_name)
+        # @rbs (String first_name, String last_name) -> void
+        def self.validate!(first_name, last_name)
           raise ArgumentError, 'First name cannot be nil' if first_name.nil? || first_name.empty?
-          raise ArgumentError, 'Last name cannot be nil' if first_name.nil? || first_name.empty?
+          raise ArgumentError, 'Last name cannot be nil' if last_name.nil? || last_name.empty?
         end
       end
     end

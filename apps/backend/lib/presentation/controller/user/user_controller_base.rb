@@ -27,10 +27,10 @@ module Presentation
         end
 
         # @rbs (Symbol key, *untyped args) -> untyped
-        def invoke_use_case(key, *args)
+        def invoke_use_case(key, *)
           key = USER_USE_CASE[key].key
           invoker = resolve(key)
-          invoker.invoke(*args)
+          invoker.invoke(*)
         end
       end
     end

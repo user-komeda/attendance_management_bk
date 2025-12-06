@@ -4,7 +4,7 @@ require_relative '../../../spec_helper'
 
 RSpec.describe Presentation::Response::User::UserResponse do
   def build_user_dto(id:, first_name:, last_name:, email:)
-    entity = ::Domain::Entity::User::UserEntity.build_with_id(
+    entity = Domain::Entity::User::UserEntity.build_with_id(
       id: id,
       first_name: first_name,
       last_name: last_name,

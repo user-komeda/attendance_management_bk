@@ -2,5 +2,5 @@
 
 module UtilMethod
   # @rbs (untyped object) -> bool
-  def self.nil_or_empty: (untyped object) -> bool
+  def self.nil_or_empty?: (untyped object) -> bool
 end

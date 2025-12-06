@@ -24,8 +24,8 @@ module Domain
         # @rbs () -> Array[String]
         def values: () -> Array[String]
 
-        # @rbs (String first_name, String _last_name) -> void
-        def self.validate!: (String first_name, String _last_name) -> void
+        # @rbs (String first_name, String last_name) -> void
+        def self.validate!: (String first_name, String last_name) -> void
       end
     end
   end

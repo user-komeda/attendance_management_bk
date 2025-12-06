@@ -8,7 +8,9 @@ module Presentation
       class Responder
         # @rbs (response: untyped, payload: ::Presentation::Controller::ControllerPayLoad) -> untyped
         def self.build_responder(response:, payload:)
+          # :nocov:
           raise NotImplementedError
+          # :nocov:
         end
       end
     end

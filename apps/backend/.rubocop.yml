@@ -1,6 +1,7 @@
 ---
 AllCops:
   TargetRubyVersion: 3.4
+  NewCops: enable
 plugins:
   - rubocop-rspec
   - rubocop-rake
@@ -15,4 +16,6 @@ Metrics/CyclomaticComplexity:
 Metrics/BlockLength:
   Max: 30
 Layout/EndOfLine:
+  Enabled: false
+Lint/EmptyClass:
   Enabled: false

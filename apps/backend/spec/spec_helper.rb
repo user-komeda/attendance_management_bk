@@ -7,8 +7,9 @@ require 'rom'
 require 'rackup'
 require 'simplecov'
 SimpleCov.start do
+  enable_coverage :branch
   add_filter do |source_file|
-    source_file.filename.include?('base') # migrationを含むファイルを除外
+    source_file.filename.include?('base') || source_file.filename.include?('spec')
   end
 end
 

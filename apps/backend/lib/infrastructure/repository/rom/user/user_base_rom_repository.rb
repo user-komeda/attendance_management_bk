@@ -9,6 +9,7 @@ module Infrastructure
         class UserBaseRomRepository < ROM::Repository[:users]
           include AutoInject['container']
           include Infrastructure::Repository::Rom::RomRepositoryBase
+
           commands :create, update: :by_pk, delete: :by_pk
 
           # @rbs @container: untyped

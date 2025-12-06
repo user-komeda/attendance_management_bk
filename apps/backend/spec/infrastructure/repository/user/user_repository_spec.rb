@@ -2,19 +2,19 @@
 
 require 'spec_helper'
 
-RSpec.describe ::Infrastructure::Repository::User::UserRepository do
+RSpec.describe Infrastructure::Repository::User::UserRepository do
   let(:repo) { described_class.new }
 
   def build_domain_user(id: 1, first_name: 'Taro', last_name: 'Yamada', email: 'taro@example.com')
-    entity = ::Domain::Entity::User::UserEntity.build(first_name: first_name, last_name: last_name, email: email)
-    entity.id = ::Domain::ValueObject::IdentityId.build(id)
+    entity = Domain::Entity::User::UserEntity.build(first_name: first_name, last_name: last_name, email: email)
+    entity.id = Domain::ValueObject::IdentityId.build(id)
     entity
   end
 
   context 'when getting all users' do
     subject(:result) { repo.get_all }
 
-    let(:rom) { instance_double(::Infrastructure::Repository::Rom::User::UserRomRepository, rom_get_all: []) }
+    let(:rom) { instance_double(Infrastructure::Repository::Rom::User::UserRomRepository, rom_get_all: []) }
 
     before do
       allow(repo).to receive(:resolve).and_return(rom)
@@ -33,14 +33,14 @@ RSpec.describe ::Infrastructure::Repository::User::UserRepository do
     subject(:result) { repo.get_by_id('00000000-0000-0000-0000-000000000001') }
 
     let(:infra_entity) do
-      ::Infrastructure::Entity::User::UserEntity.new(
+      Infrastructure::Entity::User::UserEntity.new(
         id: '00000000-0000-0000-0000-000000000001',
         first_name: 'Hanako',
         last_name: 'Suzuki',
         email: 'hanako@example.com'
       )
     end
-    let(:rom) { instance_double(::Infrastructure::Repository::Rom::User::UserRomRepository) }
+    let(:rom) { instance_double(Infrastructure::Repository::Rom::User::UserRomRepository) }
 
     before do
       allow(rom).to receive(:rom_get_by_id)
@@ -50,7 +50,7 @@ RSpec.describe ::Infrastructure::Repository::User::UserRepository do
     end
 
     it 'returns domain entity' do
-      expect(result).to be_a(::Domain::Entity::User::UserEntity)
+      expect(result).to be_a(Domain::Entity::User::UserEntity)
     end
 
     it 'maps attributes' do
@@ -66,7 +66,7 @@ RSpec.describe ::Infrastructure::Repository::User::UserRepository do
   context 'when not found by id' do
     subject(:result) { repo.get_by_id('00000000-0000-0000-0000-000000000001') }
 
-    let(:rom) { instance_double(::Infrastructure::Repository::Rom::User::UserRomRepository) }
+    let(:rom) { instance_double(Infrastructure::Repository::Rom::User::UserRomRepository) }
 
     before do
       allow(rom).to receive(:rom_get_by_id)
@@ -102,7 +102,7 @@ RSpec.describe ::Infrastructure::Repository::User::UserRepository do
       )
     end
 
-    let(:rom) { instance_double(::Infrastructure::Repository::Rom::User::UserRomRepository) }
+    let(:rom) { instance_double(Infrastructure::Repository::Rom::User::UserRomRepository) }
 
     before do
       allow(rom).to receive(:rom_create)
@@ -112,7 +112,7 @@ RSpec.describe ::Infrastructure::Repository::User::UserRepository do
     end
 
     it 'returns domain entity' do
-      expect(result).to be_a(::Domain::Entity::User::UserEntity)
+      expect(result).to be_a(Domain::Entity::User::UserEntity)
     end
 
     it 'sets first_name' do
@@ -144,7 +144,7 @@ RSpec.describe ::Infrastructure::Repository::User::UserRepository do
         'new@example.com'
       )
     end
-    let(:rom) { instance_double(::Infrastructure::Repository::Rom::User::UserRomRepository) }
+    let(:rom) { instance_double(Infrastructure::Repository::Rom::User::UserRomRepository) }
 
     before do
       allow(rom).to receive(:rom_update).with(instance_of(Infrastructure::Entity::User::UserEntity)).and_return(updated_struct)
@@ -152,7 +152,7 @@ RSpec.describe ::Infrastructure::Repository::User::UserRepository do
     end
 
     it 'returns domain entity' do
-      expect(result).to be_a(::Domain::Entity::User::UserEntity)
+      expect(result).to be_a(Domain::Entity::User::UserEntity)
     end
 
     it 'updates first_name' do
@@ -172,7 +172,7 @@ RSpec.describe ::Infrastructure::Repository::User::UserRepository do
   context 'when finding by email' do
     subject(:find_result) { repo.find_by_email('x@example.com') }
 
-    let(:rom) { instance_double(::Infrastructure::Repository::Rom::User::UserRomRepository) }
+    let(:rom) { instance_double(Infrastructure::Repository::Rom::User::UserRomRepository) }
 
     before do
       allow(rom).to receive(:find_by_email).with('x@example.com').and_return(nil)
