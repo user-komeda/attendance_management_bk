@@ -9,7 +9,7 @@
     "check": "turbo run check"
   },
   "devDependencies": {
-    "lefthook": "2.0.4",
+    "lefthook": "2.0.5",
     "turbo": "2.6.1"
   },
   "packageManager": "yarn@4.12.0"
