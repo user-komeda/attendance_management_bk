@@ -21,11 +21,17 @@ $LOAD_PATH.unshift(File.join(ROOT_DIR, 'helper')) unless $LOAD_PATH.include?(Fil
 
 require File.join(ROOT_DIR, 'config', 'auto_load')
 
+# Rack アプリをプロセス起動時に 1 回だけ組み立てる
+APP = begin
+  result = Rack::Builder.parse_file('config.ru')
+  result.is_a?(Array) ? result.first : result
+end
+
 RSpec.configure do |config|
   config.include Rack::Test::Methods
 end
 
+# Rack::Test が呼ぶエントリポイント
 def app
-  result = Rack::Builder.parse_file('config.ru')
-  result.is_a?(Array) ? result.first : result
+  APP
 end

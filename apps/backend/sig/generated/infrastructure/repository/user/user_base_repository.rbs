@@ -3,11 +3,11 @@
 module Infrastructure
   module Repository
     module User
-      class UserBaseRepository
-        include Infrastructure::Repository::RepositoryBase
+      class UserBaseRepository < RepositoryBase
+        # @rbs ROM_REPOSITORY_KEY: String
+        ROM_REPOSITORY_KEY: untyped
 
-        KEY: untyped
-
+        # @rbs USER_ENTITY: ::Infrastructure::Entity::User::UserEntity
         USER_ENTITY: untyped
       end
     end

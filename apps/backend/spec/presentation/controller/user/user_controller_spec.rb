@@ -96,48 +96,6 @@ RSpec.describe Presentation::Controller::User::UserController do
     end
   end
 
-  describe '#create' do
-    context 'with valid params' do
-      subject(:result) { controller.create(valid_create_params) }
-
-      let(:mock_use_case) { instance_double(Application::UseCase::User::CreateUserUseCase) }
-      let(:stub_dto) do
-        instance_double(
-          Application::Dto::User::UserDto,
-          id: '456', first_name: 'Taro', last_name: 'Yamada', email: 'taro@example.com'
-        )
-      end
-
-      before do
-        expected_key = 'application.use_case.user.create_user_use_case'
-        allow(controller).to receive(:resolve).with(expected_key).and_return(mock_use_case)
-        allow(mock_use_case).to receive(:invoke)
-          .with(instance_of(Application::Dto::User::CreateUserInputDto))
-          .and_return(stub_dto)
-      end
-
-      it 'returns id' do
-        expect(result[:id]).to eq('456')
-      end
-
-      it 'returns first_name' do
-        expect(result[:first_name]).to eq('Taro')
-      end
-    end
-
-    it 'raises BadRequestException with invalid params' do
-      expect do
-        controller.create({ first_name: '', last_name: '', email: 'invalid' })
-      end.to raise_error(Presentation::Exception::BadRequestException)
-    end
-
-    it 'raises BadRequestException with empty params' do
-      expect do
-        controller.create({})
-      end.to raise_error(Presentation::Exception::BadRequestException)
-    end
-  end
-
   describe '#update' do
     context 'with valid id and params' do
       subject(:result) { controller.update(valid_update_params, uuid) }

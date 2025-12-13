@@ -9,6 +9,8 @@ module RouteHelper
   # @rbs (Hash[Symbol, untyped] route) -> void
   def route_resources: (Hash[Symbol, untyped] route) -> void
 
+  def route_path: (untyped route) -> untyped
+
   # @rbs (untyped request) -> Hash[Symbol, untyped]
   def parse_params: (untyped request) -> Hash[Symbol, untyped]
 end

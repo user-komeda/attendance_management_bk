@@ -16,3 +16,4 @@ node_modules
 #!.yarn/cache
 .pnp.*
 .turbo/*
+/.junie_rake_log.txt

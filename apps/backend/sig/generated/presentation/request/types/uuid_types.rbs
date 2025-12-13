@@ -2,8 +2,8 @@
 
 module Presentation
   module Request
-    module Contract
-      module UUIDTypes
+    module Types
+      module UuidTypes
         # @rbs UUID: untyped
         UUID: untyped
       end

@@ -21,7 +21,14 @@ module ROM
     def wrap: (*Symbol) -> Relation
     def group: (*Symbol) -> Relation
     def each: () { (untyped) -> void } -> void
+    # Returns a command object (e.g., :create) which responds to `call`
+    def command: (Symbol) -> untyped
 
     def self.schema: (Symbol, ?infer: bool) ?{ () -> void } -> void
+
+    # ROM associations DSL used inside relation schema blocks
+    def self.associations: () { () -> void } -> void
+    def self.belongs_to: (Symbol) -> void
+    def self.has_one: (Symbol) -> void
   end
 end

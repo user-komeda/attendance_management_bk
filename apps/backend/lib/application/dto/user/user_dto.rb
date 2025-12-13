@@ -6,11 +6,7 @@ module Application
   module Dto
     module User
       class UserDto < Application::Dto::BaseDto
-        # @rbs @id: String?
-        # @rbs @first_name: String
-        # @rbs @last_name: String
-        # @rbs @email: String
-        attr_reader :id, :first_name, :last_name, :email
+        attr_reader :id, :first_name, :last_name, :email # : String
 
         private_class_method :new
 

@@ -1,0 +1,62 @@
+module Infrastructure
+  module Repository
+    module Rom
+      module User
+        class UserBaseRomRepository < ::ROM::Repository
+          # class-level commands macro
+          def self.commands: (*Symbol | Hash[Symbol, Symbol]) -> void
+
+          # relation accessor for this repository
+          def users: () -> ::ROM::Relation
+
+          # common command instance methods available after `commands` macro
+          def create: (untyped) -> untyped
+          def update: (untyped, untyped) -> untyped
+          def delete: (untyped) -> untyped
+        end
+      end
+    end
+  end
+end
+
+module Infrastructure
+  module Repository
+    module Rom
+      module User
+        class UserBaseRomRepository < ::ROM::Repository
+          # class-level commands macro
+          def self.commands: (*Symbol | Hash[Symbol, Symbol]) -> void
+
+          # relation accessor for this repository
+          def users: () -> ::ROM::Relation
+
+          # common command instance methods available after `commands` macro
+          def create: (untyped) -> untyped
+          def update: (untyped, untyped) -> untyped
+          def delete: (untyped) -> untyped
+        end
+      end
+    end
+  end
+end
+
+module Infrastructure
+  module Repository
+    module Rom
+      module User
+        class UserBaseRomRepository < ::ROM::Repository
+          # class-level commands macro (inherited from ROM::repository but declared here for clarity)
+          def self.commands: (*Symbol | Hash[Symbol, Symbol]) -> void
+
+          # relation accessor for this repository
+          def users: () -> ::ROM::Relation
+
+          # common command instance methods available after `commands` macro
+          def create: (untyped) -> untyped
+          def update: (untyped, untyped) -> untyped
+          def delete: (untyped) -> untyped
+        end
+      end
+    end
+  end
+end

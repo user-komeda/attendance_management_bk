@@ -1,0 +1,58 @@
+post:
+  tags: [auth]
+  summary: サインアップ（ユーザー登録）
+  description: |-
+    新規ユーザーを登録します。POST + JSON で受け付けます。
+  operationId: signup
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required: [first_name, last_name, email, password]
+          properties:
+            first_name:
+              type: string
+              minLength: 1
+              description: 名
+            last_name:
+              type: string
+              minLength: 1
+              description: 姓
+            email:
+              type: string
+              format: email
+              description: メールアドレス
+            password:
+              type: string
+              minLength: 6
+              description: パスワード（平文）
+  responses:
+    "200":
+      description: 登録が成功しました
+      content:
+        application/json:
+          schema:
+            type: object
+            required: [user_id]
+            properties:
+              user_id:
+                type: string
+                format: uuid
+          examples:
+            success:
+              value:
+                user_id: "00000000-0000-0000-0000-000000000000"
+    "400":
+      description: リクエスト内容が不正です
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas/Error.yaml'
+    default:
+      description: サーバー内部エラー
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas/Error.yaml'

@@ -10,10 +10,7 @@ module Domain
         UN = ::Domain::ValueObject::User::UserName.freeze
         UE = ::Domain::ValueObject::User::UserEmail.freeze
 
-        # @rbs @id: ::Domain::ValueObject::IdentityId?
-        # @rbs @user_name: ::Domain::ValueObject::User::UserName
-        # @rbs @email: ::Domain::ValueObject::User::UserEmail
-        attr_accessor :id, :user_name, :email
+        attr_reader :id, :user_name, :email # : ::Domain::ValueObject::IdentityId # : ::Domain::ValueObject::User::UserName # :::Domain::ValueObject::User::UserEmail
 
         # rubocop:disable Layout/LineLength
         # @rbs (user_name: ::Domain::ValueObject::User::UserName, email: ::Domain::ValueObject::User::UserEmail, ?id: ::Domain::ValueObject::IdentityId?) -> void
@@ -24,7 +21,6 @@ module Domain
           @email = email
         end
 
-        # rubocop:disable Metrics/AbcSize
         # @rbs (first_name: String?, last_name: String?, email: String?) -> void
         def change(first_name:, last_name:, email:)
           if UtilMethod.nil_or_empty?(first_name) &&
@@ -42,11 +38,9 @@ module Domain
           # @type var new_email: String
           new_email = UtilMethod.nil_or_empty?(email) ? self.email.value : email
 
-          self.user_name = ::Domain::ValueObject::User::UserName.build(new_first_name, new_last_name)
-          self.email = ::Domain::ValueObject::User::UserEmail.build(new_email)
+          @user_name = ::Domain::ValueObject::User::UserName.build(new_first_name, new_last_name)
+          @email = ::Domain::ValueObject::User::UserEmail.build(new_email)
         end
-
-        # rubocop:enable Metrics/AbcSize
 
         # @rbs (first_name: String, last_name: String, email: String) -> UserEntity
         def self.build(first_name:, last_name:, email:)
@@ -63,6 +57,18 @@ module Domain
             user_name: UN.build(first_name, last_name),
             email: UE.build(email)
           )
+        end
+
+        # @rbs (user: Domain::Entity::User::UserEntity, auth_user: Domain::Entity::Auth::AuthUserEntity) -> {user_name: Domain::ValueObject::User::UserName, email: Domain::ValueObject::User::UserEmail, auth_user:{email: Domain::ValueObject::User::UserEmail, password_digest: Domain::ValueObject::AuthUser::PasswordDigest}}
+        def self.build_with_auth_user(user:, auth_user:)
+          {
+            user_name: user.user_name,
+            email: user.email,
+            auth_user: {
+              email: auth_user.email,
+              password_digest: auth_user.password_digest
+            }
+          }
         end
       end
     end

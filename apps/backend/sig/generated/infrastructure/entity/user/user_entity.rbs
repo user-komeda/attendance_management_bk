@@ -15,11 +15,18 @@ module Infrastructure
         # @rbs () -> ::Domain::Entity::User::UserEntity
         def to_domain: () -> ::Domain::Entity::User::UserEntity
 
+        def to_domain_with_auth_user: () -> untyped
+
         # @rbs (untyped struct) -> ::Domain::Entity::User::UserEntity
         def self.struct_to_domain: (untyped struct) -> ::Domain::Entity::User::UserEntity
 
+        # @rbs (untyped struct) -> {user_entity: Domain::Entity::User::UserEntity, auth_user_entity: Domain::Entity::Auth::AuthUserEntity}
+        def self.struct_to_domain_with_auth_user: (untyped struct) -> { user_entity: Domain::Entity::User::UserEntity, auth_user_entity: Domain::Entity::Auth::AuthUserEntity }
+
         # @rbs (::Domain::Entity::User::UserEntity entity) -> UserEntity
         def self.build_from_domain_entity: (::Domain::Entity::User::UserEntity entity) -> UserEntity
+
+        def self.build_with_auth_user: (untyped attrs) -> untyped
       end
     end
   end

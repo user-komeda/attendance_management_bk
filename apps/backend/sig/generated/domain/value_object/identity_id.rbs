@@ -3,20 +3,21 @@
 module Domain
   module ValueObject
     class IdentityId < BaseValueObject
-      # @rbs @value: String
+      # @rbs!
+      #   attr_reader value: String
       attr_reader value: untyped
 
       # @rbs (String args) -> void
       def initialize: (String args) -> void
 
-      # @rbs (String args) -> IdentityId
-      def self.build: (String args) -> IdentityId
+      # @rbs (String value) -> IdentityId
+      def self.build: (String value) -> IdentityId
 
       # @rbs () -> Array[String]
       def values: () -> Array[String]
 
-      # @rbs (String args) -> void
-      def self.validate!: (String args) -> void
+      # @rbs (String value) -> void
+      private def self.validate!: (String value) -> void
     end
   end
 end
