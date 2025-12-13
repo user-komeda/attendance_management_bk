@@ -1,0 +1,13 @@
+# Generated from lib/domain/service/auth/auth_base_service.rb with RBS::Inline
+
+# frozen_string_literal: true
+# rbs_inline: enabled
+module Domain
+  module Service
+    module Auth
+      class AuthBaseService < BaseService
+        REPOSITORY_KEY: untyped
+      end
+    end
+  end
+end

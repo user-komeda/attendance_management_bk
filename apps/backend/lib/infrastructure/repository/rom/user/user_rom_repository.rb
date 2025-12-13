@@ -8,7 +8,6 @@ module Infrastructure
     module Rom
       module User
         class UserRomRepository < UserBaseRomRepository
-          # @rbs () -> Array[::Domain::Entity::User::UserEntity]
           def rom_get_all
             users.map_to(::Infrastructure::Entity::User::UserEntity).to_a.map(&:to_domain)
           end
@@ -28,9 +27,11 @@ module Infrastructure
             update(entity.id, entity.to_h.slice(:first_name, :last_name, :email))
           end
 
-          # @rbs (String email) -> ::Infrastructure::Entity::User::UserEntity?
-          def find_by_email(email)
-            users.map_to(Infrastructure::Entity::User::UserEntity).by_email(email).first
+          def create_with_auth_user(attrs)
+            users
+              .combine(:auth_users)
+              .command(:create)
+              .call(attrs)
           end
         end
       end

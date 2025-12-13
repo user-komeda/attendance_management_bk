@@ -1,0 +1,23 @@
+# Generated from lib/presentation/response/auth/auth_response.rb with RBS::Inline
+
+# rbs_inline: enabled
+module Presentation
+  module Response
+    module Auth
+      class AuthResponse < Presentation::Response::BaseResponse
+        attr_reader id: String
+
+        attr_reader user_id: String
+
+        # @rbs (id: String, user_id: String) -> void
+        def initialize: (id: String, user_id: String) -> void
+
+        # @rbs (id: String, user_id: String) -> Hash[Symbol, String]
+        def self.build: (id: String, user_id: String) -> Hash[Symbol, String]
+
+        # @rbs () -> {id: String, user_id: String }
+        def to_h: () -> { id: String, user_id: String }
+      end
+    end
+  end
+end

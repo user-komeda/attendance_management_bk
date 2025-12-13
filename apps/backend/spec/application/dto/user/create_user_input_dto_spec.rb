@@ -29,6 +29,8 @@ RSpec.describe Application::Dto::User::CreateUserInputDto do
 
   describe '#convert_to_entity' do
     subject(:entity) do
+      p Domain::Entity::User::UserEntity.instance_method(:initialize).source_location
+
       described_class.new(params).convert_to_entity
     end
 

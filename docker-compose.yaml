@@ -32,7 +32,26 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql
+  redis:
+    image: redis:7.2
+    container_name: redis
+    profiles:
+      - db
+    command: >
+      redis-server
+      --appendonly yes
+      --appendfsync everysec
+      --maxmemory 256mb
+      --maxmemory-policy allkeys-lru
+      --protected-mode yes
+      --requirepass password
+    volumes:
+      - redis-data:/data
+    ports:
+      - "6379:6379"
+    restart: always
 
 volumes:
   postgres_data:
+  redis-data:

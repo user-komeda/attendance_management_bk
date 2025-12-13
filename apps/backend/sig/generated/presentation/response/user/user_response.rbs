@@ -4,29 +4,13 @@ module Presentation
   module Response
     module User
       class UserResponse < Presentation::Response::BaseResponse
-        # @rbs @id: String
-        # @rbs @first_name: String
-        # @rbs @last_name: String
-        # @rbs @email: String
-        attr_reader id: untyped
+        attr_reader id: String
 
-        # @rbs @id: String
-        # @rbs @first_name: String
-        # @rbs @last_name: String
-        # @rbs @email: String
-        attr_reader first_name: untyped
+        attr_reader first_name: String
 
-        # @rbs @id: String
-        # @rbs @first_name: String
-        # @rbs @last_name: String
-        # @rbs @email: String
-        attr_reader last_name: untyped
+        attr_reader last_name: String
 
-        # @rbs @id: String
-        # @rbs @first_name: String
-        # @rbs @last_name: String
-        # @rbs @email: String
-        attr_reader email: untyped
+        attr_reader email: String
 
         # @rbs (id: String, first_name: String, last_name: String, email: String) -> void
         def initialize: (id: String, first_name: String, last_name: String, email: String) -> void

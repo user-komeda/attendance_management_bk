@@ -6,7 +6,7 @@ module Domain
   module Repository
     module User
       class UserRepositoryBase < Domain::Repository::BaseRepository
-        KEY = Constant::ContainerKey::RepositoryKey::REPOSITORY[:user].key.freeze
+        REPOSITORY_KEY = Constant::ContainerKey::RepositoryKey::USER_REPOSITORY[:user].key.freeze
       end
     end
   end

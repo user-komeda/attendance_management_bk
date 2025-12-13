@@ -1,0 +1,10 @@
+# Generated from lib/application/use_case/auth/signin_use_case.rb with RBS::Inline
+
+module Application
+  module UseCase
+    module Auth
+      class SigninUseCase
+      end
+    end
+  end
+end

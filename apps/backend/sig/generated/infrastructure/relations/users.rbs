@@ -1,5 +1,6 @@
 # Generated from lib/infrastructure/relations/users.rb with RBS::Inline
 
+# rbs_inline: enabled
 module Infrastructure
   module Relations
     class Users

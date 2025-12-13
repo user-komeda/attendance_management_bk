@@ -30,9 +30,13 @@ module Domain
         raise NotImplementedError, 'Subclasses must implement #values'
       end
 
-      # @rbs (*untyped args) -> void
-      def self.validate!(*args)
-        raise NotImplementedError, 'Subclasses must implement .validate!'
+      class << self
+        private
+
+        # @rbs (untyped value) -> void
+        def validate!(value)
+          raise NotImplementedError, 'Subclasses must implement .validate!'
+        end
       end
     end
   end

@@ -1,0 +1,24 @@
+# Generated from lib/presentation/controller/auth/auth_controller_base.rb with RBS::Inline
+
+module Presentation
+  module Controller
+    module Auth
+      class AuthControllerBase < ControllerBase
+        AUTH_USE_CASE: untyped
+
+        AUTH_RESPONSE: untyped
+
+        BASE_REQUEST: untyped
+
+        # SIGNIN_REQUEST = ::Presentation::Request::Auth::SigninRequest.freeze
+        SIGNUP_REQUEST: untyped
+
+        # @rbs (Hash[Symbol, untyped] request_payload, untyped request_class) -> ::Presentation::Request::Auth::AuthBaseRequest
+        def build_request: (Hash[Symbol, untyped] request_payload, untyped request_class) -> ::Presentation::Request::Auth::AuthBaseRequest
+
+        # @rbs (Symbol key, *untyped args) -> untyped
+        def invoke_use_case: (Symbol key, *untyped args) -> untyped
+      end
+    end
+  end
+end

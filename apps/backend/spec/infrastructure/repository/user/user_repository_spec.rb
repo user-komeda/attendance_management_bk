@@ -5,10 +5,13 @@ require 'spec_helper'
 RSpec.describe Infrastructure::Repository::User::UserRepository do
   let(:repo) { described_class.new }
 
-  def build_domain_user(id: 1, first_name: 'Taro', last_name: 'Yamada', email: 'taro@example.com')
-    entity = Domain::Entity::User::UserEntity.build(first_name: first_name, last_name: last_name, email: email)
-    entity.id = Domain::ValueObject::IdentityId.build(id)
-    entity
+  def build_domain_user(id:, first_name:, last_name:, email:)
+    Domain::Entity::User::UserEntity.build_with_id(
+      id: id,
+      first_name: first_name,
+      last_name: last_name,
+      email: email
+    )
   end
 
   context 'when getting all users' do

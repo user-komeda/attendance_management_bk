@@ -1,17 +1,11 @@
+# Generated from lib/infrastructure/repository/rom/user/user_base_rom_repository.rb with RBS::Inline
 
 module Infrastructure
   module Repository
     module Rom
       module User
-        class UserBaseRomRepository < ROM::Repository
+        class UserBaseRomRepository
           include Infrastructure::Repository::Rom::RomRepositoryBase
-
-          @container: untyped
-
-          def users: () -> ROM::Relation
-          def create: (untyped) -> untyped
-          def update: (untyped, untyped) -> untyped
-          def delete: (untyped) -> untyped
         end
       end
     end

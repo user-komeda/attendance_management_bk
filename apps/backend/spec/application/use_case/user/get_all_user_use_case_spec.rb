@@ -6,9 +6,12 @@ RSpec.describe Application::UseCase::User::GetAllUserUseCase do
   let(:use_case) { described_class.new }
 
   def build_user(id:, first_name:, last_name:, email:)
-    entity = Domain::Entity::User::UserEntity.build(first_name: first_name, last_name: last_name, email: email)
-    entity.id = Domain::ValueObject::IdentityId.build(id)
-    entity
+    Domain::Entity::User::UserEntity.build_with_id(
+      id: id,
+      first_name: first_name,
+      last_name: last_name,
+      email: email
+    )
   end
 
   it 'returns empty array when no users' do
@@ -23,8 +26,8 @@ RSpec.describe Application::UseCase::User::GetAllUserUseCase do
   context 'when users exist' do
     subject(:result) { use_case.invoke }
 
-    let(:taro) { build_user(id: 1, first_name: 'Taro', last_name: 'Yamada', email: 'taro@example.com') }
-    let(:hanako) { build_user(id: 2, first_name: 'Hanako', last_name: 'Suzuki', email: 'hanako@example.com') }
+    let(:taro) { build_user(id: '1', first_name: 'Taro', last_name: 'Yamada', email: 'taro@example.com') }
+    let(:hanako) { build_user(id: '2', first_name: 'Hanako', last_name: 'Suzuki', email: 'hanako@example.com') }
     let(:fake_repo) { instance_double(Domain::Repository::User::UserRepository) }
 
     before do
@@ -34,8 +37,8 @@ RSpec.describe Application::UseCase::User::GetAllUserUseCase do
 
     it 'returns user dto list' do
       expect(result).to contain_exactly(
-        have_attributes(id: 1, first_name: 'Taro', last_name: 'Yamada', email: 'taro@example.com'),
-        have_attributes(id: 2, first_name: 'Hanako', last_name: 'Suzuki', email: 'hanako@example.com')
+        have_attributes(id: '1', first_name: 'Taro', last_name: 'Yamada', email: 'taro@example.com'),
+        have_attributes(id: '2', first_name: 'Hanako', last_name: 'Suzuki', email: 'hanako@example.com')
       )
     end
   end

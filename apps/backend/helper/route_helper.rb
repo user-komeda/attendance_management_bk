@@ -46,6 +46,18 @@ module RouteHelper
     end
   end
 
+  def route_path(route)
+    method = route[:http_method]
+    path = route[:path]
+    controller = route[:controller]
+    action = route[:action]
+
+    result = send(method, path) do
+      result = controller.new.public_send(action, parse_params(request))
+      respond_with_data(status_code: 201, id: result[:id], data: result)
+    end
+  end
+
   # @rbs (untyped request) -> Hash[Symbol, untyped]
   def parse_params(request)
     begin

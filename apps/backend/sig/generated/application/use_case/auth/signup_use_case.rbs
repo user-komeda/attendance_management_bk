@@ -1,0 +1,26 @@
+# Generated from lib/application/use_case/auth/signup_use_case.rb with RBS::Inline
+
+module Application
+  module UseCase
+    module Auth
+      class SignupUseCase < AuthBaseUseCase
+        # @rbs (::Application::Dto::Auth::SignupInputDto input_dto) -> ::Application::Dto::Auth::AuthOutputDto
+        def invoke: (::Application::Dto::Auth::SignupInputDto input_dto) -> ::Application::Dto::Auth::AuthOutputDto
+
+        private
+
+        # @rbs (::Application::Dto::Auth::SignupInputDto input_dto) -> untyped
+        def check_duplicate!: (::Application::Dto::Auth::SignupInputDto input_dto) -> untyped
+
+        # @rbs (::Application::Dto::Auth::SignupInputDto input_dto) -> {user_entity: Domain::Entity::User::UserEntity, auth_user_entity: Domain::Entity::Auth::AuthUserEntity}
+        def build_entities: (::Application::Dto::Auth::SignupInputDto input_dto) -> { user_entity: Domain::Entity::User::UserEntity, auth_user_entity: Domain::Entity::Auth::AuthUserEntity }
+
+        # @rbs (user_entity: Domain::Entity::User::UserEntity, auth_user_entity: Domain::Entity::Auth::AuthUserEntity) -> {user_entity: Domain::Entity::User::UserEntity, auth_user_entity: Domain::Entity::Auth::AuthUserEntity}
+        def persist: (user_entity: Domain::Entity::User::UserEntity, auth_user_entity: Domain::Entity::Auth::AuthUserEntity) -> { user_entity: Domain::Entity::User::UserEntity, auth_user_entity: Domain::Entity::Auth::AuthUserEntity }
+
+        # @rbs ({user_entity: Domain::Entity::User::UserEntity, auth_user_entity: Domain::Entity::Auth::AuthUserEntity}) ->Application::Dto::Auth::AuthOutputDto
+        def build_output_dto: ({ user_entity: Domain::Entity::User::UserEntity, auth_user_entity: Domain::Entity::Auth::AuthUserEntity }) -> Application::Dto::Auth::AuthOutputDto
+      end
+    end
+  end
+end

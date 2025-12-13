@@ -4,7 +4,7 @@ module Domain
   module Repository
     module User
       class UserRepositoryBase < Domain::Repository::BaseRepository
-        KEY: untyped
+        REPOSITORY_KEY: untyped
       end
     end
   end

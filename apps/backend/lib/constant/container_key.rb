@@ -22,15 +22,32 @@ module Constant
           key: 'application.use_case.user.update_user_use_case'
         )
       }.freeze
+
+      # @rbs USER_USE_CASE: Hash[Symbol, UseCase]
+      AUTH_USE_CASE = {
+        signin: UseCase.new(
+          key: 'application.use_case.auth.signin_use_case'
+        ),
+        signup: UseCase.new(
+          key: 'application.use_case.auth.signup_use_case'
+        )
+      }.freeze
     end
 
     module ServiceKey
       Service = Struct.new(:key, keyword_init: true)
 
       # @rbs SERVICE: Hash[Symbol, Service]
-      SERVICE = {
+      USER_SERVICE = {
         user: Service.new(
           key: 'domain.service.user.user_service'
+        )
+      }.freeze
+
+      # @rbs SERVICE: Hash[Symbol, Service]
+      AUTH_SERVICE = {
+        auth: Service.new(
+          key: 'domain.service.auth.auth_service'
         )
       }.freeze
     end
@@ -39,9 +56,16 @@ module Constant
       DomainRepository = Struct.new(:key, keyword_init: true)
 
       # @rbs DOMAIN_REPOSITORY: Hash[Symbol, DomainRepository]
-      DOMAIN_REPOSITORY = {
+      USER_DOMAIN_REPOSITORY = {
         user: DomainRepository.new(
           key: 'domain.repository.user.user_repository'
+        )
+      }.freeze
+
+      # @rbs DOMAIN_REPOSITORY: Hash[Symbol, DomainRepository]
+      AUTH_DOMAIN_REPOSITORY = {
+        auth: DomainRepository.new(
+          key: 'domain.repository.auth.auth_repository'
         )
       }.freeze
     end
@@ -49,10 +73,17 @@ module Constant
     module RepositoryKey
       Repository = Struct.new(:key, keyword_init: true)
 
-      # @rbs REPOSITORY: Hash[Symbol, Repository]
-      REPOSITORY = {
+      # @rbs REPOSITORY: Hash[Symbol, repository]
+      USER_REPOSITORY = {
         user: Repository.new(
           key: 'infrastructure.repository.user.user_repository'
+        )
+      }.freeze
+
+      # @rbs REPOSITORY: Hash[Symbol, repository]
+      AUTH_REPOSITORY = {
+        auth: Repository.new(
+          key: 'infrastructure.repository.auth.auth_repository'
         )
       }.freeze
     end
@@ -61,9 +92,16 @@ module Constant
       RomRepository = Struct.new(:key, keyword_init: true)
 
       # @rbs ROM_REPOSITORY: Hash[Symbol, RomRepository]
-      ROM_REPOSITORY = {
+      USER_ROM_REPOSITORY = {
         user: RomRepository.new(
           key: 'infrastructure.repository.rom.user.user_rom_repository'
+        )
+      }.freeze
+
+      # @rbs ROM_REPOSITORY: Hash[Symbol, RomRepository]
+      AUTH_ROM_REPOSITORY = {
+        auth: RomRepository.new(
+          key: 'infrastructure.repository.rom.auth.auth_rom_repository'
         )
       }.freeze
     end

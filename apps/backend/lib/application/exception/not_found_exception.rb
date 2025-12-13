@@ -8,8 +8,7 @@ module Application
       # @rbs (message: String) -> void
       def initialize(message:)
         super(message: message,
-              error_code: Constant::Errors::Codes::NOT_FOUND,
-              status_code: Constant::Errors::Status::MAP[Constant::Errors::Codes::NOT_FOUND])
+              error_code: Constant::Errors::Codes::NOT_FOUND)
       end
     end
   end

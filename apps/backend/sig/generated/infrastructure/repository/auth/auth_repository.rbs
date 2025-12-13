@@ -1,0 +1,11 @@
+# Generated from lib/infrastructure/repository/auth/auth_repository.rb with RBS::Inline
+
+module Infrastructure
+  module Repository
+    module Auth
+      class AuthRepository < AuthBaseRepository
+        def find_by_email: (untyped email) -> untyped
+      end
+    end
+  end
+end

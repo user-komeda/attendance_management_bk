@@ -2,5 +2,14 @@ module ROM
   module Types
     # Placeholder for ROM::Types::String
     String: untyped
+    # Placeholder for ROM::Types::Bool
+    Bool: untyped
+  end
+
+  module SQL
+    module Types
+      # Placeholder for ROM::SQL::Types::DateTime
+      DateTime: untyped
+    end
   end
 end

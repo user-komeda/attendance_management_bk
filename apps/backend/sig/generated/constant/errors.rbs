@@ -14,6 +14,8 @@ module Constant
 
       # @rbs ALREADY_DELETED: Symbol
       ALREADY_DELETED: ::Symbol
+
+      INVALID_PASSWORD: ::Symbol
     end
 
     module Status

@@ -1,0 +1,29 @@
+# Generated from lib/infrastructure/entity/auth/auth_user_entity.rb with RBS::Inline
+
+module Infrastructure
+  module Entity
+    module Auth
+      class AuthUserEntity < BaseEntity
+        attr_reader id: String
+
+        attr_reader user_id: String
+
+        attr_reader email: String
+
+        attr_reader provider: String
+
+        attr_reader password_digest: String
+
+        attr_reader last_login_at: Time?
+
+        attr_reader is_active: bool
+
+        # @rbs () -> ::Domain::Entity::Auth::AuthUserEntity
+        def to_domain: () -> ::Domain::Entity::Auth::AuthUserEntity
+
+        # @rbs (untyped struct) -> ::Domain::Entity::Auth::AuthUserEntity
+        def self.struct_to_domain: (untyped struct) -> ::Domain::Entity::Auth::AuthUserEntity
+      end
+    end
+  end
+end

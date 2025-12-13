@@ -21,6 +21,9 @@ module Domain
 
         # @rbs (String email) -> ::Infrastructure::Entity::User::UserEntity?
         def find_by_email: (String email) -> ::Infrastructure::Entity::User::UserEntity?
+
+        # @rbs ({user: Domain::Entity::User::UserEntity, auth_user: Domain::Entity::Auth::AuthUserEntity}) -> {user_entity: Domain::Entity::User::UserEntity, auth_user_entity: Domain::Entity::Auth::AuthUserEntity}
+        def create_with_auth_user: ({ user: Domain::Entity::User::UserEntity, auth_user: Domain::Entity::Auth::AuthUserEntity }) -> { user_entity: Domain::Entity::User::UserEntity, auth_user_entity: Domain::Entity::Auth::AuthUserEntity }
       end
     end
   end

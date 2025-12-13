@@ -18,12 +18,20 @@ class Main < Sinatra::Base
   end
   # :nocov:
   # :nocov:
-  get '/openapi.yaml' do
+  get '/openapi/*' do
+    relative_path = params['splat'].first
+    file_path = File.expand_path(File.join('openApi', relative_path))
+
+    halt 404, "Not Found: #{file_path}" unless File.exist?(file_path)
+
     content_type 'application/yaml'
-    send_file File.join('openApi', 'openapi.yaml')
+    send_file file_path
   end
   # :nocov:
 
+  Root::CUSTOM_ROUTE_CONFIG.each do |route|
+    route_path(route)
+  end
   Root::ROUTE_CONFIG.each do |route|
     route_resources(route)
   end

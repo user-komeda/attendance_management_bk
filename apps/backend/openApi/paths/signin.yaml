@@ -1,0 +1,56 @@
+post:
+  tags: [auth]
+  summary: サインイン（ログイン）
+  description: |-
+    既存ユーザーのサインインを行います。POST + JSON で受け付けます。
+  operationId: signin
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required: [email, password]
+          properties:
+            email:
+              type: string
+              format: email
+              description: メールアドレス
+            password:
+              type: string
+              minLength: 6
+              description: パスワード（平文）
+  responses:
+    "200":
+      description: サインインに成功しました
+      content:
+        application/json:
+          schema:
+            type: object
+            required: [user_id]
+            properties:
+              user_id:
+                type: string
+                format: uuid
+          examples:
+            success:
+              value:
+                user_id: "00000000-0000-0000-0000-000000000000"
+    "400":
+      description: リクエスト内容が不正です
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas/Error.yaml'
+    "401":
+      description: 認証に失敗しました（メールまたはパスワードが不正）
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas/Error.yaml'
+    default:
+      description: サーバー内部エラー
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas/Error.yaml'

@@ -4,7 +4,7 @@
 
 module Infrastructure
   module Repository
-    module RepositoryBase
+    class RepositoryBase
       include ContainerHelper
 
       # @rbs () -> Array[::Domain::Entity::DomainEntity]

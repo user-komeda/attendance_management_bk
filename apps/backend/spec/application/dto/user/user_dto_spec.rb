@@ -4,16 +4,19 @@ require 'spec_helper'
 
 RSpec.describe Application::Dto::User::UserDto do
   def build_user(id:, first_name:, last_name:, email:)
-    entity = Domain::Entity::User::UserEntity.build(first_name: first_name, last_name: last_name, email: email)
-    entity.id = Domain::ValueObject::IdentityId.build(id)
-    entity
+    Domain::Entity::User::UserEntity.build_with_id(
+      id: id,
+      first_name: first_name,
+      last_name: last_name,
+      email: email
+    )
   end
 
   describe '.build' do
     it 'maps fields from entity' do
-      user = build_user(id: 42, first_name: 'Taro', last_name: 'Yamada', email: 'taro@example.com')
+      user = build_user(id: '42', first_name: 'Taro', last_name: 'Yamada', email: 'taro@example.com')
       dto = described_class.build(user)
-      expect(dto).to have_attributes(id: 42, first_name: 'Taro', last_name: 'Yamada', email: 'taro@example.com')
+      expect(dto).to have_attributes(id: '42', first_name: 'Taro', last_name: 'Yamada', email: 'taro@example.com')
     end
   end
 
@@ -24,8 +27,8 @@ RSpec.describe Application::Dto::User::UserDto do
     end
 
     context 'with multiple entities' do
-      let(:first_user) { build_user(id: 1, first_name: 'Hanako', last_name: 'Suzuki', email: 'hanako@example.com') }
-      let(:second_user) { build_user(id: 2, first_name: 'Jiro', last_name: 'Sato', email: 'jiro@example.com') }
+      let(:first_user) { build_user(id: '1', first_name: 'Hanako', last_name: 'Suzuki', email: 'hanako@example.com') }
+      let(:second_user) { build_user(id: '2', first_name: 'Jiro', last_name: 'Sato', email: 'jiro@example.com') }
       let(:result) { described_class.build_from_array([first_user, second_user]) }
 
       it 'returns two results' do
@@ -37,7 +40,7 @@ RSpec.describe Application::Dto::User::UserDto do
       end
 
       it 'sets first dto id' do
-        expect(result.first.id).to eq(1)
+        expect(result.first.id).to eq('1')
       end
 
       it 'sets first dto first_name' do
@@ -53,7 +56,7 @@ RSpec.describe Application::Dto::User::UserDto do
       end
 
       it 'sets last dto id' do
-        expect(result.last.id).to eq(2)
+        expect(result.last.id).to eq('2')
       end
 
       it 'sets last dto first_name' do

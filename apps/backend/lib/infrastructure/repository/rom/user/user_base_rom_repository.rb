@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# rbs_inline: enabled
+
 require_relative '../../../../../config/import'
 
 module Infrastructure
@@ -11,20 +13,6 @@ module Infrastructure
           include Infrastructure::Repository::Rom::RomRepositoryBase
 
           commands :create, update: :by_pk, delete: :by_pk
-
-          # @rbs @container: untyped
-
-          # @rbs () -> ROM::Relation
-          # def users: () -> ROM::Relation
-
-          # @rbs (untyped) -> untyped
-          # def create: (untyped) -> untyped
-
-          # @rbs (untyped, untyped) -> untyped
-          # def update: (untyped, untyped) -> untyped
-
-          # @rbs (untyped) -> untyped
-          # def delete: (untyped) -> untyped
         end
       end
     end

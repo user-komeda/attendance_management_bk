@@ -20,13 +20,6 @@ module Presentation
           RESPONSE.build(user)
         end
 
-        # @rbs (Hash[Symbol, untyped] params) -> Hash[Symbol, String]
-        def create(params)
-          create_user_request = build_request(params, CREATE_REQUEST)
-          user = invoke_use_case(:create_user, create_user_request.convert_to_dto)
-          RESPONSE.build(user)
-        end
-
         # @rbs (Hash[Symbol, untyped] params, String id) -> Hash[Symbol, String]
         def update(params, id)
           params[:id] = id

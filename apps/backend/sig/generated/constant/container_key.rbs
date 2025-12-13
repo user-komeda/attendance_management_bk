@@ -12,6 +12,9 @@ module Constant
 
       # @rbs USER_USE_CASE: Hash[Symbol, UseCase]
       USER_USE_CASE: untyped
+
+      # @rbs USER_USE_CASE: Hash[Symbol, UseCase]
+      AUTH_USE_CASE: untyped
     end
 
     module ServiceKey
@@ -23,7 +26,10 @@ module Constant
       end
 
       # @rbs SERVICE: Hash[Symbol, Service]
-      SERVICE: untyped
+      USER_SERVICE: untyped
+
+      # @rbs SERVICE: Hash[Symbol, Service]
+      AUTH_SERVICE: untyped
     end
 
     module DomainRepositoryKey
@@ -35,7 +41,10 @@ module Constant
       end
 
       # @rbs DOMAIN_REPOSITORY: Hash[Symbol, DomainRepository]
-      DOMAIN_REPOSITORY: untyped
+      USER_DOMAIN_REPOSITORY: untyped
+
+      # @rbs DOMAIN_REPOSITORY: Hash[Symbol, DomainRepository]
+      AUTH_DOMAIN_REPOSITORY: untyped
     end
 
     module RepositoryKey
@@ -46,8 +55,11 @@ module Constant
                     | ({ ?key: untyped }) -> instance
       end
 
-      # @rbs REPOSITORY: Hash[Symbol, Repository]
-      REPOSITORY: untyped
+      # @rbs REPOSITORY: Hash[Symbol, repository]
+      USER_REPOSITORY: untyped
+
+      # @rbs REPOSITORY: Hash[Symbol, repository]
+      AUTH_REPOSITORY: untyped
     end
 
     module RomRepositoryKey
@@ -59,7 +71,10 @@ module Constant
       end
 
       # @rbs ROM_REPOSITORY: Hash[Symbol, RomRepository]
-      ROM_REPOSITORY: untyped
+      USER_ROM_REPOSITORY: untyped
+
+      # @rbs ROM_REPOSITORY: Hash[Symbol, RomRepository]
+      AUTH_ROM_REPOSITORY: untyped
     end
   end
 end

@@ -10,7 +10,7 @@ module AppException
     # @rbs @error_code: Symbol
     attr_reader error_code: untyped
 
-    # @rbs (message: String, status_code: Symbol, error_code: Symbol) -> void
-    def initialize: (message: String, status_code: Symbol, error_code: Symbol) -> void
+    # @rbs (message: String, error_code: Symbol) -> void
+    def initialize: (message: String, error_code: Symbol) -> void
   end
 end

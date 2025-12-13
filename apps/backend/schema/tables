@@ -1,3 +1,5 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 require 'users.schema'
+require 'password_reset_tokens.schema'
+require 'auth_users.schema'

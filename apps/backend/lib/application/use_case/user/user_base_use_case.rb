@@ -6,8 +6,8 @@ module Application
   module UseCase
     module User
       class UserBaseUseCase < BaseUseCase
-        KEY = Constant::ContainerKey::DomainRepositoryKey::DOMAIN_REPOSITORY[:user].key.freeze
-        SERVICE_KEY = Constant::ContainerKey::ServiceKey::SERVICE[:user].key.freeze
+        KEY = Constant::ContainerKey::DomainRepositoryKey::USER_DOMAIN_REPOSITORY[:user].key.freeze
+        SERVICE_KEY = Constant::ContainerKey::ServiceKey::USER_SERVICE[:user].key.freeze
         USER_DTO = Application::Dto::User::UserDto.freeze
       end
     end

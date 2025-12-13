@@ -1,0 +1,17 @@
+# frozen_string_literal: true
+
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+create_table :auth_users do |t|
+  t.references :user, type: :uuid, null: false, foreign_key: true
+
+  t.string  :email
+
+  t.string  :password_digest
+
+  t.string  :provider, null: false, default: 'local'
+
+  t.boolean :is_active, null: false, default: true
+  t.datetime :last_login_at
+end

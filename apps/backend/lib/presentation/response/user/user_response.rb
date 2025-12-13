@@ -6,11 +6,7 @@ module Presentation
   module Response
     module User
       class UserResponse < Presentation::Response::BaseResponse
-        # @rbs @id: String
-        # @rbs @first_name: String
-        # @rbs @last_name: String
-        # @rbs @email: String
-        attr_reader :id, :first_name, :last_name, :email
+        attr_reader :id, :first_name, :last_name, :email # :String
 
         # @rbs (id: String, first_name: String, last_name: String, email: String) -> void
         def initialize(id:, first_name:, last_name:, email:)

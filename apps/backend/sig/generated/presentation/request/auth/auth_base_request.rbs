@@ -1,0 +1,17 @@
+# Generated from lib/presentation/request/auth/auth_base_request.rb with RBS::Inline
+
+module Presentation
+  module Request
+    module Auth
+      class AuthBaseRequest < BaseRequest
+        SIGNIN_INPUT_DTO: untyped
+
+        SIGNUP_INPUT_DTO: untyped
+
+        SIGNIN_CONTRACT: untyped
+
+        SIGNUP_CONTRACT: untyped
+      end
+    end
+  end
+end

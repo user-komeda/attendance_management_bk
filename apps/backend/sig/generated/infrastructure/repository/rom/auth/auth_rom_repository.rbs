@@ -1,0 +1,14 @@
+# Generated from lib/infrastructure/repository/rom/auth/auth_rom_repository.rb with RBS::Inline
+
+module Infrastructure
+  module Repository
+    module Rom
+      module Auth
+        class AuthRomRepository < AuthBaseRomRepository
+          # @rbs (String email) -> ::Infrastructure::Entity::Auth::AuthUserEntity?
+          def find_by_email: (String email) -> ::Infrastructure::Entity::Auth::AuthUserEntity?
+        end
+      end
+    end
+  end
+end

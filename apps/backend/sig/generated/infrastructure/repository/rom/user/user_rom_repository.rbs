@@ -5,8 +5,7 @@ module Infrastructure
     module Rom
       module User
         class UserRomRepository < UserBaseRomRepository
-          # @rbs () -> Array[::Domain::Entity::User::UserEntity]
-          def rom_get_all: () -> Array[::Domain::Entity::User::UserEntity]
+          def rom_get_all: () -> untyped
 
           # @rbs (String id) -> ::Infrastructure::Entity::User::UserEntity?
           def rom_get_by_id: (String id) -> ::Infrastructure::Entity::User::UserEntity?
@@ -17,8 +16,7 @@ module Infrastructure
           # @rbs (::Infrastructure::Entity::User::UserEntity entity) -> untyped
           def rom_update: (::Infrastructure::Entity::User::UserEntity entity) -> untyped
 
-          # @rbs (String email) -> ::Infrastructure::Entity::User::UserEntity?
-          def find_by_email: (String email) -> ::Infrastructure::Entity::User::UserEntity?
+          def create_with_auth_user: (untyped attrs) -> untyped
         end
       end
     end

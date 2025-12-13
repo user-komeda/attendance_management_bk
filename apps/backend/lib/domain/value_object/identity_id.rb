@@ -5,21 +5,22 @@
 module Domain
   module ValueObject
     class IdentityId < BaseValueObject
-      # @rbs @value: String
+      # @rbs!
+      #   attr_reader value: String
       attr_reader :value
 
       private_class_method :new
 
       # @rbs (String args) -> void
-      def initialize(args)
+      def initialize(value)
         super()
-        @value = args
+        @value = value
       end
 
-      # @rbs (String args) -> IdentityId
-      def self.build(args)
-        validate!(args)
-        new(args).freeze
+      # @rbs (String value) -> IdentityId
+      def self.build(value)
+        validate!(value)
+        new(value).freeze
       end
 
       # @rbs () -> Array[String]
@@ -27,9 +28,13 @@ module Domain
         [value]
       end
 
-      # @rbs (String args) -> void
-      def self.validate!(args)
-        raise ArgumentError, 'IdentityId cannot be nil' if args.nil?
+      class << self
+        private
+
+        # @rbs (String value) -> void
+        def validate!(value)
+          raise ArgumentError, 'IdentityId cannot be nil' if ::UtilMethod.nil_or_empty?(value)
+        end
       end
     end
   end

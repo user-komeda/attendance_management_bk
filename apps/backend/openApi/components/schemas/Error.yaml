@@ -1,0 +1,11 @@
+type: object
+description: エラー情報
+properties:
+  error_code:
+    type: string
+    description: エラー種別コード
+    example: BAD_REQUEST
+  message:
+    type: string
+    description: エラーメッセージ
+    example: invalid request body

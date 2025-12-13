@@ -1,0 +1,10 @@
+# Generated from lib/domain/repository/auth/auth_repository.rb with RBS::Inline
+
+module Domain
+  module Repository
+    module Auth
+      class AuthRepository < AuthRepositoryBase
+      end
+    end
+  end
+end

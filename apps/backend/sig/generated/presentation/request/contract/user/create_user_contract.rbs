@@ -1,0 +1,12 @@
+# Generated from lib/presentation/request/contract/user/create_user_contract.rb with RBS::Inline
+
+module Presentation
+  module Request
+    module Contract
+      module User
+        class CreateUserContract < Dry::Validation::Contract
+        end
+      end
+    end
+  end
+end

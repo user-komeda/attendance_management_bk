@@ -4,40 +4,20 @@ module Presentation
   module Request
     module User
       class UserBaseRequest < BaseRequest
-        # @rbs @id: String?
-        # @rbs @first_name: String
-        # @rbs @last_name: String
-        # @rbs @email: String
-        attr_reader id: untyped
+        attr_reader id: String
 
-        # @rbs @id: String?
-        # @rbs @first_name: String
-        # @rbs @last_name: String
-        # @rbs @email: String
-        attr_reader first_name: untyped
+        attr_reader first_name: String
 
-        # @rbs @id: String?
-        # @rbs @first_name: String
-        # @rbs @last_name: String
-        # @rbs @email: String
-        attr_reader last_name: untyped
+        attr_reader last_name: String
 
-        # @rbs @id: String?
-        # @rbs @first_name: String
-        # @rbs @last_name: String
-        # @rbs @email: String
-        attr_reader email: untyped
+        attr_reader email: String
 
-        # @rbs CREATE_INPUT_DTO: ::Application::Dto::User::CreateUserInputDto
         CREATE_INPUT_DTO: untyped
 
-        # @rbs UPDATE_INPUT_DTO: ::Application::Dto::User::UpdateUserInputDto
         UPDATE_INPUT_DTO: untyped
 
-        # @rbs CREATE_CONTRACT: ::Presentation::Request::Contract::CreateUserContract
         CREATE_CONTRACT: untyped
 
-        # @rbs UPDATE_CONTRACT: ::Presentation::Request::Contract::UpdateUserContract
         UPDATE_CONTRACT: untyped
       end
     end

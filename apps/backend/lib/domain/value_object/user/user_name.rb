@@ -6,8 +6,9 @@ module Domain
   module ValueObject
     module User
       class UserName < BaseValueObject
-        # @rbs @first_name: String
-        # @rbs @last_name: String
+        # @rbs!
+        #   attr_reader first_name: String
+        #   attr_reader last_name: String
         attr_reader :first_name, :last_name
 
         private_class_method :new
