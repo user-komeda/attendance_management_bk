@@ -1,0 +1,12 @@
+# Generated from lib/presentation/request/contract/auth/signup_contract.rb with RBS::Inline
+
+module Presentation
+  module Request
+    module Contract
+      module Auth
+        class SignupContract < Dry::Validation::Contract
+        end
+      end
+    end
+  end
+end

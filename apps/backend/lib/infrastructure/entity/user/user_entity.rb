@@ -22,6 +22,8 @@ module Infrastructure
                                                            email: email)
         end
 
+        def to_domain_with_auth_user; end
+
         # @rbs (untyped struct) -> ::Domain::Entity::User::UserEntity
         def self.struct_to_domain(struct)
           user_entity = new(
@@ -33,6 +35,18 @@ module Infrastructure
           user_entity.to_domain
         end
 
+        # rubocop:disable Layout/LineLength
+        # @rbs (untyped struct) -> {user_entity: Domain::Entity::User::UserEntity, auth_user_entity: Domain::Entity::Auth::AuthUserEntity}
+        # rubocop:enable Layout/LineLength
+        def self.struct_to_domain_with_auth_user(struct)
+          user_entity = struct_to_domain(struct)
+          auth_user_entity = ::Infrastructure::Entity::Auth::AuthUserEntity.struct_to_domain(struct.auth_user)
+          {
+            user_entity: user_entity,
+            auth_user_entity: auth_user_entity
+          }
+        end
+
         # @rbs (::Domain::Entity::User::UserEntity entity) -> UserEntity
         def self.build_from_domain_entity(entity)
           new(
@@ -41,6 +55,21 @@ module Infrastructure
             last_name: entity.user_name.last_name,
             email: entity.email.value
           )
+        end
+
+        # rubocop:disable Layout/LineLength
+        # @rbs ({user_name: Domain::ValueObject::User::UserName, email: Domain::ValueObject::User::UserEmail, auth_user: {email: Domain::ValueObject::User::UserEmail, password_digest: Domain::ValueObject::AuthUser::PasswordDigest}}) -> {first_name: String, last_name: String, email: String, auth_user: {email: String, password_digest: String}}
+        # rubocop:enable Layout/LineLength
+        def self.build_with_auth_user(attrs)
+          {
+            first_name: attrs[:user_name].first_name,
+            last_name: attrs[:user_name].last_name,
+            email: attrs[:email].value,
+            auth_user: {
+              email: attrs[:auth_user][:email].value,
+              password_digest: attrs[:auth_user][:password_digest].value
+            }
+          }
         end
       end
     end

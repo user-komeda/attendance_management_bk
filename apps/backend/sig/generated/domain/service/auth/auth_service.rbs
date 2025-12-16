@@ -1,0 +1,12 @@
+# Generated from lib/domain/service/auth/auth_service.rb with RBS::Inline
+
+module Domain
+  module Service
+    module Auth
+      class AuthService < AuthBaseService
+        # @rbs (String email) -> bool
+        def exist?: (String email) -> bool
+      end
+    end
+  end
+end

@@ -1,0 +1,19 @@
+# Generated from lib/application/dto/auth/auth_output_dto.rb with RBS::Inline
+
+module Application
+  module Dto
+    module Auth
+      class AuthOutputDto < BaseDto
+        attr_reader id: String
+
+        attr_reader user_id: String
+
+        # @rbs (id: String?, user_id: String) -> void
+        def initialize: (id: String?, user_id: String) -> void
+
+        # @rbs (id: String?, user_id: String) -> AuthOutputDto
+        def self.build: (id: String?, user_id: String) -> AuthOutputDto
+      end
+    end
+  end
+end

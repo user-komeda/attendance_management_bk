@@ -3,19 +3,10 @@
 module Presentation
   module Controller
     class ControllerPayLoad
-      # @rbs @id: String
-      # @rbs @status_code: Integer
-      # @rbs @data: Array[untyped]
-      attr_reader id: untyped
+      attr_reader id: String
 
-      # @rbs @id: String
-      # @rbs @status_code: Integer
-      # @rbs @data: Array[untyped]
-      attr_reader status_code: untyped
+      attr_reader status_code: Integer
 
-      # @rbs @id: String
-      # @rbs @status_code: Integer
-      # @rbs @data: Array[untyped]
       attr_reader data: untyped
 
       # @rbs (?id: String, ?status_code: Integer, ?data: Hash[Symbol, untyped] | Array[Hash[Symbol, untyped]]) -> void

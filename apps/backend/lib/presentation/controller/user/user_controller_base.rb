@@ -6,20 +6,17 @@ module Presentation
   module Controller
     module User
       class UserControllerBase < Presentation::Controller::ControllerBase
-        # @rbs USER_USE_CASE: Constant::ContainerKey::ApplicationKey::USER_USE_CASE
         USER_USE_CASE = Constant::ContainerKey::ApplicationKey::USER_USE_CASE.freeze
-        # @rbs RESPONSE: ::Presentation::Response::User::UserResponse
         RESPONSE = ::Presentation::Response::User::UserResponse.freeze
-        # @rbs BASE_REQUEST: ::Presentation::Request::User::UserBaseRequest
         BASE_REQUEST = ::Presentation::Request::User::UserBaseRequest.freeze
-        # @rbs CREATE_REQUEST: ::Presentation::Request::User::CreateUserRequest
         CREATE_REQUEST = ::Presentation::Request::User::CreateUserRequest.freeze
-        # @rbs UPDATE_REQUEST: ::Presentation::Request::User::UpdateUserRequest
         UPDATE_REQUEST = ::Presentation::Request::User::UpdateUserRequest.freeze
 
         protected
 
+        # rubocop:disable Layout/LineLength
         # @rbs (Hash[Symbol, untyped] request_payload, untyped request_class) -> ::Presentation::Request::User::UserBaseRequest
+        # rubocop:enable Layout/LineLength
         def build_request(request_payload, request_class)
           raise ArgumentError, "#{request_class} is not a valid User request class" unless request_class <= BASE_REQUEST
 

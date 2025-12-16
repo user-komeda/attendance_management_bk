@@ -1,5 +1,5 @@
 
-# sig/stub/dry/validation/contract.rbs
+# sig_tmp/stub/dry/validation/contract.rbs
 module Dry
   module Validation
     class Contract

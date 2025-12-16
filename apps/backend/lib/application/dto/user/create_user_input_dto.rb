@@ -6,10 +6,7 @@ module Application
   module Dto
     module User
       class CreateUserInputDto < InputBaseDto
-        # @rbs @first_name: String
-        # @rbs @last_name: String
-        # @rbs @email: String
-        attr_reader :first_name, :last_name, :email
+        attr_reader :first_name, :last_name, :email # : String
 
         # @rbs ({ first_name: String, last_name: String, email: String }) -> void
         def initialize(params)

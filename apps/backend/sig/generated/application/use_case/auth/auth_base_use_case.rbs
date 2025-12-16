@@ -1,0 +1,21 @@
+# Generated from lib/application/use_case/auth/auth_base_use_case.rb with RBS::Inline
+
+module Application
+  module UseCase
+    module Auth
+      class AuthBaseUseCase < BaseUseCase
+        AUTH_REPOSITORY_KEY: untyped
+
+        USER_REPOSITORY_KEY: untyped
+
+        SERVICE_KEY: untyped
+
+        UserEntity: untyped
+
+        AuthUserEntity: untyped
+
+        AUTH_OUTPUT_DTO: untyped
+      end
+    end
+  end
+end

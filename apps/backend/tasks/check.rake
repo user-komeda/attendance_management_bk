@@ -8,7 +8,7 @@ namespace :code_quality do
 
   desc 'Run rubycritic code quality check'
   task :quality do
-    sh 'rubycritic --minimum-score 90 --no-browser'
+    sh 'rubycritic --minimum-score 95 --no-browser'
   end
 
   desc 'Run RuboCop lint with auto-correct'
@@ -18,7 +18,7 @@ namespace :code_quality do
 
   desc 'Run RBS inline generation and Steep type checking'
   task :typecheck do
-    sh 'bundle exec rbs-inline lib/ helper/ --output && bundle exec steep check'
+    sh 'bundle exec rbs-inline lib helper  --output && bundle exec steep check'
   end
 
   desc 'Run RSpec tests after applying DB schema (local)'

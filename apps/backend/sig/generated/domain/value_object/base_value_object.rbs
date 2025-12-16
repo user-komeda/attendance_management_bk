@@ -18,8 +18,8 @@ module Domain
       # @rbs () -> Array[untyped]
       def values: () -> Array[untyped]
 
-      # @rbs (*untyped args) -> void
-      def self.validate!: (*untyped args) -> void
+      # @rbs (untyped value) -> void
+      private def self.validate!: (untyped value) -> void
     end
   end
 end

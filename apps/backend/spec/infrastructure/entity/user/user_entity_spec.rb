@@ -4,10 +4,21 @@ require 'spec_helper'
 require 'securerandom'
 
 RSpec.describe Infrastructure::Entity::User::UserEntity do
-  def build_domain_user(id: nil, first_name: 'Taro', last_name: 'Yamada', email: 'taro@example.com')
-    entity = Domain::Entity::User::UserEntity.build(first_name: first_name, last_name: last_name, email: email)
-    entity.id = id.nil? ? nil : Domain::ValueObject::IdentityId.build(id)
-    entity
+  def build_domain_user(first_name: 'Taro', last_name: 'Yamada', email: 'taro@example.com')
+    Domain::Entity::User::UserEntity.build(
+      first_name: first_name,
+      last_name: last_name,
+      email: email
+    )
+  end
+
+  def build_domain_user_id(id:, first_name: 'Taro', last_name: 'Yamada', email: 'taro@example.com')
+    Domain::Entity::User::UserEntity.build_with_id(
+      id: id,
+      first_name: first_name,
+      last_name: last_name,
+      email: email
+    )
   end
 
   def expect_domain_entity(domain, id:, first_name:, last_name:, email:)
@@ -34,7 +45,7 @@ RSpec.describe Infrastructure::Entity::User::UserEntity do
 
   it 'generates uuid when id is nil on build from domain' do
     fixed_uuid = '00000000-0000-0000-0000-000000000001'
-    domain = build_domain_user(id: nil, first_name: 'A', last_name: 'B', email: 'a@example.com')
+    domain = build_domain_user(first_name: 'A', last_name: 'B', email: 'a@example.com')
 
     allow(SecureRandom).to receive(:uuid).and_return(fixed_uuid)
     infra = described_class.build_from_domain_entity(domain)
@@ -42,7 +53,7 @@ RSpec.describe Infrastructure::Entity::User::UserEntity do
   end
 
   it 'uses existing id when present on build from domain' do
-    domain = build_domain_user(id: '9', first_name: 'A', last_name: 'B', email: 'a@example.com')
+    domain = build_domain_user_id(id: '9', first_name: 'A', last_name: 'B', email: 'a@example.com')
 
     infra = described_class.build_from_domain_entity(domain)
     expect(infra).to have_attributes(id: '9', first_name: 'A', last_name: 'B', email: 'a@example.com')

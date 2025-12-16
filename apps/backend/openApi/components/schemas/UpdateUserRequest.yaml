@@ -1,0 +1,11 @@
+type: object
+description: ユーザー更新リクエストボディ（変更する項目のみ送信）
+properties:
+  first_name:
+    type: string
+  last_name:
+    type: string
+  email:
+    type: string
+    format: email
+additionalProperties: false

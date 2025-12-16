@@ -1,0 +1,10 @@
+module Infrastructure
+  module Repository
+    module Rom
+      module User
+        class UserBaseRomRepository < ::ROM::Repository
+        end
+      end
+    end
+  end
+end

@@ -6,7 +6,8 @@ module Domain
   module ValueObject
     module User
       class UserEmail < BaseValueObject
-        # @rbs @value: String
+        # @rbs!
+        #   attr_reader value: String
         attr_reader :value
 
         private_class_method :new

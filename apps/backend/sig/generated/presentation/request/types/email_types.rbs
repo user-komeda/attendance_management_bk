@@ -1,6 +1,12 @@
 # Generated from lib/presentation/request/types/email_types.rb with RBS::Inline
 
-module EmailTypes
-  # @rbs Email: untyped
-  Email: untyped
+module Presentation
+  module Request
+    module Types
+      module EmailTypes
+        # @rbs Email: untyped
+        Email: untyped
+      end
+    end
+  end
 end

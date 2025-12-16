@@ -26,10 +26,8 @@ RSpec.describe 'User API integration', type: :request do
       { first_name: 'Hanako', last_name: 'Suzuki', email: unique_email('hanako') }
     ]
 
-    users_params.map do |params|
-      post '/', params.to_json, json_headers
-      expect(last_response.status).to eq(201)
-      json(last_response.body)
+    users_params.each do |params|
+      sql_insert_user(**params)
     end
 
     get '/'
@@ -46,61 +44,8 @@ RSpec.describe 'User API integration', type: :request do
   # rubocop:enable RSpec/MultipleExpectations, RSpec/ExampleLength
 
   # rubocop:disable RSpec/MultipleExpectations, RSpec/ExampleLength
-  it 'creates user and returns 201 with Location header' do
-    params = valid_user_params
-    post '/', params.to_json, json_headers
-
-    expect(last_response.status).to eq(201)
-    expect(last_response.headers['Location']).to match(%r{/users/[\w-]+})
-
-    body = json(last_response.body)
-    expect(body['first_name']).to eq('Taro')
-    expect(body['last_name']).to eq('Yamada')
-    expect(body['email']).to eq(params[:email])
-  end
-  # rubocop:enable RSpec/MultipleExpectations, RSpec/ExampleLength
-
-  # rubocop:disable RSpec/MultipleExpectations, RSpec/ExampleLength
-  it 'returns 409 when email is duplicated' do
-    dup_email = unique_email('duplicate')
-    post '/', { first_name: 'Existing', last_name: 'User', email: dup_email }.to_json, json_headers
-    expect(last_response.status).to eq(201)
-
-    post '/', { first_name: 'New', last_name: 'User', email: dup_email }.to_json, json_headers
-
-    expect(last_response.status).to eq(409)
-    body = json(last_response.body)
-    expect(body['message']).to include('already exists')
-  end
-  # rubocop:enable RSpec/MultipleExpectations, RSpec/ExampleLength
-
-  # rubocop:disable RSpec/MultipleExpectations
-  it 'returns 400 when email is invalid' do
-    post '/', { first_name: 'Test', last_name: 'User', email: 'not-an-email' }.to_json, json_headers
-
-    expect(last_response.status).to eq(400)
-    body = json(last_response.body)
-    expect(body['message']).to include('email')
-  end
-  # rubocop:enable RSpec/MultipleExpectations
-
-  it 'returns 400 when required fields are missing' do
-    post '/', {}.to_json, json_headers
-
-    expect(last_response.status).to eq(400)
-  end
-
-  it 'returns 400 when first_name is empty' do
-    post '/', { first_name: '', last_name: 'Test', email: 'test@example.com' }.to_json, json_headers
-
-    expect(last_response.status).to eq(400)
-  end
-
-  # rubocop:disable RSpec/MultipleExpectations, RSpec/ExampleLength
   it 'returns 200 with user details' do
-    post '/', { first_name: 'Test', last_name: 'User', email: unique_email('test') }.to_json, json_headers
-    expect(last_response.status).to eq(201)
-    created = json(last_response.body)
+    created = sql_insert_user(first_name: 'Test', last_name: 'User', email: unique_email('test'))
 
     get "/#{created['id']}"
 
@@ -119,26 +64,23 @@ RSpec.describe 'User API integration', type: :request do
 
   # rubocop:disable RSpec/MultipleExpectations, RSpec/ExampleLength
   it 'returns 204 and updates data' do
-    post '/', { first_name: 'Old', last_name: 'Name', email: unique_email('old') }.to_json, json_headers
-    expect(last_response.status).to eq(201)
-    created = json(last_response.body)
+    created = sql_insert_user(first_name: 'Old', last_name: 'Name', email: unique_email('old'))
 
-    patch "/#{created['id']}", { first_name: 'New', last_name: 'Name', email: 'new@example.com' }.to_json, json_headers
+    new_email = unique_email('new')
+    patch "/#{created['id']}", { first_name: 'New', last_name: 'Name', email: new_email }.to_json, json_headers
 
     expect(last_response.status).to eq(204)
     get "/#{created['id']}"
     body = json(last_response.body)
     expect(body['first_name']).to eq('New')
-    expect(body['email']).to eq('new@example.com')
+    expect(body['email']).to eq(new_email)
   end
   # rubocop:enable RSpec/MultipleExpectations, RSpec/ExampleLength
 
   # rubocop:disable RSpec/MultipleExpectations, RSpec/ExampleLength
   it 'updates only provided fields (partial update)' do
     email = unique_email('original')
-    post '/', { first_name: 'Original', last_name: 'User', email: email }.to_json, json_headers
-    expect(last_response.status).to eq(201)
-    created = json(last_response.body)
+    created = sql_insert_user(first_name: 'Original', last_name: 'User', email: email)
 
     patch "/#{created['id']}", { first_name: 'Updated' }.to_json, json_headers
 
@@ -158,8 +100,7 @@ RSpec.describe 'User API integration', type: :request do
   end
 
   it 'returns 400 when email is invalid on update' do
-    post '/', { first_name: 'Test', last_name: 'User', email: unique_email('test') }.to_json, json_headers
-    created = json(last_response.body)
+    created = sql_insert_user(first_name: 'Test', last_name: 'User', email: unique_email('test'))
 
     patch "/#{created['id']}", { email: 'not-an-email' }.to_json, json_headers
 
@@ -174,11 +115,9 @@ RSpec.describe 'User API integration', type: :request do
 
   # rubocop:disable RSpec/MultipleExpectations, RSpec/ExampleLength
   it 'performs full CRUD lifecycle' do
-    # Create
-    post '/', valid_user_params.to_json, json_headers
-    expect(last_response.status).to eq(201)
-    created_body = json(last_response.body)
-    user_id = created_body['id']
+    # Create (via direct SQL seeding)
+    created = sql_insert_user(**valid_user_params)
+    user_id = created['id']
 
     # Read
     get "/#{user_id}"
@@ -205,10 +144,8 @@ RSpec.describe 'User API integration', type: :request do
 
     created_ids = []
     users_data.each do |user_params|
-      post '/', user_params.to_json, json_headers
-      expect(last_response.status).to eq(201)
-      body = json(last_response.body)
-      created_ids << body['id']
+      created = sql_insert_user(**user_params)
+      created_ids << created['id']
     end
 
     get '/'
@@ -243,5 +180,14 @@ RSpec.describe 'User API integration', type: :request do
 
   def unique_email(base = 'user')
     "#{base}-#{SecureRandom.uuid}@example.com"
+  end
+
+  # Seed helpers using direct SQL via ROM's registered configuration
+  def sql_insert_user(first_name:, last_name:, email:)
+    config = Container.resolve('db.config')
+    conn = config.gateways[:default].connection
+    id = SecureRandom.uuid
+    conn[:users].insert(id: id, first_name: first_name, last_name: last_name, email: email)
+    { 'id' => id, 'first_name' => first_name, 'last_name' => last_name, 'email' => email }
   end
 end

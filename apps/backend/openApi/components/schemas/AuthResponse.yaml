@@ -1,0 +1,14 @@
+type: object
+description: サインイン成功時のレスポンス
+properties:
+  access_token:
+    type: string
+    description: "アクセストークン（例: JWT）"
+  token_type:
+    type: string
+    description: トークン種別
+    example: Bearer
+  expires_in:
+    type: integer
+    format: int32
+    description: 有効期限（秒）

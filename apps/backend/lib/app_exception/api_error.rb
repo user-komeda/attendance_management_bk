@@ -8,11 +8,11 @@ module AppException
     # @rbs @error_code: Symbol
     attr_reader :status_code, :error_code
 
-    # @rbs (message: String, status_code: Symbol, error_code: Symbol) -> void
-    def initialize(message:, status_code:, error_code:)
+    # @rbs (message: String, error_code: Symbol) -> void
+    def initialize(message:, error_code:)
       super(message)
-      @status_code = status_code
       @error_code = error_code
+      @status_code = Constant::Errors::Status::MAP[error_code]
     end
   end
 end

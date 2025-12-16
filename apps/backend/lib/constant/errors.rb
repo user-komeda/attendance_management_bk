@@ -6,16 +6,17 @@ module Constant
   module Errors
     module Codes
       # @rbs BAD_REQUEST: Symbol
-      BAD_REQUEST      = :bad_request
+      BAD_REQUEST = :bad_request
 
       # @rbs NOT_FOUND: Symbol
-      NOT_FOUND        = :not_found
+      NOT_FOUND = :not_found
 
       # @rbs DUPLICATE: Symbol
-      DUPLICATE        = :duplicate
+      DUPLICATE = :duplicate
 
       # @rbs ALREADY_DELETED: Symbol
-      ALREADY_DELETED  = :already_deleted
+      ALREADY_DELETED = :already_deleted
+      INVALID_PASSWORD = :invalid_password
     end
 
     module Status

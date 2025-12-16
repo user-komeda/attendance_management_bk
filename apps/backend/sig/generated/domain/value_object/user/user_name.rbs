@@ -4,12 +4,14 @@ module Domain
   module ValueObject
     module User
       class UserName < BaseValueObject
-        # @rbs @first_name: String
-        # @rbs @last_name: String
+        # @rbs!
+        #   attr_reader first_name: String
+        #   attr_reader last_name: String
         attr_reader first_name: untyped
 
-        # @rbs @first_name: String
-        # @rbs @last_name: String
+        # @rbs!
+        #   attr_reader first_name: String
+        #   attr_reader last_name: String
         attr_reader last_name: untyped
 
         # @rbs (String? first_name, String? last_name) -> void

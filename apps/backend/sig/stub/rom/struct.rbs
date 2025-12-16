@@ -1,4 +1,4 @@
-# sig/rom/struct.rbs
+# sig_tmp/rom/struct.rbs
 module ROM
   class Struct
     # ROM::Struct DSL to define attributes in subclasses

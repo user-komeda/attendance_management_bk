@@ -1,0 +1,15 @@
+# Generated from lib/application/dto/auth/signin_input_dto.rb with RBS::Inline
+
+module Application
+  module Dto
+    module Auth
+      class SigninInputDto < InputBaseDto
+        attr_reader email: untyped
+
+        attr_reader password: untyped
+
+        def initialize: (untyped params) -> untyped
+      end
+    end
+  end
+end

@@ -1,0 +1,11 @@
+# Generated from lib/infrastructure/repository/auth/auth_base_repository.rb with RBS::Inline
+
+module Infrastructure
+  module Repository
+    module Auth
+      class AuthBaseRepository < RepositoryBase
+        ROM_REPOSITORY_KEY: untyped
+      end
+    end
+  end
+end
