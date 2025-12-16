@@ -40,7 +40,9 @@ module Infrastructure
           infra_entity&.to_domain
         end
 
+        # rubocop:disable Layout/LineLength
         # @rbs ({user: Domain::Entity::User::UserEntity, auth_user: Domain::Entity::Auth::AuthUserEntity}) -> {user_entity: Domain::Entity::User::UserEntity, auth_user_entity: Domain::Entity::Auth::AuthUserEntity}
+        # rubocop:enable Layout/LineLength
         def create_with_auth_user(attrs)
           caller = resolve(ROM_REPOSITORY_KEY)
           infra_entity = caller.create_with_auth_user(USER_ENTITY.build_with_auth_user(attrs))

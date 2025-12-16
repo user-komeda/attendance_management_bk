@@ -35,7 +35,9 @@ module Infrastructure
           user_entity.to_domain
         end
 
+        # rubocop:disable Layout/LineLength
         # @rbs (untyped struct) -> {user_entity: Domain::Entity::User::UserEntity, auth_user_entity: Domain::Entity::Auth::AuthUserEntity}
+        # rubocop:enable Layout/LineLength
         def self.struct_to_domain_with_auth_user(struct)
           user_entity = struct_to_domain(struct)
           auth_user_entity = ::Infrastructure::Entity::Auth::AuthUserEntity.struct_to_domain(struct.auth_user)
@@ -55,8 +57,10 @@ module Infrastructure
           )
         end
 
+        # rubocop:disable Layout/LineLength
+        # @rbs ({user_name: Domain::ValueObject::User::UserName, email: Domain::ValueObject::User::UserEmail, auth_user: {email: Domain::ValueObject::User::UserEmail, password_digest: Domain::ValueObject::AuthUser::PasswordDigest}}) -> {first_name: String, last_name: String, email: String, auth_user: {email: String, password_digest: String}}
+        # rubocop:enable Layout/LineLength
         def self.build_with_auth_user(attrs)
-          p attrs
           {
             first_name: attrs[:user_name].first_name,
             last_name: attrs[:user_name].last_name,

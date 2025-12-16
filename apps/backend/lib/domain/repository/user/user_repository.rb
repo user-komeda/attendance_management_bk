@@ -42,7 +42,9 @@ module Domain
           caller.find_by_email(email)
         end
 
+        # rubocop:disable Layout/LineLength
         # @rbs ({user: Domain::Entity::User::UserEntity, auth_user: Domain::Entity::Auth::AuthUserEntity}) -> {user_entity: Domain::Entity::User::UserEntity, auth_user_entity: Domain::Entity::Auth::AuthUserEntity}
+        # rubocop:enable Layout/LineLength
         def create_with_auth_user(attrs)
           caller = resolve(REPOSITORY_KEY)
           caller.create_with_auth_user(attrs)

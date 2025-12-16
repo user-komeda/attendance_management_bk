@@ -12,13 +12,19 @@ module Application
         # @rbs (::Application::Dto::Auth::SignupInputDto input_dto) -> untyped
         def check_duplicate!: (::Application::Dto::Auth::SignupInputDto input_dto) -> untyped
 
+        # rubocop:disable Layout/LineLength
         # @rbs (::Application::Dto::Auth::SignupInputDto input_dto) -> {user_entity: Domain::Entity::User::UserEntity, auth_user_entity: Domain::Entity::Auth::AuthUserEntity}
+        # rubocop:enable Layout/LineLength
         def build_entities: (::Application::Dto::Auth::SignupInputDto input_dto) -> { user_entity: Domain::Entity::User::UserEntity, auth_user_entity: Domain::Entity::Auth::AuthUserEntity }
 
+        # rubocop:disable Layout/LineLength
         # @rbs (user_entity: Domain::Entity::User::UserEntity, auth_user_entity: Domain::Entity::Auth::AuthUserEntity) -> {user_entity: Domain::Entity::User::UserEntity, auth_user_entity: Domain::Entity::Auth::AuthUserEntity}
+        # rubocop:enable Layout/LineLength
         def persist: (user_entity: Domain::Entity::User::UserEntity, auth_user_entity: Domain::Entity::Auth::AuthUserEntity) -> { user_entity: Domain::Entity::User::UserEntity, auth_user_entity: Domain::Entity::Auth::AuthUserEntity }
 
+        # rubocop:disable Layout/LineLength
         # @rbs ({user_entity: Domain::Entity::User::UserEntity, auth_user_entity: Domain::Entity::Auth::AuthUserEntity}) ->Application::Dto::Auth::AuthOutputDto
+        # rubocop:enable Layout/LineLength
         def build_output_dto: ({ user_entity: Domain::Entity::User::UserEntity, auth_user_entity: Domain::Entity::Auth::AuthUserEntity }) -> Application::Dto::Auth::AuthOutputDto
       end
     end

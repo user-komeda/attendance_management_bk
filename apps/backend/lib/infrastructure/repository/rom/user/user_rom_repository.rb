@@ -33,6 +33,14 @@ module Infrastructure
               .command(:create)
               .call(attrs)
           end
+
+          # @rbs (String email) -> ::Infrastructure::Entity::User::UserEntity?
+          def find_by_email(email)
+            users
+              .map_to(::Infrastructure::Entity::User::UserEntity)
+              .by_email(email)
+              .first
+          end
         end
       end
     end

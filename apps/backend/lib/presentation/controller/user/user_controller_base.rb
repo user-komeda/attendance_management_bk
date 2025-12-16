@@ -14,7 +14,9 @@ module Presentation
 
         protected
 
+        # rubocop:disable Layout/LineLength
         # @rbs (Hash[Symbol, untyped] request_payload, untyped request_class) -> ::Presentation::Request::User::UserBaseRequest
+        # rubocop:enable Layout/LineLength
         def build_request(request_payload, request_class)
           raise ArgumentError, "#{request_class} is not a valid User request class" unless request_class <= BASE_REQUEST
 

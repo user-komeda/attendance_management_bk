@@ -29,7 +29,7 @@ post:
               minLength: 6
               description: パスワード（平文）
   responses:
-    "200":
+    "201":
       description: 登録が成功しました
       content:
         application/json:

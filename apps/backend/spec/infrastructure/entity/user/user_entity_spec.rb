@@ -45,7 +45,7 @@ RSpec.describe Infrastructure::Entity::User::UserEntity do
 
   it 'generates uuid when id is nil on build from domain' do
     fixed_uuid = '00000000-0000-0000-0000-000000000001'
-    domain = build_domain_user(id: nil, first_name: 'A', last_name: 'B', email: 'a@example.com')
+    domain = build_domain_user(first_name: 'A', last_name: 'B', email: 'a@example.com')
 
     allow(SecureRandom).to receive(:uuid).and_return(fixed_uuid)
     infra = described_class.build_from_domain_entity(domain)

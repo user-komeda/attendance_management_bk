@@ -5,8 +5,16 @@
 module Domain
   module Entity
     module Auth
-      class AuthUserEntity # : Domain::ValueObject::IdentityId # : String # : Domain::ValueObject::User::UserEmail # : ::Domain::ValueObject::AuthUser::PasswordDigest # : String # : bool
-        attr_reader :id, :user_id, :email, :password_digest, :provider, :is_active, :last_login_at # : Time|nil
+      class AuthUserEntity
+        # rubocop:disable all
+        attr_reader :id #: Domain::ValueObject::IdentityId?
+        attr_reader :user_id #: String?
+        attr_reader :email #: Domain::ValueObject::User::UserEmail
+        attr_reader :password_digest #: Domain::ValueObject::AuthUser::PasswordDigest
+        attr_reader :provider #: String?
+        attr_reader :is_active #: bool?
+        attr_reader :last_login_at #: Time?
+        # rubocop:enable all
 
         PASSWORD_DIGEST = ::Domain::ValueObject::AuthUser::PasswordDigest.freeze
         UE = ::Domain::ValueObject::User::UserEmail.freeze
@@ -15,7 +23,7 @@ module Domain
         private_class_method :new
 
         # rubocop:disable Layout/LineLength
-        # @rbs ({id: Domain::ValueObject::IdentityId?, user_id: String?, email: Domain::ValueObject::User::UserEmail, password_digest: Domain::ValueObject::AuthUser::PasswordDigest, provider: String?, is_active: bool?, last_login_at: Time?}) -> AuthUserEntity
+        # @rbs ({id: Domain::ValueObject::IdentityId?, user_id: String?, email: Domain::ValueObject::User::UserEmail, password_digest: Domain::ValueObject::AuthUser::PasswordDigest, provider: String?, is_active: bool?, last_login_at: Time?}) -> void
         # rubocop:enable Layout/LineLength
         def initialize(attrs)
           @id = attrs.fetch(:id)
@@ -28,11 +36,11 @@ module Domain
         end
 
         # rubocop:disable Layout/LineLength
-        # @rbs ({?id: String, ?user_id: String, email: String, password: String, ?provider: String, ?is_active: bool, ?last_login_at: Time?}) -> AuthUserEntity
+        # @rbs ({?user_id: String, email: String, password: String, ?provider: String, ?is_active: bool, ?last_login_at: Time?}) -> AuthUserEntity
         # rubocop:enable Layout/LineLength
         def self.build(attrs)
           new(
-            id: ID.build(attrs.fetch(:id, nil)),
+            id: nil,
             user_id: attrs.fetch(:user_id, nil),
             email: UE.build(attrs.fetch(:email)),
             password_digest: PASSWORD_DIGEST.build(attrs.fetch(:password)),

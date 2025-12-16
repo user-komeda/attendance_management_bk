@@ -10,7 +10,11 @@ module Domain
         UN = ::Domain::ValueObject::User::UserName.freeze
         UE = ::Domain::ValueObject::User::UserEmail.freeze
 
-        attr_reader :id, :user_name, :email # : ::Domain::ValueObject::IdentityId # : ::Domain::ValueObject::User::UserName # :::Domain::ValueObject::User::UserEmail
+        # rubocop:disable all
+        attr_reader :id #: ::Domain::ValueObject::IdentityId
+        attr_reader :user_name #: ::Domain::ValueObject::User::UserName
+        attr_reader :email #: ::Domain::ValueObject::User::UserEmail
+        # rubocop:enable all
 
         # rubocop:disable Layout/LineLength
         # @rbs (user_name: ::Domain::ValueObject::User::UserName, email: ::Domain::ValueObject::User::UserEmail, ?id: ::Domain::ValueObject::IdentityId?) -> void
@@ -59,7 +63,9 @@ module Domain
           )
         end
 
+        # rubocop:disable Layout/LineLength
         # @rbs (user: Domain::Entity::User::UserEntity, auth_user: Domain::Entity::Auth::AuthUserEntity) -> {user_name: Domain::ValueObject::User::UserName, email: Domain::ValueObject::User::UserEmail, auth_user:{email: Domain::ValueObject::User::UserEmail, password_digest: Domain::ValueObject::AuthUser::PasswordDigest}}
+        # rubocop:enable Layout/LineLength
         def self.build_with_auth_user(user:, auth_user:)
           {
             user_name: user.user_name,

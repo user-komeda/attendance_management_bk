@@ -10,11 +10,12 @@ module Domain
 
         UE: untyped
 
+        # rubocop:disable all
         attr_reader id: ::Domain::ValueObject::IdentityId
 
         attr_reader user_name: ::Domain::ValueObject::User::UserName
 
-        attr_reader email: untyped
+        attr_reader email: ::Domain::ValueObject::User::UserEmail
 
         # rubocop:disable Layout/LineLength
         # @rbs (user_name: ::Domain::ValueObject::User::UserName, email: ::Domain::ValueObject::User::UserEmail, ?id: ::Domain::ValueObject::IdentityId?) -> void
@@ -30,7 +31,9 @@ module Domain
         # @rbs (id: String, first_name: String, last_name: String, email: String) -> UserEntity
         def self.build_with_id: (id: String, first_name: String, last_name: String, email: String) -> UserEntity
 
+        # rubocop:disable Layout/LineLength
         # @rbs (user: Domain::Entity::User::UserEntity, auth_user: Domain::Entity::Auth::AuthUserEntity) -> {user_name: Domain::ValueObject::User::UserName, email: Domain::ValueObject::User::UserEmail, auth_user:{email: Domain::ValueObject::User::UserEmail, password_digest: Domain::ValueObject::AuthUser::PasswordDigest}}
+        # rubocop:enable Layout/LineLength
         def self.build_with_auth_user: (user: Domain::Entity::User::UserEntity, auth_user: Domain::Entity::Auth::AuthUserEntity) -> { user_name: Domain::ValueObject::User::UserName, email: Domain::ValueObject::User::UserEmail, auth_user: { email: Domain::ValueObject::User::UserEmail, password_digest: Domain::ValueObject::AuthUser::PasswordDigest } }
       end
     end

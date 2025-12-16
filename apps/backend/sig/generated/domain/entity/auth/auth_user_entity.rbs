@@ -4,19 +4,20 @@ module Domain
   module Entity
     module Auth
       class AuthUserEntity
-        attr_reader id: Domain::ValueObject::IdentityId
+        # rubocop:disable all
+        attr_reader id: Domain::ValueObject::IdentityId?
 
-        attr_reader user_id: String
+        attr_reader user_id: String?
 
         attr_reader email: Domain::ValueObject::User::UserEmail
 
-        attr_reader password_digest: ::Domain::ValueObject::AuthUser::PasswordDigest
+        attr_reader password_digest: Domain::ValueObject::AuthUser::PasswordDigest
 
-        attr_reader provider: String
+        attr_reader provider: String?
 
-        attr_reader is_active: bool
+        attr_reader is_active: bool?
 
-        attr_reader last_login_at: Time | nil
+        attr_reader last_login_at: Time?
 
         PASSWORD_DIGEST: untyped
 
@@ -25,14 +26,14 @@ module Domain
         ID: untyped
 
         # rubocop:disable Layout/LineLength
-        # @rbs ({id: Domain::ValueObject::IdentityId?, user_id: String?, email: Domain::ValueObject::User::UserEmail, password_digest: Domain::ValueObject::AuthUser::PasswordDigest, provider: String?, is_active: bool?, last_login_at: Time?}) -> AuthUserEntity
+        # @rbs ({id: Domain::ValueObject::IdentityId?, user_id: String?, email: Domain::ValueObject::User::UserEmail, password_digest: Domain::ValueObject::AuthUser::PasswordDigest, provider: String?, is_active: bool?, last_login_at: Time?}) -> void
         # rubocop:enable Layout/LineLength
-        def initialize: ({ id: Domain::ValueObject::IdentityId?, user_id: String?, email: Domain::ValueObject::User::UserEmail, password_digest: Domain::ValueObject::AuthUser::PasswordDigest, provider: String?, is_active: bool?, last_login_at: Time? }) -> AuthUserEntity
+        def initialize: ({ id: Domain::ValueObject::IdentityId?, user_id: String?, email: Domain::ValueObject::User::UserEmail, password_digest: Domain::ValueObject::AuthUser::PasswordDigest, provider: String?, is_active: bool?, last_login_at: Time? }) -> void
 
         # rubocop:disable Layout/LineLength
-        # @rbs ({?id: String, ?user_id: String, email: String, password: String, ?provider: String, ?is_active: bool, ?last_login_at: Time?}) -> AuthUserEntity
+        # @rbs ({?user_id: String, email: String, password: String, ?provider: String, ?is_active: bool, ?last_login_at: Time?}) -> AuthUserEntity
         # rubocop:enable Layout/LineLength
-        def self.build: ({ ?id: String, ?user_id: String, email: String, password: String, ?provider: String, ?is_active: bool, ?last_login_at: Time? }) -> AuthUserEntity
+        def self.build: ({ ?user_id: String, email: String, password: String, ?provider: String, ?is_active: bool, ?last_login_at: Time? }) -> AuthUserEntity
 
         # rubocop:disable Layout/LineLength
         # @rbs ({id: String, user_id: String, email: String, password: String, provider: String, is_active: bool, last_login_at: Time?}) -> AuthUserEntity

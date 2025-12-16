@@ -17,6 +17,9 @@ module Infrastructure
           def rom_update: (::Infrastructure::Entity::User::UserEntity entity) -> untyped
 
           def create_with_auth_user: (untyped attrs) -> untyped
+
+          # @rbs (String email) -> ::Infrastructure::Entity::User::UserEntity?
+          def find_by_email: (String email) -> ::Infrastructure::Entity::User::UserEntity?
         end
       end
     end

@@ -150,7 +150,9 @@ RSpec.describe Infrastructure::Repository::User::UserRepository do
     let(:rom) { instance_double(Infrastructure::Repository::Rom::User::UserRomRepository) }
 
     before do
-      allow(rom).to receive(:rom_update).with(instance_of(Infrastructure::Entity::User::UserEntity)).and_return(updated_struct)
+      allow(rom).to receive(:rom_update)
+        .with(instance_of(Infrastructure::Entity::User::UserEntity))
+        .and_return(updated_struct)
       allow(repo).to receive(:resolve).and_return(rom)
     end
 

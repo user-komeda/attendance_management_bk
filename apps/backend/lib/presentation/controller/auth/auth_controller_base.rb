@@ -14,7 +14,9 @@ module Presentation
 
         protected
 
+        # rubocop:disable Layout/LineLength
         # @rbs (Hash[Symbol, untyped] request_payload, untyped request_class) -> ::Presentation::Request::Auth::AuthBaseRequest
+        # rubocop:enable Layout/LineLength
         def build_request(request_payload, request_class)
           unless request_class <= BASE_REQUEST
             raise ArgumentError,
@@ -25,10 +27,17 @@ module Presentation
         end
 
         # @rbs (Symbol key, *untyped args) -> untyped
-        def invoke_use_case(key, *)
+        def invoke_use_case(key, *args)
+          puts "invoke_use_case: #{key}, #{args}"
           key = AUTH_USE_CASE[key].key
           invoker = resolve(key)
-          invoker.invoke(*)
+          if args.empty?
+            invoker.invoke
+          elsif args.length == 1 && args.first.is_a?(Array)
+            invoker.invoke(*args.first)
+          else
+            invoker.invoke(*args)
+          end
         end
       end
     end
