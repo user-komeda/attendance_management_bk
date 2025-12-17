@@ -34,7 +34,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql
   redis:
-    image: redis:7.2
+    image: redis:7.4@sha256:d665ad9dd15a25c100b77134516d4f9f46f06884983d86456f0a9c0434f3b49f
     container_name: redis
     profiles:
       - db
