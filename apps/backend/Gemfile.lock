@@ -347,7 +347,7 @@ DEPENDENCIES
   rom-repository (~> 5.4)
   rom-sql (~> 3.7)
   rspec
-  rubocop (< 1.81.8)
+  rubocop (< 1.82.1)
   rubocop-performance
   rubocop-rake
   rubocop-rspec
