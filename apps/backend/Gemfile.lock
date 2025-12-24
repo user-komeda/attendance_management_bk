@@ -222,7 +222,7 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.13.0)
     rspec-support (3.13.6)
-    rubocop (1.82.0)
+    rubocop (1.82.1)
       json (~> 2.3)
       language_server-protocol (~> 3.17.0.2)
       lint_roller (~> 1.1.0)
@@ -348,7 +348,7 @@ DEPENDENCIES
   rom-repository (~> 5.4)
   rom-sql (~> 3.7)
   rspec
-  rubocop (< 1.82.1)
+  rubocop (< 1.82.2)
   rubocop-performance
   rubocop-rake
   rubocop-rspec
