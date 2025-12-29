@@ -3,7 +3,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "check": "concurrently 'bundle exec rake code_quality:all'"
+    "check": "bundle exec rake code_quality:all",
+    "dev": "bundle exec rake app:start"
   },
   "packageManager": "yarn@4.12.0"
 }

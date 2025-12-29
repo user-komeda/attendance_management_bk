@@ -16,7 +16,7 @@ module SinatraSettings
 
     # CORS
     app.before do
-      headers['Access-Control-Allow-Origin'] = '*'
+      headers['Access-Control-Allow-Origin'] = 'http://localhost:3000'
       headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, PATCH, DELETE, OPTIONS'
       headers['Access-Control-Allow-Headers'] = 'Content-Type, Accept, Authorization, X-Requested-With'
       headers['Access-Control-Expose-Headers'] = 'Location, ETag'

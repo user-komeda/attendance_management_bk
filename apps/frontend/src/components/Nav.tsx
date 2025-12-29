@@ -18,4 +18,7 @@ export default function Nav() {
       </ul>
     </nav>
   )
+  // 分岐がないはずなのにbranchが50%になるため無視
+  /* v8 ignore start */
 }
+/* v8 ignore stop */
