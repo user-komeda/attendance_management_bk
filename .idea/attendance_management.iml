@@ -132,6 +132,6 @@
     <orderEntry type="library" scope="PROVIDED" name="unicode-emoji (v4.1.0, ruby-3.4.5-p51) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="uri (v1.1.1, ruby-3.4.5-p51) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="virtus (v2.0.0, ruby-3.4.5-p51) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="zeitwerk (v2.7.3, ruby-3.4.5-p51) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="zeitwerk (v2.7.4, ruby-3.4.5-p51) [gem]" level="application" />
   </component>
 </module>
