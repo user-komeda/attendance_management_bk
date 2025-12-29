@@ -10,7 +10,7 @@ import NotFound from '~/routes/[...404]'
 describe('NotFound Route', () => {
   it('renders Not Found title', () => {
     render(() => (
-      <MemoryRouter initialEntries={['/not-found']}>
+      <MemoryRouter >
         <Route path="*all" component={NotFound} />
       </MemoryRouter>
     ))
@@ -19,7 +19,7 @@ describe('NotFound Route', () => {
 
   it('renders links', () => {
     render(() => (
-      <MemoryRouter initialEntries={['/not-found']}>
+      <MemoryRouter >
         <Route path="*all" component={NotFound} />
       </MemoryRouter>
     ))
