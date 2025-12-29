@@ -40,7 +40,7 @@ export default defineConfig(
     },
     rules: {
       'no-relative-import-paths/no-relative-import-paths': 'error',
-      "@typescript-eslint/no-non-null-assertion":"off",
+      '@typescript-eslint/no-non-null-assertion': 'off',
 
       /* unused-imports */
       'unused-imports/no-unused-imports': 'error',

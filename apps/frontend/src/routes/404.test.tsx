@@ -1,16 +1,13 @@
- 
-
 import { MemoryRouter, Route } from '@solidjs/router'
 import { render, screen } from '@solidjs/testing-library'
 import { describe, it, expect } from 'vitest'
 
 import NotFound from '~/routes/[...404]'
 
-
 describe('NotFound Route', () => {
   it('renders Not Found title', () => {
     render(() => (
-      <MemoryRouter >
+      <MemoryRouter>
         <Route path="*all" component={NotFound} />
       </MemoryRouter>
     ))
@@ -19,7 +16,7 @@ describe('NotFound Route', () => {
 
   it('renders links', () => {
     render(() => (
-      <MemoryRouter >
+      <MemoryRouter>
         <Route path="*all" component={NotFound} />
       </MemoryRouter>
     ))

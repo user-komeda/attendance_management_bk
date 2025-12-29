@@ -1,11 +1,8 @@
- 
-
 import { MemoryRouter, Route } from '@solidjs/router'
 import { render } from '@solidjs/testing-library'
 import { describe, it, expect } from 'vitest'
 
 import Home from '~/routes/index'
-
 
 describe('Home Route', () => {
   it('renders Hello world!', () => {

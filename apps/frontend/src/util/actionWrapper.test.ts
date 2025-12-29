@@ -1,11 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import * as v from 'valibot'
-import {describe, it, expect, vi, beforeEach} from 'vitest'
+import { describe, it, expect, vi, beforeEach } from 'vitest'
 
 import actionWrapper from '~/util/actionWrapper'
 import postWrapper from '~/util/postWrapper'
-
 
 vi.mock('./postWrapper', () => ({
   default: vi.fn(),
@@ -13,7 +12,7 @@ vi.mock('./postWrapper', () => ({
 
 vi.mock('@solidjs/router', () => ({
   action: vi.fn((fn) => fn),
-  redirect: vi.fn((url) => ({type: 'redirect', url})),
+  redirect: vi.fn((url) => ({ type: 'redirect', url })),
 }))
 
 describe('actionWrapper', () => {
@@ -26,7 +25,11 @@ describe('actionWrapper', () => {
   })
 
   it('should return errors if validation fails', async () => {
-    const action = actionWrapper<typeof schema, any>('/api/test', 'test-action', schema)
+    const action = actionWrapper<typeof schema, any>(
+      '/api/test',
+      'test-action',
+      schema,
+    )
     const formData = new FormData()
     formData.append('name', '')
 
@@ -36,7 +39,7 @@ describe('actionWrapper', () => {
   })
 
   it('should call postWrapper and return result if validation succeeds', async () => {
-    const mockResponse = {success: true}
+    const mockResponse = { success: true }
     vi.mocked(postWrapper).mockResolvedValueOnce(mockResponse)
 
     const action = actionWrapper('/api/test', 'test-action', schema)
@@ -44,12 +47,12 @@ describe('actionWrapper', () => {
     formData.append('name', 'John')
 
     const result = await action(formData)
-    expect(postWrapper).toHaveBeenCalledWith('/api/test', {name: 'John'})
+    expect(postWrapper).toHaveBeenCalledWith('/api/test', { name: 'John' })
     expect(result).toEqual(mockResponse)
   })
 
   it('should throw redirect if redirectUrl is provided', async () => {
-    vi.mocked(postWrapper).mockResolvedValueOnce({success: true})
+    vi.mocked(postWrapper).mockResolvedValueOnce({ success: true })
 
     const action = actionWrapper('/api/test', 'test-action', schema, '/')
     const formData = new FormData()

@@ -2,7 +2,6 @@
 
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 
-
 import createSession from '~/lib/createSeession'
 import { POST } from '~/routes/api/signup'
 import postWrapper from '~/util/postWrapper'
@@ -32,15 +31,12 @@ describe('Signup API', () => {
 
     const response = await POST(mockEvent)
     expect(response.status).toBe(204)
-    expect(postWrapper).toHaveBeenCalledWith(
-      'http://localhost:4567/signup',
-      {
-        email: 'john@example.com',
-        password: 'password123',
-        first_name: 'John',
-        last_name: 'Doe',
-      }
-    )
+    expect(postWrapper).toHaveBeenCalledWith('http://localhost:4567/signup', {
+      email: 'john@example.com',
+      password: 'password123',
+      first_name: 'John',
+      last_name: 'Doe',
+    })
     expect(createSession).toHaveBeenCalled()
   })
 

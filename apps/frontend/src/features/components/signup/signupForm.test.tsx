@@ -6,7 +6,6 @@ import { describe, it, expect, vi } from 'vitest'
 
 import { SignupForm } from '~/features/components/signup/signupForm'
 
-
 // mock useSubmission
 vi.mock('@solidjs/router', async () => {
   const actual = await vi.importActual('@solidjs/router')
@@ -16,7 +15,6 @@ vi.mock('@solidjs/router', async () => {
   }
 })
 
-
 describe('SignupForm', () => {
   it('should render signup form', () => {
     vi.mocked(useSubmission).mockReturnValue({
@@ -24,16 +22,16 @@ describe('SignupForm', () => {
       pending: false,
     } as any)
 
-    render(() => (
-      <SignupForm action={vi.fn() as any} />
-    ))
+    render(() => <SignupForm action={vi.fn() as any} />)
 
     expect(screen.getByLabelText('firstName')).toBeInTheDocument()
     expect(screen.getByLabelText('lastName')).toBeInTheDocument()
     expect(screen.getByLabelText('Email')).toBeInTheDocument()
     expect(screen.getByLabelText('Password')).toBeInTheDocument()
     expect(screen.getByLabelText('Confirm Password')).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: /Create an account/i })).toBeInTheDocument()
+    expect(
+      screen.getByRole('button', { name: /Create an account/i }),
+    ).toBeInTheDocument()
   })
 
   it('should display errors when submission result has errors', () => {
@@ -47,9 +45,7 @@ describe('SignupForm', () => {
       pending: false,
     } as any)
 
-    render(() => (
-      <SignupForm action={vi.fn() as any} />
-    ))
+    render(() => <SignupForm action={vi.fn() as any} />)
 
     expect(screen.getByText('First name is required')).toBeInTheDocument()
     expect(screen.getByText('Invalid email')).toBeInTheDocument()

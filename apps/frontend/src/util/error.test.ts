@@ -5,7 +5,6 @@ import { describe, it, expect } from 'vitest'
 
 import { findError, createError } from '~/util/error'
 
-
 describe('error util', () => {
   describe('findError', () => {
     it('should find the error message for a given key', () => {

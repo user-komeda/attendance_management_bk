@@ -14,7 +14,7 @@ export const InputText = ({ name, label }: { name: string; label: string }) => {
       />
     </div>
   )
-// 分岐がないはずなのにbranchが50%になるため無視
-/* v8 ignore start */
+  // 分岐がないはずなのにbranchが50%になるため無視
+  /* v8 ignore start */
 }
 /* v8 ignore stop */

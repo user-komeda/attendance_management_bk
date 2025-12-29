@@ -2,7 +2,6 @@ import { describe, it, expect, vi, beforeEach } from 'vitest'
 
 import postWrapper from '~/util/postWrapper'
 
-
 describe('postWrapper', () => {
   beforeEach(() => {
     vi.stubGlobal('fetch', vi.fn())

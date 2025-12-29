@@ -11,7 +11,7 @@ const signup = actionWrapper<typeof SignupSchema, undefined>(
 
 export const SignupPage = () => {
   return <SignupForm action={signup} />
-// 分岐がないはずなのにbranchが50%になるため無視
-/* v8 ignore start */
+  // 分岐がないはずなのにbranchが50%になるため無視
+  /* v8 ignore start */
 }
 /* v8 ignore stop */

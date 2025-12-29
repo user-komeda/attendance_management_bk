@@ -1,5 +1,3 @@
- 
-
 import { Action, useSubmission } from '@solidjs/router'
 import { Show } from 'solid-js'
 
@@ -92,7 +90,7 @@ export const SignupForm = ({
       </div>
     </div>
   )
-// 分岐がないはずなのにbranchが50%になるため無視
-/* v8 ignore start */
+  // 分岐がないはずなのにbranchが50%になるため無視
+  /* v8 ignore start */
 }
 /* v8 ignore stop */
