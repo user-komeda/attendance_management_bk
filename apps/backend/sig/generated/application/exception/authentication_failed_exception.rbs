@@ -1,0 +1,10 @@
+# Generated from lib/application/exception/authentication_failed_exception.rb with RBS::Inline
+
+module Application
+  module Exception
+    class AuthenticationFailedException < ::AppException::ApiError
+      # @rbs (message: String) -> void
+      def initialize: (message: String) -> void
+    end
+  end
+end

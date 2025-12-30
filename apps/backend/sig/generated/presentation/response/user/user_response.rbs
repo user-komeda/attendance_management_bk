@@ -4,12 +4,16 @@ module Presentation
   module Response
     module User
       class UserResponse < Presentation::Response::BaseResponse
+        # rubocop:disable all
         attr_reader id: String
 
+        # rubocop:disable all
         attr_reader first_name: String
 
+        # rubocop:disable all
         attr_reader last_name: String
 
+        # rubocop:disable all
         attr_reader email: String
 
         # @rbs (id: String, first_name: String, last_name: String, email: String) -> void

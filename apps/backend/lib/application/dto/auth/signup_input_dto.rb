@@ -6,7 +6,9 @@ module Application
   module Dto
     module Auth
       class SignupInputDto < InputBaseDto
-        attr_reader :first_name, :last_name, :email, :password # : String
+        # rubocop:disable all
+        attr_reader :first_name, :last_name, :email, :password #: String
+        # rubocop:enable all
 
         # @rbs ({ first_name: String, last_name: String, email: String, password: String }) -> void
         def initialize(params)

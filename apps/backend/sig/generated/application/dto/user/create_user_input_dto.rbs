@@ -4,10 +4,13 @@ module Application
   module Dto
     module User
       class CreateUserInputDto < InputBaseDto
+        # rubocop:disable all
         attr_reader first_name: String
 
+        # rubocop:disable all
         attr_reader last_name: String
 
+        # rubocop:disable all
         attr_reader email: String
 
         # @rbs ({ first_name: String, last_name: String, email: String }) -> void

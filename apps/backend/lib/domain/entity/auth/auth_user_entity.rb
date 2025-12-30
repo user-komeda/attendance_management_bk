@@ -35,6 +35,16 @@ module Domain
           @last_login_at = attrs.fetch(:last_login_at)
         end
 
+        # @rbs (String password) -> bool
+        def password_match?(password)
+          ::PasswordEncryptor.matches?(password, @password_digest.value)
+        end
+
+        # @rbs () -> bool
+        def active?
+          !!@is_active
+        end
+
         # rubocop:disable Layout/LineLength
         # @rbs ({?user_id: String, email: String, password: String, ?provider: String, ?is_active: bool, ?last_login_at: Time?}) -> AuthUserEntity
         # rubocop:enable Layout/LineLength

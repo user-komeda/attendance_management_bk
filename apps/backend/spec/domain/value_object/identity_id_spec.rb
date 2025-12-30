@@ -20,6 +20,10 @@ RSpec.describe Domain::ValueObject::IdentityId do
     it 'raises ArgumentError when value is nil' do
       expect { described_class.build(nil) }.to raise_error(ArgumentError)
     end
+
+    it 'raises ArgumentError when value is empty string' do
+      expect { described_class.build('') }.to raise_error(ArgumentError)
+    end
   end
 
   describe '#values' do

@@ -1,2 +1,25 @@
 # Generated from lib/presentation/request/auth/signin_request.rb with RBS::Inline
 
+module Presentation
+  module Request
+    module Auth
+      class SigninRequest < AuthBaseRequest
+        attr_reader email: String
+
+        attr_reader password: String
+
+        # @rbs ({email: String, password: String }) -> void
+        def initialize: ({ email: String, password: String }) -> void
+
+        # @rbs () -> ::Application::Dto::Auth::SigninInputDto
+        def convert_to_dto: () -> ::Application::Dto::Auth::SigninInputDto
+
+        # @rbs ({email: String, password: String }) -> SigninRequest
+        def self.build: ({ email: String, password: String }) -> SigninRequest
+
+        # @rbs ({email: String, password: String }) -> void
+        private def self.validate: ({ email: String, password: String }) -> void
+      end
+    end
+  end
+end

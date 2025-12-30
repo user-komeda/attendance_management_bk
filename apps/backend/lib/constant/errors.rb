@@ -17,12 +17,14 @@ module Constant
       # @rbs ALREADY_DELETED: Symbol
       ALREADY_DELETED = :already_deleted
       INVALID_PASSWORD = :invalid_password
+      UNAUTHENTICATED = :unauthenticated
     end
 
     module Status
       # @rbs MAP: Hash[Symbol, Integer]
       MAP = {
         Codes::BAD_REQUEST => 400,
+        Codes::UNAUTHENTICATED => 401,
         Codes::NOT_FOUND => 404,
         Codes::DUPLICATE => 409,
         Codes::ALREADY_DELETED => 409

@@ -12,13 +12,21 @@ module Domain
         REGEX_DIGIT = /[0-9]/
         private_class_method :new
 
+        # @rbs (message: String) -> void
         attr_reader :value # :String
+
+        # @rbs (message: String) -> void
 
         # @rbs (String value) -> void
         def initialize(value)
           super()
           @value = value
           @value.freeze
+        end
+
+        # @rbs (String value) -> bool
+        def match?(password)
+          ::PasswordEncryptor.matches?(password, value)
         end
 
         # @rbs (String value) -> void

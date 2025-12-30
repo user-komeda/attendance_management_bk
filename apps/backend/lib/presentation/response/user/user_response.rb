@@ -6,7 +6,9 @@ module Presentation
   module Response
     module User
       class UserResponse < Presentation::Response::BaseResponse
-        attr_reader :id, :first_name, :last_name, :email # :String
+        # rubocop:disable all
+        attr_reader :id, :first_name, :last_name, :email #: String
+        # rubocop:enable all
 
         # @rbs (id: String, first_name: String, last_name: String, email: String) -> void
         def initialize(id:, first_name:, last_name:, email:)

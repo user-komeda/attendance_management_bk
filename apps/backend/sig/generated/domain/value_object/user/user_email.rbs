@@ -4,9 +4,8 @@ module Domain
   module ValueObject
     module User
       class UserEmail < BaseValueObject
-        # @rbs!
-        #   attr_reader value: String
-        attr_reader value: untyped
+        # rubocop:disable all
+        attr_reader value: String
 
         # @rbs (String? value) -> void
         def initialize: (String? value) -> void

@@ -6,7 +6,9 @@ module Application
   module Dto
     module Auth
       class AuthOutputDto < BaseDto
-        attr_reader :id, :user_id # : String
+        # rubocop:disable all
+        attr_reader :id, :user_id #: String
+        # rubocop:enable all
 
         private_class_method :new
 

@@ -4,12 +4,16 @@ module Presentation
   module Request
     module User
       class UserBaseRequest < BaseRequest
+        # rubocop:disable all
         attr_reader id: String
 
+        # rubocop:disable all
         attr_reader first_name: String
 
+        # rubocop:disable all
         attr_reader last_name: String
 
+        # rubocop:disable all
         attr_reader email: String
 
         CREATE_INPUT_DTO: untyped

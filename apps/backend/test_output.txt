@@ -1,0 +1,275 @@
+invoke_use_case: signup, [#<Application::Dto::Auth::SignupInputDto:0x000001c36b44c688 @first_name="Taro", @last_name="Yamada", @email="taro-affb1a4b-0aae-4b47-8572-482742c1c008@example.com", @password="Password123!">]
+.invoke_use_case: signup, [#<Application::Dto::Auth::SignupInputDto:0x000001c36b73f9d0 @first_name="Taro", @last_name="Yamada", @email="taro-a1cc8b31-7494-4570-a851-b38f847c5661@example.com", @password="Password123!">]
+...invoke_use_case: signup, [#<Application::Dto::Auth::SignupInputDto:0x000001c36b824300 @first_name="Taro", @last_name="Yamada", @email="dup-df657d71-9514-43fd-b6c0-caad0b98fd1a@example.com", @password="Password123!">]
+invoke_use_case: signup, [#<Application::Dto::Auth::SignupInputDto:0x000001c36b90d208 @first_name="Taro", @last_name="Yamada", @email="dup-df657d71-9514-43fd-b6c0-caad0b98fd1a@example.com", @password="Password123!">]
+.invoke_use_case: signup, [#<Application::Dto::Auth::SignupInputDto:0x000001c36b907cb8 @first_name="Taro", @last_name="Yamada", @email="signin-ca1ac067-d9b9-4d5a-82e0-d3987be1e7c0@example.com", @password="Password123!">]
+invoke_use_case: signin, [#<Presentation::Request::Auth::SigninRequest:0x000001c36b986310 @email="signin-ca1ac067-d9b9-4d5a-82e0-d3987be1e7c0@example.com", @password="Password123!">]
+Finvoke_use_case: signup, [#<Application::Dto::Auth::SignupInputDto:0x000001c36b9cad80 @first_name="Taro", @last_name="Yamada", @email="signin-e8afa8c7-4ce0-4414-9da0-396da16c7419@example.com", @password="Password123!">]
+invoke_use_case: signin, [#<Presentation::Request::Auth::SigninRequest:0x000001c36ba9c420 @email="signin-e8afa8c7-4ce0-4414-9da0-396da16c7419@example.com", @password="Password123!">]
+Finvoke_use_case: signup, [#<Application::Dto::Auth::SignupInputDto:0x000001c36badf1a8 @first_name="Taro", @last_name="Yamada", @email="signin-aeb6b9f3-aa40-4276-8b59-9bf78c793071@example.com", @password="Password123!">]
+invoke_use_case: signin, [#<Presentation::Request::Auth::SigninRequest:0x000001c36bb15a28 @email="signin-aeb6b9f3-aa40-4276-8b59-9bf78c793071@example.com", @password="WrongPassword">]
+Finvoke_use_case: signup, [#<Application::Dto::Auth::SignupInputDto:0x000001c36bad3628 @first_name="Taro", @last_name="Yamada", @email="signin-ca44e376-a502-484c-8e3d-183c937039cd@example.com", @password="Password123!">]
+invoke_use_case: signin, [#<Presentation::Request::Auth::SigninRequest:0x000001c36bbbf000 @email="nonexistent@example.com", @password="Password123!">]
+Finvoke_use_case: signup, [#<Application::Dto::Auth::SignupInputDto:0x000001c36bb97a50 @first_name="Taro", @last_name="Yamada", @email="signin-079344c2-a81d-481f-87bf-57f3c30c3700@example.com", @password="Password123!">]
+.
+
+Failures:
+
+  1) Auth API integration (signup) Auth API integration (signin) returns 200 for valid signin
+     Failure/Error: post '/signin', { email: email, password: password }.to_json, json_headers
+
+     NoMethodError:
+       undefined method 'status_code' for an instance of Sequel::Error
+     # ./helper/response_helper.rb:14:in 'ResponseHelper#respond_with_error'
+     # ./config/sinatra_error_handler.rb:9:in 'block in Main#registered'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:1811:in 'Method#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:1811:in 'block in Sinatra::Base.compile!'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:1123:in 'block in Sinatra::Base#process_route'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:1121:in 'Kernel#catch'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:1121:in 'Sinatra::Base#process_route'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:1266:in 'block in Sinatra::Base#error_block!'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:1263:in 'Array#reverse_each'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:1263:in 'Sinatra::Base#error_block!'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:1252:in 'Sinatra::Base#handle_exception!'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:1200:in 'block in Sinatra::Base#dispatch!'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:1168:in 'Kernel#catch'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:1168:in 'Sinatra::Base#invoke'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:1200:in 'Sinatra::Base#dispatch!'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:1004:in 'block in Sinatra::Base#call!'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:1168:in 'Kernel#catch'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:1168:in 'Sinatra::Base#invoke'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:1004:in 'Sinatra::Base#call!'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:993:in 'Sinatra::Base#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/rack-protection-4.2.1/lib/rack/protection/xss_header.rb:20:in 'Rack::Protection::XSSHeader#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/rack-protection-4.2.1/lib/rack/protection/base.rb:53:in 'Rack::Protection::Base#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/rack-protection-4.2.1/lib/rack/protection/path_traversal.rb:18:in 'Rack::Protection::PathTraversal#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/rack-protection-4.2.1/lib/rack/protection/json_csrf.rb:28:in 'Rack::Protection::JsonCsrf#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/rack-protection-4.2.1/lib/rack/protection/base.rb:53:in 'Rack::Protection::Base#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/rack-protection-4.2.1/lib/rack/protection/base.rb:53:in 'Rack::Protection::Base#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/rack-protection-4.2.1/lib/rack/protection/frame_options.rb:33:in 'Rack::Protection::FrameOptions#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/rack-protection-4.2.1/lib/rack/protection/base.rb:53:in 'Rack::Protection::Base#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/rack-protection-4.2.1/lib/rack/protection/xss_header.rb:20:in 'Rack::Protection::XSSHeader#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/rack-protection-4.2.1/lib/rack/protection/path_traversal.rb:18:in 'Rack::Protection::PathTraversal#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/rack-protection-4.2.1/lib/rack/protection/json_csrf.rb:28:in 'Rack::Protection::JsonCsrf#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/rack-protection-4.2.1/lib/rack/protection/base.rb:53:in 'Rack::Protection::Base#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/rack-protection-4.2.1/lib/rack/protection/base.rb:53:in 'Rack::Protection::Base#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/rack-protection-4.2.1/lib/rack/protection/frame_options.rb:33:in 'Rack::Protection::FrameOptions#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/middleware/logger.rb:17:in 'Sinatra::Middleware::Logger#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/rack-3.2.4/lib/rack/common_logger.rb:43:in 'Rack::CommonLogger#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:269:in 'Rack::CommonLogger#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:262:in 'Sinatra::CommonLogger#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/rack-3.2.4/lib/rack/head.rb:15:in 'Rack::Head#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:227:in 'Sinatra::ExtendedRack#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:2144:in 'Sinatra::Wrapper#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:1681:in 'block in Sinatra::Base.call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:1902:in 'Sinatra::Base.synchronize'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:1681:in 'Sinatra::Base.call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/rack-test-2.2.0/lib/rack/test.rb:360:in 'Rack::Test::Session#process_request'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/rack-test-2.2.0/lib/rack/test.rb:163:in 'Rack::Test::Session#custom_request'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/rack-test-2.2.0/lib/rack/test.rb:112:in 'Rack::Test::Session#post'
+     # ./spec/integration/auth_integration_spec.rb:60:in 'block (3 levels) in <top (required)>'
+     # C:/Users/user/AppData/Local/Microsoft/WindowsApps/rspec:25:in 'Kernel#load'
+     # C:/Users/user/AppData/Local/Microsoft/WindowsApps/rspec:25:in '<main>'
+     # ------------------
+     # --- Caused by: ---
+     # Sequel::Error:
+     #   can't express #<Domain::ValueObject::User::UserEmail:0x000001c36b984560 @value="signin-ca1ac067-d9b9-4d5a-82e0-d3987be1e7c0@example.com"> as a SQL literal
+     #   C:/Users/user/.gem/ruby/3.4.0/gems/sequel-5.95.0/lib/sequel/dataset/sql.rb:1441:in 'Sequel::Dataset#literal_other_append'
+
+  2) Auth API integration (signup) Auth API integration (signin) returns non-empty id and user_id in response for valid signin
+     Failure/Error: post '/signin', { email: email, password: password }.to_json, json_headers
+
+     NoMethodError:
+       undefined method 'status_code' for an instance of Sequel::Error
+     # ./helper/response_helper.rb:14:in 'ResponseHelper#respond_with_error'
+     # ./config/sinatra_error_handler.rb:9:in 'block in Main#registered'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:1811:in 'Method#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:1811:in 'block in Sinatra::Base.compile!'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:1123:in 'block in Sinatra::Base#process_route'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:1121:in 'Kernel#catch'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:1121:in 'Sinatra::Base#process_route'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:1266:in 'block in Sinatra::Base#error_block!'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:1263:in 'Array#reverse_each'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:1263:in 'Sinatra::Base#error_block!'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:1252:in 'Sinatra::Base#handle_exception!'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:1200:in 'block in Sinatra::Base#dispatch!'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:1168:in 'Kernel#catch'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:1168:in 'Sinatra::Base#invoke'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:1200:in 'Sinatra::Base#dispatch!'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:1004:in 'block in Sinatra::Base#call!'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:1168:in 'Kernel#catch'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:1168:in 'Sinatra::Base#invoke'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:1004:in 'Sinatra::Base#call!'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:993:in 'Sinatra::Base#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/rack-protection-4.2.1/lib/rack/protection/xss_header.rb:20:in 'Rack::Protection::XSSHeader#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/rack-protection-4.2.1/lib/rack/protection/base.rb:53:in 'Rack::Protection::Base#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/rack-protection-4.2.1/lib/rack/protection/path_traversal.rb:18:in 'Rack::Protection::PathTraversal#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/rack-protection-4.2.1/lib/rack/protection/json_csrf.rb:28:in 'Rack::Protection::JsonCsrf#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/rack-protection-4.2.1/lib/rack/protection/base.rb:53:in 'Rack::Protection::Base#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/rack-protection-4.2.1/lib/rack/protection/base.rb:53:in 'Rack::Protection::Base#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/rack-protection-4.2.1/lib/rack/protection/frame_options.rb:33:in 'Rack::Protection::FrameOptions#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/rack-protection-4.2.1/lib/rack/protection/base.rb:53:in 'Rack::Protection::Base#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/rack-protection-4.2.1/lib/rack/protection/xss_header.rb:20:in 'Rack::Protection::XSSHeader#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/rack-protection-4.2.1/lib/rack/protection/path_traversal.rb:18:in 'Rack::Protection::PathTraversal#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/rack-protection-4.2.1/lib/rack/protection/json_csrf.rb:28:in 'Rack::Protection::JsonCsrf#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/rack-protection-4.2.1/lib/rack/protection/base.rb:53:in 'Rack::Protection::Base#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/rack-protection-4.2.1/lib/rack/protection/base.rb:53:in 'Rack::Protection::Base#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/rack-protection-4.2.1/lib/rack/protection/frame_options.rb:33:in 'Rack::Protection::FrameOptions#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/middleware/logger.rb:17:in 'Sinatra::Middleware::Logger#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/rack-3.2.4/lib/rack/common_logger.rb:43:in 'Rack::CommonLogger#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:269:in 'Rack::CommonLogger#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:262:in 'Sinatra::CommonLogger#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/rack-3.2.4/lib/rack/head.rb:15:in 'Rack::Head#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:227:in 'Sinatra::ExtendedRack#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:2144:in 'Sinatra::Wrapper#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:1681:in 'block in Sinatra::Base.call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:1902:in 'Sinatra::Base.synchronize'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:1681:in 'Sinatra::Base.call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/rack-test-2.2.0/lib/rack/test.rb:360:in 'Rack::Test::Session#process_request'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/rack-test-2.2.0/lib/rack/test.rb:163:in 'Rack::Test::Session#custom_request'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/rack-test-2.2.0/lib/rack/test.rb:112:in 'Rack::Test::Session#post'
+     # ./spec/integration/auth_integration_spec.rb:65:in 'block (3 levels) in <top (required)>'
+     # C:/Users/user/AppData/Local/Microsoft/WindowsApps/rspec:25:in 'Kernel#load'
+     # C:/Users/user/AppData/Local/Microsoft/WindowsApps/rspec:25:in '<main>'
+     # ------------------
+     # --- Caused by: ---
+     # Sequel::Error:
+     #   can't express #<Domain::ValueObject::User::UserEmail:0x000001c36ba9b480 @value="signin-e8afa8c7-4ce0-4414-9da0-396da16c7419@example.com"> as a SQL literal
+     #   C:/Users/user/.gem/ruby/3.4.0/gems/sequel-5.95.0/lib/sequel/dataset/sql.rb:1441:in 'Sequel::Dataset#literal_other_append'
+
+  3) Auth API integration (signup) Auth API integration (signin) returns 401 when password is incorrect
+     Failure/Error: post '/signin', { email: email, password: 'WrongPassword' }.to_json, json_headers
+
+     NoMethodError:
+       undefined method 'status_code' for an instance of Sequel::Error
+     # ./helper/response_helper.rb:14:in 'ResponseHelper#respond_with_error'
+     # ./config/sinatra_error_handler.rb:9:in 'block in Main#registered'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:1811:in 'Method#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:1811:in 'block in Sinatra::Base.compile!'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:1123:in 'block in Sinatra::Base#process_route'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:1121:in 'Kernel#catch'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:1121:in 'Sinatra::Base#process_route'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:1266:in 'block in Sinatra::Base#error_block!'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:1263:in 'Array#reverse_each'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:1263:in 'Sinatra::Base#error_block!'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:1252:in 'Sinatra::Base#handle_exception!'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:1200:in 'block in Sinatra::Base#dispatch!'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:1168:in 'Kernel#catch'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:1168:in 'Sinatra::Base#invoke'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:1200:in 'Sinatra::Base#dispatch!'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:1004:in 'block in Sinatra::Base#call!'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:1168:in 'Kernel#catch'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:1168:in 'Sinatra::Base#invoke'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:1004:in 'Sinatra::Base#call!'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:993:in 'Sinatra::Base#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/rack-protection-4.2.1/lib/rack/protection/xss_header.rb:20:in 'Rack::Protection::XSSHeader#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/rack-protection-4.2.1/lib/rack/protection/base.rb:53:in 'Rack::Protection::Base#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/rack-protection-4.2.1/lib/rack/protection/path_traversal.rb:18:in 'Rack::Protection::PathTraversal#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/rack-protection-4.2.1/lib/rack/protection/json_csrf.rb:28:in 'Rack::Protection::JsonCsrf#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/rack-protection-4.2.1/lib/rack/protection/base.rb:53:in 'Rack::Protection::Base#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/rack-protection-4.2.1/lib/rack/protection/base.rb:53:in 'Rack::Protection::Base#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/rack-protection-4.2.1/lib/rack/protection/frame_options.rb:33:in 'Rack::Protection::FrameOptions#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/rack-protection-4.2.1/lib/rack/protection/base.rb:53:in 'Rack::Protection::Base#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/rack-protection-4.2.1/lib/rack/protection/xss_header.rb:20:in 'Rack::Protection::XSSHeader#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/rack-protection-4.2.1/lib/rack/protection/path_traversal.rb:18:in 'Rack::Protection::PathTraversal#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/rack-protection-4.2.1/lib/rack/protection/json_csrf.rb:28:in 'Rack::Protection::JsonCsrf#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/rack-protection-4.2.1/lib/rack/protection/base.rb:53:in 'Rack::Protection::Base#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/rack-protection-4.2.1/lib/rack/protection/base.rb:53:in 'Rack::Protection::Base#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/rack-protection-4.2.1/lib/rack/protection/frame_options.rb:33:in 'Rack::Protection::FrameOptions#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/middleware/logger.rb:17:in 'Sinatra::Middleware::Logger#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/rack-3.2.4/lib/rack/common_logger.rb:43:in 'Rack::CommonLogger#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:269:in 'Rack::CommonLogger#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:262:in 'Sinatra::CommonLogger#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/rack-3.2.4/lib/rack/head.rb:15:in 'Rack::Head#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:227:in 'Sinatra::ExtendedRack#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:2144:in 'Sinatra::Wrapper#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:1681:in 'block in Sinatra::Base.call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:1902:in 'Sinatra::Base.synchronize'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:1681:in 'Sinatra::Base.call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/rack-test-2.2.0/lib/rack/test.rb:360:in 'Rack::Test::Session#process_request'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/rack-test-2.2.0/lib/rack/test.rb:163:in 'Rack::Test::Session#custom_request'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/rack-test-2.2.0/lib/rack/test.rb:112:in 'Rack::Test::Session#post'
+     # ./spec/integration/auth_integration_spec.rb:70:in 'block (3 levels) in <top (required)>'
+     # C:/Users/user/AppData/Local/Microsoft/WindowsApps/rspec:25:in 'Kernel#load'
+     # C:/Users/user/AppData/Local/Microsoft/WindowsApps/rspec:25:in '<main>'
+     # ------------------
+     # --- Caused by: ---
+     # Sequel::Error:
+     #   can't express #<Domain::ValueObject::User::UserEmail:0x000001c36bb14a88 @value="signin-aeb6b9f3-aa40-4276-8b59-9bf78c793071@example.com"> as a SQL literal
+     #   C:/Users/user/.gem/ruby/3.4.0/gems/sequel-5.95.0/lib/sequel/dataset/sql.rb:1441:in 'Sequel::Dataset#literal_other_append'
+
+  4) Auth API integration (signup) Auth API integration (signin) returns 401 when email does not exist
+     Failure/Error: post '/signin', { email: 'nonexistent@example.com', password: password }.to_json, json_headers
+
+     NoMethodError:
+       undefined method 'status_code' for an instance of Sequel::Error
+     # ./helper/response_helper.rb:14:in 'ResponseHelper#respond_with_error'
+     # ./config/sinatra_error_handler.rb:9:in 'block in Main#registered'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:1811:in 'Method#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:1811:in 'block in Sinatra::Base.compile!'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:1123:in 'block in Sinatra::Base#process_route'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:1121:in 'Kernel#catch'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:1121:in 'Sinatra::Base#process_route'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:1266:in 'block in Sinatra::Base#error_block!'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:1263:in 'Array#reverse_each'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:1263:in 'Sinatra::Base#error_block!'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:1252:in 'Sinatra::Base#handle_exception!'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:1200:in 'block in Sinatra::Base#dispatch!'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:1168:in 'Kernel#catch'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:1168:in 'Sinatra::Base#invoke'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:1200:in 'Sinatra::Base#dispatch!'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:1004:in 'block in Sinatra::Base#call!'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:1168:in 'Kernel#catch'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:1168:in 'Sinatra::Base#invoke'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:1004:in 'Sinatra::Base#call!'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:993:in 'Sinatra::Base#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/rack-protection-4.2.1/lib/rack/protection/xss_header.rb:20:in 'Rack::Protection::XSSHeader#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/rack-protection-4.2.1/lib/rack/protection/base.rb:53:in 'Rack::Protection::Base#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/rack-protection-4.2.1/lib/rack/protection/path_traversal.rb:18:in 'Rack::Protection::PathTraversal#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/rack-protection-4.2.1/lib/rack/protection/json_csrf.rb:28:in 'Rack::Protection::JsonCsrf#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/rack-protection-4.2.1/lib/rack/protection/base.rb:53:in 'Rack::Protection::Base#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/rack-protection-4.2.1/lib/rack/protection/base.rb:53:in 'Rack::Protection::Base#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/rack-protection-4.2.1/lib/rack/protection/frame_options.rb:33:in 'Rack::Protection::FrameOptions#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/rack-protection-4.2.1/lib/rack/protection/base.rb:53:in 'Rack::Protection::Base#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/rack-protection-4.2.1/lib/rack/protection/xss_header.rb:20:in 'Rack::Protection::XSSHeader#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/rack-protection-4.2.1/lib/rack/protection/path_traversal.rb:18:in 'Rack::Protection::PathTraversal#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/rack-protection-4.2.1/lib/rack/protection/json_csrf.rb:28:in 'Rack::Protection::JsonCsrf#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/rack-protection-4.2.1/lib/rack/protection/base.rb:53:in 'Rack::Protection::Base#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/rack-protection-4.2.1/lib/rack/protection/base.rb:53:in 'Rack::Protection::Base#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/rack-protection-4.2.1/lib/rack/protection/frame_options.rb:33:in 'Rack::Protection::FrameOptions#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/middleware/logger.rb:17:in 'Sinatra::Middleware::Logger#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/rack-3.2.4/lib/rack/common_logger.rb:43:in 'Rack::CommonLogger#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:269:in 'Rack::CommonLogger#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:262:in 'Sinatra::CommonLogger#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/rack-3.2.4/lib/rack/head.rb:15:in 'Rack::Head#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:227:in 'Sinatra::ExtendedRack#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:2144:in 'Sinatra::Wrapper#call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:1681:in 'block in Sinatra::Base.call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:1902:in 'Sinatra::Base.synchronize'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/sinatra-4.2.1/lib/sinatra/base.rb:1681:in 'Sinatra::Base.call'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/rack-test-2.2.0/lib/rack/test.rb:360:in 'Rack::Test::Session#process_request'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/rack-test-2.2.0/lib/rack/test.rb:163:in 'Rack::Test::Session#custom_request'
+     # C:/Users/user/.gem/ruby/3.4.0/gems/rack-test-2.2.0/lib/rack/test.rb:112:in 'Rack::Test::Session#post'
+     # ./spec/integration/auth_integration_spec.rb:75:in 'block (3 levels) in <top (required)>'
+     # C:/Users/user/AppData/Local/Microsoft/WindowsApps/rspec:25:in 'Kernel#load'
+     # C:/Users/user/AppData/Local/Microsoft/WindowsApps/rspec:25:in '<main>'
+     # ------------------
+     # --- Caused by: ---
+     # Sequel::Error:
+     #   can't express #<Domain::ValueObject::User::UserEmail:0x000001c36bbbe060 @value="nonexistent@example.com"> as a SQL literal
+     #   C:/Users/user/.gem/ruby/3.4.0/gems/sequel-5.95.0/lib/sequel/dataset/sql.rb:1441:in 'Sequel::Dataset#literal_other_append'
+
+Finished in 1.53 seconds (files took 4.03 seconds to load)
+10 examples, 4 failures
+
+Failed examples:
+
+rspec ./spec/integration/auth_integration_spec.rb:59 # Auth API integration (signup) Auth API integration (signin) returns 200 for valid signin
+rspec ./spec/integration/auth_integration_spec.rb:64 # Auth API integration (signup) Auth API integration (signin) returns non-empty id and user_id in response for valid signin
+rspec ./spec/integration/auth_integration_spec.rb:69 # Auth API integration (signup) Auth API integration (signin) returns 401 when password is incorrect
+rspec ./spec/integration/auth_integration_spec.rb:74 # Auth API integration (signup) Auth API integration (signin) returns 401 when email does not exist
+
+Coverage report generated for RSpec to C:/Users/user/Desktop/learning/attendance_management/attendance_management_bk/apps/backend/coverage.
+Line Coverage: 84.29% (692 / 821)
+Branch Coverage: 39.39% (26 / 66)
+Stopped processing SimpleCov as a previous error not related to SimpleCov has been detected

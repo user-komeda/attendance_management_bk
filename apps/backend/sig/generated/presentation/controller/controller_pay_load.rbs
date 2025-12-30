@@ -3,6 +3,7 @@
 module Presentation
   module Controller
     class ControllerPayLoad
+      # rubocop:disable all
       attr_reader id: String
 
       attr_reader status_code: Integer

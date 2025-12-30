@@ -14,11 +14,11 @@ module Presentation
         end
 
         # @rbs (Hash[Symbol, untyped] params) -> Hash[Symbol, String]
-        # def signin(params)
-        #   signin_request = build_request(params, SIGNIN_REQUEST)
-        #   response = invoke_use_case(:signin, signin_request)
-        #   AUTH_RESPONSE.build(id: response.id, user_id: response.user_id)
-        # end
+        def signin(params)
+          signin_request = build_request(params, SIGNIN_REQUEST)
+          response = invoke_use_case(:signin, signin_request)
+          AUTH_RESPONSE.build(id: response.id, user_id: response.user_id)
+        end
       end
     end
   end

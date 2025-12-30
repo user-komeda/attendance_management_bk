@@ -3,6 +3,7 @@
 # rubocop:disable Metrics/MethodLength
 # rubocop:disable Metrics/AbcSize
 # rbs_inline: enabled
+
 module RouteHelper
   DEFAULT_ACTIONS = %i[index show create update destroy].freeze
 
@@ -51,10 +52,11 @@ module RouteHelper
     path = route[:path]
     controller = route[:controller]
     action = route[:action]
+    code = route.fetch(:code, 200)
 
     result = send(method, path) do
       result = controller.new.public_send(action, parse_params(request))
-      respond_with_data(status_code: 201, id: result[:id], data: result)
+      respond_with_data(status_code: code, id: result[:id], data: result)
     end
   end
 

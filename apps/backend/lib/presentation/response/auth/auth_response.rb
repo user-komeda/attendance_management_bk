@@ -1,12 +1,14 @@
 # frozen_string_literal: true
 
-
 # rbs_inline: enabled
+
 module Presentation
   module Response
     module Auth
       class AuthResponse < Presentation::Response::BaseResponse
-        attr_reader :id, :user_id # :String
+        # rubocop:disable all
+        attr_reader :id, :user_id #:String
+        # rubocop:enable all
 
         # @rbs (id: String, user_id: String) -> void
         def initialize(id:, user_id:)

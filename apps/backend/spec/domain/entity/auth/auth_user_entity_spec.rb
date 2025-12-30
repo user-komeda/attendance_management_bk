@@ -34,5 +34,15 @@ RSpec.describe Domain::Entity::Auth::AuthUserEntity do
         e.provider == 'local' && e.is_active == true && e.last_login_at == Time.at(0)
       end
     end
+
+    describe '#password_match?' do
+      it 'returns true for correct password' do
+        expect(entity.password_match?('Abcdefg1')).to be true
+      end
+
+      it 'returns false for incorrect password' do
+        expect(entity.password_match?('WrongPassword1')).to be false
+      end
+    end
   end
 end

@@ -12,6 +12,7 @@ RSpec.describe Domain::Repository::User::UserRepository do
       def update(_obj); end
       def delete(_obj); end
       def find_by_email(_email); end
+      def create_with_auth_user(_attrs); end
     end
   end
 
@@ -64,5 +65,14 @@ RSpec.describe Domain::Repository::User::UserRepository do
 
     result = repo.find_by_email('a@example.com')
     expect(result).to eq(:found)
+  end
+
+  it 'delegates create_with_auth_user' do
+    attrs = { user: :user, auth_user: :auth }
+    fake = instance_spy(infra_repo_interface, create_with_auth_user: :created_all)
+    allow(repo).to receive(:resolve).and_return(fake)
+
+    result = repo.create_with_auth_user(attrs)
+    expect(result).to eq(:created_all)
   end
 end

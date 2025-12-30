@@ -52,8 +52,9 @@ Top-level items of interest:
 - `src/routes`: Unit tests
 - `src/lib`:Unit tests
 
-4. Do not introduce new external services or long-running background commands unless requested.
-5. When unsure about behavior, check specs under `apps/backend/spec` and OpenAPI under `apps/backend/openApi`.
+4. Backend unit tests should be performed only for code under `apps/backend/lib`.
+5. Do not introduce new external services or long-running background commands unless requested.
+6. When unsure about behavior, check specs under `apps/backend/spec` and OpenAPI under `apps/backend/openApi`.
 
 ## Running Backend (local)
 

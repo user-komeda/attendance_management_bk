@@ -4,6 +4,8 @@ module Domain
   module Repository
     module Auth
       class AuthRepository < AuthRepositoryBase
+        # @rbs (String email) -> ::Infrastructure::Entity::Auth::AuthUserEntity?
+        def find_by_email: (String email) -> ::Infrastructure::Entity::Auth::AuthUserEntity?
       end
     end
   end

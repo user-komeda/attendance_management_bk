@@ -6,7 +6,9 @@ module Presentation
   module Request
     module User
       class UserBaseRequest < BaseRequest
-        attr_reader :id, :first_name, :last_name, :email # : String
+        # rubocop:disable all
+        attr_reader :id, :first_name, :last_name, :email #: String
+        # rubocop:enable all
 
         CREATE_INPUT_DTO = ::Application::Dto::User::CreateUserInputDto.freeze
         UPDATE_INPUT_DTO = ::Application::Dto::User::UpdateUserInputDto.freeze

@@ -4,15 +4,11 @@ module Domain
   module ValueObject
     module User
       class UserName < BaseValueObject
-        # @rbs!
-        #   attr_reader first_name: String
-        #   attr_reader last_name: String
-        attr_reader first_name: untyped
+        # rubocop:disable all
+        attr_reader first_name: String
 
-        # @rbs!
-        #   attr_reader first_name: String
-        #   attr_reader last_name: String
-        attr_reader last_name: untyped
+        # rubocop:disable all
+        attr_reader last_name: String
 
         # @rbs (String? first_name, String? last_name) -> void
         def initialize: (String? first_name, String? last_name) -> void

@@ -20,9 +20,7 @@ module Infrastructure
         # @rbs (untyped struct) -> ::Domain::Entity::User::UserEntity
         def self.struct_to_domain: (untyped struct) -> ::Domain::Entity::User::UserEntity
 
-        # rubocop:disable Layout/LineLength
         # @rbs (untyped struct) -> {user_entity: Domain::Entity::User::UserEntity, auth_user_entity: Domain::Entity::Auth::AuthUserEntity}
-        # rubocop:enable Layout/LineLength
         def self.struct_to_domain_with_auth_user: (untyped struct) -> { user_entity: Domain::Entity::User::UserEntity, auth_user_entity: Domain::Entity::Auth::AuthUserEntity }
 
         # @rbs (::Domain::Entity::User::UserEntity entity) -> UserEntity

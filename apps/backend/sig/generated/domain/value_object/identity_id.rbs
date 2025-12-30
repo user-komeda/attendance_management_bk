@@ -3,9 +3,8 @@
 module Domain
   module ValueObject
     class IdentityId < BaseValueObject
-      # @rbs!
-      #   attr_reader value: String
-      attr_reader value: untyped
+      # rubocop:disable all
+      attr_reader value: String
 
       # @rbs (String args) -> void
       def initialize: (String args) -> void

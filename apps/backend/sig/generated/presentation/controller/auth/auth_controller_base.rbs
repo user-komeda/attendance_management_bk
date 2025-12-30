@@ -10,8 +10,9 @@ module Presentation
 
         BASE_REQUEST: untyped
 
-        # SIGNIN_REQUEST = ::Presentation::Request::Auth::SigninRequest.freeze
         SIGNUP_REQUEST: untyped
+
+        SIGNIN_REQUEST: untyped
 
         # @rbs (Hash[Symbol, untyped] request_payload, untyped request_class) -> ::Presentation::Request::Auth::AuthBaseRequest
         def build_request: (Hash[Symbol, untyped] request_payload, untyped request_class) -> ::Presentation::Request::Auth::AuthBaseRequest
