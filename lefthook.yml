@@ -1,4 +1,4 @@
-cd ../pre-commit:
+pre-commit:
   commands:
     check:
       run: "yarn check"

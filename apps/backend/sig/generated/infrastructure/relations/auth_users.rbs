@@ -1,0 +1,10 @@
+# Generated from lib/infrastructure/relations/auth_users.rb with RBS::Inline
+
+module Infrastructure
+  module Relations
+    class AuthUsers
+      # @rbs (String email) -> ROM::Relation
+      def by_email: (String email) -> ROM::Relation
+    end
+  end
+end

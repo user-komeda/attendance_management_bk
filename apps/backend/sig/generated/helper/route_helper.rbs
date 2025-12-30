@@ -1,0 +1,13 @@
+# Generated from helper/route_helper.rb with RBS::Inline
+
+module RouteHelper
+  DEFAULT_ACTIONS: untyped
+
+  # @rbs (Hash[Symbol, untyped] route) -> void
+  def route_resources: (Hash[Symbol, untyped] route) -> void
+
+  def route_path: (untyped route) -> untyped
+
+  # @rbs (untyped request) -> Hash[Symbol, untyped]
+  def parse_params: (untyped request) -> Hash[Symbol, untyped]
+end
