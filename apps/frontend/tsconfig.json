@@ -18,5 +18,5 @@
     }
   },
   "include": ["**/*"],
-  "exclude": ["node_modules", "dist", ".vinxi", "out"]
+  "exclude": ["node_modules", "dist", ".vinxi", "out", "coverage"]
 }

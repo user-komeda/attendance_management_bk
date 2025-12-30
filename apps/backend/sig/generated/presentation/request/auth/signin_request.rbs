@@ -4,8 +4,10 @@ module Presentation
   module Request
     module Auth
       class SigninRequest < AuthBaseRequest
+        # rubocop:disable all
         attr_reader email: String
 
+        # rubocop:disable all
         attr_reader password: String
 
         # @rbs ({email: String, password: String }) -> void

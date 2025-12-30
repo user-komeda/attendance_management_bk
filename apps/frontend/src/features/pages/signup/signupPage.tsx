@@ -4,7 +4,7 @@ import actionWrapper from '~/util/actionWrapper'
 
 const signup = actionWrapper<typeof SignupSchema, undefined>(
   '/api/signup',
-  'login',
+  'signup',
   SignupSchema,
   '/',
 )
