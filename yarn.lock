@@ -9981,8 +9981,8 @@ __metadata:
   linkType: hard
 
 "vinxi@npm:^0.5.7":
-  version: 0.5.9
-  resolution: "vinxi@npm:0.5.9"
+  version: 0.5.10
+  resolution: "vinxi@npm:0.5.10"
   dependencies:
     "@babel/core": "npm:^7.22.11"
     "@babel/plugin-syntax-jsx": "npm:^7.22.5"
@@ -10017,10 +10017,10 @@ __metadata:
     unenv: "npm:^1.10.0"
     unstorage: "npm:^1.16.0"
     vite: "npm:^6.4.1"
-    zod: "npm:^3.24.3"
+    zod: "npm:^4.0.0"
   bin:
     vinxi: bin/cli.mjs
-  checksum: 10c0/8db140e999ffd0d0e17abd08f7ff43e489c9dcf2e5c28a560a7a1213eb08cf22286b8957500817bb169e9b8e8e98315a0335608a452dddd3c071f826c2e088fa
+  checksum: 10c0/fd169ecd2f270b441abfd3e48f314095a22165dd1e06576cecea793c7a1b2e8e7434d6804e53dfb58068bed792bcef2845291d47697d1c7fdd8fdd3970200e78
   languageName: node
   linkType: hard
 
@@ -10613,10 +10613,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"zod@npm:^3.24.3":
-  version: 3.25.76
-  resolution: "zod@npm:3.25.76"
-  checksum: 10c0/5718ec35e3c40b600316c5b4c5e4976f7fee68151bc8f8d90ec18a469be9571f072e1bbaace10f1e85cf8892ea12d90821b200e980ab46916a6166a4260a983c
+"zod@npm:^4.0.0":
+  version: 4.2.1
+  resolution: "zod@npm:4.2.1"
+  checksum: 10c0/ecb5219bddf76a42d092a843fb98ad4cb78f1e1077082772b03ef032ee5cbc80790a4051836b962d26fb4af854323bc784d628bd1b8d9898149eba7af21c5560
   languageName: node
   linkType: hard
 
