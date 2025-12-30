@@ -30,6 +30,12 @@ module Domain
         # rubocop:enable Layout/LineLength
         def initialize: ({ id: Domain::ValueObject::IdentityId?, user_id: String?, email: Domain::ValueObject::User::UserEmail, password_digest: Domain::ValueObject::AuthUser::PasswordDigest, provider: String?, is_active: bool?, last_login_at: Time? }) -> void
 
+        # @rbs (String password) -> bool
+        def password_match?: (String password) -> bool
+
+        # @rbs () -> bool
+        def active?: () -> bool
+
         # rubocop:disable Layout/LineLength
         # @rbs ({?user_id: String, email: String, password: String, ?provider: String, ?is_active: bool, ?last_login_at: Time?}) -> AuthUserEntity
         # rubocop:enable Layout/LineLength

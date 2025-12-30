@@ -1,12 +1,13 @@
 # Generated from lib/presentation/response/auth/auth_response.rb with RBS::Inline
 
-# rbs_inline: enabled
 module Presentation
   module Response
     module Auth
       class AuthResponse < Presentation::Response::BaseResponse
+        # rubocop:disable all
         attr_reader id: String
 
+        # rubocop:disable all
         attr_reader user_id: String
 
         # @rbs (id: String, user_id: String) -> void

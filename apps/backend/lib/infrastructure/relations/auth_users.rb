@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 # rbs_inline: enabled
+
 module Infrastructure
   module Relations
     class AuthUsers < ROM::Relation[:sql]

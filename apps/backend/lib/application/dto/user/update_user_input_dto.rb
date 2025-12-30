@@ -7,6 +7,7 @@ module Application
     module User
       class UpdateUserInputDto < InputBaseDto
         attr_reader :id, :first_name, :last_name, :email # :String
+        # rubocop:enable all
 
         # @rbs ({ id: String, first_name: String, last_name: String, email: String }) -> void
         def initialize(params)

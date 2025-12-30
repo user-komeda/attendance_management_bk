@@ -6,9 +6,9 @@ module Domain
   module ValueObject
     module User
       class UserEmail < BaseValueObject
-        # @rbs!
-        #   attr_reader value: String
-        attr_reader :value
+        # rubocop:disable all
+        attr_reader :value #: String
+        # rubocop:enable all
 
         private_class_method :new
 

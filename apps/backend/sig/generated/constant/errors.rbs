@@ -16,6 +16,8 @@ module Constant
       ALREADY_DELETED: ::Symbol
 
       INVALID_PASSWORD: ::Symbol
+
+      UNAUTHENTICATED: ::Symbol
     end
 
     module Status

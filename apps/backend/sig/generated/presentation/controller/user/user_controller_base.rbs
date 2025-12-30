@@ -17,8 +17,8 @@ module Presentation
         # @rbs (Hash[Symbol, untyped] request_payload, untyped request_class) -> ::Presentation::Request::User::UserBaseRequest
         def build_request: (Hash[Symbol, untyped] request_payload, untyped request_class) -> ::Presentation::Request::User::UserBaseRequest
 
-        # @rbs (Symbol key, *untyped args) -> untyped
-        def invoke_use_case: (Symbol key, *untyped args) -> untyped
+        # @rbs [T] (Symbol key, *untyped args) -> T
+        def invoke_use_case: [T] (Symbol key, *untyped args) -> T
       end
     end
   end

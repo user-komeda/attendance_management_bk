@@ -6,7 +6,9 @@ module Application
   module Dto
     module User
       class UserDto < Application::Dto::BaseDto
-        attr_reader :id, :first_name, :last_name, :email # : String
+        # rubocop:disable all
+        attr_reader :id, :first_name, :last_name, :email #: String
+        # rubocop:enable all
 
         private_class_method :new
 

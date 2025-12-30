@@ -4,11 +4,17 @@ module Application
   module Dto
     module Auth
       class SigninInputDto < InputBaseDto
-        attr_reader email: untyped
+        # rubocop:disable all
+        attr_reader email: String
 
-        attr_reader password: untyped
+        # rubocop:disable all
+        attr_reader password: String
 
-        def initialize: (untyped params) -> untyped
+        # @rbs ({ email: String, password: String }) -> void
+        def initialize: ({ email: String, password: String }) -> void
+
+        # @rbs () -> ::Domain::Entity::Auth::AuthUserEntity
+        def convert_to_auth_user_entity: () -> ::Domain::Entity::Auth::AuthUserEntity
       end
     end
   end

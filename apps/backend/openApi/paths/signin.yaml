@@ -1,5 +1,5 @@
 post:
-  tags: [auth]
+  tags: [ auth ]
   summary: サインイン（ログイン）
   description: |-
     既存ユーザーのサインインを行います。POST + JSON で受け付けます。
@@ -10,7 +10,7 @@ post:
       application/json:
         schema:
           type: object
-          required: [email, password]
+          required: [ email, password ]
           properties:
             email:
               type: string
@@ -27,7 +27,7 @@ post:
         application/json:
           schema:
             type: object
-            required: [user_id]
+            required: [ user_id ]
             properties:
               user_id:
                 type: string

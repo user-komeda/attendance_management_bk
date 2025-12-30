@@ -12,6 +12,13 @@ module Domain
           result = caller.find_by_email(email)
           !result.nil?
         end
+
+        # @rbs (auth_user: Domain::Entity::Auth::AuthUserEntity, password: String) -> bool
+        def can_login?(auth_user:, password:)
+          return false unless auth_user.active?
+
+          auth_user.password_match?(password)
+        end
       end
     end
   end

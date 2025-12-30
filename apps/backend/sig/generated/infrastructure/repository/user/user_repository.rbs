@@ -19,7 +19,9 @@ module Infrastructure
         # @rbs (String email) -> ::Domain::Entity::User::UserEntity?
         def find_by_email: (String email) -> ::Domain::Entity::User::UserEntity?
 
+        # rubocop:disable Layout/LineLength
         # @rbs ({user: Domain::Entity::User::UserEntity, auth_user: Domain::Entity::Auth::AuthUserEntity}) -> {user_entity: Domain::Entity::User::UserEntity, auth_user_entity: Domain::Entity::Auth::AuthUserEntity}
+        # rubocop:enable Layout/LineLength
         def create_with_auth_user: ({ user: Domain::Entity::User::UserEntity, auth_user: Domain::Entity::Auth::AuthUserEntity }) -> { user_entity: Domain::Entity::User::UserEntity, auth_user_entity: Domain::Entity::Auth::AuthUserEntity }
       end
     end

@@ -192,5 +192,33 @@ RSpec.describe Infrastructure::Repository::User::UserRepository do
       find_result
       expect(rom).to have_received(:find_by_email).with('x@example.com')
     end
+
+    context 'when found' do
+      let(:found_email) { 'found@example.com' }
+      let(:infra_entity) do
+        Infrastructure::Entity::User::UserEntity.new(
+          id: '00000000-0000-0000-0000-000000000001',
+          first_name: 'F',
+          last_name: 'L',
+          email: found_email
+        )
+      end
+
+      before do
+        allow(rom).to receive(:find_by_email).with(found_email).and_return(infra_entity)
+      end
+
+      it 'returns domain entity' do
+        expect(repo.find_by_email(found_email)).to be_a(Domain::Entity::User::UserEntity)
+      end
+
+      it 'maps the id correctly' do
+        expect(repo.find_by_email(found_email).id.value).to eq('00000000-0000-0000-0000-000000000001')
+      end
+
+      it 'maps the email correctly' do
+        expect(repo.find_by_email(found_email).email.value).to eq(found_email)
+      end
+    end
   end
 end

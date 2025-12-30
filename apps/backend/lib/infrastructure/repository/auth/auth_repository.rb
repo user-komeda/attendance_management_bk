@@ -6,6 +6,7 @@ module Infrastructure
   module Repository
     module Auth
       class AuthRepository < AuthBaseRepository
+        # @rbs (String email) -> ::Domain::Entity::Auth::AuthUserEntity?
         def find_by_email(email)
           caller = resolve(ROM_REPOSITORY_KEY)
           infra_entity = caller.find_by_email(email)

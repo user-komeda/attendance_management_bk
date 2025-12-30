@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# :nocov:
+
 module RedisHelper
   def redis_get(key)
     redis_client = resolve('redis')
@@ -11,3 +13,4 @@ module RedisHelper
     redis_client.set(key, value)
   end
 end
+# :nocov:

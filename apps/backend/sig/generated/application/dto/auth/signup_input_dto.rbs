@@ -4,12 +4,16 @@ module Application
   module Dto
     module Auth
       class SignupInputDto < InputBaseDto
+        # rubocop:disable all
         attr_reader first_name: String
 
+        # rubocop:disable all
         attr_reader last_name: String
 
+        # rubocop:disable all
         attr_reader email: String
 
+        # rubocop:disable all
         attr_reader password: String
 
         # @rbs ({ first_name: String, last_name: String, email: String, password: String }) -> void

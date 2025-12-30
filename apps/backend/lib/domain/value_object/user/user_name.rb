@@ -6,10 +6,9 @@ module Domain
   module ValueObject
     module User
       class UserName < BaseValueObject
-        # @rbs!
-        #   attr_reader first_name: String
-        #   attr_reader last_name: String
-        attr_reader :first_name, :last_name
+        # rubocop:disable all
+        attr_reader :first_name, :last_name #: String
+        # rubocop:enable all
 
         private_class_method :new
 

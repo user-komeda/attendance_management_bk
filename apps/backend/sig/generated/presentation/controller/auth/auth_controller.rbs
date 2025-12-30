@@ -6,6 +6,9 @@ module Presentation
       class AuthController < AuthControllerBase
         # @rbs (Hash[Symbol, untyped] params) -> Hash[Symbol, String]
         def signup: (Hash[Symbol, untyped] params) -> Hash[Symbol, String]
+
+        # @rbs (Hash[Symbol, untyped] params) -> Hash[Symbol, String]
+        def signin: (Hash[Symbol, untyped] params) -> Hash[Symbol, String]
       end
     end
   end

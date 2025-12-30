@@ -1,5 +1,127 @@
 [0] Checking formatting...
+[3] 
+[3] [1m[46m RUN [49m[22m [36mv4.0.16 [39m[90mC:/Users/user/Desktop/learning/attendance_management/attendance_management_bk/apps/frontend[39m
+[3]       [2mCoverage enabled with [22m[33mv8[39m
+[3] 
 [0] All matched files use Prettier code style!
 [0] yarn format exited with code 0
-[1] yarn typecheck exited with code 0
+[1] error TS6053: File 'C:/Users/user/Desktop/learning/attendance_management/attendance_management_bk/apps/frontend/coverage/block-navigation.js' not found.
+[1]   The file is in the program because:
+[1]     Matched by include pattern '**/*' in 'C:/Users/user/Desktop/learning/attendance_management/attendance_management_bk/apps/frontend/tsconfig.json'
+[1] error TS6053: File 'C:/Users/user/Desktop/learning/attendance_management/attendance_management_bk/apps/frontend/coverage/prettify.js' not found.
+[1]   The file is in the program because:
+[1]     Matched by include pattern '**/*' in 'C:/Users/user/Desktop/learning/attendance_management/attendance_management_bk/apps/frontend/tsconfig.json'
+[1] error TS6053: File 'C:/Users/user/Desktop/learning/attendance_management/attendance_management_bk/apps/frontend/coverage/sorter.js' not found.
+[1]   The file is in the program because:
+[1]     Matched by include pattern '**/*' in 'C:/Users/user/Desktop/learning/attendance_management/attendance_management_bk/apps/frontend/tsconfig.json'
+[1] yarn typecheck exited with code 2
+[3] [90mstderr[2m | src/routes/index.test.tsx
+[3] [22m[39mYou appear to have multiple instances of Solid. This can lead to unexpected behavior.
+[3] 
+[3] [90mstderr[2m | src/components/Counter.test.tsx
+[3] [22m[39mYou appear to have multiple instances of Solid. This can lead to unexpected behavior.
+[3] 
+[3] [90mstderr[2m | src/features/components/signup/signupForm.test.tsx
+[3] [22m[39mYou appear to have multiple instances of Solid. This can lead to unexpected behavior.
+[3] 
+[3] [90mstderr[2m | src/components/Nav.test.tsx
+[3] [22m[39mYou appear to have multiple instances of Solid. This can lead to unexpected behavior.
+[3] 
+[3] [90mstderr[2m | src/routes/404.test.tsx
+[3] [22m[39mYou appear to have multiple instances of Solid. This can lead to unexpected behavior.
+[3] 
+[3] [90mstderr[2m | src/routes/signup.test.tsx
+[3] [22m[39mYou appear to have multiple instances of Solid. This can lead to unexpected behavior.
+[3] 
+[3] [90mstderr[2m | src/routes/about.test.tsx
+[3] [22m[39mYou appear to have multiple instances of Solid. This can lead to unexpected behavior.
+[3] 
+[3]  [32m✓[39m src/util/postWrapper.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 12[2mms[22m[39m
+[3]  [32m✓[39m src/util/redisClient.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 56[2mms[22m[39m
+[3]  [32m✓[39m src/lib/createSeession.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 7[2mms[22m[39m
+[3]  [32m✓[39m src/util/error.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+[3]  [32m✓[39m src/schema/signupSchema.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+[3]  [32m✓[39m src/util/actionWrapper.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 10[2mms[22m[39m
+[3] [90mstderr[2m | src/components/Counter.test.tsx[2m > [22m[2mCounter[2m > [22m[2mshould increment count when clicked
+[3] [22m[39mcomputations created outside a `createRoot` or `render` will never be disposed
+[3] 
+[3]  [32m✓[39m src/components/Counter.test.tsx [2m([22m[2m1 test[22m[2m)[22m[32m 184[2mms[22m[39m
+[3]  [32m✓[39m src/routes/api/signup.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+[3] [90mstderr[2m | src/routes/404.test.tsx[2m > [22m[2mNotFound Route[2m > [22m[2mrenders Not Found title
+[3] [22m[39mcomputations created outside a `createRoot` or `render` will never be disposed
+[3] 
+[3] [90mstderr[2m | src/routes/404.test.tsx[2m > [22m[2mNotFound Route[2m > [22m[2mrenders links
+[3] [22m[39mcomputations created outside a `createRoot` or `render` will never be disposed
+[3] 
+[3] [90mstderr[2m | src/components/Nav.test.tsx[2m > [22m[2mNav[2m > [22m[2mrenders navigation links
+[3] [22m[39mcomputations created outside a `createRoot` or `render` will never be disposed
+[3] 
+[3] [90mstderr[2m | src/routes/index.test.tsx[2m > [22m[2mHome Route[2m > [22m[2mrenders Hello world!
+[3] [22m[39mcomputations created outside a `createRoot` or `render` will never be disposed
+[3] 
+[3] [90mstderr[2m | src/routes/about.test.tsx[2m > [22m[2mAbout Route[2m > [22m[2mrenders About Page title
+[3] [22m[39mcomputations created outside a `createRoot` or `render` will never be disposed
+[3] 
+[3] [90mstderr[2m | src/components/Nav.test.tsx[2m > [22m[2mNav[2m > [22m[2mhighlights active link
+[3] [22m[39mcomputations created outside a `createRoot` or `render` will never be disposed
+[3] 
+[3] [90mstderr[2m | src/routes/index.test.tsx[2m > [22m[2mHome Route[2m > [22m[2mrenders about page link
+[3] [22m[39mcomputations created outside a `createRoot` or `render` will never be disposed
+[3] 
+[3]  [32m✓[39m src/routes/404.test.tsx [2m([22m[2m2 tests[22m[2m)[22m[32m 37[2mms[22m[39m
+[3]  [32m✓[39m src/components/Nav.test.tsx [2m([22m[2m2 tests[22m[2m)[22m[32m 43[2mms[22m[39m
+[3]  [32m✓[39m src/routes/index.test.tsx [2m([22m[2m2 tests[22m[2m)[22m[32m 46[2mms[22m[39m
+[3] [90mstderr[2m | src/routes/signup.test.tsx[2m > [22m[2mSignup Route[2m > [22m[2mrenders Signup Page
+[3] [22m[39mcomputations created outside a `createRoot` or `render` will never be disposed
+[3] 
+[3]  [32m✓[39m src/routes/signup.test.tsx [2m([22m[2m1 test[22m[2m)[22m[32m 41[2mms[22m[39m
+[3] [90mstderr[2m | src/routes/about.test.tsx[2m > [22m[2mAbout Route[2m > [22m[2mrenders home link
+[3] [22m[39mcomputations created outside a `createRoot` or `render` will never be disposed
+[3] 
+[3] [90mstderr[2m | src/features/components/signup/signupForm.test.tsx[2m > [22m[2mSignupForm[2m > [22m[2mshould render signup form
+[3] [22m[39mcomputations created outside a `createRoot` or `render` will never be disposed
+[3] 
+[3]  [32m✓[39m src/routes/about.test.tsx [2m([22m[2m2 tests[22m[2m)[22m[32m 255[2mms[22m[39m
+[3] [90mstderr[2m | src/features/components/signup/signupForm.test.tsx[2m > [22m[2mSignupForm[2m > [22m[2mshould display errors when submission result has errors
+[3] [22m[39mcomputations created outside a `createRoot` or `render` will never be disposed
+[3] 
+[3]  [32m✓[39m src/features/components/signup/signupForm.test.tsx [2m([22m[2m2 tests[22m[2m)[22m[32m 238[2mms[22m[39m
+[3] 
+[3] [2m Test Files [22m [1m[32m14 passed[39m[22m[90m (14)[39m
+[3] [2m      Tests [22m [1m[32m37 passed[39m[22m[90m (37)[39m
+[3] [2m   Start at [22m 15:10:44
+[3] [2m   Duration [22m 4.28s[2m (transform 3.89s, setup 10.21s, import 8.14s, tests 952ms, environment 23.33s)[22m
+[3] 
+[3] [34m % [39m[2mCoverage report from [22m[33mv8[39m
+[3] -------------------|---------|----------|---------|---------|-------------------
+[3] File               | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+[3] -------------------|---------|----------|---------|---------|-------------------
+[3] All files          |     100 |      100 |   97.77 |     100 |                   
+[3]  components        |     100 |      100 |     100 |     100 |                   
+[3]   Counter.tsx      |     100 |      100 |     100 |     100 |                   
+[3]   Nav.tsx          |     100 |      100 |     100 |     100 |                   
+[3]   ...tPassword.tsx |     100 |      100 |     100 |     100 |                   
+[3]   inputText.tsx    |     100 |      100 |     100 |     100 |                   
+[3]  ...ponents/signup |     100 |      100 |     100 |     100 |                   
+[3]   signupForm.tsx   |     100 |      100 |     100 |     100 |                   
+[3]  ...s/pages/signup |     100 |      100 |     100 |     100 |                   
+[3]   signupPage.tsx   |     100 |      100 |     100 |     100 |                   
+[3]  lib               |     100 |      100 |     100 |     100 |                   
+[3]   ...teSeession.ts |     100 |      100 |     100 |     100 |                   
+[3]  routes            |     100 |      100 |    87.5 |     100 |                   
+[3]   [...404].tsx     |     100 |      100 |   66.66 |     100 |                   
+[3]   about.tsx        |     100 |      100 |     100 |     100 |                   
+[3]   index.tsx        |     100 |      100 |     100 |     100 |                   
+[3]   signup.tsx       |     100 |      100 |     100 |     100 |                   
+[3]  routes/api        |     100 |      100 |     100 |     100 |                   
+[3]   signup.ts        |     100 |      100 |     100 |     100 |                   
+[3]  schema            |     100 |      100 |     100 |     100 |                   
+[3]   signupSchema.ts  |     100 |      100 |     100 |     100 |                   
+[3]  util              |     100 |      100 |     100 |     100 |                   
+[3]   actionWrapper.ts |     100 |      100 |     100 |     100 |                   
+[3]   error.ts         |     100 |      100 |     100 |     100 |                   
+[3]   postWrapper.ts   |     100 |      100 |     100 |     100 |                   
+[3]   redisClient.ts   |     100 |      100 |     100 |     100 |                   
+[3] -------------------|---------|----------|---------|---------|-------------------
+[3] yarn test exited with code 0
 [2] yarn lint exited with code 0
