@@ -2826,7 +2826,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vitest/coverage-v8@npm:^4.0.16":
+"@vitest/coverage-v8@npm:4.0.16":
   version: 4.0.16
   resolution: "@vitest/coverage-v8@npm:4.0.16"
   dependencies:
@@ -4777,7 +4777,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-solid@npm:^0.14.5":
+"eslint-plugin-solid@npm:0.14.5":
   version: 0.14.5
   resolution: "eslint-plugin-solid@npm:0.14.5"
   dependencies:
@@ -4843,7 +4843,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:^9.39.2":
+"eslint@npm:9.39.2":
   version: 9.39.2
   resolution: "eslint@npm:9.39.2"
   dependencies:
@@ -5206,15 +5206,15 @@ __metadata:
     "@testing-library/jest-dom": "npm:6.9.1"
     "@testing-library/user-event": "npm:14.6.1"
     "@types/jsdom": "npm:27.0.0"
-    "@vitest/coverage-v8": "npm:^4.0.16"
+    "@vitest/coverage-v8": "npm:4.0.16"
     "@vitest/eslint-plugin": "npm:1.6.4"
     concurrently: "npm:9.2.1"
-    eslint: "npm:^9.39.2"
+    eslint: "npm:9.39.2"
     eslint-config-prettier: "npm:10.1.8"
     eslint-import-resolver-typescript: "npm:4.4.4"
     eslint-plugin-import: "npm:2.32.0"
     eslint-plugin-no-relative-import-paths: "npm:1.6.1"
-    eslint-plugin-solid: "npm:^0.14.5"
+    eslint-plugin-solid: "npm:0.14.5"
     eslint-plugin-testing-library: "npm:7.15.3"
     eslint-plugin-unused-imports: "npm:4.3.0"
     jsdom: "npm:27.4.0"
@@ -5227,7 +5227,7 @@ __metadata:
     valibot: "npm:^1.2.0"
     vinxi: "npm:^0.5.7"
     vite: "npm:7.3.0"
-    vite-plugin-solid: "npm:^2.11.10"
+    vite-plugin-solid: "npm:2.11.10"
     vitest: "npm:4.0.16"
   languageName: unknown
   linkType: soft
@@ -10040,7 +10040,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite-plugin-solid@npm:^2.11.1, vite-plugin-solid@npm:^2.11.10":
+"vite-plugin-solid@npm:2.11.10, vite-plugin-solid@npm:^2.11.1":
   version: 2.11.10
   resolution: "vite-plugin-solid@npm:2.11.10"
   dependencies:
