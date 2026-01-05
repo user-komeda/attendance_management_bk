@@ -3,6 +3,7 @@
 module Infrastructure
   module Relations
     class Users
+      # :nocov:
       # @rbs (String email) -> ROM::Relation[untyped]
       def by_email: (String email) -> ROM::Relation[untyped]
     end

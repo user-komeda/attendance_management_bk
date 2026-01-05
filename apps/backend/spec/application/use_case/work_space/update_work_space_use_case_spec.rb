@@ -84,5 +84,25 @@ RSpec.describe Application::UseCase::WorkSpace::UpdateWorkSpaceUseCase do
           .to raise_error(Application::Exception::DuplicatedException, 'workspace already exists')
       end
     end
+
+    context 'when slug remains the same' do
+      let(:input_dto) do
+        Application::Dto::WorkSpace::UpdateWorkSpaceInputDto.new(
+          id: workspace_id,
+          name: 'New Name',
+          slug: 'old-slug'
+        )
+      end
+
+      before do
+        allow(work_space_repo).to receive(:get_by_id).with(id: workspace_id).and_return(workspace_entity)
+        allow(work_space_repo).to receive(:update).and_return(workspace_entity)
+      end
+
+      it 'does not check slug uniqueness' do
+        expect(work_space_service).not_to receive(:exists_by_slug?)
+        use_case.invoke(args: input_dto)
+      end
+    end
   end
 end

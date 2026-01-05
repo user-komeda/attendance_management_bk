@@ -2,7 +2,7 @@
 
 # rbs_inline: enabled
 
-module Context
+module ContextHelper
   def self.set_context(key, value)
     Thread.current[key] = value
   end

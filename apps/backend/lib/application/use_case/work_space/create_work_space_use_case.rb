@@ -8,7 +8,7 @@ module Application
       class CreateWorkSpaceUseCase < WorkSpaceBaseUseCase
         # @rbs (args: ::Application::Dto::WorkSpace::CreateWorkSpaceInputDto) -> ::Application::Dto::WorkSpace::WorkSpaceWithMemberShipsDto
         def invoke(args:)
-          user_id = Context.get_context(:auth_context)[:user_id]
+          user_id = ContextHelper.get_context(:auth_context)[:user_id]
           rom = resolve('db.config')
 
           rom.gateways[:default].transaction do

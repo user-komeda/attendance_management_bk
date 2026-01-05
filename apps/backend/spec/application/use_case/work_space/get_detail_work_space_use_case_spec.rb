@@ -28,7 +28,7 @@ RSpec.describe Application::UseCase::WorkSpace::GetDetailWorkSpaceUseCase do
   end
 
   before do
-    allow(Context).to receive(:get_context).with(:auth_context).and_return({ user_id: user_id })
+    allow(ContextHelper).to receive(:get_context).with(:auth_context).and_return({ user_id: user_id })
     # rubocop:disable RSpec/SubjectStub
     allow(use_case).to receive(:resolve) do |key|
       case key

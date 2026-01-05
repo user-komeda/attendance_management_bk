@@ -13,7 +13,7 @@ module Application
           work_space = work_space_repository.get_by_id(id: args)
           raise ::Application::Exception::NotFoundException.new(message: 'workspace not found') if work_space.nil?
 
-          user_id = Context.get_context(:auth_context)[:user_id]
+          user_id = ContextHelper.get_context(:auth_context)[:user_id]
           member_ships = member_ships_repository.get_by_user_id_and_work_space_id(
             user_id: user_id, work_space_id: work_space.id.value
           )

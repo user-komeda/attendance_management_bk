@@ -62,20 +62,22 @@ RSpec.describe Application::Dto::WorkSpace::MemberShipsDto do
         expect { dto }.to raise_error(ArgumentError, 'role and status must not be nil')
       end
     end
-  end
 
-  describe '.build_from_array' do
-    subject(:dtos) { described_class.build_from_array(member_ships_list) }
+    context 'when status is nil' do
+      let(:status) { nil }
+      let(:member_ships_entity) do
+        Domain::Entity::WorkSpace::MemberShipsEntity.new(
+          id: Domain::ValueObject::IdentityId.build(id),
+          user_id: Domain::ValueObject::IdentityId.build(user_id),
+          work_space_id: Domain::ValueObject::IdentityId.build(work_space_id),
+          role: Domain::ValueObject::WorkSpace::Role.build(role),
+          status: nil
+        )
+      end
 
-    let(:member_ships_list) { [member_ships_entity] }
-
-
-    it 'returns an array of MemberShipsDto' do
-      expect(dtos).to all(be_a(described_class))
-    end
-
-    it 'has correct size' do
-      expect(dtos.size).to eq(1)
+      it 'raises ArgumentError' do
+        expect { dto }.to raise_error(ArgumentError, 'role and status must not be nil')
+      end
     end
   end
 end

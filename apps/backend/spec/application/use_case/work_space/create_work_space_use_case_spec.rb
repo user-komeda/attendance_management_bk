@@ -40,7 +40,7 @@ RSpec.describe Application::UseCase::WorkSpace::CreateWorkSpaceUseCase do
   let(:rom_config) { instance_double(ROM::Configuration, gateways: { default: rom_gateway }) }
 
   before do
-    allow(Context).to receive(:get_context).with(:auth_context).and_return({ user_id: user_id })
+    allow(ContextHelper).to receive(:get_context).with(:auth_context).and_return({ user_id: user_id })
     allow(rom_gateway).to receive(:transaction).and_yield
 
     # rubocop:disable RSpec/SubjectStub

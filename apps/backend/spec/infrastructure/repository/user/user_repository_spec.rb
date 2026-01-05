@@ -226,4 +226,105 @@ RSpec.describe Infrastructure::Repository::User::UserRepository do
       end
     end
   end
+
+  describe '#create_with_auth_user' do
+    subject(:result) { repo.create_with_auth_user(user_with_auth_user: input) }
+
+    let(:user_id) { SecureRandom.uuid }
+    let(:auth_user_id) { SecureRandom.uuid }
+    let(:email) { 'test@example.com' }
+    let(:input) do
+      {
+        user_name: Domain::ValueObject::User::UserName.build('Taro', 'Yamada'),
+        email: Domain::ValueObject::User::UserEmail.build(email),
+        auth_user: {
+          email: Domain::ValueObject::User::UserEmail.build(email),
+          password_digest: Domain::ValueObject::AuthUser::PasswordDigest.build('Password123!')
+        }
+      }
+    end
+
+    let(:infra_entity) do
+      auth_user_struct = double(
+        'auth_user_struct',
+        id: auth_user_id,
+        user_id: user_id,
+        email: email,
+        password_digest: 'Password123!',
+        provider: 'email',
+        is_active: true,
+        last_login_at: nil
+      )
+      double(
+        'user_struct',
+        id: user_id,
+        first_name: 'Taro',
+        last_name: 'Yamada',
+        email: email,
+        session_version: 1,
+        auth_user: auth_user_struct
+      )
+    end
+
+    let(:rom) { instance_double(Infrastructure::Repository::Rom::User::UserRomRepository) }
+
+    before do
+      allow(rom).to receive(:create_with_auth_user).and_return(infra_entity)
+      allow(repo).to receive(:resolve).and_return(rom)
+    end
+
+    it 'returns a hash with user_entity and auth_user_entity' do
+      expect(result).to include(:user_entity, :auth_user_entity)
+    end
+
+    it 'contains domain user entity' do
+      expect(result[:user_entity]).to be_a(Domain::Entity::User::UserEntity)
+    end
+
+    it 'contains domain auth user entity' do
+      expect(result[:auth_user_entity]).to be_a(Domain::Entity::Auth::AuthUserEntity)
+    end
+  end
+
+  describe 'Infrastructure::Entity::User::UserEntity' do
+    let(:user_id) { SecureRandom.uuid }
+    let(:email) { 'test@example.com' }
+    let(:domain_user) do
+      Domain::Entity::User::UserEntity.build_with_id(
+        id: user_id,
+        first_name: 'Taro',
+        last_name: 'Yamada',
+        email: email,
+        session_version: 1
+      )
+    end
+
+    it 'converts to domain' do
+      infra = Infrastructure::Entity::User::UserEntity.new(
+        id: user_id, first_name: 'Taro', last_name: 'Yamada', email: email, session_version: 1
+      )
+      expect(infra.to_domain).to be_a(Domain::Entity::User::UserEntity)
+    end
+
+    it 'converts struct to domain' do
+      struct = double('struct', id: user_id, first_name: 'Taro', last_name: 'Yamada', email: email, session_version: 1)
+      result = Infrastructure::Entity::User::UserEntity.struct_to_domain(struct: struct)
+      expect(result).to be_a(Domain::Entity::User::UserEntity)
+    end
+
+    it 'builds from domain entity' do
+      result = Infrastructure::Entity::User::UserEntity.build_from_domain_entity(user_entity: domain_user)
+      expect(result).to be_a(Infrastructure::Entity::User::UserEntity)
+      expect(result.id).to eq(user_id)
+    end
+
+    it 'generates uuid when domain id is empty' do
+      domain_no_id = double('domain_user',
+                            id: nil,
+                            user_name: double('name', first_name: 'A', last_name: 'B'),
+                            email: double('email', value: 'a@b.c'))
+      result = Infrastructure::Entity::User::UserEntity.build_from_domain_entity(user_entity: domain_no_id)
+      expect(result.id).not_to be_empty
+    end
+  end
 end

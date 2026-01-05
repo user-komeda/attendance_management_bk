@@ -33,16 +33,9 @@ module Application
             id: member_ships_entity.id.value,
             user_id: member_ships_entity.user_id.value,
             work_space_id: member_ships_entity.work_space_id.value,
-            role: member_ships_entity.role&.value,
-            status: member_ships_entity.status&.value
+            role: member_ships_entity.role.value,
+            status: member_ships_entity.status.value
           )
-        end
-
-        # @rbs (Array[::Domain::Entity::WorkSpace::MemberShipsEntity] member_ships_list) -> Array[MemberShipsDto]
-        def self.build_from_array(member_ships_list)
-          member_ships_list.map do |member_ships|
-            build(member_ships)
-          end
         end
       end
     end

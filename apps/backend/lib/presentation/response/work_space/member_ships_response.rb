@@ -32,13 +32,6 @@ module Presentation
           ).to_h
         end
 
-        # @rbs (member_ships_list: Array[::Application::Dto::WorkSpace::MemberShipsDto]) -> Array[Hash[Symbol, String]]
-        def self.build_from_array(member_ships_list:)
-          member_ships_list.map do |member_ships|
-            build(member_ships: member_ships)
-          end
-        end
-
         # @rbs () -> {id: String, user_id: String, work_space_id: String, role: String, status: String }
         def to_h
           {

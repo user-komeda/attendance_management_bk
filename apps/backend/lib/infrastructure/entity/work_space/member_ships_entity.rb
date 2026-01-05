@@ -46,8 +46,8 @@ module Infrastructure
             id: ::UtilMethod.nil_or_empty?(member_ships_entity.id) ? SecureRandom.uuid : member_ships_entity.id.value,
             user_id: member_ships_entity.user_id.value,
             work_space_id: member_ships_entity.work_space_id.value,
-            role: member_ships_entity.role&.value,
-            status: member_ships_entity.status&.value
+            role: UtilMethod.nil_or_empty?(member_ships_entity.role) ? 'owner' : member_ships_entity.role.value,
+            status: UtilMethod.nil_or_empty?(member_ships_entity.status) ? 'active' : member_ships_entity.status.value
           )
         end
       end

@@ -10,7 +10,7 @@ module Application
         def invoke
           work_space_repository = resolve(WORK_SPACE_REPOSITORY)
           member_ships_repository = resolve(MEMBER_SHIPS_REPOSITORY)
-          user_id = Context.get_context(:auth_context)[:user_id]
+          user_id = ContextHelper.get_context(:auth_context)[:user_id]
           member_ships = member_ships_repository.work_space_ids_via_membership_by_user_id(user_id: user_id)
           return [] if member_ships.empty?
 

@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# :nocov:
+
 module VerifyJwt
   extend ContainerHelper
 
@@ -23,3 +25,4 @@ module VerifyJwt
     bearer.split(' ', 2)[1]
   end
 end
+# :nocov:

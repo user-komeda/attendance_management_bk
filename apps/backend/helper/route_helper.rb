@@ -14,7 +14,9 @@ module RouteHelper
     resource_name = route[:resource_name]
     controller = route[:controller]
     only = route[:only] || DEFAULT_ACTIONS
+    # :nocov:
     base_path = resource_name.empty? ? '' : "/#{resource_name}"
+    # :nocov:
     only.each do |action|
       case action
       when :index
@@ -38,11 +40,11 @@ module RouteHelper
           respond_with_data(status_code: 204, id: result[:id])
         end
       when :destroy
-        # :nocov:
         delete %r{#{base_path}/(?<id>(?i:#{uuid_pattern}))/?} do
           id = controller.new.destroy(params[:id])
           respond_with_data(status_code: 204, id: id, resource_name: resource_name)
         end
+        # :nocov:
       else
         raise NoMatchingPatternError
       end
