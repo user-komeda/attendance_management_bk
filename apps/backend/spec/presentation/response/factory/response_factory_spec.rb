@@ -81,7 +81,8 @@ RSpec.describe Presentation::Response::Factory::ResponseFactory do
             first_name: 'Taro',
             last_name: 'Yamada',
             email: 'taro.yamada@example.com'
-          }
+          },
+          resource_name: 'users'
         )
       end
 

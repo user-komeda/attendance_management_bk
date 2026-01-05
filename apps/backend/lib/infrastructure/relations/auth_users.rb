@@ -10,7 +10,7 @@ module Infrastructure
           belongs_to :user
         end
       end
-      # @rbs (String email) -> ROM::Relation
+      # @rbs (String email) -> ROM::Relation[untyped]
       def by_email(email)
         where(email: email)
       end

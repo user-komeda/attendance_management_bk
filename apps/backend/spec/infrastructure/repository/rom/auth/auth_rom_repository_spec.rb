@@ -63,7 +63,7 @@ RSpec.describe Infrastructure::Repository::Rom::Auth::AuthRomRepository do
 
       # rubocop:disable RSpec/MultipleExpectations
       it 'returns an Infrastructure::Entity::Auth::AuthUserEntity' do
-        result = repo.find_by_email('taro@example.com')
+        result = repo.find_by_email(email: 'taro@example.com')
         expect(result).to be_a(Infrastructure::Entity::Auth::AuthUserEntity)
         expect(result.email).to eq('taro@example.com')
       end
@@ -78,7 +78,7 @@ RSpec.describe Infrastructure::Repository::Rom::Auth::AuthRomRepository do
       end
 
       it 'returns nil' do
-        expect(repo.find_by_email('nobody@example.com')).to be_nil
+        expect(repo.find_by_email(email: 'nobody@example.com')).to be_nil
       end
     end
   end

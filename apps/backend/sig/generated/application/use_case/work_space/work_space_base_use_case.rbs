@@ -1,0 +1,23 @@
+# Generated from lib/application/use_case/work_space/work_space_base_use_case.rb with RBS::Inline
+
+module Application
+  module UseCase
+    module WorkSpace
+      class WorkSpaceBaseUseCase < BaseUseCase
+        WORK_SPACE_REPOSITORY: untyped
+
+        MEMBER_SHIPS_REPOSITORY: untyped
+
+        WORK_SPACE_SERVICE: untyped
+
+        WORK_SPACE_DTO: untyped
+
+        MEMBER_SHIPS_DTO: untyped
+
+        WORK_SPACE_WITH_STATUS_DTO: untyped
+
+        WORK_SPACE_WITH_MEMBER_SHIPS_DTO: untyped
+      end
+    end
+  end
+end

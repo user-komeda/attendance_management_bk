@@ -1,0 +1,7 @@
+# Generated from helper/redis_helper.rb with RBS::Inline
+
+module RedisHelper
+  def self.redis_get: (untyped key) -> untyped
+
+  def self.redis_set: (untyped key, untyped value) -> untyped
+end

@@ -1,0 +1,26 @@
+# Generated from lib/presentation/request/work_space/work_space_base_request.rb with RBS::Inline
+
+module Presentation
+  module Request
+    module WorkSpace
+      class WorkSpaceBaseRequest < BaseRequest
+        # rubocop:disable all
+        attr_reader id: String
+
+        # rubocop:disable all
+        attr_reader name: String
+
+        # rubocop:disable all
+        attr_reader slug: String
+
+        CREATE_INPUT_DTO: untyped
+
+        UPDATE_INPUT_DTO: untyped
+
+        CREATE_CONTRACT: untyped
+
+        UPDATE_CONTRACT: untyped
+      end
+    end
+  end
+end

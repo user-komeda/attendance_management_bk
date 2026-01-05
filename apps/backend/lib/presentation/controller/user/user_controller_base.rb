@@ -14,18 +14,24 @@ module Presentation
 
         protected
 
-        # @rbs (Hash[Symbol, untyped] request_payload, untyped request_class) -> ::Presentation::Request::User::UserBaseRequest
+        # @rbs (request_payload: Hash[Symbol, untyped], request_class: untyped) -> ::Presentation::Request::User::UserBaseRequest
         def build_request(request_payload, request_class)
           raise ArgumentError, "#{request_class} is not a valid User request class" unless request_class <= BASE_REQUEST
 
-          request_class.build(request_payload)
+          request_class.build(params: request_payload)
         end
 
-        # @rbs [T] (Symbol key, *untyped args) -> T
-        def invoke_use_case(key, *)
+        # @rbs [T] (key: Symbol, *untyped args) -> T
+        def invoke_use_case(key, *args)
           key = USER_USE_CASE[key].key
           invoker = resolve(key)
-          invoker.invoke(*)
+          # : Hash[Symbol, untyped]
+          params = if UtilMethod.nil_or_empty?(args)
+                     {} # : Hash[Symbol, untyped]
+                   else
+                     { args: args.first }
+                   end
+          invoker.invoke(**params)
         end
       end
     end

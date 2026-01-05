@@ -1,0 +1,11 @@
+# Generated from lib/domain/service/work_space/work_space_base_service.rb with RBS::Inline
+
+module Domain
+  module Service
+    module WorkSpace
+      class WorkSpaceBaseService < BaseService
+        REPOSITORY_KEY: untyped
+      end
+    end
+  end
+end

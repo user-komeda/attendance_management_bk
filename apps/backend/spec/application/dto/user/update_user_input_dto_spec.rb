@@ -5,14 +5,16 @@ require_relative '../../../spec_helper'
 RSpec.describe Application::Dto::User::UpdateUserInputDto do
   describe '#initialize' do
     it 'assigns attributes including id' do
-      dto = described_class.new(id: 9, first_name: 'New', last_name: 'Name', email: 'new@example.com')
-      expect(dto).to have_attributes(id: 9, first_name: 'New', last_name: 'Name', email: 'new@example.com')
+      dto = described_class.new(id: '9', first_name: 'New', last_name: 'Name', email: 'new@example.com')
+      expect(dto).to have_attributes(id: '9', first_name: 'New', last_name: 'Name', email: 'new@example.com')
     end
   end
 
   describe '#convert_to_entity' do
     subject(:entity) do
-      described_class.new(id: 1, first_name: 'Taro', last_name: 'Yamada', email: 'taro@example.com').convert_to_entity
+      described_class.new(
+        id: '1', first_name: 'Taro', last_name: 'Yamada', email: 'taro@example.com'
+      ).convert_to_entity
     end
 
     it 'returns a UserEntity' do

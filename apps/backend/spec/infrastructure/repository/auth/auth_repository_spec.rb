@@ -18,14 +18,14 @@ RSpec.describe Infrastructure::Repository::Auth::AuthRepository do
           .and_return(rom_repo)
 
         allow(rom_repo).to receive(:find_by_email)
-          .with('taro@example.com')
+          .with(email: 'taro@example.com')
           .and_return(infra_entity)
 
         allow(infra_entity).to receive(:to_domain).and_return(domain_entity)
       end
 
       it 'delegates to ROM repository and maps to domain entity' do
-        result = repo.find_by_email('taro@example.com')
+        result = repo.find_by_email(email: 'taro@example.com')
         expect(result).to eq(domain_entity)
       end
     end
@@ -37,12 +37,12 @@ RSpec.describe Infrastructure::Repository::Auth::AuthRepository do
           .and_return(rom_repo)
 
         allow(rom_repo).to receive(:find_by_email)
-          .with('nobody@example.com')
+          .with(email: 'nobody@example.com')
           .and_return(nil)
       end
 
       it 'returns nil' do
-        expect(repo.find_by_email('nobody@example.com')).to be_nil
+        expect(repo.find_by_email(email: 'nobody@example.com')).to be_nil
       end
     end
   end

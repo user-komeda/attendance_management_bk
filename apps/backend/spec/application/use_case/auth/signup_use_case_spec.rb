@@ -7,10 +7,12 @@ RSpec.describe Application::UseCase::Auth::SignupUseCase do
 
   let(:input_dto) do
     Application::Dto::Auth::SignupInputDto.new(
-      first_name: 'Taro',
-      last_name: 'Yamada',
-      email: 'taro@example.com',
-      password: 'Abcdefg1'
+      params: {
+        first_name: 'Taro',
+        last_name: 'Yamada',
+        email: 'taro@example.com',
+        password: 'Abcdefg1'
+      }
     )
   end
 
@@ -24,7 +26,8 @@ RSpec.describe Application::UseCase::Auth::SignupUseCase do
           id: '00000000-0000-0000-0000-000000000009',
           first_name: 'Taro',
           last_name: 'Yamada',
-          email: 'taro@example.com'
+          email: 'taro@example.com',
+          session_version: 1
         )
 
         # Minimal object responding to user_id is enough for build_output_dto
@@ -61,7 +64,7 @@ RSpec.describe Application::UseCase::Auth::SignupUseCase do
       end
 
       it 'returns AuthOutputDto with id and user_id' do
-        result = use_case.invoke(input_dto)
+        result = use_case.invoke(args: input_dto)
 
         expect(result).to have_attributes(
           id: '00000000-0000-0000-0000-000000000009',
@@ -70,7 +73,7 @@ RSpec.describe Application::UseCase::Auth::SignupUseCase do
       end
 
       it 'persists via user repository' do
-        use_case.invoke(input_dto)
+        use_case.invoke(args: input_dto)
         expect(user_repo).to have_received(:create_with_auth_user).once
       end
     end
@@ -92,7 +95,7 @@ RSpec.describe Application::UseCase::Auth::SignupUseCase do
       end
 
       it 'raises DuplicatedException' do
-        expect { use_case.invoke(input_dto) }
+        expect { use_case.invoke(args: input_dto) }
           .to raise_error(Application::Exception::DuplicatedException)
       end
     end

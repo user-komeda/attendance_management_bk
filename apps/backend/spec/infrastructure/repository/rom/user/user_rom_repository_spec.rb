@@ -40,7 +40,8 @@ RSpec.describe Infrastructure::Repository::Rom::User::UserRomRepository do
   end
 
   def build_infra_entity(id: '1', first_name: 'Taro', last_name: 'Yamada', email: 'taro@example.com')
-    Infrastructure::Entity::User::UserEntity.new(id: id, first_name: first_name, last_name: last_name, email: email)
+    Infrastructure::Entity::User::UserEntity.new(id: id, first_name: first_name, last_name: last_name, email: email,
+                                                 session_version: 1)
   end
 
   def create_repo_instance
@@ -72,21 +73,21 @@ RSpec.describe Infrastructure::Repository::Rom::User::UserRomRepository do
       expect(result.size).to eq(2)
     end
 
-    it 'maps to domain entities' do
-      expect(result.first).to be_a(Domain::Entity::User::UserEntity)
+    it 'maps to infra entities' do
+      expect(result.first).to be_a(Infrastructure::Entity::User::UserEntity)
     end
 
     it 'maps id correctly' do
-      expect(result.first.id.value).to eq('00000000-0000-0000-0000-000000000001')
+      expect(result.first.id).to eq('00000000-0000-0000-0000-000000000001')
     end
 
     it 'maps first_name correctly for second record' do
-      expect(result.last.user_name.first_name).to eq('Hanako')
+      expect(result.last.first_name).to eq('Hanako')
     end
   end
 
   context 'when rom_get_by_id is called' do
-    subject(:result) { repo.rom_get_by_id('00000000-0000-0000-0000-000000000001') }
+    subject(:result) { repo.rom_get_by_id(id: '00000000-0000-0000-0000-000000000001') }
 
     let(:repo) { create_repo_instance }
     let(:fake_users) do
@@ -110,7 +111,7 @@ RSpec.describe Infrastructure::Repository::Rom::User::UserRomRepository do
   end
 
   context 'when rom_create is called' do
-    subject(:result) { repo.rom_create(input) }
+    subject(:result) { repo.rom_create(user_entity: input) }
 
     let(:repo) { create_repo_instance }
     let(:input) do
@@ -136,7 +137,7 @@ RSpec.describe Infrastructure::Repository::Rom::User::UserRomRepository do
   end
 
   context 'when rom_update is called' do
-    subject(:result) { repo.rom_update(input) }
+    subject(:result) { repo.rom_update(user_entity: input) }
 
     let(:repo) { create_repo_instance }
     let(:input) do
@@ -174,7 +175,7 @@ RSpec.describe Infrastructure::Repository::Rom::User::UserRomRepository do
   end
 
   context 'when finding by email' do
-    subject(:result) { repo.find_by_email('x@example.com') }
+    subject(:result) { repo.find_by_email(email: 'x@example.com') }
 
     let(:repo) { create_repo_instance }
     let(:fake_users) do

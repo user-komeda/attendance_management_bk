@@ -9,36 +9,39 @@ module RouteHelper
 
   # @rbs (Hash[Symbol, untyped] route) -> void
   def route_resources(route)
-    base_path = route[:base_path]
+    uuid_pattern = /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/i
+
+    resource_name = route[:resource_name]
     controller = route[:controller]
     only = route[:only] || DEFAULT_ACTIONS
+    base_path = resource_name.empty? ? '' : "/#{resource_name}"
     only.each do |action|
       case action
       when :index
-        get base_path do
+        get %r{#{base_path}/?} do
           result = controller.new.index
           respond_with_data(data: result)
         end
       when :show
-        get "#{base_path}:id" do
+        get %r{#{base_path}/(?<id>(?i:#{uuid_pattern}))/?} do
           result = controller.new.show(params[:id])
           respond_with_data(data: result)
         end
       when :create
-        post base_path do
+        post %r{#{base_path}/?} do
           result = controller.new.create(parse_params(request))
-          respond_with_data(status_code: 201, id: result[:id], data: result)
+          respond_with_data(status_code: 201, id: result[:id], data: result, resource_name: resource_name)
         end
       when :update
-        patch "#{base_path}:id" do
+        patch %r{#{base_path}/(?<id>(?i:#{uuid_pattern}))/?} do
           result = controller.new.update(parse_params(request), params[:id])
           respond_with_data(status_code: 204, id: result[:id])
         end
       when :destroy
         # :nocov:
-        delete "#{base_path}:id" do
-          controller.new.destroy(params[:id])
-          respond_with_data(status_code: 204)
+        delete %r{#{base_path}/(?<id>(?i:#{uuid_pattern}))/?} do
+          id = controller.new.destroy(params[:id])
+          respond_with_data(status_code: 204, id: id, resource_name: resource_name)
         end
       else
         raise NoMatchingPatternError

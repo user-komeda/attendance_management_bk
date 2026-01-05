@@ -7,8 +7,8 @@ module Application
     class BaseUseCase
       include ContainerHelper
 
-      # @rbs (::Application::Dto::InputBaseDto | String | nil arg) -> ::Application::Dto::BaseDto
-      def invoke(arg = nil)
+      # @rbs (input_dto: ::Application::Dto::InputBaseDto | String | nil) -> ::Application::Dto::BaseDto
+      def invoke(input_dto: nil)
         raise NotImplementedError
       end
     end

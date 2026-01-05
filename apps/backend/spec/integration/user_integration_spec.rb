@@ -11,8 +11,8 @@ RSpec.describe 'User API integration', type: :request do
   # To keep independence from internal container wiring, we interact only via HTTP endpoints.
 
   # rubocop:disable RSpec/MultipleExpectations
-  it 'returns list (array) for GET /' do
-    get '/'
+  it 'returns list (array) for GET /users' do
+    get '/users'
     expect(last_response.status).to eq(200)
     body = json(last_response.body)
     expect(body).to be_a(Array)
@@ -30,7 +30,7 @@ RSpec.describe 'User API integration', type: :request do
       sql_insert_user(**params)
     end
 
-    get '/'
+    get '/users'
     expect(last_response.status).to eq(200)
     body = json(last_response.body)
 
@@ -47,7 +47,7 @@ RSpec.describe 'User API integration', type: :request do
   it 'returns 200 with user details' do
     created = sql_insert_user(first_name: 'Test', last_name: 'User', email: unique_email('test'))
 
-    get "/#{created['id']}"
+    get "/users/#{created['id']}"
 
     expect(last_response.status).to eq(200)
     body = json(last_response.body)
@@ -57,7 +57,7 @@ RSpec.describe 'User API integration', type: :request do
   # rubocop:enable RSpec/MultipleExpectations, RSpec/ExampleLength
 
   it 'returns 404 for nonexistent user' do
-    get '/00000000-0000-0000-0000-999999999999'
+    get '/users/00000000-0000-0000-0000-999999999999'
 
     expect(last_response.status).to eq(404)
   end
@@ -67,10 +67,10 @@ RSpec.describe 'User API integration', type: :request do
     created = sql_insert_user(first_name: 'Old', last_name: 'Name', email: unique_email('old'))
 
     new_email = unique_email('new')
-    patch "/#{created['id']}", { first_name: 'New', last_name: 'Name', email: new_email }.to_json, json_headers
+    patch "/users/#{created['id']}", { first_name: 'New', last_name: 'Name', email: new_email }.to_json, json_headers
 
     expect(last_response.status).to eq(204)
-    get "/#{created['id']}"
+    get "/users/#{created['id']}"
     body = json(last_response.body)
     expect(body['first_name']).to eq('New')
     expect(body['email']).to eq(new_email)
@@ -82,10 +82,10 @@ RSpec.describe 'User API integration', type: :request do
     email = unique_email('original')
     created = sql_insert_user(first_name: 'Original', last_name: 'User', email: email)
 
-    patch "/#{created['id']}", { first_name: 'Updated' }.to_json, json_headers
+    patch "/users/#{created['id']}", { first_name: 'Updated' }.to_json, json_headers
 
     expect(last_response.status).to eq(204)
-    get "/#{created['id']}"
+    get "/users/#{created['id']}"
     body = json(last_response.body)
     expect(body['first_name']).to eq('Updated')
     expect(body['last_name']).to eq('User')
@@ -94,7 +94,7 @@ RSpec.describe 'User API integration', type: :request do
   # rubocop:enable RSpec/MultipleExpectations, RSpec/ExampleLength
 
   it 'returns 404 when updating nonexistent user' do
-    patch '/00000000-0000-0000-0000-999999999999', { first_name: 'Test' }.to_json, json_headers
+    patch '/users/00000000-0000-0000-0000-999999999999', { first_name: 'Test' }.to_json, json_headers
 
     expect(last_response.status).to eq(404)
   end
@@ -102,15 +102,15 @@ RSpec.describe 'User API integration', type: :request do
   it 'returns 400 when email is invalid on update' do
     created = sql_insert_user(first_name: 'Test', last_name: 'User', email: unique_email('test'))
 
-    patch "/#{created['id']}", { email: 'not-an-email' }.to_json, json_headers
+    patch "/users/#{created['id']}", { email: 'not-an-email' }.to_json, json_headers
 
     expect(last_response.status).to eq(400)
   end
 
   it 'validates id format (example validation test)' do
-    patch '/bad-uuid', { first_name: 'Test' }.to_json, json_headers
+    patch '/users/bad-uuid', { first_name: 'Test' }.to_json, json_headers
 
-    expect(last_response.status).to eq(400)
+    expect(last_response.status).to eq(404)
   end
 
   # rubocop:disable RSpec/MultipleExpectations, RSpec/ExampleLength
@@ -120,15 +120,15 @@ RSpec.describe 'User API integration', type: :request do
     user_id = created['id']
 
     # Read
-    get "/#{user_id}"
+    get "/users/#{user_id}"
     expect(last_response.status).to eq(200)
 
     # Update
-    patch "/#{user_id}", { first_name: 'Updated' }.to_json, json_headers
+    patch "/users/#{user_id}", { first_name: 'Updated' }.to_json, json_headers
     expect(last_response.status).to eq(204)
 
     # Verify update
-    get "/#{user_id}"
+    get "/users/#{user_id}"
     body = json(last_response.body)
     expect(body['first_name']).to eq('Updated')
   end
@@ -148,7 +148,7 @@ RSpec.describe 'User API integration', type: :request do
       created_ids << created['id']
     end
 
-    get '/'
+    get '/users'
     body = json(last_response.body)
     # Ensure at least the created users exist, without assuming global count
     users_data.each do |params|
@@ -156,7 +156,7 @@ RSpec.describe 'User API integration', type: :request do
     end
 
     created_ids.each do |user_id|
-      get "/#{user_id}"
+      get "/users/#{user_id}"
       expect(last_response.status).to eq(200)
     end
   end

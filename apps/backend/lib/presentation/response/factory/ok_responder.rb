@@ -7,6 +7,7 @@ module Presentation
     module Factory
       class OkResponder < Responder
         # @rbs (response: untyped, payload: ::Presentation::Controller::ControllerPayLoad) -> String
+        # rubocop:enable all
         def self.build_responder(response:, payload:)
           response.status = payload.status_code
           response['Content-Type'] = 'application/json'

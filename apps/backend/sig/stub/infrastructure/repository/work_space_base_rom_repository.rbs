@@ -1,0 +1,12 @@
+# Generated from lib/infrastructure/repository/rom/work_space/work_space_base_rom_repository.rb with RBS::Inline
+
+module Infrastructure
+  module Repository
+    module Rom
+      module WorkSpace
+        class WorkSpaceBaseRomRepository < ::ROM::Repository[untyped]
+        end
+      end
+    end
+  end
+end

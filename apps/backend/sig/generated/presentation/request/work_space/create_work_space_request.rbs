@@ -1,0 +1,21 @@
+# Generated from lib/presentation/request/work_space/create_work_space_request.rb with RBS::Inline
+
+module Presentation
+  module Request
+    module WorkSpace
+      class CreateWorkSpaceRequest < WorkSpaceBaseRequest
+        # @rbs (params: { name: String, slug: String }) -> void
+        def initialize: (params: { name: String, slug: String }) -> void
+
+        # @rbs () -> ::Application::Dto::WorkSpace::CreateWorkSpaceInputDto
+        def convert_to_dto: () -> ::Application::Dto::WorkSpace::CreateWorkSpaceInputDto
+
+        # @rbs (params: {name: String, slug: String }) -> CreateWorkSpaceRequest
+        def self.build: (params: { name: String, slug: String }) -> CreateWorkSpaceRequest
+
+        # @rbs (params: { name: String, slug: String }) -> void
+        private def self.validate: (params: { name: String, slug: String }) -> void
+      end
+    end
+  end
+end

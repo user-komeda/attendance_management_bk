@@ -1,0 +1,13 @@
+# Generated from lib/infrastructure/repository/work_space/work_space_base_repository.rb with RBS::Inline
+
+module Infrastructure
+  module Repository
+    module WorkSpace
+      class WorkSpaceBaseRepository < RepositoryBase
+        ROM_REPOSITORY_KEY: untyped
+
+        WORKSPACE_ENTITY: untyped
+      end
+    end
+  end
+end

@@ -1,34 +1,35 @@
 
 module ROM
-  class Relation
-    type adapter = :sql | :http | :yaml | untyped
-
-    def self.[]: (adapter) -> singleton(Relation)
-
-    def where: (**untyped) -> Relation
-    def order: (*Symbol | String) -> Relation
-    def limit: (Integer) -> Relation
-    def offset: (Integer) -> Relation
-    def select: (*Symbol | String) -> Relation
-    def by_pk: (untyped) -> Relation
-    def by_email: (untyped) -> Relation
-    def one: () -> untyped
-    def one!: () -> untyped
-    def first: () -> untyped
-    def to_a: () -> Array[untyped]
-    def map_to: (untyped) -> Relation
-    def combine: (*Symbol) -> Relation
-    def wrap: (*Symbol) -> Relation
-    def group: (*Symbol) -> Relation
-    def each: () { (untyped) -> void } -> void
-    # Returns a command object (e.g., :create) which responds to `call`
-    def command: (Symbol) -> untyped
-
+  class Relation[T]
+    def self.[]: (Symbol) -> untyped
     def self.schema: (Symbol, ?infer: bool) ?{ () -> void } -> void
-
-    # ROM associations DSL used inside relation schema blocks
     def self.associations: () { () -> void } -> void
     def self.belongs_to: (Symbol) -> void
     def self.has_one: (Symbol) -> void
+    def self.has_many: (Symbol) -> void
+
+    def where: (**untyped) -> Relation[T]
+    def pluck: (*Symbol) -> Relation[T]
+    def order: (*Symbol | String) -> Relation[T]
+    def limit: (Integer) -> Relation[T]
+    def offset: (Integer) -> Relation[T]
+    def select: (*Symbol | String) -> Relation[T]
+    def by_pk: (untyped) -> Relation[T]
+    def by_email: (untyped) -> Relation[T]
+    def one: () -> T
+    def one!: () -> T
+    def first: () -> T
+    def to_a: () -> Array[T]
+    def map_to: [U] (U) -> Relation[U]
+    def combine: (*Symbol) -> Relation[T]
+    def wrap: (*Symbol) -> Relation[T]
+    def group: (*Symbol) -> Relation[T]
+    def each: () { (T) -> void } -> void
+    # Returns a command object (e.g., :create) which responds to `call`
+    def command: (Symbol) -> untyped
+
+    def by_user_id: (String user_id) -> Relation[T]
+    def by_work_space_id: (String work_space_id) -> Relation[T]
+    def plunk_work_space_id_and_status: () -> Relation[T]
   end
 end

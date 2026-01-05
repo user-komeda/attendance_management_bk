@@ -64,7 +64,8 @@ RSpec.describe Domain::Entity::User::UserEntity do
   describe '.build_with_id' do
     # rubocop:disable RSpec/MultipleExpectations, RSpec/ExampleLength
     it 'wraps values into value objects' do
-      entity = described_class.build_with_id(id: '10', first_name: 'Ken', last_name: 'Tanaka', email: 'ken@example.com')
+      entity = described_class.build_with_id(id: '10', first_name: 'Ken', last_name: 'Tanaka',
+                                             email: 'ken@example.com', session_version: 1)
 
       expect(entity).to be_a(described_class)
 

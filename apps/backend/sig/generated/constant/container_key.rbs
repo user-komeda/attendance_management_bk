@@ -2,79 +2,71 @@
 
 module Constant
   module ContainerKey
+    # @rbs Key = Struct.new(:key, keyword_init: true)
+    class Key < Struct[untyped]
+      attr_accessor key(): untyped
+
+      def self.new: (?key: untyped) -> instance
+                  | ({ ?key: untyped }) -> instance
+    end
+
     module ApplicationKey
-      class UseCase < Struct[untyped]
-        attr_accessor key(): untyped
-
-        def self.new: (?key: untyped) -> instance
-                    | ({ ?key: untyped }) -> instance
-      end
-
-      # @rbs USER_USE_CASE: Hash[Symbol, UseCase]
+      # @rbs USER_USE_CASE: Hash[Symbol, Key]
       USER_USE_CASE: untyped
 
-      # @rbs USER_USE_CASE: Hash[Symbol, UseCase]
+      # @rbs AUTH_USE_CASE: Hash[Symbol, Key]
       AUTH_USE_CASE: untyped
+
+      # @rbs WORK_SPACE_USE_CASE: Hash[Symbol, Key]
+      WORK_SPACE_USE_CASE: untyped
     end
 
+    # ドメインサービス層のキー
     module ServiceKey
-      class Service < Struct[untyped]
-        attr_accessor key(): untyped
-
-        def self.new: (?key: untyped) -> instance
-                    | ({ ?key: untyped }) -> instance
-      end
-
-      # @rbs SERVICE: Hash[Symbol, Service]
+      # @rbs USER_SERVICE: Hash[Symbol, Key]
       USER_SERVICE: untyped
 
-      # @rbs SERVICE: Hash[Symbol, Service]
+      # @rbs AUTH_SERVICE: Hash[Symbol, Key]
       AUTH_SERVICE: untyped
+
+      # @rbs WORK_SPACE_SERVICE: Hash[Symbol, Key]
+      WORK_SPACE_SERVICE: untyped
     end
 
+    # ドメインリポジトリ（Interface）のキー
     module DomainRepositoryKey
-      class DomainRepository < Struct[untyped]
-        attr_accessor key(): untyped
-
-        def self.new: (?key: untyped) -> instance
-                    | ({ ?key: untyped }) -> instance
-      end
-
-      # @rbs DOMAIN_REPOSITORY: Hash[Symbol, DomainRepository]
+      # @rbs USER_DOMAIN_REPOSITORY: Hash[Symbol, Key]
       USER_DOMAIN_REPOSITORY: untyped
 
-      # @rbs DOMAIN_REPOSITORY: Hash[Symbol, DomainRepository]
+      # @rbs AUTH_DOMAIN_REPOSITORY: Hash[Symbol, Key]
       AUTH_DOMAIN_REPOSITORY: untyped
+
+      # @rbs WORK_SPACE_DOMAIN_REPOSITORY: Hash[Symbol, Key]
+      WORK_SPACE_DOMAIN_REPOSITORY: untyped
     end
 
+    # インフラストラクチャ層（Repository実装）のキー
     module RepositoryKey
-      class Repository < Struct[untyped]
-        attr_accessor key(): untyped
-
-        def self.new: (?key: untyped) -> instance
-                    | ({ ?key: untyped }) -> instance
-      end
-
-      # @rbs REPOSITORY: Hash[Symbol, repository]
+      # @rbs USER_REPOSITORY: Hash[Symbol, Key]
       USER_REPOSITORY: untyped
 
-      # @rbs REPOSITORY: Hash[Symbol, repository]
+      # @rbs AUTH_REPOSITORY: Hash[Symbol, Key]
       AUTH_REPOSITORY: untyped
+
+      # @rbs WORK_SPACE_REPOSITORY: Hash[Symbol, Key]
+      WORK_SPACE_REPOSITORY: untyped
     end
 
+    # ROM (ROM-rb) リポジトリのキー
     module RomRepositoryKey
-      class RomRepository < Struct[untyped]
-        attr_accessor key(): untyped
-
-        def self.new: (?key: untyped) -> instance
-                    | ({ ?key: untyped }) -> instance
-      end
-
-      # @rbs ROM_REPOSITORY: Hash[Symbol, RomRepository]
+      # @rbs USER_ROM_REPOSITORY: Hash[Symbol, Key]
       USER_ROM_REPOSITORY: untyped
 
-      # @rbs ROM_REPOSITORY: Hash[Symbol, RomRepository]
+      # @rbs AUTH_ROM_REPOSITORY: Hash[Symbol, Key]
       AUTH_ROM_REPOSITORY: untyped
+
+      # @rbs WORK_SPACE_ROM_REPOSITORY: Hash[Symbol, Key]
+      WORK_SPACE_ROM_REPOSITORY: untyped
     end
   end
 end

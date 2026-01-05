@@ -3,3 +3,5 @@
 require 'users.schema'
 require 'password_reset_tokens.schema'
 require 'auth_users.schema'
+require 'work_spaces.schema'
+require 'member_ships.schema'

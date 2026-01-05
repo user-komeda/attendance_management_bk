@@ -10,8 +10,8 @@ module Application
         attr_reader :email, :password #: String
         # rubocop:enable all
 
-        # @rbs ({ email: String, password: String }) -> void
-        def initialize(params)
+        # @rbs (params: { email: String, password: String }) -> void
+        def initialize(params:)
           super()
           @email = params[:email]
           @password = params[:password]

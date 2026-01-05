@@ -16,17 +16,17 @@ module Presentation
         # rubocop:disable all
         attr_reader password: String
 
-        # @rbs ({ first_name: String, last_name: String, email: String, password: String }) -> void
-        def initialize: ({ first_name: String, last_name: String, email: String, password: String }) -> void
+        # @rbs (params: { first_name: String, last_name: String, email: String, password: String }) -> void
+        def initialize: (params: { first_name: String, last_name: String, email: String, password: String }) -> void
 
         # @rbs () -> ::Application::Dto::Auth::SignupInputDto
         def convert_to_dto: () -> ::Application::Dto::Auth::SignupInputDto
 
-        # @rbs ({ first_name: String, last_name: String, email: String, password: String }) -> SignupRequest
-        def self.build: ({ first_name: String, last_name: String, email: String, password: String }) -> SignupRequest
+        # @rbs (params: { first_name: String, last_name: String, email: String, password: String }) -> SignupRequest
+        def self.build: (params: { first_name: String, last_name: String, email: String, password: String }) -> SignupRequest
 
-        # @rbs ({ first_name: String, last_name: String, email: String, password: String }) -> void
-        private def self.validate: ({ first_name: String, last_name: String, email: String, password: String }) -> void
+        # @rbs (params: { first_name: String, last_name: String, email: String, password: String }) -> void
+        private def self.validate: (params: { first_name: String, last_name: String, email: String, password: String }) -> void
       end
     end
   end

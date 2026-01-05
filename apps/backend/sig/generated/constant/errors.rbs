@@ -3,21 +3,29 @@
 module Constant
   module Errors
     module Codes
-      # @rbs BAD_REQUEST: Symbol
       BAD_REQUEST: ::Symbol
 
-      # @rbs NOT_FOUND: Symbol
       NOT_FOUND: ::Symbol
 
-      # @rbs DUPLICATE: Symbol
       DUPLICATE: ::Symbol
 
-      # @rbs ALREADY_DELETED: Symbol
       ALREADY_DELETED: ::Symbol
 
       INVALID_PASSWORD: ::Symbol
 
       UNAUTHENTICATED: ::Symbol
+
+      TOKEN_EXPIRED: ::Symbol
+
+      INVALID_TOKEN: ::Symbol
+
+      TOKEN_REVOKED: ::Symbol
+
+      TOKEN_MISMATCH: ::Symbol
+
+      USER_NOT_FOUND_FROM_SUB: ::Symbol
+
+      SESSION_VERSION_MISMATCH: ::Symbol
     end
 
     module Status

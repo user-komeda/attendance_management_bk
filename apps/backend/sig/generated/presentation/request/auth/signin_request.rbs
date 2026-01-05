@@ -10,17 +10,17 @@ module Presentation
         # rubocop:disable all
         attr_reader password: String
 
-        # @rbs ({email: String, password: String }) -> void
-        def initialize: ({ email: String, password: String }) -> void
+        # @rbs (params: {email: String, password: String }) -> void
+        def initialize: (params: { email: String, password: String }) -> void
 
         # @rbs () -> ::Application::Dto::Auth::SigninInputDto
         def convert_to_dto: () -> ::Application::Dto::Auth::SigninInputDto
 
-        # @rbs ({email: String, password: String }) -> SigninRequest
-        def self.build: ({ email: String, password: String }) -> SigninRequest
+        # @rbs (params: {email: String, password: String }) -> SigninRequest
+        def self.build: (params: { email: String, password: String }) -> SigninRequest
 
-        # @rbs ({email: String, password: String }) -> void
-        private def self.validate: ({ email: String, password: String }) -> void
+        # @rbs (params: {email: String, password: String }) -> void
+        private def self.validate: (params: { email: String, password: String }) -> void
       end
     end
   end

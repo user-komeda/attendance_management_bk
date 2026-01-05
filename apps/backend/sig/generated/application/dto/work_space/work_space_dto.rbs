@@ -1,0 +1,27 @@
+# Generated from lib/application/dto/work_space/work_space_dto.rb with RBS::Inline
+
+module Application
+  module Dto
+    module WorkSpace
+      class WorkSpaceDto < BaseDto
+        # rubocop:disable all
+        attr_reader id: String
+
+        # rubocop:disable all
+        attr_reader name: String
+
+        # rubocop:disable all
+        attr_reader slug: String
+
+        # @rbs (id: String, name: String, slug: String) -> void
+        def initialize: (id: String, name: String, slug: String) -> void
+
+        # @rbs (work_space_entity: Domain::Entity::WorkSpace::WorkSpaceEntity) -> WorkSpaceDto
+        def self.build: (work_space_entity: Domain::Entity::WorkSpace::WorkSpaceEntity) -> WorkSpaceDto
+
+        # @rbs (work_space_list: Array[::Domain::Entity::WorkSpace::WorkSpaceEntity]) -> Array[WorkSpaceDto]
+        def self.build_from_array: (work_space_list: Array[::Domain::Entity::WorkSpace::WorkSpaceEntity]) -> Array[WorkSpaceDto]
+      end
+    end
+  end
+end

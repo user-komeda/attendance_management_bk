@@ -1,0 +1,22 @@
+module Infrastructure
+  module Relations
+    class MemberShips < ::ROM::Relation[untyped]
+
+      # Class-level ROM DSL macro available on this relation
+      def self.schema: (Symbol, ?infer: bool) ?{ () -> void } -> void
+
+      # Instance methods typically available on relations
+      def where: (**untyped) -> self
+      def map_to: (untyped) -> self
+      def by_pk: (untyped) -> self
+      def one: () -> untyped
+      def first: () -> untyped
+      def to_a: () -> Array[untyped]
+      def commands: (Symbol) -> untyped
+
+      # Workaround for generated RBS returning ROM::Relation[untyped]
+      # We define them here with 'self' return type if they are not in generated
+      # But they ARE in generated, so we might need to add them to ROM::Relation instead
+    end
+  end
+end

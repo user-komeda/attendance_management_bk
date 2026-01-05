@@ -8,6 +8,7 @@ class Root
       action: :signin }
   ].freeze
   ROUTE_CONFIG = [
-    { base_path: '/', controller: Presentation::Controller::User::UserController, only: %i[index show update] }
+    { resource_name: 'users', controller: Presentation::Controller::User::UserController, only: %i[index show update] },
+    { resource_name: 'work_spaces', controller: Presentation::Controller::WorkSpace::WorkSpaceController }
   ].freeze
 end

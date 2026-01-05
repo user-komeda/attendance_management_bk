@@ -1,0 +1,10 @@
+# Generated from lib/application/exception/user_not_found_from_sub.rb with RBS::Inline
+
+module Application
+  module Exception
+    class UserNotFoundFromSub < AppException::ApiError
+      # @rbs (message: String) -> void
+      def initialize: (message: String) -> void
+    end
+  end
+end

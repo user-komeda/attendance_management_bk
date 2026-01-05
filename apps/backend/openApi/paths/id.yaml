@@ -1,11 +1,10 @@
-parameters:
-  - $ref: '../components/parameters/UserId.yaml'
-
 get:
   tags: [user]
   summary: ユーザー詳細の取得
   operationId: getUser
   description: 指定 ID のユーザーを返します。
+  parameters:
+    - $ref: '../components/parameters/UserId.yaml'
   responses:
     "200":
       description: 正常にユーザー情報を返却します
@@ -36,6 +35,8 @@ patch:
   tags: [user]
   summary: ユーザー情報の更新
   operationId: updateUser
+  parameters:
+    - $ref: '../components/parameters/UserId.yaml'
   requestBody:
     required: true
     content:
@@ -68,6 +69,8 @@ delete:
   tags: [user]
   summary: ユーザーの削除
   operationId: deleteUser
+  parameters:
+    - $ref: '../components/parameters/UserId.yaml'
   responses:
     "204":
       description: 削除に成功しました（レスポンスボディなし）

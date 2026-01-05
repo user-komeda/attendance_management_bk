@@ -1,0 +1,31 @@
+# Generated from lib/presentation/response/work_space/work_space_response.rb with RBS::Inline
+
+module Presentation
+  module Response
+    module WorkSpace
+      class WorkSpaceResponse < BaseResponse
+        # rubocop:disable all
+        attr_reader id: String
+
+        # rubocop:disable all
+        attr_reader name: String
+
+        # rubocop:disable all
+        attr_reader slug: String
+
+        # @rbs (id: String, name: String, slug: String) -> void
+        def initialize: (id: String, name: String, slug: String) -> void
+
+        # @rbs (work_space: ::Application::Dto::WorkSpace::WorkSpaceDto) -> Hash[Symbol, String]
+        # rubocop:enable all
+        def self.build: (work_space: ::Application::Dto::WorkSpace::WorkSpaceDto) -> Hash[Symbol, String]
+
+        # @rbs (work_space_list: Array[::Application::Dto::WorkSpace::WorkSpaceDto]) -> Array[Hash[Symbol, String]]
+        def self.build_from_array: (work_space_list: Array[::Application::Dto::WorkSpace::WorkSpaceDto]) -> Array[Hash[Symbol, String]]
+
+        # @rbs () -> {id: String, name: String, slug: String }
+        def to_h: () -> { id: String, name: String, slug: String }
+      end
+    end
+  end
+end

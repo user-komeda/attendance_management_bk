@@ -4,8 +4,8 @@ module Domain
   module Service
     module Auth
       class AuthService < AuthBaseService
-        # @rbs (String email) -> bool
-        def exist?: (String email) -> bool
+        # @rbs (email: String) -> bool
+        def exist?: (email: String) -> bool
 
         # @rbs (auth_user: Domain::Entity::Auth::AuthUserEntity, password: String) -> bool
         def can_login?: (auth_user: Domain::Entity::Auth::AuthUserEntity, password: String) -> bool

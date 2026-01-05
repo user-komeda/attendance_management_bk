@@ -12,8 +12,8 @@ module Application
 
         attr_reader email: untyped
 
-        # @rbs ({ id: String, first_name: String, last_name: String, email: String }) -> void
-        def initialize: ({ id: String, first_name: String, last_name: String, email: String }) -> void
+        # @rbs (id: String, first_name: String, last_name: String, email: String) -> void
+        def initialize: (id: String, first_name: String, last_name: String, email: String) -> void
 
         # @rbs () -> ::Domain::Entity::User::UserEntity
         def convert_to_entity: () -> ::Domain::Entity::User::UserEntity

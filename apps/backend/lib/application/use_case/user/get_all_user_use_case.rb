@@ -10,7 +10,7 @@ module Application
         def invoke
           caller = resolve(KEY)
           user_list = caller.get_all
-          USER_DTO.build_from_array(user_list)
+          USER_DTO.build_from_array(user_list: user_list)
         end
       end
     end

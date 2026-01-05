@@ -1,0 +1,7 @@
+# Generated from helper/context.rb with RBS::Inline
+
+module Context
+  def self.set_context: (untyped key, untyped value) -> untyped
+
+  def self.get_context: (untyped key) -> untyped
+end

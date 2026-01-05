@@ -4,8 +4,8 @@ module Application
   module UseCase
     module Auth
       class SigninUseCase < AuthBaseUseCase
-        # @rbs (::Application::Dto::Auth::SigninInputDto input_dto) -> ::Application::Dto::Auth::AuthOutputDto
-        def invoke: (::Application::Dto::Auth::SigninInputDto input_dto) -> ::Application::Dto::Auth::AuthOutputDto
+        # @rbs (args: ::Application::Dto::Auth::SigninInputDto) -> ::Application::Dto::Auth::AuthOutputDto
+        def invoke: (args: ::Application::Dto::Auth::SigninInputDto) -> ::Application::Dto::Auth::AuthOutputDto
       end
     end
   end

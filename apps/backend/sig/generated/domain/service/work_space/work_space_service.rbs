@@ -1,0 +1,12 @@
+# Generated from lib/domain/service/work_space/work_space_service.rb with RBS::Inline
+
+module Domain
+  module Service
+    module WorkSpace
+      class WorkSpaceService < WorkSpaceBaseService
+        # @rbs (slug: String) -> bool
+        def exists_by_slug?: (slug: String) -> bool
+      end
+    end
+  end
+end

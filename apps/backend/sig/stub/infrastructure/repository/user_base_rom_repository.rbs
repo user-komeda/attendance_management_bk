@@ -2,7 +2,7 @@ module Infrastructure
   module Repository
     module Rom
       module User
-        class UserBaseRomRepository < ::ROM::Repository
+        class UserBaseRomRepository < ::ROM::Repository[untyped]
         end
       end
     end

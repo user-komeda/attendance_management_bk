@@ -1,0 +1,33 @@
+# Generated from lib/application/dto/work_space/member_ships_dto.rb with RBS::Inline
+
+module Application
+  module Dto
+    module WorkSpace
+      class MemberShipsDto < BaseDto
+        # rubocop:disable all
+        attr_reader id: String
+
+        # rubocop:disable all
+        attr_reader user_id: String
+
+        # rubocop:disable all
+        attr_reader work_space_id: String
+
+        # rubocop:disable all
+        attr_reader role: String
+
+        # rubocop:disable all
+        attr_reader status: String
+
+        # @rbs (id: String?, user_id: String, work_space_id: String, role: String?, status: String?) -> void
+        def initialize: (id: String?, user_id: String, work_space_id: String, role: String?, status: String?) -> void
+
+        # @rbs (::Domain::Entity::WorkSpace::MemberShipsEntity member_ships_entity) -> MemberShipsDto
+        def self.build: (::Domain::Entity::WorkSpace::MemberShipsEntity member_ships_entity) -> MemberShipsDto
+
+        # @rbs (Array[::Domain::Entity::WorkSpace::MemberShipsEntity] member_ships_list) -> Array[MemberShipsDto]
+        def self.build_from_array: (Array[::Domain::Entity::WorkSpace::MemberShipsEntity] member_ships_list) -> Array[MemberShipsDto]
+      end
+    end
+  end
+end

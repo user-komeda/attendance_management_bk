@@ -10,8 +10,8 @@ module Application
         attr_reader :first_name, :last_name, :email #: String
         # rubocop:enable all
 
-        # @rbs ({ first_name: String, last_name: String, email: String }) -> void
-        def initialize(params)
+        # @rbs (params: { first_name: String, last_name: String, email: String }) -> void
+        def initialize(params:)
           super()
           @first_name = params[:first_name]
           @last_name = params[:last_name]

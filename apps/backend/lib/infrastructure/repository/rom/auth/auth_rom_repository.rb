@@ -7,8 +7,9 @@ module Infrastructure
     module Rom
       module Auth
         class AuthRomRepository < AuthBaseRomRepository
-          # @rbs (String email) -> ::Infrastructure::Entity::Auth::AuthUserEntity?
-          def find_by_email(email)
+          # @rbs (email: String) -> ::Infrastructure::Entity::Auth::AuthUserEntity?
+          def find_by_email(email:)
+            # @type var auth_user: ::Infrastructure::Entity::Auth::AuthUserEntity?
             auth_users.map_to(Infrastructure::Entity::Auth::AuthUserEntity).by_email(email).first
           end
         end

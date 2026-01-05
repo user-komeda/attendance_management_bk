@@ -6,8 +6,8 @@ module Presentation
   module Request
     module User
       class CreateUserRequest < UserBaseRequest
-        # @rbs ({ first_name: String, last_name: String, email: String }) -> void
-        def initialize(params)
+        # @rbs (params: { first_name: String, last_name: String, email: String }) -> void
+        def initialize(params:)
           super()
           @first_name = params[:first_name]
           @last_name = params[:last_name]
@@ -17,23 +17,25 @@ module Presentation
         # @rbs () -> ::Application::Dto::User::CreateUserInputDto
         def convert_to_dto
           CREATE_INPUT_DTO.new(
-            first_name: @first_name,
-            last_name: @last_name,
-            email: @email
+            params: {
+              first_name: @first_name,
+              last_name: @last_name,
+              email: @email
+            }
           )
         end
 
-        # @rbs ({ first_name: String, last_name: String, email: String }) -> CreateUserRequest
-        def self.build(params)
-          validate(params)
-          CreateUserRequest.new(params)
+        # @rbs (params: { first_name: String, last_name: String, email: String }) -> CreateUserRequest
+        def self.build(params:)
+          validate(params: params)
+          CreateUserRequest.new(params: params)
         end
 
         class << self
           private
 
-          # @rbs ({ first_name: String, last_name: String, email: String }) -> void
-          def validate(params)
+          # @rbs (params: { first_name: String, last_name: String, email: String }) -> void
+          def validate(params:)
             result = UserBaseRequest::CREATE_CONTRACT.new.call(params)
             return unless result.failure?
 

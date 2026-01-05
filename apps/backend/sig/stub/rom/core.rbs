@@ -4,6 +4,9 @@ module ROM
     String: untyped
     # Placeholder for ROM::Types::Bool
     Bool: untyped
+
+    # Placeholder for ROM::Types::Bool
+    Integer: untyped
   end
 
   module SQL

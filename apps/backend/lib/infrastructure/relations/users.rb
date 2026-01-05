@@ -8,8 +8,9 @@ module Infrastructure
       schema(:users, infer: true) do
         associations do
           has_one :auth_user
+          has_many :member_ships
         end
-        # @rbs (String email) -> ROM::Relation
+        # @rbs (String email) -> ROM::Relation[untyped]
         def by_email(email)
           where(email: email)
         end

@@ -25,6 +25,12 @@ get:
                   first_name: Hanako
                   last_name: Suzuki
                   email: hanako.suzuki@example.com
+    "401":
+      description: 認証に失敗しました
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas/Error.yaml'
     default:
       description: サーバー内部エラー
       content:

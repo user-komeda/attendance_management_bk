@@ -1,6 +1,6 @@
 # Project Guidelines — Attendance Management (Monorepo)
 
-Last updated: 2025-12-28
+Last updated: 2026-01-04
 
 ## Overview
 
@@ -98,6 +98,8 @@ Frontend test setup is not enforced here; if frontend tests are added, follow th
 
 ## Code Style
 
+- General:
+  - Use LF (Line Feed) for line endings across all files.
 - Ruby:
   - Match existing code style and module structure in `apps/backend/lib`.
   - Keep method and class naming consistent with surrounding code.

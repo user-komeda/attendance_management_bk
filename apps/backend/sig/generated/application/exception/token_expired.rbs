@@ -1,0 +1,10 @@
+# Generated from lib/application/exception/token_expired.rb with RBS::Inline
+
+module Application
+  module Exception
+    class TokenExpired < AppException::ApiError
+      # @rbs (message: String) -> void
+      def initialize: (message: String) -> void
+    end
+  end
+end

@@ -4,8 +4,9 @@ module Presentation
   module Response
     module Factory
       class NoContentResponder < Responder
-        # @rbs (response: untyped, payload: ::Presentation::Controller::ControllerPayLoad) -> void
-        def self.build_responder: (response: untyped, payload: ::Presentation::Controller::ControllerPayLoad) -> void
+        # @rbs (response: untyped, payload: ::Presentation::Controller::ControllerPayLoad) -> untyped
+        # rubocop:enable all
+        def self.build_responder: (response: untyped, payload: ::Presentation::Controller::ControllerPayLoad) -> untyped
       end
     end
   end

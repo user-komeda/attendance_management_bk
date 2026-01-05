@@ -28,7 +28,7 @@ RSpec.describe Domain::Repository::User::UserRepository do
     fake = instance_spy(infra_repo_interface, get_by_id: :user)
     allow(repo).to receive(:resolve).and_return(fake)
 
-    result = repo.get_by_id(123)
+    result = repo.get_by_id(id: 123)
     expect(result).to eq(:user)
   end
 
@@ -46,7 +46,7 @@ RSpec.describe Domain::Repository::User::UserRepository do
     fake = instance_spy(infra_repo_interface, update: :updated)
     allow(repo).to receive(:resolve).and_return(fake)
 
-    result = repo.update(obj)
+    result = repo.update(user_entity: obj)
     expect(result).to eq(:updated)
   end
 
@@ -72,7 +72,7 @@ RSpec.describe Domain::Repository::User::UserRepository do
     fake = instance_spy(infra_repo_interface, create_with_auth_user: :created_all)
     allow(repo).to receive(:resolve).and_return(fake)
 
-    result = repo.create_with_auth_user(attrs)
+    result = repo.create_with_auth_user(user_with_auth_user: attrs)
     expect(result).to eq(:created_all)
   end
 end

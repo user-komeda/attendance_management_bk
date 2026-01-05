@@ -1,13 +1,13 @@
 module Infrastructure
   module Relations
-    class AuthUsers < ::ROM::Relation
+    class AuthUsers < ::ROM::Relation[untyped]
       # Class-level ROM DSL macro available on this relation
       def self.schema: (Symbol, ?infer: bool) ?{ () -> void } -> void
 
       # Instance methods typically available on relations
-      def where: (**untyped) -> Users
-      def map_to: (untyped) -> Users
-      def by_pk: (untyped) -> Users
+      def where: (**untyped) -> AuthUsers
+      def map_to: (untyped) -> AuthUsers
+      def by_pk: (untyped) -> AuthUsers
       def one: () -> untyped
       def first: () -> untyped
       def to_a: () -> Array[untyped]

@@ -1,0 +1,12 @@
+type: object
+description: ワークスペース作成リクエスト
+properties:
+  name:
+    type: string
+    minLength: 1
+    example: 開発チーム
+  slug:
+    type: string
+    minLength: 1
+    example: dev-team
+required: [name, slug]

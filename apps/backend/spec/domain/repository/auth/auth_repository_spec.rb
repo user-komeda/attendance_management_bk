@@ -28,8 +28,8 @@ RSpec.describe Domain::Repository::Auth::AuthRepository do
     end
 
     it 'calls infra repository find_by_email' do
-      allow(infra_repo).to receive(:find_by_email).with(email).and_return(auth_user)
-      expect(repo.find_by_email(email)).to eq(auth_user)
+      allow(infra_repo).to receive(:find_by_email).with(email: email).and_return(auth_user)
+      expect(repo.find_by_email(email: email)).to eq(auth_user)
     end
   end
 end

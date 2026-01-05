@@ -7,14 +7,14 @@ module Infrastructure
         class UserRomRepository < UserBaseRomRepository
           def rom_get_all: () -> untyped
 
-          # @rbs (String id) -> ::Infrastructure::Entity::User::UserEntity?
-          def rom_get_by_id: (String id) -> ::Infrastructure::Entity::User::UserEntity?
+          # @rbs (id: String) -> ::Infrastructure::Entity::User::UserEntity?
+          def rom_get_by_id: (id: String) -> ::Infrastructure::Entity::User::UserEntity?
 
           # @rbs (::Infrastructure::Entity::User::UserEntity entity) -> untyped
           def rom_create: (::Infrastructure::Entity::User::UserEntity entity) -> untyped
 
-          # @rbs (::Infrastructure::Entity::User::UserEntity entity) -> untyped
-          def rom_update: (::Infrastructure::Entity::User::UserEntity entity) -> untyped
+          # @rbs (user_entity: Infrastructure::Entity::User::UserEntity) -> untyped
+          def rom_update: (user_entity: Infrastructure::Entity::User::UserEntity) -> untyped
 
           def create_with_auth_user: (untyped attrs) -> untyped
 

@@ -1,0 +1,25 @@
+# Generated from lib/application/use_case/work_space/create_work_space_use_case.rb with RBS::Inline
+
+module Application
+  module UseCase
+    module WorkSpace
+      class CreateWorkSpaceUseCase < WorkSpaceBaseUseCase
+        # @rbs (args: ::Application::Dto::WorkSpace::CreateWorkSpaceInputDto) -> ::Application::Dto::WorkSpace::WorkSpaceWithMemberShipsDto
+        def invoke: (args: ::Application::Dto::WorkSpace::CreateWorkSpaceInputDto) -> ::Application::Dto::WorkSpace::WorkSpaceWithMemberShipsDto
+
+        private
+
+        # @rbs (slug: String) -> void
+        def validate_uniqueness!: (slug: String) -> void
+
+        # @rbs (input_dto: ::Application::Dto::WorkSpace::CreateWorkSpaceInputDto) -> ::Domain::Entity::WorkSpace::WorkSpaceEntity
+        def create_workspace: (input_dto: ::Application::Dto::WorkSpace::CreateWorkSpaceInputDto) -> ::Domain::Entity::WorkSpace::WorkSpaceEntity
+
+        # rubocop:disable Layout/LineLength
+        # @rbs (input_dto: ::Application::Dto::WorkSpace::CreateWorkSpaceInputDto, user_id: String, workspace_id: String) -> ::Domain::Entity::WorkSpace::MemberShipsEntity
+        # rubocop:enable Layout/LineLength
+        def create_memberships: (input_dto: ::Application::Dto::WorkSpace::CreateWorkSpaceInputDto, user_id: String, workspace_id: String) -> ::Domain::Entity::WorkSpace::MemberShipsEntity
+      end
+    end
+  end
+end

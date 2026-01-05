@@ -12,7 +12,7 @@ RSpec.describe Application::Dto::User::CreateUserInputDto do
   end
 
   describe '#initialize' do
-    subject(:dto) { described_class.new(params) }
+    subject(:dto) { described_class.new(params: params) }
 
     it 'assigns first_name' do
       expect(dto.first_name).to eq('Ken')
@@ -29,9 +29,7 @@ RSpec.describe Application::Dto::User::CreateUserInputDto do
 
   describe '#convert_to_entity' do
     subject(:entity) do
-      p Domain::Entity::User::UserEntity.instance_method(:initialize).source_location
-
-      described_class.new(params).convert_to_entity
+      described_class.new(params: params).convert_to_entity
     end
 
     let(:params) do

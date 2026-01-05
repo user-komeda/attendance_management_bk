@@ -12,7 +12,7 @@ RSpec.describe Presentation::Request::Auth::SigninRequest do
 
   describe '.build' do
     context 'when params are valid' do
-      subject(:request) { described_class.build(valid_params) }
+      subject(:request) { described_class.build(params: valid_params) }
 
       it 'returns a SigninRequest instance' do
         expect(request).to be_a(described_class)
@@ -31,14 +31,14 @@ RSpec.describe Presentation::Request::Auth::SigninRequest do
       it 'raises BadRequestException' do
         invalid_params = { email: 'invalid', password: '' }
         expect do
-          described_class.build(invalid_params)
+          described_class.build(params: invalid_params)
         end.to raise_error(Presentation::Exception::BadRequestException)
       end
     end
   end
 
   describe '#convert_to_dto' do
-    subject(:dto) { described_class.build(valid_params).convert_to_dto }
+    subject(:dto) { described_class.build(params: valid_params).convert_to_dto }
 
     it 'returns a SigninInputDto' do
       expect(dto).to be_a(Application::Dto::Auth::SigninInputDto)

@@ -1,0 +1,28 @@
+# Generated from lib/infrastructure/entity/work_space/member_ships_entity.rb with RBS::Inline
+
+module Infrastructure
+  module Entity
+    module WorkSpace
+      class MemberShipsEntity < BaseEntity
+        attr_reader id: String
+
+        attr_reader user_id: String
+
+        attr_reader work_space_id: String
+
+        attr_reader role: String
+
+        attr_reader status: String
+
+        # @rbs () -> ::Domain::Entity::WorkSpace::MemberShipsEntity
+        def to_domain: () -> ::Domain::Entity::WorkSpace::MemberShipsEntity
+
+        # @rbs (struct: untyped) -> ::Domain::Entity::WorkSpace::MemberShipsEntity
+        def self.struct_to_domain: (struct: untyped) -> ::Domain::Entity::WorkSpace::MemberShipsEntity
+
+        # @rbs (member_ships_entity: ::Domain::Entity::WorkSpace::MemberShipsEntity) -> MemberShipsEntity
+        def self.build_from_domain_entity: (member_ships_entity: ::Domain::Entity::WorkSpace::MemberShipsEntity) -> MemberShipsEntity
+      end
+    end
+  end
+end
