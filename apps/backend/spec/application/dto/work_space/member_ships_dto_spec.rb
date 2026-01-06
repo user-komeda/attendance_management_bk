@@ -3,19 +3,13 @@
 require 'spec_helper'
 
 RSpec.describe Application::Dto::WorkSpace::MemberShipsDto do
-  let(:id) { SecureRandom.uuid }
-  let(:user_id) { SecureRandom.uuid }
-  let(:work_space_id) { SecureRandom.uuid }
-  let(:role) { 'owner' }
-  let(:status) { 'active' }
-
   let(:member_ships_entity) do
     Domain::Entity::WorkSpace::MemberShipsEntity.new(
-      id: Domain::ValueObject::IdentityId.build(id),
-      user_id: Domain::ValueObject::IdentityId.build(user_id),
-      work_space_id: Domain::ValueObject::IdentityId.build(work_space_id),
-      role: Domain::ValueObject::WorkSpace::Role.build(role),
-      status: Domain::ValueObject::WorkSpace::Status.build(status)
+      id: Domain::ValueObject::IdentityId.build(SecureRandom.uuid),
+      user_id: Domain::ValueObject::IdentityId.build(SecureRandom.uuid),
+      work_space_id: Domain::ValueObject::IdentityId.build(SecureRandom.uuid),
+      role: Domain::ValueObject::WorkSpace::Role.build('owner'),
+      status: Domain::ValueObject::WorkSpace::Status.build('active')
     )
   end
 
@@ -27,34 +21,33 @@ RSpec.describe Application::Dto::WorkSpace::MemberShipsDto do
     end
 
     it 'sets id' do
-      expect(dto.id).to eq(id)
+      expect(dto.id).to eq(member_ships_entity.id.value)
     end
 
     it 'sets user_id' do
-      expect(dto.user_id).to eq(user_id)
+      expect(dto.user_id).to eq(member_ships_entity.user_id.value)
     end
 
     it 'sets work_space_id' do
-      expect(dto.work_space_id).to eq(work_space_id)
+      expect(dto.work_space_id).to eq(member_ships_entity.work_space_id.value)
     end
 
     it 'sets role' do
-      expect(dto.role).to eq(role)
+      expect(dto.role).to eq(member_ships_entity.role.value)
     end
 
     it 'sets status' do
-      expect(dto.status).to eq(status)
+      expect(dto.status).to eq(member_ships_entity.status.value)
     end
 
     context 'when role is nil' do
-      let(:role) { nil }
       let(:member_ships_entity) do
         Domain::Entity::WorkSpace::MemberShipsEntity.new(
-          id: Domain::ValueObject::IdentityId.build(id),
-          user_id: Domain::ValueObject::IdentityId.build(user_id),
-          work_space_id: Domain::ValueObject::IdentityId.build(work_space_id),
+          id: Domain::ValueObject::IdentityId.build(SecureRandom.uuid),
+          user_id: Domain::ValueObject::IdentityId.build(SecureRandom.uuid),
+          work_space_id: Domain::ValueObject::IdentityId.build(SecureRandom.uuid),
           role: nil,
-          status: Domain::ValueObject::WorkSpace::Status.build(status)
+          status: Domain::ValueObject::WorkSpace::Status.build('active')
         )
       end
 
@@ -64,13 +57,12 @@ RSpec.describe Application::Dto::WorkSpace::MemberShipsDto do
     end
 
     context 'when status is nil' do
-      let(:status) { nil }
       let(:member_ships_entity) do
         Domain::Entity::WorkSpace::MemberShipsEntity.new(
-          id: Domain::ValueObject::IdentityId.build(id),
-          user_id: Domain::ValueObject::IdentityId.build(user_id),
-          work_space_id: Domain::ValueObject::IdentityId.build(work_space_id),
-          role: Domain::ValueObject::WorkSpace::Role.build(role),
+          id: Domain::ValueObject::IdentityId.build(SecureRandom.uuid),
+          user_id: Domain::ValueObject::IdentityId.build(SecureRandom.uuid),
+          work_space_id: Domain::ValueObject::IdentityId.build(SecureRandom.uuid),
+          role: Domain::ValueObject::WorkSpace::Role.build('owner'),
           status: nil
         )
       end

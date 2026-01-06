@@ -49,9 +49,11 @@ RSpec.describe Application::Dto::WorkSpace::WorkSpaceDto do
     end
 
     it 'sets correct values for the first element' do
-      expect(dtos.first.id).to eq(id)
-      expect(dtos.first.name).to eq(name)
-      expect(dtos.first.slug).to eq(slug)
+      aggregate_failures do
+        expect(dtos.first.id).to eq(id)
+        expect(dtos.first.name).to eq(name)
+        expect(dtos.first.slug).to eq(slug)
+      end
     end
   end
 end

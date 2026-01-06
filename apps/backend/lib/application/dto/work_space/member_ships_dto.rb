@@ -24,7 +24,9 @@ module Application
 
         # @rbs (::Domain::Entity::WorkSpace::MemberShipsEntity member_ships_entity) -> MemberShipsDto
         def self.build(member_ships_entity)
-          if UtilMethod.nil_or_empty?(member_ships_entity.role) || UtilMethod.nil_or_empty?(member_ships_entity.status)
+          role = member_ships_entity.role
+          status = member_ships_entity.status
+          if role.nil? || status.nil?
             raise ArgumentError,
                   'role and status must not be nil'
           end
@@ -33,8 +35,8 @@ module Application
             id: member_ships_entity.id.value,
             user_id: member_ships_entity.user_id.value,
             work_space_id: member_ships_entity.work_space_id.value,
-            role: member_ships_entity.role.value,
-            status: member_ships_entity.status.value
+            role: role.value,
+            status: status.value
           )
         end
       end

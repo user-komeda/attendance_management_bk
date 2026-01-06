@@ -35,20 +35,18 @@ RSpec.describe Infrastructure::Repository::Rom::Auth::AuthRomRepository do
     repo
   end
 
-  # rubocop:disable Metrics/ParameterLists
-  def build_infra_auth_user(id: 'auth-1', user_id: 'user-1', email: 'taro@example.com',
-                            provider: 'email', password_digest: 'hashed', last_login_at: nil, is_active: true)
-    Infrastructure::Entity::Auth::AuthUserEntity.new(
-      id: id,
-      user_id: user_id,
-      email: email,
-      provider: provider,
-      password_digest: password_digest,
-      last_login_at: last_login_at,
-      is_active: is_active
-    )
+  def build_infra_auth_user(attributes = {})
+    default_attributes = {
+      id: 'auth-1',
+      user_id: 'user-1',
+      email: 'taro@example.com',
+      provider: 'email',
+      password_digest: 'hashed',
+      last_login_at: nil,
+      is_active: true
+    }
+    Infrastructure::Entity::Auth::AuthUserEntity.new(default_attributes.merge(attributes))
   end
-  # rubocop:enable Metrics/ParameterLists
 
   describe '#find_by_email' do
     let(:repo) { create_repo_instance }
@@ -61,13 +59,13 @@ RSpec.describe Infrastructure::Repository::Rom::Auth::AuthRomRepository do
         allow(repo).to receive(:auth_users).and_return(fake_auth_users)
       end
 
-      # rubocop:disable RSpec/MultipleExpectations
       it 'returns an Infrastructure::Entity::Auth::AuthUserEntity' do
         result = repo.find_by_email(email: 'taro@example.com')
-        expect(result).to be_a(Infrastructure::Entity::Auth::AuthUserEntity)
-        expect(result.email).to eq('taro@example.com')
+        expect(result).to have_attributes(
+          class: Infrastructure::Entity::Auth::AuthUserEntity,
+          email: 'taro@example.com'
+        )
       end
-      # rubocop:enable RSpec/MultipleExpectations
     end
 
     context 'when no record exists' do

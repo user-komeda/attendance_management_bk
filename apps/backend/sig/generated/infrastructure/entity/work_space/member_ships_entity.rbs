@@ -22,6 +22,15 @@ module Infrastructure
 
         # @rbs (member_ships_entity: ::Domain::Entity::WorkSpace::MemberShipsEntity) -> MemberShipsEntity
         def self.build_from_domain_entity: (member_ships_entity: ::Domain::Entity::WorkSpace::MemberShipsEntity) -> MemberShipsEntity
+
+        # @rbs (member_ships_entity: ::Domain::Entity::WorkSpace::MemberShipsEntity) -> String
+        private def self.extract_id: (member_ships_entity: ::Domain::Entity::WorkSpace::MemberShipsEntity) -> String
+
+        # @rbs (member_ships_entity: ::Domain::Entity::WorkSpace::MemberShipsEntity) -> String
+        private def self.extract_role: (member_ships_entity: ::Domain::Entity::WorkSpace::MemberShipsEntity) -> String
+
+        # @rbs (member_ships_entity: ::Domain::Entity::WorkSpace::MemberShipsEntity) -> String
+        private def self.extract_status: (member_ships_entity: ::Domain::Entity::WorkSpace::MemberShipsEntity) -> String
       end
     end
   end

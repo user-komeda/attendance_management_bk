@@ -24,13 +24,25 @@ RSpec.describe 'WorkSpace API integration', type: :request do
   describe 'POST /work_spaces' do
     let(:params) { { name: 'Test WorkSpace', slug: "slug-#{SecureRandom.uuid}" } }
 
-    it 'creates a workspace and returns 201' do
+    it 'creates a workspace' do
       post '/work_spaces', params.to_json, auth_headers
-      expect(last_response.status).to eq(201)
+      expect_created_workspace
+    end
 
-      body = JSON.parse(last_response.body)
-      expect(body['work_spaces']['name']).to eq('Test WorkSpace')
-      expect(body['member_ships']['role']).to eq('owner')
+    def expect_created_workspace
+      aggregate_failures do
+        expect(last_response.status).to eq(201)
+        expect(workspace_name_from_body).to eq('Test WorkSpace')
+        expect(membership_role_from_body).to eq('owner')
+      end
+    end
+
+    def workspace_name_from_body
+      JSON.parse(last_response.body).dig('work_spaces', 'name')
+    end
+
+    def membership_role_from_body
+      JSON.parse(last_response.body).dig('member_ships', 'role')
     end
 
     it 'returns 400 for invalid params' do
@@ -46,11 +58,16 @@ RSpec.describe 'WorkSpace API integration', type: :request do
 
     it 'returns a list of workspaces' do
       get '/work_spaces', nil, auth_headers
-      expect(last_response.status).to eq(200)
+      expect_workspace_list
+    end
 
-      body = JSON.parse(last_response.body)
-      expect(body).to be_an(Array)
-      expect(body.size).to be >= 1
+    def expect_workspace_list
+      aggregate_failures do
+        expect(last_response.status).to eq(200)
+        body = JSON.parse(last_response.body)
+        expect(body).to be_an(Array)
+        expect(body.size).to be >= 1
+      end
     end
   end
 
@@ -62,10 +79,10 @@ RSpec.describe 'WorkSpace API integration', type: :request do
 
     it 'returns workspace details' do
       get "/work_spaces/#{workspace_id}", nil, auth_headers
-      expect(last_response.status).to eq(200)
-
-      body = JSON.parse(last_response.body)
-      expect(body['id']).to eq(workspace_id)
+      aggregate_failures do
+        expect(last_response.status).to eq(200)
+        expect(JSON.parse(last_response.body)['id']).to eq(workspace_id)
+      end
     end
 
     it 'returns 404 for non-existent workspace' do
@@ -94,10 +111,15 @@ RSpec.describe 'WorkSpace API integration', type: :request do
 
     it 'deletes the workspace' do
       delete "/work_spaces/#{workspace_id}", nil, auth_headers
-      expect(last_response.status).to eq(204)
+      expect_deleted_workspace(workspace_id)
+    end
 
-      get "/work_spaces/#{workspace_id}", nil, auth_headers
-      expect(last_response.status).to eq(404)
+    def expect_deleted_workspace(id)
+      aggregate_failures do
+        expect(last_response.status).to eq(204)
+        get "/work_spaces/#{id}", nil, auth_headers
+        expect(last_response.status).to eq(404)
+      end
     end
   end
 end

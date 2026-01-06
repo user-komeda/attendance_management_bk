@@ -3,10 +3,13 @@
 require 'spec_helper'
 
 RSpec.describe Application::UseCase::WorkSpace::DeleteWorkSpaceUseCase do
-  subject(:use_case) { described_class.new }
+  let(:use_case) do
+    described_class.new.tap do |uc|
+      allow(uc).to receive(:resolve).with(described_class::WORK_SPACE_REPOSITORY).and_return(work_space_repo)
+    end
+  end
 
   let(:workspace_id) { SecureRandom.uuid }
-  let(:work_space_repo) { instance_double(Domain::Repository::WorkSpace::WorkSpaceRepository) }
   let(:workspace_entity) do
     Domain::Entity::WorkSpace::WorkSpaceEntity.build_with_id(
       id: workspace_id,
@@ -14,12 +17,8 @@ RSpec.describe Application::UseCase::WorkSpace::DeleteWorkSpaceUseCase do
       slug: 'test-workspace'
     )
   end
+  let(:work_space_repo) { instance_double(Domain::Repository::WorkSpace::WorkSpaceRepository) }
 
-  before do
-    # rubocop:disable RSpec/SubjectStub
-    allow(use_case).to receive(:resolve).with(described_class::WORK_SPACE_REPOSITORY).and_return(work_space_repo)
-    # rubocop:enable RSpec/SubjectStub
-  end
 
   describe '#invoke' do
     context 'when workspace exists' do

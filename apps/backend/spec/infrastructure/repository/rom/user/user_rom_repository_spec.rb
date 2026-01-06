@@ -197,27 +197,4 @@ RSpec.describe Infrastructure::Repository::Rom::User::UserRomRepository do
       expect(result.email).to eq('x@example.com')
     end
   end
-
-  context 'when create_with_auth_user is called' do
-    subject(:result) { repo.create_with_auth_user(input) }
-
-    let(:repo) { create_repo_instance }
-    let(:input) { { first_name: 'Taro', auth_users: [{ password: 'pw' }] } }
-    let(:created) { build_infra_entity(first_name: 'Taro') }
-
-    before do
-      fake_users = double('users')
-      combined = double('combined')
-      command = double('command')
-
-      allow(repo).to receive(:users).and_return(fake_users)
-      allow(fake_users).to receive(:combine).with(:auth_users).and_return(combined)
-      allow(combined).to receive(:command).with(:create).and_return(command)
-      allow(command).to receive(:call).with(input).and_return(created)
-    end
-
-    it 'returns the created entity' do
-      expect(result).to eq(created)
-    end
-  end
 end

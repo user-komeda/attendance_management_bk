@@ -14,24 +14,18 @@ RSpec.describe Presentation::Response::WorkSpace::WorkSpaceResponse do
   end
 
   describe '.build' do
+    subject(:result) { described_class.build(work_space: dto) }
+
     it 'returns a hash representation' do
-      result = described_class.build(work_space: dto)
-      expect(result).to eq({
-                             id: workspace_id,
-                             name: 'Test WorkSpace',
-                             slug: 'test-workspace'
-                           })
+      expect(result).to eq({ id: workspace_id, name: 'Test WorkSpace', slug: 'test-workspace' })
     end
   end
 
   describe '.build_from_array' do
+    subject(:result) { described_class.build_from_array(work_space_list: [dto]) }
+
     it 'returns an array of hashes' do
-      result = described_class.build_from_array(work_space_list: [dto])
-      expect(result).to eq([{
-                             id: workspace_id,
-                             name: 'Test WorkSpace',
-                             slug: 'test-workspace'
-                           }])
+      expect(result).to eq([{ id: workspace_id, name: 'Test WorkSpace', slug: 'test-workspace' }])
     end
   end
 end

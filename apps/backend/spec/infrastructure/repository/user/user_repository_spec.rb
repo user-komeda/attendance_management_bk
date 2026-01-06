@@ -244,46 +244,32 @@ RSpec.describe Infrastructure::Repository::User::UserRepository do
       }
     end
 
-    let(:infra_entity) do
-      auth_user_struct = double(
-        'auth_user_struct',
-        id: auth_user_id,
-        user_id: user_id,
-        email: email,
-        password_digest: 'Password123!',
-        provider: 'email',
-        is_active: true,
-        last_login_at: nil
-      )
-      double(
-        'user_struct',
-        id: user_id,
-        first_name: 'Taro',
-        last_name: 'Yamada',
-        email: email,
-        session_version: 1,
-        auth_user: auth_user_struct
-      )
-    end
-
-    let(:rom) { instance_double(Infrastructure::Repository::Rom::User::UserRomRepository) }
-
     before do
-      allow(rom).to receive(:create_with_auth_user).and_return(infra_entity)
-      allow(repo).to receive(:resolve).and_return(rom)
+      rom_repo = instance_double(Infrastructure::Repository::Rom::User::UserRomRepository,
+                                 create_with_auth_user: infra_entity)
+      allow(Infrastructure::Repository::Rom::User::UserRomRepository).to receive(:new).and_return(rom_repo)
+      allow(repo).to receive(:resolve).and_return(rom_repo)
     end
 
-    it 'returns a hash with user_entity and auth_user_entity' do
-      expect(result).to include(:user_entity, :auth_user_entity)
+    it 'returns domain entities' do
+      aggregate_failures do
+        expect(result).to include(:user_entity, :auth_user_entity)
+        expect(result[:user_entity]).to be_a(Domain::Entity::User::UserEntity)
+        expect(result[:auth_user_entity]).to be_a(Domain::Entity::Auth::AuthUserEntity)
+      end
     end
+  end
 
-    it 'contains domain user entity' do
-      expect(result[:user_entity]).to be_a(Domain::Entity::User::UserEntity)
-    end
+  def infra_entity
+    auth_user_struct = Struct.new(
+      :id, :user_id, :email, :password_digest,
+      :provider, :is_active, :last_login_at
+    ).new(auth_user_id, user_id, email, 'Password123!', 'email', true, nil)
 
-    it 'contains domain auth user entity' do
-      expect(result[:auth_user_entity]).to be_a(Domain::Entity::Auth::AuthUserEntity)
-    end
+    Struct.new(
+      :id, :first_name, :last_name, :email,
+      :session_version, :auth_user
+    ).new(user_id, 'Taro', 'Yamada', email, 1, auth_user_struct)
   end
 
   describe 'Infrastructure::Entity::User::UserEntity' do
@@ -291,11 +277,7 @@ RSpec.describe Infrastructure::Repository::User::UserRepository do
     let(:email) { 'test@example.com' }
     let(:domain_user) do
       Domain::Entity::User::UserEntity.build_with_id(
-        id: user_id,
-        first_name: 'Taro',
-        last_name: 'Yamada',
-        email: email,
-        session_version: 1
+        id: user_id, first_name: 'Taro', last_name: 'Yamada', email: email, session_version: 1
       )
     end
 
@@ -307,24 +289,32 @@ RSpec.describe Infrastructure::Repository::User::UserRepository do
     end
 
     it 'converts struct to domain' do
-      struct = double('struct', id: user_id, first_name: 'Taro', last_name: 'Yamada', email: email, session_version: 1)
+      struct = instance_double(Infrastructure::Entity::User::UserEntity,
+                               id: user_id, first_name: 'Taro', last_name: 'Yamada', email: email, session_version: 1)
       result = Infrastructure::Entity::User::UserEntity.struct_to_domain(struct: struct)
       expect(result).to be_a(Domain::Entity::User::UserEntity)
     end
 
     it 'builds from domain entity' do
       result = Infrastructure::Entity::User::UserEntity.build_from_domain_entity(user_entity: domain_user)
-      expect(result).to be_a(Infrastructure::Entity::User::UserEntity)
-      expect(result.id).to eq(user_id)
+      aggregate_failures do
+        expect(result).to be_a(Infrastructure::Entity::User::UserEntity)
+        expect(result.id).to eq(user_id)
+      end
     end
 
     it 'generates uuid when domain id is empty' do
-      domain_no_id = double('domain_user',
-                            id: nil,
-                            user_name: double('name', first_name: 'A', last_name: 'B'),
-                            email: double('email', value: 'a@b.c'))
       result = Infrastructure::Entity::User::UserEntity.build_from_domain_entity(user_entity: domain_no_id)
       expect(result.id).not_to be_empty
     end
+  end
+
+  def domain_no_id
+    instance_double(
+      Domain::Entity::User::UserEntity,
+      id: nil,
+      user_name: instance_double(Domain::ValueObject::User::UserName, first_name: 'A', last_name: 'B'),
+      email: instance_double(Domain::ValueObject::User::UserEmail, value: 'a@b.c')
+    )
   end
 end

@@ -18,14 +18,12 @@ RSpec.describe Presentation::Response::WorkSpace::MemberShipsResponse do
   end
 
   describe '.build' do
+    subject(:result) { described_class.build(member_ships: dto) }
+
     it 'returns a hash representation' do
-      result = described_class.build(member_ships: dto)
       expect(result).to eq({
-                             id: id,
-                             user_id: user_id,
-                             work_space_id: workspace_id,
-                             role: 'owner',
-                             status: 'active'
+                             id: id, user_id: user_id, work_space_id: workspace_id,
+                             role: 'owner', status: 'active'
                            })
     end
   end

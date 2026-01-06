@@ -64,8 +64,10 @@ RSpec.describe Infrastructure::Repository::Rom::WorkSpace::WorkSpaceRomRepositor
 
     it 'returns an array of infra entities' do
       result = repo.find_by_ids(workspace_ids: [workspace_id])
-      expect(result.first).to be_a(Infrastructure::Entity::WorkSpace::WorkSpaceEntity)
-      expect(result.first.id).to eq(workspace_id)
+      expect(result.first).to have_attributes(
+        class: Infrastructure::Entity::WorkSpace::WorkSpaceEntity,
+        id: workspace_id
+      )
     end
   end
 
@@ -78,8 +80,10 @@ RSpec.describe Infrastructure::Repository::Rom::WorkSpace::WorkSpaceRomRepositor
 
     it 'returns one infra entity' do
       result = repo.find_by_slug(slug: 'test-workspace')
-      expect(result).to be_a(Infrastructure::Entity::WorkSpace::WorkSpaceEntity)
-      expect(result.slug).to eq('test-workspace')
+      expect(result).to have_attributes(
+        class: Infrastructure::Entity::WorkSpace::WorkSpaceEntity,
+        slug: 'test-workspace'
+      )
     end
   end
 
@@ -92,8 +96,10 @@ RSpec.describe Infrastructure::Repository::Rom::WorkSpace::WorkSpaceRomRepositor
 
     it 'returns one infra entity' do
       result = repo.rom_get_by_id(id: workspace_id)
-      expect(result).to be_a(Infrastructure::Entity::WorkSpace::WorkSpaceEntity)
-      expect(result.id).to eq(workspace_id)
+      expect(result).to have_attributes(
+        class: Infrastructure::Entity::WorkSpace::WorkSpaceEntity,
+        id: workspace_id
+      )
     end
   end
 

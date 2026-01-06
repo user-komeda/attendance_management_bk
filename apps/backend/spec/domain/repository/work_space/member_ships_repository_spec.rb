@@ -3,18 +3,22 @@
 require 'spec_helper'
 
 RSpec.describe Domain::Repository::WorkSpace::MemberShipsRepository do
-  subject(:repository) { described_class.new }
+  subject(:repository) do
+    repo = described_class.allocate
+    allow(repo).to receive(:resolve).with(described_class::REPOSITORY_KEY).and_return(infra_repo)
+    repo
+  end
 
+  let(:dependencies) { { described_class::REPOSITORY_KEY => infra_repo } }
   let(:infra_repo) { instance_double(Infrastructure::Repository::WorkSpace::MemberShipsRepository) }
-  let(:membership_entity) { instance_double(Domain::Entity::WorkSpace::MemberShipsEntity) }
+  let(:membership_entity) do
+    instance_double(
+      Domain::Entity::WorkSpace::MemberShipsEntity,
+      id: instance_double(Domain::ValueObject::IdentityId, value: SecureRandom.uuid)
+    )
+  end
   let(:user_id) { SecureRandom.uuid }
   let(:workspace_id) { SecureRandom.uuid }
-
-  before do
-    # rubocop:disable RSpec/SubjectStub
-    allow(repository).to receive(:resolve).with(described_class::REPOSITORY_KEY).and_return(infra_repo)
-    # rubocop:enable RSpec/SubjectStub
-  end
 
   describe '#work_space_ids_via_membership_by_user_id' do
     it 'delegates to infra repository' do

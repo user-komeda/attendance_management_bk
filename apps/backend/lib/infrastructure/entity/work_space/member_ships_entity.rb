@@ -43,12 +43,33 @@ module Infrastructure
         # @rbs (member_ships_entity: ::Domain::Entity::WorkSpace::MemberShipsEntity) -> MemberShipsEntity
         def self.build_from_domain_entity(member_ships_entity:)
           new(
-            id: ::UtilMethod.nil_or_empty?(member_ships_entity.id) ? SecureRandom.uuid : member_ships_entity.id.value,
+            id: extract_id(member_ships_entity: member_ships_entity),
             user_id: member_ships_entity.user_id.value,
             work_space_id: member_ships_entity.work_space_id.value,
-            role: UtilMethod.nil_or_empty?(member_ships_entity.role) ? 'owner' : member_ships_entity.role.value,
-            status: UtilMethod.nil_or_empty?(member_ships_entity.status) ? 'active' : member_ships_entity.status.value
+            role: extract_role(member_ships_entity: member_ships_entity),
+            status: extract_status(member_ships_entity: member_ships_entity)
           )
+        end
+
+        class << self
+          private
+
+          # @rbs (member_ships_entity: ::Domain::Entity::WorkSpace::MemberShipsEntity) -> String
+          def extract_id(member_ships_entity:)
+            ::UtilMethod.nil_or_empty?(member_ships_entity.id) ? SecureRandom.uuid : member_ships_entity.id.value
+          end
+
+          # @rbs (member_ships_entity: ::Domain::Entity::WorkSpace::MemberShipsEntity) -> String
+          def extract_role(member_ships_entity:)
+            role = member_ships_entity.role
+            role.nil? ? 'owner' : role.value
+          end
+
+          # @rbs (member_ships_entity: ::Domain::Entity::WorkSpace::MemberShipsEntity) -> String
+          def extract_status(member_ships_entity:)
+            status = member_ships_entity.status
+            status.nil? ? 'active' : status.value
+          end
         end
       end
     end

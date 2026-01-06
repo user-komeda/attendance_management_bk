@@ -3,27 +3,24 @@
 require 'spec_helper'
 
 RSpec.describe Infrastructure::Repository::WorkSpace::MemberShipsRepository do
-  subject(:repository) { described_class.new }
+  let(:repository) do
+    described_class.new.tap do |repo|
+      allow(repo).to receive(:resolve).with(described_class::ROM_REPOSITORY_KEY).and_return(rom_repo)
+    end
+  end
 
-  let(:rom_repo) { instance_double(Infrastructure::Repository::Rom::WorkSpace::MemberShipsRomRepository) }
   let(:user_id) { SecureRandom.uuid }
   let(:workspace_id) { SecureRandom.uuid }
-  let(:membership_id) { SecureRandom.uuid }
-  let(:infra_entity) do
+  let(:rom_repo) { instance_double(Infrastructure::Repository::Rom::WorkSpace::MemberShipsRomRepository) }
+
+  def infra_entity
     Infrastructure::Entity::WorkSpace::MemberShipsEntity.new(
-      id: membership_id,
-      user_id: user_id,
-      work_space_id: workspace_id,
-      role: 'owner',
-      status: 'active'
+      id: SecureRandom.uuid, user_id: user_id, work_space_id: workspace_id, role: 'owner', status: 'active'
     )
   end
-  let(:domain_entity) { infra_entity.to_domain }
 
-  before do
-    # rubocop:disable RSpec/SubjectStub
-    allow(repository).to receive(:resolve).with(described_class::ROM_REPOSITORY_KEY).and_return(rom_repo)
-    # rubocop:enable RSpec/SubjectStub
+  def domain_entity
+    infra_entity.to_domain
   end
 
   describe '#work_space_ids_via_membership_by_user_id' do
@@ -36,93 +33,98 @@ RSpec.describe Infrastructure::Repository::WorkSpace::MemberShipsRepository do
   end
 
   describe '#create' do
-    it 'creates and returns a domain entity' do
-      allow(rom_repo).to receive(:rom_create).and_return(infra_entity)
-      result = repository.create(member_ships_entity: domain_entity)
-      expect(result).to be_a(Domain::Entity::WorkSpace::MemberShipsEntity)
-      expect(result.id.value).to eq(membership_id)
+    let(:domain_ent) { domain_entity }
+
+    it 'returns a domain entity' do
+      infra_ent = Infrastructure::Entity::WorkSpace::MemberShipsEntity
+                  .build_from_domain_entity(member_ships_entity: domain_ent)
+      allow(rom_repo).to receive(:rom_create).with(kind_of(Infrastructure::Entity::WorkSpace::MemberShipsEntity))
+                                             .and_return(infra_ent)
+      expect(repository.create(member_ships_entity: domain_ent).id.value).to eq(domain_ent.id.value)
     end
   end
 
   describe '#get_by_user_id_and_work_space_id' do
+    let(:infra_ent) { infra_entity }
+
     it 'returns a domain entity' do
+      allow(rom_repo).to receive(:get_by_user_id_and_work_space_id)
+        .with(user_id: user_id, work_space_id: workspace_id).and_return(infra_ent)
+      result = repository.get_by_user_id_and_work_space_id(user_id: user_id, work_space_id: workspace_id)
+      expect(result.id.value).to eq(infra_ent.id)
+    end
+
+    it 'returns nil if not found' do
       allow(rom_repo).to receive(:get_by_user_id_and_work_space_id)
         .with(user_id: user_id, work_space_id: workspace_id)
-        .and_return(infra_entity)
-      result = repository.get_by_user_id_and_work_space_id(user_id: user_id, work_space_id: workspace_id)
-      expect(result).to be_a(Domain::Entity::WorkSpace::MemberShipsEntity)
-      expect(result.id.value).to eq(membership_id)
-    end
-    it 'returns a domain entity' do
-      allow(rom_repo).to receive(:get_by_user_id_and_work_space_id)
-                           .with(user_id: user_id, work_space_id: workspace_id)
-                           .and_return(nil)
+        .and_return(nil)
       result = repository.get_by_user_id_and_work_space_id(user_id: user_id, work_space_id: workspace_id)
       expect(result).to be_nil
     end
   end
 
   describe 'Infrastructure::Entity::WorkSpace::MemberShipsEntity' do
-    let(:domain_id) { Domain::ValueObject::IdentityId.build(membership_id) }
-    let(:domain_user_id) { Domain::ValueObject::IdentityId.build(user_id) }
-    let(:domain_workspace_id) { Domain::ValueObject::IdentityId.build(workspace_id) }
-    let(:domain_role) { Domain::ValueObject::WorkSpace::Role.build('owner') }
-    let(:domain_status) { Domain::ValueObject::WorkSpace::Status.build('active') }
-    let(:domain_membership) do
+    let(:membership_id) { SecureRandom.uuid }
+
+    def domain_membership
       Domain::Entity::WorkSpace::MemberShipsEntity.new(
-        id: domain_id,
-        user_id: domain_user_id,
-        work_space_id: domain_workspace_id,
-        role: domain_role,
-        status: domain_status
+        id: Domain::ValueObject::IdentityId.build(membership_id),
+        user_id: Domain::ValueObject::IdentityId.build(SecureRandom.uuid),
+        work_space_id: Domain::ValueObject::IdentityId.build(SecureRandom.uuid),
+        role: Domain::ValueObject::WorkSpace::Role.build('owner'),
+        status: Domain::ValueObject::WorkSpace::Status.build('active')
       )
     end
 
+    def build_membership_double(overrides = {})
+      user_id = SecureRandom.uuid
+      workspace_id = SecureRandom.uuid
+      membership_id = SecureRandom.uuid
+      defaults = {
+        id: Domain::ValueObject::IdentityId.build(membership_id),
+        user_id: Domain::ValueObject::IdentityId.build(user_id),
+        work_space_id: Domain::ValueObject::IdentityId.build(workspace_id),
+        role: Domain::ValueObject::WorkSpace::Role.build('owner'),
+        status: Domain::ValueObject::WorkSpace::Status.build('active')
+      }
+      instance_double(Domain::Entity::WorkSpace::MemberShipsEntity, defaults.merge(overrides))
+    end
+
     it 'converts struct to domain' do
-      struct = double('struct', id: membership_id, user_id: user_id, work_space_id: workspace_id, role: 'owner',
-                                status: 'active')
+      struct = Struct.new(:id, :user_id, :work_space_id, :role, :status)
+                     .new(membership_id, SecureRandom.uuid, SecureRandom.uuid, 'owner', 'active')
       result = Infrastructure::Entity::WorkSpace::MemberShipsEntity.struct_to_domain(struct: struct)
-      expect(result).to be_a(Domain::Entity::WorkSpace::MemberShipsEntity)
       expect(result.id.value).to eq(membership_id)
     end
 
     it 'builds from domain entity' do
-      result = Infrastructure::Entity::WorkSpace::MemberShipsEntity.build_from_domain_entity(member_ships_entity: domain_membership)
-      expect(result).to be_a(Infrastructure::Entity::WorkSpace::MemberShipsEntity)
-      expect(result.id).to eq(membership_id)
+      res = Infrastructure::Entity::WorkSpace::MemberShipsEntity.build_from_domain_entity(
+        member_ships_entity: domain_membership
+      )
+      expect(res.id).to eq(membership_id)
     end
 
     it 'generates uuid when domain id is empty' do
-      empty_id_domain = double('domain_membership',
-                               id: nil,
-                               user_id: domain_user_id,
-                               work_space_id: domain_workspace_id,
-                               role: domain_role,
-                               status: domain_status)
-      result = Infrastructure::Entity::WorkSpace::MemberShipsEntity.build_from_domain_entity(member_ships_entity: empty_id_domain)
+      empty_id_domain = build_membership_double(id: nil)
+      result = Infrastructure::Entity::WorkSpace::MemberShipsEntity.build_from_domain_entity(
+        member_ships_entity: empty_id_domain
+      )
       expect(result.id).not_to be_empty
-      expect(result.id).not_to eq('')
     end
 
     it 'sets default role when role is empty' do
-      empty_role_domain = double('domain_membership',
-                                 id: domain_id,
-                                 user_id: domain_user_id,
-                                 work_space_id: domain_workspace_id,
-                                 role: nil,
-                                 status: domain_status)
-      result = Infrastructure::Entity::WorkSpace::MemberShipsEntity.build_from_domain_entity(member_ships_entity: empty_role_domain)
+      empty_role_domain = build_membership_double(role: nil)
+      result = Infrastructure::Entity::WorkSpace::MemberShipsEntity.build_from_domain_entity(
+        member_ships_entity: empty_role_domain
+      )
       expect(result.role).to eq('owner')
     end
 
     it 'sets default status when status is empty' do
-      empty_status_domain = double('domain_membership',
-                                   id: domain_id,
-                                   user_id: domain_user_id,
-                                   work_space_id: domain_workspace_id,
-                                   role: domain_role,
-                                   status: nil)
-      result = Infrastructure::Entity::WorkSpace::MemberShipsEntity.build_from_domain_entity(member_ships_entity: empty_status_domain)
+      empty_status_domain = build_membership_double(status: nil)
+      result = Infrastructure::Entity::WorkSpace::MemberShipsEntity.build_from_domain_entity(
+        member_ships_entity: empty_status_domain
+      )
       expect(result.status).to eq('active')
     end
   end

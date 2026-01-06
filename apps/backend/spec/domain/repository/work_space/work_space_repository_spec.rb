@@ -3,18 +3,27 @@
 require 'spec_helper'
 
 RSpec.describe Domain::Repository::WorkSpace::WorkSpaceRepository do
-  subject(:repository) { described_class.new }
+  subject(:repository) do
+    repo = described_class.allocate
+    allow(repo).to receive(:resolve).with(described_class::REPOSITORY_KEY).and_return(infra_repo)
+    repo
+  end
 
   let(:infra_repo) { instance_double(Infrastructure::Repository::WorkSpace::WorkSpaceRepository) }
-  let(:workspace_entity) { instance_double(Domain::Entity::WorkSpace::WorkSpaceEntity) }
+  let(:workspace_entity) do
+    instance_double(
+      Domain::Entity::WorkSpace::WorkSpaceEntity,
+      id: instance_double(Domain::ValueObject::IdentityId, value: SecureRandom.uuid)
+    )
+  end
   let(:workspace_id) { SecureRandom.uuid }
   let(:slug) { 'test-workspace' }
-
-  before do
-    # rubocop:disable RSpec/SubjectStub
-    allow(repository).to receive(:resolve).with(described_class::REPOSITORY_KEY).and_return(infra_repo)
-    # rubocop:enable RSpec/SubjectStub
+  let(:dependencies) do
+    {
+      described_class::REPOSITORY_KEY => infra_repo
+    }
   end
+
 
   describe '#find_by_ids' do
     it 'delegates to infra repository' do

@@ -17,14 +17,18 @@ RSpec.describe Presentation::Request::Contract::WorkSpace::UpdateWorkSpaceContra
 
     it 'fails when id is missing' do
       result = contract.call(valid_params.except(:id))
-      expect(result).not_to be_success
-      expect(result.errors.to_h).to have_key(:id)
+      aggregate_failures do
+        expect(result).not_to be_success
+        expect(result.errors.to_h).to have_key(:id)
+      end
     end
 
     it 'fails when id is not a UUID' do
       result = contract.call(valid_params.merge(id: 'invalid-uuid'))
-      expect(result).not_to be_success
-      expect(result.errors.to_h[:id]).to include('is in invalid format')
+      aggregate_failures do
+        expect(result).not_to be_success
+        expect(result.errors.to_h[:id]).to include('is in invalid format')
+      end
     end
 
     it 'succeeds when name is missing (optional)' do
@@ -39,14 +43,18 @@ RSpec.describe Presentation::Request::Contract::WorkSpace::UpdateWorkSpaceContra
 
     it 'fails when name is blank' do
       result = contract.call(valid_params.merge(name: ''))
-      expect(result).not_to be_success
-      expect(result.errors.to_h[:name]).to include('must be filled')
+      aggregate_failures do
+        expect(result).not_to be_success
+        expect(result.errors.to_h[:name]).to include('must be filled')
+      end
     end
 
     it 'fails when slug is blank' do
       result = contract.call(valid_params.merge(slug: ''))
-      expect(result).not_to be_success
-      expect(result.errors.to_h[:slug]).to include('must be filled')
+      aggregate_failures do
+        expect(result).not_to be_success
+        expect(result.errors.to_h[:slug]).to include('must be filled')
+      end
     end
   end
 end

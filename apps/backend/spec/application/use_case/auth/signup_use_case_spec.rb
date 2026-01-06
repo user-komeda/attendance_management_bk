@@ -5,6 +5,17 @@ require 'spec_helper'
 RSpec.describe Application::UseCase::Auth::SignupUseCase do
   subject(:use_case) { described_class.new }
 
+  before do
+    if defined?(service_caller)
+      allow(use_case).to receive(:resolve).with(described_class::SERVICE_KEY)
+                                          .and_return(service_caller)
+    end
+    if defined?(user_repo)
+      allow(use_case).to receive(:resolve).with(described_class::USER_REPOSITORY_KEY)
+                                          .and_return(user_repo)
+    end
+  end
+
   let(:input_dto) do
     Application::Dto::Auth::SignupInputDto.new(
       params: {
@@ -20,6 +31,12 @@ RSpec.describe Application::UseCase::Auth::SignupUseCase do
     context 'when user does not exist (success path)' do
       let(:service_caller) { instance_double(Domain::Service::Auth::AuthService, exist?: false) }
       let(:user_repo) { instance_double(Domain::Repository::User::UserRepository) }
+      let(:dependencies) do
+        {
+          described_class::SERVICE_KEY => service_caller,
+          described_class::USER_REPOSITORY_KEY => user_repo
+        }
+      end
 
       let(:persist_return) do
         user_entity = Domain::Entity::User::UserEntity.build_with_id(
@@ -37,25 +54,12 @@ RSpec.describe Application::UseCase::Auth::SignupUseCase do
       end
 
       before do
-        # rubocop:disable RSpec/SubjectStub
-        allow(use_case).to receive(:resolve) do |key|
-          case key
-          when described_class::SERVICE_KEY
-            service_caller
-          when described_class::USER_REPOSITORY_KEY
-            user_repo
-          else
-            raise "Unexpected key: #{key}"
-          end
-        end
-
-        # rubocop:enable RSpec/SubjectStub
-
         # Stub entity builders used inside use case by replacing frozen constants
         user_double = instance_double(Domain::Entity::User::UserEntity)
         auth_user_double = instance_double(Domain::Entity::Auth::AuthUserEntity)
 
-        user_entity_const = class_double(Domain::Entity::User::UserEntity, build: user_double, build_with_auth_user: {})
+        user_entity_const = class_double(Domain::Entity::User::UserEntity, build: user_double,
+                                                                           build_with_auth_user: {})
         auth_user_entity_const = class_double(Domain::Entity::Auth::AuthUserEntity, build: auth_user_double)
         stub_const('Application::UseCase::Auth::SignupUseCase::UserEntity', user_entity_const)
         stub_const('Application::UseCase::Auth::SignupUseCase::AuthUserEntity', auth_user_entity_const)
@@ -80,19 +84,7 @@ RSpec.describe Application::UseCase::Auth::SignupUseCase do
 
     context 'when user already exists (duplicate)' do
       let(:service_caller) { instance_double(Domain::Service::Auth::AuthService, exist?: true) }
-
-      before do
-        # rubocop:disable RSpec/SubjectStub
-        allow(use_case).to receive(:resolve) do |key|
-          case key
-          when described_class::SERVICE_KEY
-            service_caller
-          else
-            instance_double(Object)
-          end
-        end
-        # rubocop:enable RSpec/SubjectStub
-      end
+      let(:dependencies) { { described_class::SERVICE_KEY => service_caller } }
 
       it 'raises DuplicatedException' do
         expect { use_case.invoke(args: input_dto) }
