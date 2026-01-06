@@ -24,9 +24,6 @@ module Application
 
         # @rbs (::Domain::Entity::WorkSpace::MemberShipsEntity member_ships_entity) -> MemberShipsDto
         def self.build: (::Domain::Entity::WorkSpace::MemberShipsEntity member_ships_entity) -> MemberShipsDto
-
-        # @rbs (Array[::Domain::Entity::WorkSpace::MemberShipsEntity] member_ships_list) -> Array[MemberShipsDto]
-        def self.build_from_array: (Array[::Domain::Entity::WorkSpace::MemberShipsEntity] member_ships_list) -> Array[MemberShipsDto]
       end
     end
   end

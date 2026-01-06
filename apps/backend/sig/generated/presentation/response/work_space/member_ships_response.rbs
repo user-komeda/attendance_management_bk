@@ -26,9 +26,6 @@ module Presentation
         # rubocop:enable all
         def self.build: (member_ships: ::Application::Dto::WorkSpace::MemberShipsDto) -> Hash[Symbol, String]
 
-        # @rbs (member_ships_list: Array[::Application::Dto::WorkSpace::MemberShipsDto]) -> Array[Hash[Symbol, String]]
-        def self.build_from_array: (member_ships_list: Array[::Application::Dto::WorkSpace::MemberShipsDto]) -> Array[Hash[Symbol, String]]
-
         # @rbs () -> {id: String, user_id: String, work_space_id: String, role: String, status: String }
         def to_h: () -> { id: String, user_id: String, work_space_id: String, role: String, status: String }
       end

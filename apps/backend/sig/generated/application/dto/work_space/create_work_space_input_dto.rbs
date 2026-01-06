@@ -4,10 +4,8 @@ module Application
   module Dto
     module WorkSpace
       class CreateWorkSpaceInputDto < InputBaseDto
-        # rubocop:disable all
         attr_reader name: untyped
 
-        # rubocop:disable all
         attr_reader slug: untyped
 
         # @rbs (params: Hash[Symbol, String]) -> void

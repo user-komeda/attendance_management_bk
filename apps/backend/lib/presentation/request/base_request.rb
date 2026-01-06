@@ -10,7 +10,6 @@ module Presentation
         raise NotImplementedError
       end
 
-
       class << self
         # @rbs (Hash[Symbol, untyped] params) -> BaseRequest
         def build(params)
