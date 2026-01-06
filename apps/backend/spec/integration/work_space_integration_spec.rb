@@ -9,6 +9,18 @@ RSpec.describe 'WorkSpace API integration', type: :request do
   let(:email) { "user-#{SecureRandom.uuid}@example.com" }
   let(:password) { 'Password123!' }
   let!(:auth_headers) do
+    # Create the fixed user for development/testing context if it doesn't exist
+    fixed_user_id = '04e8496c-6b8c-4f4f-9746-2d96a10f13ec'
+    rom = Container.resolve('container')
+    unless rom.relations[:users].by_pk(fixed_user_id).one
+      rom.relations[:users].command(:create).call(
+        id: fixed_user_id,
+        first_name: 'Fixed',
+        last_name: 'User',
+        email: 'fixed-user@example.com'
+      )
+    end
+
     post '/signup', {
       first_name: 'Taro',
       last_name: 'Yamada',
