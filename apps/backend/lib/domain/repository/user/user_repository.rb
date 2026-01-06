@@ -12,10 +12,10 @@ module Domain
           caller.get_all
         end
 
-        # @rbs (String id) -> ::Domain::Entity::User::UserEntity?
-        def get_by_id(id)
+        # @rbs (id: String) -> ::Domain::Entity::User::UserEntity?
+        def get_by_id(id:)
           caller = resolve(REPOSITORY_KEY)
-          caller.get_by_id(id)
+          caller.get_by_id(id: id)
         end
 
         # @rbs (::Domain::Entity::User::UserEntity object) -> ::Domain::Entity::User::UserEntity
@@ -24,10 +24,10 @@ module Domain
           caller.create(object)
         end
 
-        # @rbs (::Domain::Entity::User::UserEntity object) -> ::Domain::Entity::User::UserEntity
-        def update(object)
+        # @rbs (user_entity: Domain::Entity::User::UserEntity) -> ::Domain::Entity::User::UserEntity
+        def update(user_entity:)
           caller = resolve(REPOSITORY_KEY)
-          caller.update(object)
+          caller.update(user_entity: user_entity)
         end
 
         # @rbs (::Domain::Entity::User::UserEntity object) -> void
@@ -43,11 +43,11 @@ module Domain
         end
 
         # rubocop:disable Layout/LineLength
-        # @rbs ({user: Domain::Entity::User::UserEntity, auth_user: Domain::Entity::Auth::AuthUserEntity}) -> {user_entity: Domain::Entity::User::UserEntity, auth_user_entity: Domain::Entity::Auth::AuthUserEntity}
+        # @rbs (user_with_auth_user: Domain::Entity::User::UserEntity) -> {user_entity: Domain::Entity::User::UserEntity, auth_user_entity: Domain::Entity::Auth::AuthUserEntity}
         # rubocop:enable Layout/LineLength
-        def create_with_auth_user(attrs)
+        def create_with_auth_user(user_with_auth_user:)
           caller = resolve(REPOSITORY_KEY)
-          caller.create_with_auth_user(attrs)
+          caller.create_with_auth_user(user_with_auth_user: user_with_auth_user)
         end
       end
     end

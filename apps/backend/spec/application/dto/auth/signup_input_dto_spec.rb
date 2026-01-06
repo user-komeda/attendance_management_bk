@@ -14,7 +14,7 @@ RSpec.describe Application::Dto::Auth::SignupInputDto do
   end
 
   describe '#initialize' do
-    subject(:dto) { described_class.new(params) }
+    subject(:dto) { described_class.new(params: params) }
 
     it 'assigns first_name' do
       expect(dto.first_name).to eq('Taro')
@@ -34,7 +34,7 @@ RSpec.describe Application::Dto::Auth::SignupInputDto do
   end
 
   describe '#convert_to_user_entity' do
-    subject(:entity) { described_class.new(params).convert_to_user_entity }
+    subject(:entity) { described_class.new(params: params).convert_to_user_entity }
 
     it 'returns a UserEntity' do
       expect(entity).to be_a(Domain::Entity::User::UserEntity)
@@ -58,7 +58,7 @@ RSpec.describe Application::Dto::Auth::SignupInputDto do
   end
 
   describe '#convert_to_auth_user_entity' do
-    subject(:auth_entity) { described_class.new(params).convert_to_auth_user_entity }
+    subject(:auth_entity) { described_class.new(params: params).convert_to_auth_user_entity }
 
     it 'returns an AuthUserEntity' do
       expect(auth_entity).to be_a(Domain::Entity::Auth::AuthUserEntity)

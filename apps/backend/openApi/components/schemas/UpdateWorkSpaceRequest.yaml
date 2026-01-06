@@ -1,0 +1,11 @@
+type: object
+description: ワークスペース更新リクエスト
+properties:
+  name:
+    type: string
+    minLength: 1
+    example: 開発チーム(更新)
+  slug:
+    type: string
+    minLength: 1
+    example: dev-team-updated

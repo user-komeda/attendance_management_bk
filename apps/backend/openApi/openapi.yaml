@@ -18,15 +18,26 @@ tags:
     description: ユーザーに関する操作
   - name: auth
     description: 認証に関する操作（サインアップ/サインイン）
+  - name: workspace
+    description: ワークスペースに関する操作
 
 paths:
+  "/users":
+    $ref: './paths/users.yaml'
+
   "/signup":
     $ref: './paths/signup.yaml'
 
   "/signin":
     $ref: './paths/signin.yaml'
 
-  "/{id}":
+  "/work_spaces":
+    $ref: './paths/work_spaces.yaml'
+
+  "/work_spaces/{id}":
+    $ref: './paths/work_space_id.yaml'
+
+  "/users/{id}":
     $ref: './paths/id.yaml'
 
 components:
@@ -37,6 +48,18 @@ components:
       $ref: './components/schemas/CreateUserRequest.yaml'
     UpdateUserRequest:
       $ref: './components/schemas/UpdateUserRequest.yaml'
+    WorkSpace:
+      $ref: './components/schemas/WorkSpace.yaml'
+    WorkSpaceWithStatus:
+      $ref: './components/schemas/WorkSpaceWithStatus.yaml'
+    WorkSpaceWithMemberShips:
+      $ref: './components/schemas/WorkSpaceWithMemberShips.yaml'
+    MemberShips:
+      $ref: './components/schemas/MemberShips.yaml'
+    CreateWorkSpaceRequest:
+      $ref: './components/schemas/CreateWorkSpaceRequest.yaml'
+    UpdateWorkSpaceRequest:
+      $ref: './components/schemas/UpdateWorkSpaceRequest.yaml'
     Error:
       $ref: './components/schemas/Error.yaml'
   parameters:

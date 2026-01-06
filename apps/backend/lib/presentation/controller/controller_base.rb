@@ -12,14 +12,14 @@ module Presentation
       # Some frameworks provide `params`; declare its type for Steep
       # @rbs def params: () -> Hash[Symbol, untyped]
 
-      # @rbs (Hash[Symbol, untyped] request_payload, untyped class_name) -> untyped
-      def build_request(request_payload, class_name)
-        raise NotImplementedError, "#{self.class} must implement #build_request"
-      end
-
       # @rbs (Symbol key, *untyped args) -> untyped
       def invoke_use_case(key, *args)
         raise NotImplementedError, "#{self.class} must implement #invoke_use_case"
+      end
+
+      # @rbs (untyped request_payload, untyped class_name) -> untyped
+      def build_request(request_payload, class_name)
+        raise NotImplementedError, "#{self.class} must implement #build_request"
       end
     end
   end

@@ -6,8 +6,10 @@ module Presentation
   module Response
     module Factory
       class Responder
-        # @rbs (response: untyped, payload: ::Presentation::Controller::ControllerPayLoad) -> untyped
-        def self.build_responder(response:, payload:)
+        # rubocop:disable all
+        # @rbs (response: untyped, payload: ::Presentation::Controller::ControllerPayLoad,resource_name: String?) -> untyped
+        # rubocop:enable all
+        def self.build_responder(response:, payload:, resource_name: nil)
           # :nocov:
           raise NotImplementedError
           # :nocov:

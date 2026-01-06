@@ -1,0 +1,100 @@
+get:
+  tags: [workspace]
+  summary: ワークスペース詳細の取得
+  operationId: getWorkSpace
+  parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+  responses:
+    "200":
+      description: 正常にワークスペース情報を返却します
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas/WorkSpace.yaml'
+    "404":
+      description: ワークスペースが見つかりません
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas/Error.yaml'
+    default:
+      description: サーバー内部エラー
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas/Error.yaml'
+
+patch:
+  tags: [workspace]
+  summary: ワークスペースの更新
+  operationId: updateWorkSpace
+  parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: '../components/schemas/UpdateWorkSpaceRequest.yaml'
+  responses:
+    "200":
+      description: ワークスペースが正常に更新されました
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas/WorkSpace.yaml'
+    "400":
+      description: バリデーションエラー
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas/Error.yaml'
+    "404":
+      description: ワークスペースが見つかりません
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas/Error.yaml'
+    default:
+      description: サーバー内部エラー
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas/Error.yaml'
+
+delete:
+  tags: [workspace]
+  summary: ワークスペースの削除
+  operationId: deleteWorkSpace
+  parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+  responses:
+    "204":
+      description: ワークスペースが正常に削除されました
+    "404":
+      description: ワークスペースが見つかりません
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas/Error.yaml'
+    default:
+      description: サーバー内部エラー
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas/Error.yaml'

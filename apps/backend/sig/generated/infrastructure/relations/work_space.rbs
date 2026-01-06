@@ -1,0 +1,13 @@
+# Generated from lib/infrastructure/relations/work_space.rb with RBS::Inline
+
+module Infrastructure
+  module Relations
+    class WorkSpace
+      # @rbs (Array[String] workspace_ids) -> ROM::Relation[untyped]
+      def by_ids: (Array[String] workspace_ids) -> ROM::Relation[untyped]
+
+      # @rbs (String slug) -> ROM::Relation[untyped]
+      def by_slug: (String slug) -> ROM::Relation[untyped]
+    end
+  end
+end

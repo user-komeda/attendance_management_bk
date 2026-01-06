@@ -1,0 +1,21 @@
+# Generated from lib/application/dto/work_space/update_work_space_input_dto.rb with RBS::Inline
+
+module Application
+  module Dto
+    module WorkSpace
+      class UpdateWorkSpaceInputDto < InputBaseDto
+        attr_reader id: untyped
+
+        attr_reader name: untyped
+
+        attr_reader slug: untyped
+
+        # @rbs (id: String, name: String, slug: String) -> void
+        def initialize: (id: String, name: String, slug: String) -> void
+
+        # @rbs () -> ::Domain::Entity::WorkSpace::WorkSpaceEntity
+        def convert_to_entity: () -> ::Domain::Entity::WorkSpace::WorkSpaceEntity
+      end
+    end
+  end
+end

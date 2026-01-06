@@ -12,24 +12,26 @@ module Infrastructure
 
         attr_reader email: String
 
+        attr_reader session_version: Integer
+
         # @rbs () -> ::Domain::Entity::User::UserEntity
         def to_domain: () -> ::Domain::Entity::User::UserEntity
 
         def to_domain_with_auth_user: () -> untyped
 
-        # @rbs (untyped struct) -> ::Domain::Entity::User::UserEntity
-        def self.struct_to_domain: (untyped struct) -> ::Domain::Entity::User::UserEntity
+        # @rbs (struct: untyped) -> ::Domain::Entity::User::UserEntity
+        def self.struct_to_domain: (struct: untyped) -> ::Domain::Entity::User::UserEntity
 
-        # @rbs (untyped struct) -> {user_entity: Domain::Entity::User::UserEntity, auth_user_entity: Domain::Entity::Auth::AuthUserEntity}
-        def self.struct_to_domain_with_auth_user: (untyped struct) -> { user_entity: Domain::Entity::User::UserEntity, auth_user_entity: Domain::Entity::Auth::AuthUserEntity }
+        # @rbs (struct: untyped) -> {user_entity: Domain::Entity::User::UserEntity, auth_user_entity: Domain::Entity::Auth::AuthUserEntity}
+        def self.struct_to_domain_with_auth_user: (struct: untyped) -> { user_entity: Domain::Entity::User::UserEntity, auth_user_entity: Domain::Entity::Auth::AuthUserEntity }
 
-        # @rbs (::Domain::Entity::User::UserEntity entity) -> UserEntity
-        def self.build_from_domain_entity: (::Domain::Entity::User::UserEntity entity) -> UserEntity
+        # @rbs (user_entity: Domain::Entity::User::UserEntity) -> UserEntity
+        def self.build_from_domain_entity: (user_entity: Domain::Entity::User::UserEntity) -> UserEntity
 
         # rubocop:disable Layout/LineLength
-        # @rbs ({user_name: Domain::ValueObject::User::UserName, email: Domain::ValueObject::User::UserEmail, auth_user: {email: Domain::ValueObject::User::UserEmail, password_digest: Domain::ValueObject::AuthUser::PasswordDigest}}) -> {first_name: String, last_name: String, email: String, auth_user: {email: String, password_digest: String}}
+        # @rbs (user_with_auth_user: {user_name: Domain::ValueObject::User::UserName, email: Domain::ValueObject::User::UserEmail, auth_user: {email: Domain::ValueObject::User::UserEmail, password_digest: Domain::ValueObject::AuthUser::PasswordDigest}}) -> {first_name: String, last_name: String, email: String, auth_user: {email: String, password_digest: String}}
         # rubocop:enable Layout/LineLength
-        def self.build_with_auth_user: ({ user_name: Domain::ValueObject::User::UserName, email: Domain::ValueObject::User::UserEmail, auth_user: { email: Domain::ValueObject::User::UserEmail, password_digest: Domain::ValueObject::AuthUser::PasswordDigest } }) -> { first_name: String, last_name: String, email: String, auth_user: { email: String, password_digest: String } }
+        def self.build_with_auth_user: (user_with_auth_user: { user_name: Domain::ValueObject::User::UserName, email: Domain::ValueObject::User::UserEmail, auth_user: { email: Domain::ValueObject::User::UserEmail, password_digest: Domain::ValueObject::AuthUser::PasswordDigest } }) -> { first_name: String, last_name: String, email: String, auth_user: { email: String, password_digest: String } }
       end
     end
   end

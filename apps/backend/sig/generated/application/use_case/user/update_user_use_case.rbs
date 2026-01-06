@@ -4,8 +4,8 @@ module Application
   module UseCase
     module User
       class UpdateUserUseCase < UserBaseUseCase
-        # @rbs (::Application::Dto::User::UpdateUserInputDto input_dto) -> ::Application::Dto::User::UserDto
-        def invoke: (::Application::Dto::User::UpdateUserInputDto input_dto) -> ::Application::Dto::User::UserDto
+        # @rbs (args: ::Application::Dto::User::UpdateUserInputDto) -> ::Application::Dto::User::UserDto
+        def invoke: (args: ::Application::Dto::User::UpdateUserInputDto) -> ::Application::Dto::User::UserDto
       end
     end
   end

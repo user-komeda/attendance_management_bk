@@ -11,7 +11,7 @@ RSpec.describe Application::Dto::Auth::SigninInputDto do
   end
 
   describe '#initialize' do
-    subject(:dto) { described_class.new(params) }
+    subject(:dto) { described_class.new(params: params) }
 
     it 'assigns email' do
       expect(dto.email).to eq('test@example.com')
@@ -23,7 +23,7 @@ RSpec.describe Application::Dto::Auth::SigninInputDto do
   end
 
   describe '#convert_to_auth_user_entity' do
-    subject(:auth_entity) { described_class.new(params).convert_to_auth_user_entity }
+    subject(:auth_entity) { described_class.new(params: params).convert_to_auth_user_entity }
 
     it 'returns an AuthUserEntity' do
       expect(auth_entity).to be_a(Domain::Entity::Auth::AuthUserEntity)

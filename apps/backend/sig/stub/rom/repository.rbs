@@ -1,22 +1,17 @@
 module ROM
-  class Repository
-    type relation = ::ROM::Relation
-
-    # Adapter binding like ROM::repository[:users]
-    def self.[]: (Symbol) -> singleton(Repository)
-
-    # ROM command DSL macro. Accepts symbols and/or keyword mapping like update: :by_pk
+  class Repository[T]
+    def self.[]: (Symbol) -> untyped
     def self.commands: (*Symbol | Hash[Symbol, Symbol]) -> void
 
-    # Typical relation accessors (projects often define methods per relation name)
-    # We declare a generic one for `users` used in this project.
-    def users: () -> relation
-    # And one for `auth_users` used in this project.
-    def auth_users: () -> relation
+    def users: () -> ::Infrastructure::Relations::Users
+    def auth_users: () -> ::Infrastructure::Relations::AuthUsers
+    def work_spaces: () -> ::Infrastructure::Relations::WorkSpace
+    def member_ships: () -> ::Infrastructure::Relations::MemberShips
 
-    # Common command instance methods declared by `commands` macro
     def create: (untyped) -> untyped
     def update: (untyped, untyped) -> untyped
     def delete: (untyped) -> untyped
+
+    def self.include: (untyped) -> void
   end
 end

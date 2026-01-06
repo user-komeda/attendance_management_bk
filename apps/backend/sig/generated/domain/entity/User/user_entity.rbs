@@ -17,24 +17,38 @@ module Domain
 
         attr_reader email: ::Domain::ValueObject::User::UserEmail
 
+        attr_reader session_version: Integer?
+
         # rubocop:disable Layout/LineLength
-        # @rbs (user_name: ::Domain::ValueObject::User::UserName, email: ::Domain::ValueObject::User::UserEmail, ?id: ::Domain::ValueObject::IdentityId?) -> void
+        # @rbs (user_name: ::Domain::ValueObject::User::UserName, email: ::Domain::ValueObject::User::UserEmail, session_version: Integer?, ?id: ::Domain::ValueObject::IdentityId?) -> void
         # rubocop:enable Layout/LineLength
-        def initialize: (user_name: ::Domain::ValueObject::User::UserName, email: ::Domain::ValueObject::User::UserEmail, ?id: ::Domain::ValueObject::IdentityId?) -> void
+        def initialize: (user_name: ::Domain::ValueObject::User::UserName, email: ::Domain::ValueObject::User::UserEmail, session_version: Integer?, ?id: ::Domain::ValueObject::IdentityId?) -> void
 
         # @rbs (first_name: String?, last_name: String?, email: String?) -> void
         def change: (first_name: String?, last_name: String?, email: String?) -> void
 
-        # @rbs (first_name: String, last_name: String, email: String) -> UserEntity
-        def self.build: (first_name: String, last_name: String, email: String) -> UserEntity
+        def self.build: (first_name: untyped, last_name: untyped, email: untyped, ?session_version: untyped) -> untyped
 
-        # @rbs (id: String, first_name: String, last_name: String, email: String) -> UserEntity
-        def self.build_with_id: (id: String, first_name: String, last_name: String, email: String) -> UserEntity
+        # rubocop:disable Layout/LineLength
+        # @rbs (id: String, first_name: String, last_name: String, email: String, session_version: Integer) -> UserEntity
+        # rubocop:enable Layout/LineLength
+        def self.build_with_id: (id: String, first_name: String, last_name: String, email: String, session_version: Integer) -> UserEntity
 
         # rubocop:disable Layout/LineLength
         # @rbs (user: Domain::Entity::User::UserEntity, auth_user: Domain::Entity::Auth::AuthUserEntity) -> {user_name: Domain::ValueObject::User::UserName, email: Domain::ValueObject::User::UserEmail, auth_user:{email: Domain::ValueObject::User::UserEmail, password_digest: Domain::ValueObject::AuthUser::PasswordDigest}}
         # rubocop:enable Layout/LineLength
         def self.build_with_auth_user: (user: Domain::Entity::User::UserEntity, auth_user: Domain::Entity::Auth::AuthUserEntity) -> { user_name: Domain::ValueObject::User::UserName, email: Domain::ValueObject::User::UserEmail, auth_user: { email: Domain::ValueObject::User::UserEmail, password_digest: Domain::ValueObject::AuthUser::PasswordDigest } }
+
+        private
+
+        # @rbs (first_name: String?, last_name: String?, email: String?) -> bool
+        def no_changes?: (first_name: String?, last_name: String?, email: String?) -> bool
+
+        # @rbs (first_name: String?, last_name: String?) -> void
+        def update_user_name: (first_name: String?, last_name: String?) -> void
+
+        # @rbs (email: String?) -> void
+        def update_email: (email: String?) -> void
       end
     end
   end

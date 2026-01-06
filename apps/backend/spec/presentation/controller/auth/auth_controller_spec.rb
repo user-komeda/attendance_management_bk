@@ -36,20 +36,11 @@ RSpec.describe Presentation::Controller::Auth::AuthController do
       expect(result).to eq({ id: 'auth-1', user_id: 'user-1' })
     end
 
-    # rubocop:disable RSpec/ExampleLength
     it 'builds request with SIGNUP_REQUEST class' do
-      allow(controller).to receive(:build_request)
-        .with(valid_params, described_class::SIGNUP_REQUEST)
-        .and_return(signup_request_double)
-
-      # keep invoke stubs for full flow
-      allow(controller).to receive(:invoke_use_case).with(:signup, input_dto).and_return(use_case_result)
-
       controller.signup(valid_params)
       expect(controller).to have_received(:build_request)
         .with(valid_params, described_class::SIGNUP_REQUEST)
     end
-    # rubocop:enable RSpec/ExampleLength
 
     it 'invokes signup use case with dto converted from request' do
       allow(controller).to receive(:invoke_use_case).with(:signup, input_dto).and_return(use_case_result)

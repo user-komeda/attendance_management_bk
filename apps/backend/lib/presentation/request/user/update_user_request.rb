@@ -16,14 +16,14 @@ module Presentation
           )
         end
 
-        # @rbs ({id: String, first_name: String, last_name: String, email: String }) -> UpdateUserRequest
-        def self.build(params)
-          UpdateUserRequest.validate(params)
-          UpdateUserRequest.new(params)
+        # @rbs (params: {id: String, first_name: String, last_name: String, email: String }) -> UpdateUserRequest
+        def self.build(params:)
+          validate(params: params)
+          UpdateUserRequest.new(params: params)
         end
 
-        # @rbs ({id: String, first_name: String, last_name: String, email: String }) -> void
-        def self.validate(params)
+        # @rbs (params: {id: String, first_name: String, last_name: String, email: String }) -> void
+        def self.validate(params:)
           result = UPDATE_CONTRACT.new.call(params)
           return unless result.failure?
 
@@ -32,8 +32,8 @@ module Presentation
 
         private
 
-        # @rbs ({id: String, first_name: String, last_name: String, email: String }) -> void
-        def initialize(params)
+        # @rbs (params: {id: String, first_name: String, last_name: String, email: String }) -> void
+        def initialize(params:)
           super()
           @id = params[:id]
           @first_name = params[:first_name]

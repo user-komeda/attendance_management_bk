@@ -1,0 +1,22 @@
+# Generated from lib/application/dto/work_space/create_work_space_input_dto.rb with RBS::Inline
+
+module Application
+  module Dto
+    module WorkSpace
+      class CreateWorkSpaceInputDto < InputBaseDto
+        attr_reader name: untyped
+
+        attr_reader slug: untyped
+
+        # @rbs (params: Hash[Symbol, String]) -> void
+        def initialize: (params: Hash[Symbol, String]) -> void
+
+        # @rbs () -> ::Domain::Entity::WorkSpace::WorkSpaceEntity
+        def convert_to_entity: () -> ::Domain::Entity::WorkSpace::WorkSpaceEntity
+
+        # @rbs (user_id: String, workspace_id: String) -> Domain::Entity::WorkSpace::MemberShipsEntity
+        def create_member_ships_entity: (user_id: String, workspace_id: String) -> Domain::Entity::WorkSpace::MemberShipsEntity
+      end
+    end
+  end
+end

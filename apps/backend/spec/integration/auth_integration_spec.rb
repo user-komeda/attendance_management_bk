@@ -4,6 +4,10 @@ require 'securerandom'
 
 require_relative '../spec_helper'
 
+unless Application::UseCase::BaseUseCase.include?(ContainerHelper)
+  Application::UseCase::BaseUseCase.include(ContainerHelper)
+end
+
 RSpec.describe 'Auth API integration (signup)', type: :request do
   include Rack::Test::Methods
 

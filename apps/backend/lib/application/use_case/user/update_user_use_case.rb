@@ -6,16 +6,15 @@ module Application
   module UseCase
     module User
       class UpdateUserUseCase < UserBaseUseCase
-        # @rbs (::Application::Dto::User::UpdateUserInputDto input_dto) -> ::Application::Dto::User::UserDto
-        def invoke(input_dto)
-          pp input_dto.id
+        # @rbs (args: ::Application::Dto::User::UpdateUserInputDto) -> ::Application::Dto::User::UserDto
+        def invoke(args:)
           caller = resolve(KEY)
-          user = caller.get_by_id(input_dto.id)
+          user = caller.get_by_id(id: args.id)
           raise ::Application::Exception::NotFoundException.new(message: 'user not found') if user.nil?
 
-          user.change(first_name: input_dto.first_name, last_name: input_dto.last_name, email: input_dto.email)
-          updated_user = caller.update(user)
-          USER_DTO.build(updated_user)
+          user.change(first_name: args.first_name, last_name: args.last_name, email: args.email)
+          updated_user = caller.update(user_entity: user)
+          USER_DTO.build(user_entity: updated_user)
         end
       end
     end

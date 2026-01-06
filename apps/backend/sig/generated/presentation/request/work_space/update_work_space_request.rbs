@@ -1,0 +1,21 @@
+# Generated from lib/presentation/request/work_space/update_work_space_request.rb with RBS::Inline
+
+module Presentation
+  module Request
+    module WorkSpace
+      class UpdateWorkSpaceRequest < WorkSpaceBaseRequest
+        # @rbs (params: { id: String, name: String, slug: String }) -> void
+        def initialize: (params: { id: String, name: String, slug: String }) -> void
+
+        # @rbs () -> ::Application::Dto::WorkSpace::UpdateWorkSpaceInputDto
+        def convert_to_dto: () -> ::Application::Dto::WorkSpace::UpdateWorkSpaceInputDto
+
+        # @rbs (params: { id: String, name: String, slug: String }) -> UpdateWorkSpaceRequest
+        def self.build: (params: { id: String, name: String, slug: String }) -> UpdateWorkSpaceRequest
+
+        # @rbs (params:{ id: String, name: String, slug: String }) -> void
+        private def self.validate: (params: { id: String, name: String, slug: String }) -> void
+      end
+    end
+  end
+end

@@ -18,14 +18,16 @@ module Presentation
         def build_request(request_payload, request_class)
           raise ArgumentError, "#{request_class} is not a valid User request class" unless request_class <= BASE_REQUEST
 
-          request_class.build(request_payload)
+          request_class.build(params: request_payload)
         end
 
         # @rbs [T] (Symbol key, *untyped args) -> T
-        def invoke_use_case(key, *)
+        def invoke_use_case(key, *args)
           key = USER_USE_CASE[key].key
           invoker = resolve(key)
-          invoker.invoke(*)
+          # @type var params: Hash[Symbol, untyped]
+          params = UtilMethod.nil_or_empty?(args) ? {} : { args: args.first }
+          invoker.invoke(**params)
         end
       end
     end

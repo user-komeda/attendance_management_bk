@@ -1,0 +1,30 @@
+# Generated from lib/domain/entity/work_space/work_space_entity.rb with RBS::Inline
+
+module Domain
+  module Entity
+    module WorkSpace
+      class WorkSpaceEntity < DomainEntity
+        ID: untyped
+
+        # rubocop:disable all
+        attr_reader id: ::Domain::ValueObject::IdentityId
+
+        attr_reader name: String
+
+        attr_reader slug: String
+
+        # @rbs (name: String, slug: String, ?id: ::Domain::ValueObject::IdentityId?) -> void
+        def initialize: (name: String, slug: String, ?id: ::Domain::ValueObject::IdentityId?) -> void
+
+        # @rbs (change_name: String?, change_slug: String?) -> void
+        def change: (change_name: String?, change_slug: String?) -> void
+
+        # @rbs (name: String, slug: String) -> WorkSpaceEntity
+        def self.build: (name: String, slug: String) -> WorkSpaceEntity
+
+        # @rbs (id: String, name: String, slug: String) -> WorkSpaceEntity
+        def self.build_with_id: (id: String, name: String, slug: String) -> WorkSpaceEntity
+      end
+    end
+  end
+end

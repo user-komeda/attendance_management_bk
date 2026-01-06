@@ -116,6 +116,8 @@ GEM
       rake (~> 13.0)
       rubocop (~> 1.21)
     json (2.18.0)
+    jwt (3.1.2)
+      base64
     language_server-protocol (3.17.0.5)
     launchy (3.1.1)
       addressable (~> 2.8)
@@ -334,6 +336,7 @@ DEPENDENCIES
   dry-system (~> 1.2)
   dry-validation
   infisical-sdk
+  jwt
   pg
   puma (~> 7.0)
   rack-protection

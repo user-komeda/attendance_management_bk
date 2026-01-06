@@ -4,8 +4,8 @@ module Application
   module UseCase
     module User
       class GetDetailUserUseCase < Application::UseCase::User::UserBaseUseCase
-        # @rbs (String id) -> ::Application::Dto::User::UserDto
-        def invoke: (String id) -> ::Application::Dto::User::UserDto
+        # @rbs (args: String) -> ::Application::Dto::User::UserDto
+        def invoke: (args: String) -> ::Application::Dto::User::UserDto
       end
     end
   end

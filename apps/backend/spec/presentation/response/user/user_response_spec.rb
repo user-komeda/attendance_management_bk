@@ -8,9 +8,10 @@ RSpec.describe Presentation::Response::User::UserResponse do
       id: id,
       first_name: first_name,
       last_name: last_name,
-      email: email
+      email: email,
+      session_version: 1
     )
-    Application::Dto::User::UserDto.build(entity)
+    Application::Dto::User::UserDto.build(user_entity: entity)
   end
 
   def params

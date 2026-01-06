@@ -5,8 +5,6 @@
 module Presentation
   module Request
     class BaseRequest
-      protected
-
       # @rbs () -> ::Application::Dto::InputBaseDto
       def convert_to_dto
         raise NotImplementedError

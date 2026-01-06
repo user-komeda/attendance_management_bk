@@ -10,8 +10,8 @@ module Application
         # rubocop:disable all
         attr_reader password: String
 
-        # @rbs ({ email: String, password: String }) -> void
-        def initialize: ({ email: String, password: String }) -> void
+        # @rbs (params: { email: String, password: String }) -> void
+        def initialize: (params: { email: String, password: String }) -> void
 
         # @rbs () -> ::Domain::Entity::Auth::AuthUserEntity
         def convert_to_auth_user_entity: () -> ::Domain::Entity::Auth::AuthUserEntity

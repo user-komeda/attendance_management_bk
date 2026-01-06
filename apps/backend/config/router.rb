@@ -10,8 +10,24 @@ class Main < Sinatra::Base
 
   helpers RouteHelper
   helpers ResponseHelper
+  helpers VerifyJwt
+  helpers ContextHelper
   register SinatraSettings
   register SinatraErrorHandler
+
+  before do
+    # path = request.path
+    # return if VerifyJwt.skip_jwt_verification?(path)
+    # result= VerifyJwt.verify_jwt(VerifyJwt.parse_bearer_token(request.env['HTTP_AUTHORIZATION']))
+    auth_context = {
+      user_id: '04e8496c-6b8c-4f4f-9746-2d96a10f13ec'
+    }
+    ContextHelper.set_context(:auth_context, auth_context)
+  end
+
+  after do
+    ContextHelper.set_context(:auth_context, nil)
+  end
   # :nocov:
   get '/swagger' do
     send_file 'public/swagger.html'

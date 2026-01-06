@@ -70,7 +70,7 @@ RSpec.describe Presentation::Controller::User::UserController do
 
     it 'invokes use case' do
       controller.show('123')
-      expect(mock_use_case).to have_received(:invoke).with('123')
+      expect(mock_use_case).to have_received(:invoke).with(args: '123')
     end
 
     it 'returns id' do
@@ -152,7 +152,7 @@ RSpec.describe Presentation::Controller::User::UserController do
 
       it 'sets id on input dto' do
         controller.update(valid_update_params, uuid)
-        expect(spy).to have_received(:invoke).with(satisfy { |dto| dto.id == uuid })
+        expect(spy).to have_received(:invoke).with(args: satisfy { |dto| dto.id == uuid })
       end
     end
 

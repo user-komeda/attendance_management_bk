@@ -1,0 +1,13 @@
+# Generated from lib/infrastructure/repository/work_space/member_ships_base_repository.rb with RBS::Inline
+
+module Infrastructure
+  module Repository
+    module WorkSpace
+      class MemberShipsBaseRepository < RepositoryBase
+        ROM_REPOSITORY_KEY: untyped
+
+        MEMBER_SHIPS_ENTITY: untyped
+      end
+    end
+  end
+end

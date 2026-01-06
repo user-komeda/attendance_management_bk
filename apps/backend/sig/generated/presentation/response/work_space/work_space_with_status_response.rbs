@@ -1,0 +1,33 @@
+# Generated from lib/presentation/response/work_space/work_space_with_status_response.rb with RBS::Inline
+
+module Presentation
+  module Response
+    module WorkSpace
+      class WorkSpaceWithStatusResponse < BaseResponse
+        # rubocop:disable all
+        attr_reader id: String
+
+        attr_reader name: String
+
+        attr_reader slug: String
+
+        attr_reader status: String
+
+        # @rbs (id: String, name: String, slug: String, status: String) -> void
+        # rubocop:enable all
+        def initialize: (id: String, name: String, slug: String, status: String) -> void
+
+        # @rbs (status: String, work_space: Application::Dto::WorkSpace::WorkSpaceDto) -> Hash[Symbol, String]
+        def self.build: (status: String, work_space: Application::Dto::WorkSpace::WorkSpaceDto) -> Hash[Symbol, String]
+
+        # rubocop:disable all
+        # @rbs (status_list: Array[String], work_spaces: Array[Application::Dto::WorkSpace::WorkSpaceDto]) -> Array[Hash[Symbol, String]]
+        # rubocop:enable all
+        def self.build_from_array: (status_list: Array[String], work_spaces: Array[Application::Dto::WorkSpace::WorkSpaceDto]) -> Array[Hash[Symbol, String]]
+
+        # @rbs () -> {id: String, name: String, slug: String ,status: String}
+        def to_h: () -> { id: String, name: String, slug: String, status: String }
+      end
+    end
+  end
+end

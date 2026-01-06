@@ -43,5 +43,6 @@ gem 'rspec'
 gem 'simplecov', require: false, group: :test
 
 gem 'bcrypt'
+gem 'jwt'
 gem 'rack-unreloader'
 gem 'redis'

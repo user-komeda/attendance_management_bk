@@ -1,0 +1,12 @@
+# Generated from lib/presentation/request/contract/work_space/create_work_space_contract.rb with RBS::Inline
+
+module Presentation
+  module Request
+    module Contract
+      module WorkSpace
+        class CreateWorkSpaceContract < Dry::Validation::Contract
+        end
+      end
+    end
+  end
+end

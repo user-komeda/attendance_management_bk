@@ -1,6 +1,8 @@
 module Infrastructure
   module Relations
-    class Users < ::ROM::Relation
+    class Users < ::ROM::Relation[untyped]
+      def combine: (*Symbol) -> Users
+      def command: (Symbol) -> untyped
       # Class-level ROM DSL macro available on this relation
       def self.schema: (Symbol, ?infer: bool) ?{ () -> void } -> void
 

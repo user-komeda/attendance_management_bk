@@ -1,0 +1,21 @@
+# Generated from lib/infrastructure/relations/member_ships.rb with RBS::Inline
+
+module Infrastructure
+  module Relations
+    # @rbs!
+    #   interface _Relation
+    #     def where: (*untyped) -> self
+    #     def pluck: (*untyped) -> Array[untyped]
+    #   end
+    class MemberShips
+      # @rbs (String user_id) -> ROM::Relation[untyped]
+      def by_user_id: (String user_id) -> ROM::Relation[untyped]
+
+      # @rbs (String work_space_id) -> ROM::Relation[untyped]
+      def by_work_space_id: (String work_space_id) -> ROM::Relation[untyped]
+
+      # @rbs () -> ROM::Relation[untyped]
+      def plunk_work_space_id_and_status: () -> ROM::Relation[untyped]
+    end
+  end
+end

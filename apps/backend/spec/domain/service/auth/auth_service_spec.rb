@@ -13,9 +13,9 @@ RSpec.describe Domain::Service::Auth::AuthService do
         .with(described_class::REPOSITORY_KEY)
         .and_return(repo_double)
 
-      allow(repo_double).to receive(:find_by_email).with('taro@example.com').and_return(:found)
+      allow(repo_double).to receive(:find_by_email).with(email: 'taro@example.com').and_return(:found)
 
-      expect(service.exist?('taro@example.com')).to be true
+      expect(service.exist?(email: 'taro@example.com')).to be true
     end
 
     it 'returns false when repository returns nil' do
@@ -23,16 +23,16 @@ RSpec.describe Domain::Service::Auth::AuthService do
         .with(described_class::REPOSITORY_KEY)
         .and_return(repo_double)
 
-      allow(repo_double).to receive(:find_by_email).with('nobody@example.com').and_return(nil)
+      allow(repo_double).to receive(:find_by_email).with(email: 'nobody@example.com').and_return(nil)
 
-      expect(service.exist?('nobody@example.com')).to be false
+      expect(service.exist?(email: 'nobody@example.com')).to be false
     end
 
     it 'resolves repository via REPOSITORY_KEY' do
       allow(service).to receive(:resolve).and_return(repo_double)
       allow(repo_double).to receive(:find_by_email).and_return(nil)
 
-      service.exist?('x@example.com')
+      service.exist?(email: 'x@example.com')
 
       expect(service).to have_received(:resolve).with(described_class::REPOSITORY_KEY)
     end

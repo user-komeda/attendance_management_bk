@@ -1,0 +1,11 @@
+# Generated from lib/domain/repository/work_space/work_space_repository_base.rb with RBS::Inline
+
+module Domain
+  module Repository
+    module WorkSpace
+      class WorkSpaceRepositoryBase < BaseRepository
+        REPOSITORY_KEY: untyped
+      end
+    end
+  end
+end

@@ -16,14 +16,17 @@ module Application
         # rubocop:disable all
         attr_reader email: String
 
-        # @rbs (first_name: String, last_name: String, email: String, ?id: String?) -> void
-        def initialize: (first_name: String, last_name: String, email: String, ?id: String?) -> void
+        # rubocop:disable all
+        attr_reader session_version: String
 
-        # @rbs (::Domain::Entity::User::UserEntity value) -> UserDto
-        def self.build: (::Domain::Entity::User::UserEntity value) -> UserDto
+        # @rbs (first_name: String, last_name: String, email: String, session_version: Integer?, ?id: String?) -> void
+        def initialize: (first_name: String, last_name: String, email: String, session_version: Integer?, ?id: String?) -> void
 
-        # @rbs (Array[::Domain::Entity::User::UserEntity] user_list) -> Array[UserDto]
-        def self.build_from_array: (Array[::Domain::Entity::User::UserEntity] user_list) -> Array[UserDto]
+        # @rbs (user_entity: Domain::Entity::User::UserEntity) -> UserDto
+        def self.build: (user_entity: Domain::Entity::User::UserEntity) -> UserDto
+
+        # @rbs (user_list: Array[::Domain::Entity::User::UserEntity]) -> Array[UserDto]
+        def self.build_from_array: (user_list: Array[::Domain::Entity::User::UserEntity]) -> Array[UserDto]
       end
     end
   end

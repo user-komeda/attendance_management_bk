@@ -1,0 +1,31 @@
+# Generated from lib/presentation/controller/work_space/work_space_controller_base.rb with RBS::Inline
+
+module Presentation
+  module Controller
+    module WorkSpace
+      class WorkSpaceControllerBase < Presentation::Controller::ControllerBase
+        WORK_SPACE_USE_CASE: untyped
+
+        WORK_SPACE_RESPONSE: untyped
+
+        MEMBER_SHIPS_RESPONSE: untyped
+
+        WORK_SPACE_WITH_STATUS_RESPONSE: untyped
+
+        WORK_SPACE_WITH_MEMBER_SHIPS_RESPONSE: untyped
+
+        BASE_REQUEST: untyped
+
+        CREATE_REQUEST: untyped
+
+        UPDATE_REQUEST: untyped
+
+        # @rbs (Hash[Symbol, untyped] request_payload, untyped request_class) -> ::Presentation::Request::WorkSpace::WorkSpaceBaseRequest
+        def build_request: (Hash[Symbol, untyped] request_payload, untyped request_class) -> ::Presentation::Request::WorkSpace::WorkSpaceBaseRequest
+
+        # @rbs [T] (Symbol key, *untyped args) -> T
+        def invoke_use_case: [T] (Symbol key, *untyped args) -> T
+      end
+    end
+  end
+end

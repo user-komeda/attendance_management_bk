@@ -62,4 +62,22 @@ RSpec.describe Domain::ValueObject::AuthUser::PasswordDigest do
       expect(vo.values).to eq([vo.value])
     end
   end
+
+  describe '#match?' do
+    let(:vo) { described_class.build(raw) }
+
+    before do
+      allow(PasswordEncryptor).to receive(:digest).with(raw).and_return(hashed)
+    end
+
+    it 'returns true for correct password' do
+      allow(PasswordEncryptor).to receive(:matches?).with(raw, hashed).and_return(true)
+      expect(vo.match?(raw)).to be true
+    end
+
+    it 'returns false for incorrect password' do
+      allow(PasswordEncryptor).to receive(:matches?).with('WrongPassword', hashed).and_return(false)
+      expect(vo.match?('WrongPassword')).to be false
+    end
+  end
 end

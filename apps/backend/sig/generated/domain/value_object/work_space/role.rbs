@@ -1,0 +1,24 @@
+# Generated from lib/domain/value_object/work_space/role.rb with RBS::Inline
+
+module Domain
+  module ValueObject
+    module WorkSpace
+      class Role < BaseValueObject
+        # rubocop:disable all
+        attr_reader value: String
+
+        # @rbs (String? value) -> void
+        def initialize: (String? value) -> void
+
+        # @rbs (String role) -> Role
+        def self.build: (String role) -> Role
+
+        # @rbs () -> Array[String]
+        def values: () -> Array[String]
+
+        # @rbs (String args) -> void
+        def self.validate!: (String args) -> void
+      end
+    end
+  end
+end

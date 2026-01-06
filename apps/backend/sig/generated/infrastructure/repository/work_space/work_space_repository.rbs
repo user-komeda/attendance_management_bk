@@ -1,0 +1,27 @@
+# Generated from lib/infrastructure/repository/work_space/work_space_repository.rb with RBS::Inline
+
+module Infrastructure
+  module Repository
+    module WorkSpace
+      class WorkSpaceRepository < WorkSpaceBaseRepository
+        # @rbs (workspace_ids: Array[String]) -> Array[Domain::Entity::WorkSpace::WorkSpaceEntity]
+        def find_by_ids: (workspace_ids: Array[String]) -> Array[Domain::Entity::WorkSpace::WorkSpaceEntity]
+
+        # @rbs (slug: String) -> Domain::Entity::WorkSpace::WorkSpaceEntity
+        def find_by_slug: (slug: String) -> Domain::Entity::WorkSpace::WorkSpaceEntity
+
+        # @rbs (id: String) -> Domain::Entity::WorkSpace::WorkSpaceEntity
+        def get_by_id: (id: String) -> Domain::Entity::WorkSpace::WorkSpaceEntity
+
+        # @rbs (workspace_entity: Domain::Entity::WorkSpace::WorkSpaceEntity) -> Domain::Entity::WorkSpace::WorkSpaceEntity
+        def create: (workspace_entity: Domain::Entity::WorkSpace::WorkSpaceEntity) -> Domain::Entity::WorkSpace::WorkSpaceEntity
+
+        # @rbs (workspace_entity: Domain::Entity::WorkSpace::WorkSpaceEntity) -> Domain::Entity::WorkSpace::WorkSpaceEntity
+        def update: (workspace_entity: Domain::Entity::WorkSpace::WorkSpaceEntity) -> Domain::Entity::WorkSpace::WorkSpaceEntity
+
+        # @rbs (id: String) -> String
+        def delete_by_id: (id: String) -> String
+      end
+    end
+  end
+end

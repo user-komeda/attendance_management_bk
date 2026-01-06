@@ -8,28 +8,29 @@ RSpec.describe Application::Dto::User::UserDto do
       id: id,
       first_name: first_name,
       last_name: last_name,
-      email: email
+      email: email,
+      session_version: 0
     )
   end
 
   describe '.build' do
     it 'maps fields from entity' do
       user = build_user(id: '42', first_name: 'Taro', last_name: 'Yamada', email: 'taro@example.com')
-      dto = described_class.build(user)
+      dto = described_class.build(user_entity: user)
       expect(dto).to have_attributes(id: '42', first_name: 'Taro', last_name: 'Yamada', email: 'taro@example.com')
     end
   end
 
   describe '.build_from_array' do
     it 'returns empty array when input is empty' do
-      result = described_class.build_from_array([])
+      result = described_class.build_from_array(user_list: [])
       expect(result).to eq([])
     end
 
     context 'with multiple entities' do
       let(:first_user) { build_user(id: '1', first_name: 'Hanako', last_name: 'Suzuki', email: 'hanako@example.com') }
       let(:second_user) { build_user(id: '2', first_name: 'Jiro', last_name: 'Sato', email: 'jiro@example.com') }
-      let(:result) { described_class.build_from_array([first_user, second_user]) }
+      let(:result) { described_class.build_from_array(user_list: [first_user, second_user]) }
 
       it 'returns two results' do
         expect(result.size).to eq(2)

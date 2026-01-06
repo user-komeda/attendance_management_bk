@@ -7,14 +7,14 @@ module Domain
         # @rbs () -> Array[::Domain::Entity::User::UserEntity]
         def get_all: () -> Array[::Domain::Entity::User::UserEntity]
 
-        # @rbs (String id) -> ::Domain::Entity::User::UserEntity?
-        def get_by_id: (String id) -> ::Domain::Entity::User::UserEntity?
+        # @rbs (id: String) -> ::Domain::Entity::User::UserEntity?
+        def get_by_id: (id: String) -> ::Domain::Entity::User::UserEntity?
 
         # @rbs (::Domain::Entity::User::UserEntity object) -> ::Domain::Entity::User::UserEntity
         def create: (::Domain::Entity::User::UserEntity object) -> ::Domain::Entity::User::UserEntity
 
-        # @rbs (::Domain::Entity::User::UserEntity object) -> ::Domain::Entity::User::UserEntity
-        def update: (::Domain::Entity::User::UserEntity object) -> ::Domain::Entity::User::UserEntity
+        # @rbs (user_entity: Domain::Entity::User::UserEntity) -> ::Domain::Entity::User::UserEntity
+        def update: (user_entity: Domain::Entity::User::UserEntity) -> ::Domain::Entity::User::UserEntity
 
         # @rbs (::Domain::Entity::User::UserEntity object) -> void
         def delete: (::Domain::Entity::User::UserEntity object) -> void
@@ -23,9 +23,9 @@ module Domain
         def find_by_email: (String email) -> ::Infrastructure::Entity::User::UserEntity?
 
         # rubocop:disable Layout/LineLength
-        # @rbs ({user: Domain::Entity::User::UserEntity, auth_user: Domain::Entity::Auth::AuthUserEntity}) -> {user_entity: Domain::Entity::User::UserEntity, auth_user_entity: Domain::Entity::Auth::AuthUserEntity}
+        # @rbs (user_with_auth_user: Domain::Entity::User::UserEntity) -> {user_entity: Domain::Entity::User::UserEntity, auth_user_entity: Domain::Entity::Auth::AuthUserEntity}
         # rubocop:enable Layout/LineLength
-        def create_with_auth_user: ({ user: Domain::Entity::User::UserEntity, auth_user: Domain::Entity::Auth::AuthUserEntity }) -> { user_entity: Domain::Entity::User::UserEntity, auth_user_entity: Domain::Entity::Auth::AuthUserEntity }
+        def create_with_auth_user: (user_with_auth_user: Domain::Entity::User::UserEntity) -> { user_entity: Domain::Entity::User::UserEntity, auth_user_entity: Domain::Entity::Auth::AuthUserEntity }
       end
     end
   end

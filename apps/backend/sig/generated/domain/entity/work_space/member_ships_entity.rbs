@@ -1,0 +1,37 @@
+# Generated from lib/domain/entity/work_space/member_ships_entity.rb with RBS::Inline
+
+module Domain
+  module Entity
+    module WorkSpace
+      class MemberShipsEntity < DomainEntity
+        ID: untyped
+
+        ROLE: untyped
+
+        STATUS: untyped
+
+        # rubocop:disable all
+        attr_reader id: ::Domain::ValueObject::IdentityId
+
+        attr_reader user_id: ::Domain::ValueObject::IdentityId
+
+        attr_reader work_space_id: ::Domain::ValueObject::IdentityId
+
+        attr_reader role: ::Domain::ValueObject::WorkSpace::Role?
+
+        attr_reader status: ::Domain::ValueObject::WorkSpace::Status?
+
+        # rubocop:disable Layout/LineLength
+        # @rbs (user_id: ::Domain::ValueObject::IdentityId, work_space_id: ::Domain::ValueObject::IdentityId, role: ::Domain::ValueObject::WorkSpace::Role?, status: ::Domain::ValueObject::WorkSpace::Status?, ?id: ::Domain::ValueObject::IdentityId?) -> void
+        # rubocop:enable Layout/LineLength
+        def initialize: (user_id: ::Domain::ValueObject::IdentityId, work_space_id: ::Domain::ValueObject::IdentityId, role: ::Domain::ValueObject::WorkSpace::Role?, status: ::Domain::ValueObject::WorkSpace::Status?, ?id: ::Domain::ValueObject::IdentityId?) -> void
+
+        # @rbs (user_id: String, work_space_id: String, role: String?, status: String?) -> MemberShipsEntity
+        def self.build: (user_id: String, work_space_id: String, role: String?, status: String?) -> MemberShipsEntity
+
+        # @rbs (id: String, user_id: String, work_space_id: String, role: String, status: String) -> MemberShipsEntity
+        def self.build_with_id: (id: String, user_id: String, work_space_id: String, role: String, status: String) -> MemberShipsEntity
+      end
+    end
+  end
+end

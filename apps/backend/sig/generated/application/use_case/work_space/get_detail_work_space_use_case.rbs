@@ -1,0 +1,12 @@
+# Generated from lib/application/use_case/work_space/get_detail_work_space_use_case.rb with RBS::Inline
+
+module Application
+  module UseCase
+    module WorkSpace
+      class GetDetailWorkSpaceUseCase < WorkSpaceBaseUseCase
+        # @rbs (args: String) -> ::Application::Dto::WorkSpace::WorkSpaceWithMemberShipsDto
+        def invoke: (args: String) -> ::Application::Dto::WorkSpace::WorkSpaceWithMemberShipsDto
+      end
+    end
+  end
+end

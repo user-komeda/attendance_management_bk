@@ -6,10 +6,10 @@ module Domain
   module Service
     module Auth
       class AuthService < AuthBaseService
-        # @rbs (String email) -> bool
-        def exist?(email)
+        # @rbs (email: String) -> bool
+        def exist?(email:)
           caller = resolve(REPOSITORY_KEY)
-          result = caller.find_by_email(email)
+          result = caller.find_by_email(email: email)
           !result.nil?
         end
 

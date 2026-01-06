@@ -1,6 +1,6 @@
 # Project Guidelines — Attendance Management (Monorepo)
 
-Last updated: 2025-12-28
+Last updated: 2026-01-04
 
 ## Overview
 
@@ -52,7 +52,7 @@ Top-level items of interest:
 - `src/routes`: Unit tests
 - `src/lib`:Unit tests
 
-4. Backend unit tests should be performed only for code under `apps/backend/lib`.
+4. Backend unit tests should be performed only for code under `apps/backend/lib`. (Note: Code in other directories like `config` or `helper` does not require unit tests.)
 5. Do not introduce new external services or long-running background commands unless requested.
 6. When unsure about behavior, check specs under `apps/backend/spec` and OpenAPI under `apps/backend/openApi`.
 
@@ -98,6 +98,8 @@ Frontend test setup is not enforced here; if frontend tests are added, follow th
 
 ## Code Style
 
+- General:
+  - Use LF (Line Feed) for line endings across all files.
 - Ruby:
   - Match existing code style and module structure in `apps/backend/lib`.
   - Keep method and class naming consistent with surrounding code.

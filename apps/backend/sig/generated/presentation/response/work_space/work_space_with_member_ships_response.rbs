@@ -1,0 +1,30 @@
+# Generated from lib/presentation/response/work_space/work_space_with_member_ships_response.rb with RBS::Inline
+
+module Presentation
+  module Response
+    module WorkSpace
+      class WorkSpaceWithMemberShipsResponse < BaseResponse
+        # rubocop:disable all
+        attr_reader id: String
+
+        attr_reader member_ships: Hash[Symbol, String]
+
+        attr_reader work_spaces: Hash[Symbol, String]
+
+        # rubocop:enable all
+        # @rbs (id: String, work_spaces: Hash[Symbol, String], member_ships: Hash[Symbol, String]) -> void
+        # rubocop:enable all
+        def initialize: (id: String, work_spaces: Hash[Symbol, String], member_ships: Hash[Symbol, String]) -> void
+
+        # rubocop:disable all
+        # @rbs (id: String, member_ships: Application::Dto::WorkSpace::MemberShipsDto, work_spaces: Application::Dto::WorkSpace::WorkSpaceDto) -> Hash[Symbol, untyped]
+        # rubocop:enable all
+        def self.build: (id: String, member_ships: Application::Dto::WorkSpace::MemberShipsDto, work_spaces: Application::Dto::WorkSpace::WorkSpaceDto) -> Hash[Symbol, untyped]
+
+        # rubocop:disable all
+        # @rbs () -> {id: String, work_spaces: Hash[Symbol, String], member_ships: Hash[Symbol, String] }
+        def to_h: () -> { id: String, work_spaces: Hash[Symbol, String], member_ships: Hash[Symbol, String] }
+      end
+    end
+  end
+end

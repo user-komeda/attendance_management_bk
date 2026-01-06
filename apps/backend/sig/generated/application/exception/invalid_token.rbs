@@ -1,0 +1,10 @@
+# Generated from lib/application/exception/invalid_token.rb with RBS::Inline
+
+module Application
+  module Exception
+    class InvalidToken < AppException::ApiError
+      # @rbs (message: String) -> void
+      def initialize: (message: String) -> void
+    end
+  end
+end
