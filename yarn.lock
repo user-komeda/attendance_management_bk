@@ -5251,6 +5251,7 @@ __metadata:
     "@vitest/coverage-v8": "npm:4.0.16"
     "@vitest/eslint-plugin": "npm:1.6.6"
     concurrently: "npm:9.2.1"
+    dotenv: "npm:^17.2.3"
     dotenv-cli: "npm:^11.0.0"
     eslint: "npm:9.39.2"
     eslint-config-prettier: "npm:10.1.8"
@@ -5842,10 +5843,10 @@ __metadata:
 
 "infisicalLauncher@git+ssh://git@github.com:user-komeda/infisicalLauncher.git":
   version: 1.0.0
-  resolution: "infisicalLauncher@git+ssh://git@github.com:user-komeda/infisicalLauncher.git#commit=1c269d7ca73fcfa978ef246d3e536bd96f178bff"
+  resolution: "infisicalLauncher@git+ssh://git@github.com:user-komeda/infisicalLauncher.git#commit=b9fb65f1d889d0c005170d9300796ac5a3c92262"
   bin:
     infisicalLauncher: ./index.js
-  checksum: 10c0/dc137253e392af562643e07c6557d0eb4fdf01f8886e4832d42816acaa05988fe4f6ffcabe09c18256f10d892c1f65c15831268cc89061de5eb57262a2d5ec4a
+  checksum: 10c0/8874976d6075f78b9e475ce560eba00dd213180c6943627dc5fe1959822c7ae629dd32da3f2d738d99d31bca178651e9c9aaf2ff2586e5a11d686585761c0c04
   languageName: node
   linkType: hard
 

@@ -15,6 +15,8 @@ COPY --from=builder /out/json/ .
 RUN corepack enable
 RUN corepack install -g yarn@stable
 RUN --mount=type=ssh yarn install
+RUN --mount=type=ssh yarn add -D "infisicalLauncher@git+ssh://git@github.com:user-komeda/infisicalLauncher.git"
+
 COPY --from=builder /out/full/ .
 RUN yarn build
 
@@ -24,15 +26,20 @@ WORKDIR /app
 
 # セキュリティ: 実行ユーザー作成
 RUN adduser --system --uid 1001 solidjs
+RUN curl -1sLf 'https://dl.cloudsmith.io/public/infisical/infisical-cli/setup.rpm.sh' | bash && \
+    microdnf install -y infisical && \
+    microdnf clean all
+
 USER solidjs
+
 
 # 必要ファイルをコピー
 COPY --from=installer /app/apps/frontend/.output/ /app/.output/
 COPY --from=installer /app/apps/frontend/package.json /app/
 COPY --from=installer /app/node_modules /app/node_modules/
+COPY ./.env .
 
 EXPOSE 3000
 
 # SolidStart v2は .output/server/index.mjs を直接起動
-CMD ["node", ".output/server/index.mjs"]
-
+CMD ["node","./node_modules/infisicalLauncher/index.js","--path=/microCms/solid/local","--cmd=node .output/server/index.mjs"]
