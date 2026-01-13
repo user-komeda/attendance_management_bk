@@ -23,6 +23,10 @@ jobs:
           --health-timeout=5s
           --health-retries=5
     steps:
+      - name: Install SSH Key
+        uses: webfactory/ssh-agent@v0.9.1
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - uses: Infisical/secrets-action@8802effbe453d0576cd923567dcc2c97a1f54058 # v1.0.15
         with:
           client-id: ${{ secrets.CLIENT_ID }}
