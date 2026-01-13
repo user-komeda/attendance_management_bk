@@ -37,8 +37,7 @@ USER solidjs
 COPY --from=installer /app/apps/frontend/.output/ /app/.output/
 COPY --from=installer /app/apps/frontend/package.json /app/
 COPY --from=installer /app/node_modules /app/node_modules/
-COPY ./.env .
-
+COPY .env* .
 EXPOSE 3000
 
 # SolidStart v2は .output/server/index.mjs を直接起動

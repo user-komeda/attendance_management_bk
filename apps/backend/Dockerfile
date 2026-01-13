@@ -32,7 +32,7 @@ RUN bundle install
 
 # アプリ全体をコピー
 COPY apps/backend .
-COPY ./.env .
+COPY .env* .
 
 ENV PORT=4567
 CMD ["node", "/usr/lib/node_modules/infisicalLauncher/index.js", "--path=/microCms/sinatra/local", "--cmd=bundle exec rake app:start"]
