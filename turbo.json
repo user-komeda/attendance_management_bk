@@ -1,6 +1,7 @@
 {
   "$schema": "https://turborepo.com/schema.json",
   "globalEnv": ["IMPORTANT_GLOBAL_VARIABLE"],
+  "globalPassThroughEnv": ["CLIENT_ID", "CLIENT_SECRET", "PROJECT_ID"],
   "tasks": {
     "dev": {
       "dependsOn": ["^dev"],
@@ -11,11 +12,11 @@
       "dependsOn": ["^build"],
       "outputs": [".output/**", ".vinxi/**"],
       "cache": true,
-      "env": ["CLIENT_SECRET", "CLIENT_ID"]
+      "env": ["CLIENT_SECRET", "CLIENT_ID","PROJECT_ID"]
     },
 
     "check": {
-      "env": ["CLIENT_SECRET", "CLIENT_ID"],
+      "env": ["CLIENT_SECRET", "CLIENT_ID","PROJECT_ID"],
       "cache": true
     },
     "test": {}
