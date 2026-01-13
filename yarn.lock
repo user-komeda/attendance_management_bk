@@ -5842,10 +5842,10 @@ __metadata:
 
 "infisicalLauncher@git+ssh://git@github.com:user-komeda/infisicalLauncher.git":
   version: 1.0.0
-  resolution: "infisicalLauncher@git+ssh://git@github.com:user-komeda/infisicalLauncher.git#commit=4bf129ed35836f98c0acd986a4d6ca8599d4f5cd"
+  resolution: "infisicalLauncher@git+ssh://git@github.com:user-komeda/infisicalLauncher.git#commit=be13b098f9e8d3d5f7e1df2f235865b544dd5e0e"
   bin:
     infisicalLauncher: ./index.js
-  checksum: 10c0/e700536b711aec32adad2b2be12f7b9daf8b5d303d255d15b224136076ff8f70260ad26a4875a6989af4015ab0be3987c95549da43b6ee0a212df2714d513958
+  checksum: 10c0/c3232e758ae29c75d06df0abe3478da3e3a2686406a60f297adda7ab705beef562a3239bcad90a29059ad879de5edf59161d7427f15fc6d899cb929100a01201
   languageName: node
   linkType: hard
 
