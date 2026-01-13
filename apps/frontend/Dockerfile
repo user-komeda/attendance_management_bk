@@ -7,11 +7,14 @@ RUN turbo prune --scope=frontend --docker
 
 FROM base AS installer
 WORKDIR /app
-
+RUN microdnf install -y git openssh-clients && \
+    microdnf clean all && \
+    mkdir -p -m 0700 ~/.ssh && \
+    ssh-keyscan github.com >> ~/.ssh/known_hosts
 COPY --from=builder /out/json/ .
 RUN corepack enable
 RUN corepack install -g yarn@stable
-RUN yarn install
+RUN --mount=type=ssh yarn install
 COPY --from=builder /out/full/ .
 RUN yarn build
 
