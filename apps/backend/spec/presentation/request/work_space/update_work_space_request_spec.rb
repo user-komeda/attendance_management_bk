@@ -21,7 +21,6 @@ RSpec.describe Presentation::Request::WorkSpace::UpdateWorkSpaceRequest do
 
     let(:request) { described_class.new(params: params) }
 
-
     it 'returns an UpdateWorkSpaceInputDto' do
       expect(dto).to be_a(Application::Dto::WorkSpace::UpdateWorkSpaceInputDto)
     end

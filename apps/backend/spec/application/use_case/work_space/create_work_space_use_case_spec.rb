@@ -36,7 +36,6 @@ RSpec.describe Application::UseCase::WorkSpace::CreateWorkSpaceUseCase do
     instance_double(ROM::Configuration, gateways: { default: instance_double(ROM::Gateway) })
   end
 
-
   describe '#invoke' do
     context 'when workspace does not exist' do
       before do

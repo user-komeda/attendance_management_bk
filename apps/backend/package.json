@@ -3,8 +3,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "check": "bundle exec rake code_quality:all",
-    "dev": "bundle exec rake app:start"
+    "check": "infisicalLauncher --path=/microCms/sinatra/local --envDir=../../  --cmd=bundle exec rake code_quality:all",
+    "dev": "infisicalLauncher --path=/microCms/sinatra/local --envDir=../../  --cmd=bundle exec rake app:start",
+    "migrate": "infisicalLauncher --path=/microCms/sinatra/local --envDir=../../  --cmd=bundle exec rake db:schema_apply"
   },
   "packageManager": "yarn@4.12.0"
 }

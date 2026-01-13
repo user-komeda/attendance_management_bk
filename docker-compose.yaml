@@ -23,21 +23,17 @@ services:
     container_name: db
     image: postgres:18@sha256:bfe50b2b0ddd9b55eadedd066fe24c7c6fe06626185b73358c480ea37868024d
     restart: always
-    profiles:
-      - db
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: ${POSTGRES_DB}
     ports:
-      - "5432:5432"
+      - "15432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql
   redis:
     image: redis:8.4@sha256:47200b04138293fae39737e50878a238b13ec0781083126b1b0c63cf5d992e8d
     container_name: redis
-    profiles:
-      - db
     command: >
       redis-server
       --appendonly yes

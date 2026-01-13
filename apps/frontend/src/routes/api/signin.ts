@@ -20,7 +20,7 @@ export const POST = async (event: APIEvent) => {
     password: result.output.password,
   }
   const res = await postWrapper<{ user_id: string }>(
-    'http://localhost:4567/signin',
+    `${process.env.API_URL}/signin`,
     requestBody,
   )
   if (!res?.user_id) {

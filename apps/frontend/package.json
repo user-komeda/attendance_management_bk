@@ -3,14 +3,14 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vinxi dev",
+    "dev": "infisicalLauncher --path=/microCms/solid/local --envDir=../../  --cmd=vinxi dev",
     "build": "vinxi build",
     "start": "vinxi start",
     "lint": "eslint .",
     "format": "prettier --check .",
     "typecheck": "tsc --noEmit",
     "test": "vitest --coverage",
-    "check": "concurrently  'yarn format' 'yarn typecheck' 'yarn lint' 'yarn test'"
+    "check": "infisicalLauncher --path=/microCms/solid/local --envDir=../../  --cmd=\"concurrently \\\"yarn format\\\" \\\"yarn typecheck\\\" \\\"yarn lint\\\" \\\"yarn test\\\"\""
   },
   "dependencies": {
     "@solidjs/router": "^0.15.0",
@@ -30,6 +30,7 @@
     "@vitest/coverage-v8": "4.0.16",
     "@vitest/eslint-plugin": "1.6.5",
     "concurrently": "9.2.1",
+    "dotenv-cli": "^11.0.0",
     "eslint": "9.39.2",
     "eslint-config-prettier": "10.1.8",
     "eslint-import-resolver-typescript": "4.4.4",

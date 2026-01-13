@@ -24,7 +24,6 @@ RSpec.describe Domain::Repository::WorkSpace::WorkSpaceRepository do
     }
   end
 
-
   describe '#find_by_ids' do
     it 'delegates to infra repository' do
       allow(infra_repo).to receive(:find_by_ids).with(workspace_ids: [workspace_id]).and_return([workspace_entity])
