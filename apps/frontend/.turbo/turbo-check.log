@@ -1,2 +1,0 @@
-[dotenv@17.2.3] injecting env (0) from ..\..\.env -- tip: ⚙️  write to custom object with { processEnv: myObject }
-❌ Error: Missing credentials (CLIENT_ID, CLIENT_SECRET, or PROJECT_ID) in: C:\Users\user\Desktop\learning\attendance_management\attendance_management_bk\.env
