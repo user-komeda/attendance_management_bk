@@ -12,11 +12,9 @@
       "dependsOn": ["^build"],
       "outputs": [".output/**", ".vinxi/**"],
       "cache": true,
-      "env": ["CLIENT_SECRET", "CLIENT_ID","PROJECT_ID"]
     },
 
     "check": {
-      "env": ["CLIENT_SECRET", "CLIENT_ID","PROJECT_ID"],
       "cache": true
     },
     "test": {}
