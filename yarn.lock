@@ -3312,6 +3312,8 @@ __metadata:
   resolution: "attendance_management_bk@workspace:."
   dependencies:
     concurrently: "npm:^9.2.1"
+    dotenv: "npm:^17.2.3"
+    infisicalLauncher: "git+ssh://git@github.com:user-komeda/infisicalLauncher.git"
     lefthook: "npm:2.0.13"
     redis: "npm:^5.10.0"
     turbo: "npm:2.7.3"
@@ -4204,7 +4206,37 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dotenv@npm:^17.2.3":
+"dotenv-cli@npm:^11.0.0":
+  version: 11.0.0
+  resolution: "dotenv-cli@npm:11.0.0"
+  dependencies:
+    cross-spawn: "npm:^7.0.6"
+    dotenv: "npm:^17.1.0"
+    dotenv-expand: "npm:^12.0.0"
+    minimist: "npm:^1.2.6"
+  bin:
+    dotenv: cli.js
+  checksum: 10c0/c3e6e58a484b3204eeb167a8f78c9cb04c4bae951069e7860eccbbbf96964e3bd808b3632dfe841e5d882b2c5d77c447f20abd06edd4db623ce719d94a7fb44e
+  languageName: node
+  linkType: hard
+
+"dotenv-expand@npm:^12.0.0":
+  version: 12.0.3
+  resolution: "dotenv-expand@npm:12.0.3"
+  dependencies:
+    dotenv: "npm:^16.4.5"
+  checksum: 10c0/0824bdc74fc816a28b0744b7853a23e046602e9616c82121dfdae21ebc13c6e89afeb773e794e97c35d48be2be0a990fbca721ee3869a49c04210a58a3cf296f
+  languageName: node
+  linkType: hard
+
+"dotenv@npm:^16.4.5":
+  version: 16.6.1
+  resolution: "dotenv@npm:16.6.1"
+  checksum: 10c0/15ce56608326ea0d1d9414a5c8ee6dcf0fffc79d2c16422b4ac2268e7e2d76ff5a572d37ffe747c377de12005f14b3cc22361e79fc7f1061cce81f77d2c973dc
+  languageName: node
+  linkType: hard
+
+"dotenv@npm:^17.1.0, dotenv@npm:^17.2.3":
   version: 17.2.3
   resolution: "dotenv@npm:17.2.3"
   checksum: 10c0/c884403209f713214a1b64d4d1defa4934c2aa5b0002f5a670ae298a51e3c3ad3ba79dfee2f8df49f01ae74290fcd9acdb1ab1d09c7bfb42b539036108bb2ba0
@@ -5219,6 +5251,8 @@ __metadata:
     "@vitest/coverage-v8": "npm:4.0.16"
     "@vitest/eslint-plugin": "npm:1.6.6"
     concurrently: "npm:9.2.1"
+    dotenv: "npm:^17.2.3"
+    dotenv-cli: "npm:^11.0.0"
     eslint: "npm:9.39.2"
     eslint-config-prettier: "npm:10.1.8"
     eslint-import-resolver-typescript: "npm:4.4.4"
@@ -5804,6 +5838,15 @@ __metadata:
   version: 4.0.0
   resolution: "indent-string@npm:4.0.0"
   checksum: 10c0/1e1904ddb0cb3d6cce7cd09e27a90184908b7a5d5c21b92e232c93579d314f0b83c246ffb035493d0504b1e9147ba2c9b21df0030f48673fba0496ecd698161f
+  languageName: node
+  linkType: hard
+
+"infisicalLauncher@git+ssh://git@github.com:user-komeda/infisicalLauncher.git":
+  version: 1.0.0
+  resolution: "infisicalLauncher@git+ssh://git@github.com:user-komeda/infisicalLauncher.git#commit=b9fb65f1d889d0c005170d9300796ac5a3c92262"
+  bin:
+    infisicalLauncher: ./index.js
+  checksum: 10c0/8874976d6075f78b9e475ce560eba00dd213180c6943627dc5fe1959822c7ae629dd32da3f2d738d99d31bca178651e9c9aaf2ff2586e5a11d686585761c0c04
   languageName: node
   linkType: hard
 

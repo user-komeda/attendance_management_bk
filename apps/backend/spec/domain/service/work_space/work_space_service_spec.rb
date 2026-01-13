@@ -17,7 +17,6 @@ RSpec.describe Domain::Service::WorkSpace::WorkSpaceService do
     }
   end
 
-
   describe '#exists_by_slug?' do
     it 'returns true when workspace exists' do
       allow(work_space_repo).to receive(:find_by_slug).with(slug: slug).and_return(instance_double(Domain::Entity::WorkSpace::WorkSpaceEntity))

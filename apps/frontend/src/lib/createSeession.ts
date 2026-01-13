@@ -12,7 +12,7 @@ const createSession = async () => {
 
   await redisSet(`session:${sessionId}`, sessionId, ttl)
   const session = await useSession<SessionData>({
-    password: 'dJs3wmlkeHdFwul605ZWnDmlePyKGt/Q8XIMFDEySq4=',
+    password: process.env.SESSION_PASSWORD!,
   })
 
   await session.update({

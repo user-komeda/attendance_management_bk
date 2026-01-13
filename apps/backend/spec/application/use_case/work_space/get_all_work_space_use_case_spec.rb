@@ -29,7 +29,6 @@ RSpec.describe Application::UseCase::WorkSpace::GetAllWorkSpaceUseCase do
     )
   end
 
-
   describe '#invoke' do
     it 'returns an array of WorkSpaceWithStatusDto' do
       allow(membership_repo).to receive(:work_space_ids_via_membership_by_user_id)

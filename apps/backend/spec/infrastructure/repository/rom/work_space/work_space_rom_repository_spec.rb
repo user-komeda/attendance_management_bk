@@ -54,7 +54,6 @@ RSpec.describe Infrastructure::Repository::Rom::WorkSpace::WorkSpaceRomRepositor
     repo
   end
 
-
   describe '#find_by_ids' do
     let(:fake_work_spaces) { fake_relation_class.new([infra_entity]) }
 

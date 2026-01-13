@@ -22,7 +22,7 @@ export const POST = async (event: APIEvent) => {
     last_name: result.output.lastName,
   }
   const res = await postWrapper<{ user_id: string }>(
-    'http://localhost:4567/signup',
+    `${process.env.API_URL}/signup`,
     requestBody,
   )
   if (!res?.user_id) {

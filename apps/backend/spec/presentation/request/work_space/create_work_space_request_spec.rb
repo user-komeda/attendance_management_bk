@@ -20,7 +20,6 @@ RSpec.describe Presentation::Request::WorkSpace::CreateWorkSpaceRequest do
 
     let(:request) { described_class.new(params: params) }
 
-
     it 'returns a CreateWorkSpaceInputDto' do
       expect(dto).to be_a(Application::Dto::WorkSpace::CreateWorkSpaceInputDto)
     end

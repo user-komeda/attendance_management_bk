@@ -19,7 +19,6 @@ RSpec.describe Application::UseCase::WorkSpace::DeleteWorkSpaceUseCase do
   end
   let(:work_space_repo) { instance_double(Domain::Repository::WorkSpace::WorkSpaceRepository) }
 
-
   describe '#invoke' do
     context 'when workspace exists' do
       before do

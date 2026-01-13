@@ -3,7 +3,19 @@ FROM ghcr.io/user-komeda/docker_ruby:sha-02f0c64@sha256:7c959cee61a374f88606510d
 # 作業ディレクトリ作成（root）
 WORKDIR /app
 
-# 非 root ユーザー作成
+# 1. root ユーザーで必要な CLI と Node.js をインストール
+RUN curl -sL https://rpm.nodesource.com/setup_22.x | bash - && \
+    microdnf install -y nodejs git openssh-clients && \
+    curl -1sLf 'https://dl.cloudsmith.io/public/infisical/infisical-cli/setup.rpm.sh' | bash && \
+    microdnf install -y infisical && \
+    microdnf clean all
+
+# 2. Infisical Launcher だけをインストール
+# corepack を有効にして最新のパッケージを node_modules/.bin に入れる
+RUN  mkdir -p -m 0700 ~/.ssh && ssh-keyscan github.com >> ~/.ssh/known_hosts
+
+# package.json を作らず、直接 git 経由でインストールして実行バイナリを確保する
+RUN --mount=type=ssh npm install -g dotenv "git+ssh://git@github.com:user-komeda/infisicalLauncher.git"
 
 # Gemfile 系を先にコピーしてキャッシュ効かせる
 COPY ./apps/backend/Gemfile ./apps/backend/Gemfile.lock ./
@@ -20,6 +32,7 @@ RUN bundle install
 
 # アプリ全体をコピー
 COPY apps/backend .
+COPY .env* .
 
 ENV PORT=4567
-CMD ["bundle", "exec", "rake", "app:start"]
+CMD ["node", "/usr/lib/node_modules/infisicalLauncher/index.js", "--path=/microCms/sinatra/local", "--cmd=bundle exec rake app:start"]

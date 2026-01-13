@@ -39,7 +39,6 @@ RSpec.describe Application::Dto::WorkSpace::WorkSpaceDto do
 
     let(:work_space_list) { [work_space_entity] }
 
-
     it 'returns an array of WorkSpaceDto' do
       expect(dtos).to all(be_a(described_class))
     end
