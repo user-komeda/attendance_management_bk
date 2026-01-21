@@ -11,7 +11,7 @@
     "compose:down": "infisicalLauncher  --path=/postgres/local --cmd=docker compose down"
   },
   "devDependencies": {
-    "dotenv": "^17.2.3",
+    "dotenv": "17.2.3",
     "infisicalLauncher": "git+ssh://git@github.com:user-komeda/infisicalLauncher.git",
     "lefthook": "2.0.15",
     "turbo": "2.7.5"
