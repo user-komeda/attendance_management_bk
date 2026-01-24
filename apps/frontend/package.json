@@ -41,7 +41,7 @@
     "eslint-plugin-testing-library": "7.15.4",
     "eslint-plugin-unused-imports": "4.3.0",
     "jsdom": "27.4.0",
-    "prettier": "3.8.0",
+    "prettier": "3.8.1",
     "prettier-plugin-tailwindcss": "0.7.2",
     "tailwindcss": "4.1.18",
     "typescript": "5.9.3",
