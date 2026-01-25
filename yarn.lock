@@ -10056,8 +10056,8 @@ __metadata:
   linkType: hard
 
 "vinxi@npm:^0.5.7":
-  version: 0.5.10
-  resolution: "vinxi@npm:0.5.10"
+  version: 0.5.11
+  resolution: "vinxi@npm:0.5.11"
   dependencies:
     "@babel/core": "npm:^7.22.11"
     "@babel/plugin-syntax-jsx": "npm:^7.22.5"
@@ -10095,7 +10095,7 @@ __metadata:
     zod: "npm:^4.0.0"
   bin:
     vinxi: bin/cli.mjs
-  checksum: 10c0/fd169ecd2f270b441abfd3e48f314095a22165dd1e06576cecea793c7a1b2e8e7434d6804e53dfb58068bed792bcef2845291d47697d1c7fdd8fdd3970200e78
+  checksum: 10c0/75c7ab4bcc65f763f80c14da0cffde6cc8a840af8cd360c7e4f6839f6e1f7821bf5aabc044f6cf93021500625e430d245513eed001456176c7e58887c9e9f689
   languageName: node
   linkType: hard
 
