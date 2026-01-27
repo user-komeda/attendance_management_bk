@@ -20,7 +20,7 @@ gem 'rom', '~> 5.4'
 gem 'rom-repository', '~> 5.4'
 gem 'rom-sql', '~> 3.7'
 
-gem 'rubocop', '< 1.82.2'
+gem 'rubocop', '< 1.84.1'
 gem 'rubocop-performance', require: false
 gem 'rubocop-rake', require: false
 gem 'rubocop-rspec', require: false
