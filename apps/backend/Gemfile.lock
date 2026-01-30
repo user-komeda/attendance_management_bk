@@ -29,7 +29,7 @@ GEM
       thread_safe (~> 0.3, >= 0.3.1)
     base64 (0.3.0)
     bcrypt (3.1.21)
-    bigdecimal (3.3.1)
+    bigdecimal (4.0.1)
     childprocess (5.1.0)
       logger (~> 1.5)
     coercible (1.0.0)
@@ -134,6 +134,7 @@ GEM
       ruby2_keywords (~> 0.0.1)
     mutex_m (0.3.0)
     nio4r (2.7.5)
+    ostruct (0.6.3)
     parallel (1.27.0)
     parser (3.3.10.1)
       ast (~> 2.4.1)
@@ -141,8 +142,8 @@ GEM
     path_expander (2.0.1)
     pg (1.6.3-x64-mingw-ucrt)
     pg (1.6.3-x86_64-linux)
-    prism (1.8.0)
-    public_suffix (6.0.2)
+    prism (1.9.0)
+    public_suffix (7.0.2)
     puma (7.2.0)
       nio4r (~> 2.0)
     racc (1.8.1)
@@ -253,10 +254,11 @@ GEM
     ruby_parser (3.22.0)
       racc (~> 1.5)
       sexp_processor (~> 4.16)
-    rubycritic (4.12.0)
+    rubycritic (5.0.0)
       flay (~> 2.13)
       flog (~> 4.7)
       launchy (>= 2.5.2)
+      ostruct
       parser (>= 3.3.0.5)
       prism (>= 1.6.0)
       rainbow (~> 3.1.1)
@@ -356,7 +358,7 @@ DEPENDENCIES
   rubocop-performance
   rubocop-rake
   rubocop-rspec
-  rubycritic (~> 4.9)
+  rubycritic (~> 5.0)
   simplecov
   sinatra (~> 4.1)
   sinatra-contrib (~> 4.1)
