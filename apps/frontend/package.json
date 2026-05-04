@@ -13,23 +13,23 @@
     "check": "infisicalLauncher --path=/microCms/solid/local --envDir=../../  --cmd=\"concurrently \\\"yarn format\\\" \\\"yarn typecheck\\\" \\\"yarn lint\\\" \\\"yarn test\\\"\""
   },
   "dependencies": {
-    "@solidjs/router": "^0.16.0",
-    "@solidjs/start": "^1.1.0",
-    "dotenv": "^17.2.3",
-    "solid-js": "^1.9.5",
-    "valibot": "^1.2.0",
-    "vinxi": "^0.5.7"
+    "@solidjs/router": "^0.16.1",
+    "@solidjs/start": "^1.3.2",
+    "dotenv": "^17.4.2",
+    "solid-js": "^1.9.12",
+    "valibot": "^1.3.1",
+    "vinxi": "^0.5.11"
   },
   "devDependencies": {
     "@eslint/js": "9.39.4",
     "@solidjs/testing-library": "0.8.10",
-    "@tailwindcss/vite": "4.2.2",
+    "@tailwindcss/vite": "4.2.4",
     "@testing-library/dom": "10.4.1",
     "@testing-library/jest-dom": "6.9.1",
     "@testing-library/user-event": "14.6.1",
     "@types/jsdom": "28.0.1",
-    "@vitest/coverage-v8": "4.1.4",
-    "@vitest/eslint-plugin": "1.6.15",
+    "@vitest/coverage-v8": "4.1.5",
+    "@vitest/eslint-plugin": "1.6.16",
     "concurrently": "9.2.1",
     "dotenv-cli": "11.0.0",
     "eslint": "9.39.4",
@@ -40,15 +40,15 @@
     "eslint-plugin-solid": "0.14.5",
     "eslint-plugin-testing-library": "7.16.2",
     "eslint-plugin-unused-imports": "4.4.1",
-    "jsdom": "29.0.2",
-    "prettier": "3.8.2",
-    "prettier-plugin-tailwindcss": "0.7.2",
-    "tailwindcss": "4.2.2",
-    "typescript": "6.0.2",
-    "typescript-eslint": "8.58.1",
-    "vite": "8.0.8",
+    "jsdom": "29.1.1",
+    "prettier": "3.8.3",
+    "prettier-plugin-tailwindcss": "0.8.0",
+    "tailwindcss": "4.2.4",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.59.1",
+    "vite": "8.0.10",
     "vite-plugin-solid": "2.11.12",
-    "vitest": "4.1.4"
+    "vitest": "4.1.5"
   },
   "engines": {
     "node": ">=22"
