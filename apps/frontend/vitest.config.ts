@@ -1,12 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { resolve } from 'node:path'
+import {resolve} from 'node:path'
 
 import solid from 'vite-plugin-solid'
-import { defineConfig } from 'vitest/config'
+import {defineConfig} from 'vitest/config'
 
 export default defineConfig({
-  plugins: [solid() as any],
+  plugins: [
+    solid({
+      hot: false,
+    }) as any,
+  ],
   resolve: {
     preserveSymlinks: true,
     conditions: ['development', 'browser'],
