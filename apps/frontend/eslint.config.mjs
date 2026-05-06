@@ -11,6 +11,9 @@ import unusedImports from 'eslint-plugin-unused-imports'
 import { configs } from 'typescript-eslint'
 
 export default defineConfig(
+  {
+    ignores: ['coverage/**'],
+  },
   eslint.configs.recommended,
   importPlugin.flatConfigs.recommended,
   importPlugin.flatConfigs.typescript,
