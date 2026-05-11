@@ -3174,9 +3174,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vitest/eslint-plugin@npm:1.6.16":
-  version: 1.6.16
-  resolution: "@vitest/eslint-plugin@npm:1.6.16"
+"@vitest/eslint-plugin@npm:1.6.17":
+  version: 1.6.17
+  resolution: "@vitest/eslint-plugin@npm:1.6.17"
   dependencies:
     "@typescript-eslint/scope-manager": "npm:^8.58.0"
     "@typescript-eslint/utils": "npm:^8.58.0"
@@ -3192,7 +3192,7 @@ __metadata:
       optional: true
     vitest:
       optional: true
-  checksum: 10c0/b2871ce12b831ea1e1ff8cf01d978d0746aaeac951830880ad966ad2783de4fbe835a1c74c44f5bccca73ca6007174cd0434c2725269cfafdcc6fbb43d4da495
+  checksum: 10c0/68eef4f14eda28c636bd7625d4c6ce0c66f9b52003125e24d994b11548a6486b77bc928ff6797c51285daba76bb6a5c49bdd88acb13eb226e7d04bcf6b8ebcda
   languageName: node
   linkType: hard
 
@@ -5514,7 +5514,7 @@ __metadata:
     "@testing-library/user-event": "npm:14.6.1"
     "@types/jsdom": "npm:28.0.1"
     "@vitest/coverage-v8": "npm:4.1.5"
-    "@vitest/eslint-plugin": "npm:1.6.16"
+    "@vitest/eslint-plugin": "npm:1.6.17"
     concurrently: "npm:9.2.1"
     dotenv: "npm:^17.4.2"
     dotenv-cli: "npm:11.0.0"
