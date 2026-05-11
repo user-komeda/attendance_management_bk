@@ -169,9 +169,9 @@ GEM
       logger
       prism (>= 1.6.0)
       tsort
-    rbs-inline (0.13.0)
+    rbs-inline (0.14.0)
       prism (>= 0.29)
-      rbs (>= 3.8.0)
+      rbs (~> 4.0)
     redis (5.4.1)
       redis-client (>= 0.22.0)
     redis-client (0.28.0)
@@ -349,7 +349,7 @@ DEPENDENCIES
   rack-unreloader
   rackup (~> 2.2)
   rake
-  rbs-inline (= 0.13.0)
+  rbs-inline (= 0.14.0)
   redis
   ridgepole
   rom (~> 5.4)
