@@ -3,21 +3,21 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "infisicalLauncher --path=/microCms/solid/local --envDir=../../  --cmd=vinxi dev",
+    "dev": "infisicalLauncher --path=/microCms/solid/local  -- yarn vinxi dev",
     "build": "vinxi build",
     "start": "vinxi start",
     "lint": "eslint .",
     "format": "prettier --check .",
     "typecheck": "tsc --noEmit",
-    "test": "vitest --coverage",
-    "check": "infisicalLauncher --path=/microCms/solid/local --envDir=../../  --cmd=\"concurrently \\\"yarn format\\\" \\\"yarn typecheck\\\" \\\"yarn lint\\\" \\\"yarn test\\\"\""
+    "test": "infisicalLauncher --path=/microCms/solid/local  --  yarn vitest --coverage",
+    "check": "yarn concurrently 'yarn typecheck' 'yarn lint' 'yarn format'  'yarn test'"
   },
   "dependencies": {
     "@solidjs/router": "^0.16.1",
     "@solidjs/start": "^1.3.2",
     "dotenv": "^17.4.2",
-    "solid-js": "^1.9.12",
-    "valibot": "^1.3.1",
+    "solid-js": "^1.9.13",
+    "valibot": "^1.4.1",
     "vinxi": "^0.5.11"
   },
   "devDependencies": {
@@ -28,14 +28,14 @@
     "@testing-library/jest-dom": "6.9.1",
     "@testing-library/user-event": "14.6.1",
     "@types/jsdom": "28.0.3",
-    "@vitest/coverage-v8": "4.1.6",
-    "@vitest/eslint-plugin": "1.6.17",
+    "@vitest/coverage-v8": "4.1.7",
+    "@vitest/eslint-plugin": "1.6.18",
     "concurrently": "9.2.1",
     "dotenv-cli": "11.0.0",
     "eslint": "9.39.4",
     "eslint-config-prettier": "10.1.8",
     "eslint-import-resolver-typescript": "4.4.4",
-    "eslint-plugin-import": "2.32.0",
+    "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-no-relative-import-paths": "1.6.1",
     "eslint-plugin-solid": "0.14.5",
     "eslint-plugin-testing-library": "7.16.2",
@@ -45,13 +45,13 @@
     "prettier-plugin-tailwindcss": "0.8.0",
     "tailwindcss": "4.3.0",
     "typescript": "6.0.3",
-    "typescript-eslint": "8.59.3",
-    "vite": "8.0.13",
+    "typescript-eslint": "8.60.0",
+    "vite": "^8.0.14",
     "vite-plugin-solid": "2.11.12",
-    "vitest": "4.1.6"
+    "vitest": "^4.1.7"
   },
   "engines": {
     "node": ">=22"
   },
-  "packageManager": "yarn@4.14.1"
+  "packageManager": "yarn@4.15.0"
 }
