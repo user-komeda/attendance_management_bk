@@ -4,9 +4,13 @@ services:
     build:
       context: .
       dockerfile: ./apps/frontend/Dockerfile
+      ssh:
+        - default
     profiles:
       - frontend
     restart: always
+    security_opt:
+      - no-new-privileges:true
     ports:
       - "3000:3000"
   backend:
@@ -14,15 +18,21 @@ services:
     build:
       context: .
       dockerfile: ./apps/backend/Dockerfile
+      ssh:
+        - default
     profiles:
       - backend
     restart: always
+    security_opt:
+      - no-new-privileges:true
     ports:
       - "4567:4567"
   db:
     container_name: db
     image: postgres:18@sha256:7e32e9833a6fb1c92c32552794cb6ed569d51b445a54907d35fc112ef39684db
     restart: always
+    security_opt:
+      - no-new-privileges:true
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
@@ -47,6 +57,8 @@ services:
     ports:
       - "6379:6379"
     restart: always
+    security_opt:
+      - no-new-privileges:true
 
 volumes:
   postgres_data:

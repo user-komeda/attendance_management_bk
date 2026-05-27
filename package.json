@@ -7,16 +7,17 @@
     "dev": "turbo run dev",
     "build": "turbo run build",
     "check": "turbo run check",
-    "compose:up": "infisicalLauncher --path=/postgres/local --cmd=docker compose up -d",
-    "compose:down": "infisicalLauncher  --path=/postgres/local --cmd=docker compose down"
+    "compose:up": "infisicalLauncher --path=/postgres/local -- docker compose up -d",
+    "compose:upAll": "infisicalLauncher --path=/postgres/local -- docker compose --profile frontend --profile backend up -d --build",
+    "compose:down": "docker compose down --remove-orphans"
   },
   "devDependencies": {
     "dotenv": "17.4.2",
     "infisicalLauncher": "git+ssh://git@github.com:user-komeda/infisicalLauncher.git",
     "lefthook": "2.1.8",
-    "turbo": "2.9.14"
+    "turbo": "2.9.15"
   },
-  "packageManager": "yarn@4.14.1",
+  "packageManager": "yarn@4.15.0",
   "dependencies": {
     "concurrently": "^9.2.1",
     "redis": "^5.12.1",
