@@ -1,23 +1,22 @@
 FROM ghcr.io/user-komeda/docker_node:sha-7b65646@sha256:618e3e78e6e46af2edfc263f81eb1e23f642c387398424e502562381e2c97a60 AS base
 
+WORKDIR /app
+
 FROM base AS builder
-RUN yarn global add turbo
 COPY . .
-RUN turbo prune --scope=frontend --docker
+RUN corepack enable && yarn dlx turbo prune --scope=frontend --docker
+
 
 FROM base AS installer
-WORKDIR /app
 RUN microdnf install -y git openssh-clients && \
     microdnf clean all && \
     mkdir -p -m 0700 ~/.ssh && \
-    ssh-keyscan github.com >> ~/.ssh/known_hosts
-COPY --from=builder /out/json/ .
+    ssh-keyscan -H github.com >> ~/.ssh/known_hosts
 RUN corepack enable
-RUN corepack install -g yarn@stable
-RUN --mount=type=ssh yarn install
-RUN --mount=type=ssh yarn add -D "infisicalLauncher@git+ssh://git@github.com:user-komeda/infisicalLauncher.git"
+COPY --from=builder /app/out/json/ .
+RUN --mount=type=ssh yarn install --immutable
 
-COPY --from=builder /out/full/ .
+COPY --from=builder /app/out/full/ .
 RUN yarn build
 
 
@@ -26,19 +25,14 @@ WORKDIR /app
 
 # セキュリティ: 実行ユーザー作成
 RUN adduser --system --uid 1001 solidjs
-RUN curl -1sLf 'https://dl.cloudsmith.io/public/infisical/infisical-cli/setup.rpm.sh' | bash && \
-    microdnf install -y infisical && \
-    microdnf clean all
+
+# 必要ファイルをコピー
+COPY --from=installer --chown=solidjs /app/apps/frontend/.output/ /app/.output/
+COPY --from=installer --chown=solidjs /app/apps/frontend/package.json /app/
+COPY --from=installer --chown=solidjs /app/node_modules /app/node_modules/
 
 USER solidjs
 
-
-# 必要ファイルをコピー
-COPY --from=installer /app/apps/frontend/.output/ /app/.output/
-COPY --from=installer /app/apps/frontend/package.json /app/
-COPY --from=installer /app/node_modules /app/node_modules/
-COPY .env* .
 EXPOSE 3000
 
-# SolidStart v2は .output/server/index.mjs を直接起動
-CMD ["node","./node_modules/infisicalLauncher/index.js","--path=/microCms/solid/local","--cmd=node .output/server/index.mjs"]
+CMD ["node", "./node_modules/infisicalLauncher/dist/index.cjs", "--path=/microCms/solid/local", "--", "node", ".output/server/index.mjs"]
