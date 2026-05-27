@@ -1,19 +1,31 @@
 {
   "$schema": "https://turborepo.com/schema.json",
-  "globalEnv": ["IMPORTANT_GLOBAL_VARIABLE"],
-  "globalPassThroughEnv": ["CLIENT_ID", "CLIENT_SECRET", "PROJECT_ID"],
+  "globalEnv": [
+    "IMPORTANT_GLOBAL_VARIABLE"
+  ],
+  "globalPassThroughEnv": [
+    "LOCAL_INFISICAL_CLIENT_ID",
+    "LOCAL_INFISICAL_CLIENT_SECRET",
+    "LOCAL_INFISICAL_PROJECT_ID"
+  ],
   "tasks": {
     "dev": {
-      "dependsOn": ["^dev"],
+      "dependsOn": [
+        "^dev"
+      ],
       "persistent": true,
       "cache": false
     },
     "build": {
-      "dependsOn": ["^build"],
-      "outputs": [".output/**", ".vinxi/**"],
-      "cache": true,
+      "dependsOn": [
+        "^build"
+      ],
+      "outputs": [
+        ".output/**",
+        ".vinxi/**"
+      ],
+      "cache": true
     },
-
     "check": {
       "cache": true
     },
