@@ -3,9 +3,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "check": "infisicalLauncher --path=/microCms/sinatra/local --envDir=../../  --cmd=bundle exec rake code_quality:all",
-    "dev": "infisicalLauncher --path=/microCms/sinatra/local --envDir=../../  --cmd=bundle exec rake app:start",
-    "migrate": "infisicalLauncher --path=/microCms/sinatra/local --envDir=../../  --cmd=bundle exec rake db:schema_apply"
+    "check": "infisicalLauncher --path=/microCms/sinatra/local -- node ./scripts/rake.mjs code_quality:all",
+    "dev": "infisicalLauncher --path=/microCms/sinatra/local -- node ./scripts/rake.mjs app:start",
+    "migrate": "infisicalLauncher --path=/microCms/sinatra/local -- node ./scripts/rake.mjs db:schema_apply"
   },
-  "packageManager": "yarn@4.14.1"
+  "packageManager": "yarn@4.15.0"
 }
