@@ -28,14 +28,14 @@ jobs:
       - name: "docker buildxが使えるようにする"
         uses: docker/setup-buildx-action@4d04d5d9486b7bd6fa91e7baf45bbb4f8b9deedd # v4
       - name: "ghcr.ioにログインする"
-        uses: docker/login-action@4907a6ddec9925e35a0a9e82d7399ccc52663121 # v4
+        uses: docker/login-action@650006c6eb7dba73a995cc03b0b2d7f5ca915bee # v4
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: "メタデータを作成する"
         id: meta # 後段で参照できるようにoutputsに登録する
-        uses: docker/metadata-action@030e881283bb7a6894de51c315a6bfe6a94e05cf # v6
+        uses: docker/metadata-action@80c7e94dd9b9319bd5eb7a0e0fe9291e23a2a2e9 # v6
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-frontend
           tags: |
@@ -69,14 +69,14 @@ jobs:
       - name: "docker buildxが使えるようにする"
         uses: docker/setup-buildx-action@4d04d5d9486b7bd6fa91e7baf45bbb4f8b9deedd # v4
       - name: "ghcr.ioにログインする"
-        uses: docker/login-action@4907a6ddec9925e35a0a9e82d7399ccc52663121 # v4
+        uses: docker/login-action@650006c6eb7dba73a995cc03b0b2d7f5ca915bee # v4
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: "メタデータを作成する"
         id: meta # 後段で参照できるようにoutputsに登録する
-        uses: docker/metadata-action@030e881283bb7a6894de51c315a6bfe6a94e05cf # v6
+        uses: docker/metadata-action@80c7e94dd9b9319bd5eb7a0e0fe9291e23a2a2e9 # v6
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-backend
           tags: |
@@ -90,8 +90,9 @@ jobs:
       - name: "コンテナイメージをビルドしてghcr.ioにコンテナイメージをpushする"
         uses: docker/build-push-action@f9f3042f7e2789586610d6e8b85c8f03e5195baf # v7
         with:
-          file: ./apps/backend/Dockerfile
+          file: ./apps/frontend/Dockerfile
           push: true
           tags: ${{ steps.meta.outputs.tags }} # 前ステップで設定したタグを参照する
           labels: ${{ steps.meta.outputs.labels }} # 前ステップで設定したラベルを参照する
-
+          ssh: |
+            default=${{ env.SSH_AUTH_SOCK }}

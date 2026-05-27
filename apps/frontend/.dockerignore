@@ -1,0 +1,40 @@
+# VCS
+.git
+.gitignore
+
+# IDE / editor
+.idea
+.vscode
+*.swp
+*.swo
+.DS_Store
+
+# Local env / secrets
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+logs
+
+# Dependencies
+node_modules
+.pnp.*
+
+# Turbo / build cache
+.turbo
+.cache
+.vite
+.vite-temp
+.vinxi
+.tanstack-start
+
+# Build outputs
+dist
+build
+.output
+.solid
+
+# Test / coverage outputs
+coverage

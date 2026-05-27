@@ -2,13 +2,9 @@
 
 source 'https://rubygems.org'
 
-# gem "rails"
-
-gem 'sinatra', '~> 4.1'
-
 gem 'puma', '~> 8.0'
 gem 'rackup', '~> 2.2'
-
+gem 'sinatra', '~> 4.1'
 gem 'sinatra-contrib', '~> 4.1'
 
 gem 'dry-auto_inject', '~> 1.1'
@@ -20,16 +16,6 @@ gem 'rom', '~> 5.4'
 gem 'rom-repository', '~> 5.4'
 gem 'rom-sql', '~> 3.7'
 
-gem 'rubocop', '< 1.86.3'
-gem 'rubocop-performance', require: false
-gem 'rubocop-rake', require: false
-gem 'rubocop-rspec', require: false
-
-gem 'rubycritic', '~> 5.0'
-
-gem 'steep', '~> 2.0'
-
-gem 'infisical-sdk'
 gem 'pg', require: false
 gem 'rack-protection'
 gem 'rake'
@@ -38,11 +24,24 @@ gem 'ridgepole'
 
 gem 'dotenv', '~> 3.1'
 
-gem 'rack-test'
-gem 'rspec'
-gem 'simplecov', require: false, group: :test
-
 gem 'bcrypt'
 gem 'jwt'
 gem 'rack-unreloader'
 gem 'redis'
+
+group :development, :test do
+  gem 'rack-test'
+  gem 'rspec'
+  gem 'rubocop', '< 1.86.3'
+  gem 'rubocop-performance', require: false
+  gem 'rubocop-rake', require: false
+  gem 'rubocop-rspec', require: false
+  gem 'rubycritic', '~> 5.0'
+  gem 'steep', '~> 2.0'
+end
+
+group :test do
+  gem 'simplecov', require: false
+end
+
+gem 'bundler-audit', '~> 0.9.3', groups: %i[development test], require: false
