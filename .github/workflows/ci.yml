@@ -1,7 +1,7 @@
 name: "CI"
 on:
   pull_request:
-    types: [opened, synchronize]
+    types: [ opened, synchronize ]
 jobs:
   ci:
     env:
@@ -54,11 +54,8 @@ jobs:
       - name: enable corepack
         run: corepack enable
 
-      - name: yarn set v4
-        run: yarn set version stable
-
-      - name: yarn install
-        run: yarn install
+      - name: Yarn install
+        run: yarn install --immutable
 
       - name: yarn check
         run: yarn check
