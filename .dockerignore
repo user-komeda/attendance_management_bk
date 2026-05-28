@@ -1,0 +1,72 @@
+# VCS
+.git
+.gitignore
+.gitattributes
+
+# IDE / editor
+.idea
+.vscode
+*.swp
+*.swo
+.DS_Store
+
+# Local env / secrets
+.env
+.env.*
+!.env.example
+.infisical.json
+**/.env
+**/.env.*
+!**/.env.example
+**/.infisical.json
+
+# Logs / runtime files
+*.log
+logs
+tmp
+temp
+*.pid
+
+# Node / Yarn
+node_modules
+.pnp.*
+.yarn/*
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+
+# Turbo / build cache
+.turbo
+.cache
+.vite
+.vite-temp
+.vinxi
+.tanstack-start
+
+# Build outputs
+dist
+build
+.output
+.solid
+coverage
+
+# Ruby / Bundler
+.bundle
+vendor/bundle
+.ruby-lsp
+.rbs_collection
+.yardoc
+doc
+pkg
+
+# App generated files
+apps/backend/public/assets
+apps/backend/public/packs
+apps/backend/public/packs-test
+apps/backend/storage
+
+# SQLite / local DB artifacts
+*.sqlite3
+*.sqlite3-*
+*.seed

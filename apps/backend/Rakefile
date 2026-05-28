@@ -5,5 +5,8 @@ require 'rake'
 require_relative 'config/auto_load'
 require 'dotenv/load'
 
-# lib/tasks 以下の rake タスクを全て読み込む
-Dir.glob('tasks/**/*.rake').each { |file| load file }
+if ENV.fetch('APP_RUNTIME_ONLY', 'false') == 'true'
+  load 'tasks/app.rake'
+else
+  Dir.glob('tasks/**/*.rake').each { |file| load file }
+end
