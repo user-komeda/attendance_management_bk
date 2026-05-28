@@ -1,6 +1,6 @@
 ---
 AllCops:
-  TargetRubyVersion: 3.4
+  TargetRubyVersion: 4.0.5
   NewCops: enable
 plugins:
   - rubocop-rspec
