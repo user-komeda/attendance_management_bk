@@ -3,8 +3,8 @@
 module Presentation
   module Exception
     class BadRequestException < ::AppException::ApiError
-      # @rbs (message: String) -> void
-      def initialize: (message: String) -> void
+      # @rbs (?message: String, ?field_errors: Array[{ key: String, message: String }]?) -> void
+      def initialize: (?message: String, ?field_errors: Array[{ key: String, message: String }]?) -> void
     end
   end
 end

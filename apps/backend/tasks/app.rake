@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-PORT = ENV.fetch('PORT', nil)
-HOST = ENV.fetch('HOST', nil)
+PORT = AppEnv.get['PORT']
+HOST = AppEnv.get['HOST']
 namespace :app do
   desc 'Run Sinatra app'
   task :start do

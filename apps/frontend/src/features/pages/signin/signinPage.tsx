@@ -2,9 +2,9 @@ import { SigninForm } from '~/features/components/signin/signinForm'
 import { SigninSchema } from '~/schema/signinSchema'
 import actionWrapper from '~/util/actionWrapper'
 
-const signin = actionWrapper<typeof SigninSchema, undefined>(
+const signin = actionWrapper<typeof SigninSchema>(
   '/api/signin',
-  'login',
+  'signin',
   SigninSchema,
   '/',
 )

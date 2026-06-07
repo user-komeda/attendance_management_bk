@@ -1,47 +1,53 @@
-import { Action, useSubmission } from '@solidjs/router'
+import { useSubmission } from '@solidjs/router'
 import { Show } from 'solid-js'
 
-import { InputPassword } from '~/components/inputPassword'
+import type { FormDataActionOf } from '~/types/action'
+
 import { InputText } from '~/components/inputText'
+import { SigninSchema } from '~/schema/signinSchema'
+import { createObjectSchemaFields } from '~/util/createObjectSchemaFields'
 import { findError } from '~/util/error'
 
-export const SigninForm = ({
-  action,
-}: {
-  action: Action<
-    [formData: FormData],
-    | {
-        error: {
-          key: string
-          message: string
-        }[]
-      }
-    | undefined,
-    [formData: FormData]
-  >
-}) => {
+type SigninAction = FormDataActionOf<typeof SigninSchema>
+
+export const SigninForm = ({ action }: { action: SigninAction }) => {
   const submission = useSubmission(action)
+  const signinField = createObjectSchemaFields(SigninSchema)
   return (
     <div class="flex flex-col justify-center p-4 sm:h-screen">
       <div class="mx-auto w-full max-w-md rounded-2xl border border-gray-300 p-8">
         <form action={action} method="post">
           <div class="space-y-6">
             <div>
-              <InputText name="email" label="Email" />
-              <Show when={submission.result?.error}>
-                <span class="text-sm text-red-500">
-                  {findError(submission.result!.error, 'email')}
-                </span>
+              <InputText name={signinField.email} label="Email" />
+              <Show
+                when={findError(
+                  submission.result?.fieldErrors,
+                  signinField.email,
+                )}
+              >
+                {(message) => (
+                  <span class="text-sm text-red-500">{message()}</span>
+                )}
               </Show>
             </div>
             <div>
-              <InputPassword name="password" label="Password" />
-              <Show when={submission.result?.error}>
-                <span class="text-sm text-red-500">
-                  {findError(submission.result!.error, 'password')}
-                </span>
+              <InputText name={signinField.password} label="Password" />
+              <Show
+                when={findError(
+                  submission.result?.fieldErrors,
+                  signinField.password,
+                )}
+              >
+                {(message) => (
+                  <span class="text-sm text-red-500">{message()}</span>
+                )}
               </Show>
             </div>
+
+            <Show when={submission.result?.message}>
+              {(message) => <p class="text-sm text-red-500">{message()}</p>}
+            </Show>
           </div>
 
           <div class="mt-12">

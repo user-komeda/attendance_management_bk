@@ -1,72 +1,100 @@
-import { Action, useSubmission } from '@solidjs/router'
+import { useSubmission } from '@solidjs/router'
 import { Show } from 'solid-js'
+
+import type { FormDataActionOf } from '~/types/action'
 
 import { InputPassword } from '~/components/inputPassword'
 import { InputText } from '~/components/inputText'
+import SignupSchema from '~/schema/signupSchema'
+import { createObjectSchemaFields } from '~/util/createObjectSchemaFields'
 import { findError } from '~/util/error'
 
-export const SignupForm = ({
-  action,
-}: {
-  action: Action<
-    [formData: FormData],
-    | {
-        error: {
-          key: string
-          message: string
-        }[]
-      }
-    | undefined,
-    [formData: FormData]
-  >
-}) => {
+type SignupAction = FormDataActionOf<typeof SignupSchema>
+
+export const SignupForm = ({ action }: { action: SignupAction }) => {
   const submission = useSubmission(action)
+  const signupField = createObjectSchemaFields(SignupSchema)
   return (
     <div class="flex flex-col justify-center p-4 sm:h-screen">
       <div class="mx-auto w-full max-w-md rounded-2xl border border-gray-300 p-8">
         <form action={action} method="post">
           <div class="space-y-6">
             <div>
-              <InputText name="firstName" label="firstName" />
-              <Show when={submission.result?.error}>
-                <span class="text-sm text-red-500">
-                  {findError(submission.result!.error, 'firstName')}
-                </span>
+              <InputText name={signupField.firstName} label="firstName" />
+              <Show
+                when={findError(
+                  submission.result?.fieldErrors,
+                  signupField.firstName,
+                )}
+              >
+                {(message) => (
+                  <span class="text-sm text-red-500">{message()}</span>
+                )}
               </Show>
             </div>
+
             <div>
-              <InputText name="lastName" label="lastName" />
-              <Show when={submission.result?.error}>
-                <span class="text-sm text-red-500">
-                  {findError(submission.result!.error, 'lastName')}
-                </span>
+              <InputText name={signupField.lastName} label="lastName" />
+              <Show
+                when={findError(
+                  submission.result?.fieldErrors,
+                  signupField.lastName,
+                )}
+              >
+                {(message) => (
+                  <span class="text-sm text-red-500">{message()}</span>
+                )}
               </Show>
             </div>
+
             <div>
-              <InputText name="email" label="Email" />
-              <Show when={submission.result?.error}>
-                <span class="text-sm text-red-500">
-                  {findError(submission.result!.error, 'email')}
-                </span>
+              <InputText name={signupField.email} label="Email" />
+              <Show
+                when={findError(
+                  submission.result?.fieldErrors,
+                  signupField.email,
+                )}
+              >
+                {(message) => (
+                  <span class="text-sm text-red-500">{message()}</span>
+                )}
               </Show>
             </div>
+
             <div>
-              <InputPassword name="password" label="Password" />
-              <Show when={submission.result?.error}>
-                <span class="text-sm text-red-500">
-                  {findError(submission.result!.error, 'password')}
-                </span>
+              <InputPassword name={signupField.password} label="Password" />
+              <Show
+                when={findError(
+                  submission.result?.fieldErrors,
+                  signupField.password,
+                )}
+              >
+                {(message) => (
+                  <span class="text-sm text-red-500">{message()}</span>
+                )}
               </Show>
             </div>
+
             <div>
-              <InputPassword name="confirmPassword" label="Confirm Password" />
-              <Show when={submission.result?.error}>
-                <span class="text-sm text-red-500">
-                  {findError(submission.result!.error, 'confirmPassword')}
-                </span>
+              <InputPassword
+                name={signupField.confirmPassword}
+                label="Confirm Password"
+              />
+              <Show
+                when={findError(
+                  submission.result?.fieldErrors,
+                  signupField.confirmPassword,
+                )}
+              >
+                {(message) => (
+                  <span class="text-sm text-red-500">{message()}</span>
+                )}
               </Show>
             </div>
-            {/*<InputCheckBox/>*/}
+
+            <Show when={submission.result?.message}>
+              {(message) => <p class="text-sm text-red-500">{message()}</p>}
+            </Show>
           </div>
 
           <div class="mt-12">
@@ -77,6 +105,7 @@ export const SignupForm = ({
               Create an account
             </button>
           </div>
+
           <p class="mt-6 text-center text-sm text-slate-600">
             Already have an account?{' '}
             <a
@@ -90,7 +119,6 @@ export const SignupForm = ({
       </div>
     </div>
   )
-  // 分岐がないはずなのにbranchが50%になるため無視
   /* v8 ignore start */
 }
 /* v8 ignore stop */

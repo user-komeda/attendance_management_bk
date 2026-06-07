@@ -4,13 +4,20 @@ module AppException
   class ApiError < StandardError
     # @rbs @status_code: Symbol
     # @rbs @error_code: Symbol
+    # @rbs @field_errors: untyped
     attr_reader status_code: untyped
 
     # @rbs @status_code: Symbol
     # @rbs @error_code: Symbol
+    # @rbs @field_errors: untyped
     attr_reader error_code: untyped
 
-    # @rbs (message: String, error_code: Symbol) -> void
-    def initialize: (message: String, error_code: Symbol) -> void
+    # @rbs @status_code: Symbol
+    # @rbs @error_code: Symbol
+    # @rbs @field_errors: untyped
+    attr_reader field_errors: untyped
+
+    # @rbs (message: String, error_code: Symbol, ?field_errors: untyped) -> void
+    def initialize: (message: String, error_code: Symbol, ?field_errors: untyped) -> void
   end
 end

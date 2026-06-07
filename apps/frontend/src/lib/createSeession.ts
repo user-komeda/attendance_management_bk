@@ -1,23 +1,32 @@
 import { v4 as uuid } from 'uuid'
 import { useSession } from 'vinxi/http'
 
-import { redisSet } from '~/util/redisClient'
+import { redisExpire, redisSet, redisSAdd } from '~/util/redisClient'
 
 interface SessionData {
   sessionId: string
 }
-const createSession = async () => {
-  const sessionId = uuid()
-  const ttl = 60 * 60 * 24
 
-  await redisSet(`session:${sessionId}`, sessionId, ttl)
+const SESSION_TTL_SECONDS = 60 * 60 * 24
+
+const createSession = async (userId: string) => {
+  const sessionId = uuid()
+  const sessionKey = `session:${sessionId}`
+  const userSessionsKey = `user_sessions:${userId}`
+
+  await redisSet(sessionKey, userId, SESSION_TTL_SECONDS)
+  await redisSAdd(userSessionsKey, sessionId)
+  await redisExpire(userSessionsKey, SESSION_TTL_SECONDS)
+
   const session = await useSession<SessionData>({
     password: process.env.SESSION_PASSWORD!,
   })
 
   await session.update({
-    sessionId: sessionId,
+    sessionId,
   })
+
   return session
 }
+
 export default createSession

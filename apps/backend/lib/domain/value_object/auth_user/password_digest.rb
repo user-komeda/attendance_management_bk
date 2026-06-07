@@ -49,19 +49,21 @@ module Domain
           [value]
         end
 
+        # @rbs (String message) -> void
+        def self.raise_password_error(message)
+          raise ::Domain::Exception::InvalidPasswordError.new(
+            message: message,
+            field_errors: [{ key: 'password', message: message }]
+          )
+        end
+
         # @rbs (String value) -> void
         def self.validate!(value)
-          if ::UtilMethod.nil_or_empty?(value)
-            raise ::Domain::Exception::InvalidPasswordError.new(message: 'パスワードは必須です')
-          end
-          raise ::Domain::Exception::InvalidPasswordError.new(message: '8文字以上入力してください') if value.length < MIN_LENGTH
-          unless value.match?(REGEX_UPPER)
-            raise ::Domain::Exception::InvalidPasswordError.new(message: '英大文字を1文字以上含めてください')
-          end
-          unless value.match?(REGEX_LOWER)
-            raise ::Domain::Exception::InvalidPasswordError.new(message: '英小文字を1文字以上含めてください')
-          end
-          raise ::Domain::Exception::InvalidPasswordError.new(message: '数字を含めてください') unless value.match?(REGEX_DIGIT)
+          raise_password_error('パスワードは必須です') if ::UtilMethod.nil_or_empty?(value)
+          raise_password_error('8文字以上入力してください') if value.length < MIN_LENGTH
+          raise_password_error('英大文字を1文字以上含めてください') unless value.match?(REGEX_UPPER)
+          raise_password_error('英小文字を1文字以上含めてください') unless value.match?(REGEX_LOWER)
+          raise_password_error('数字を含めてください') unless value.match?(REGEX_DIGIT)
         end
       end
     end

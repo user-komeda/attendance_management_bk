@@ -5,6 +5,7 @@ import { defineConfig } from 'eslint/config'
 import prettier from 'eslint-config-prettier'
 import importPlugin from 'eslint-plugin-import'
 import noRelativeImportPaths from 'eslint-plugin-no-relative-import-paths'
+import playwright from 'eslint-plugin-playwright'
 import solid from 'eslint-plugin-solid/configs/typescript'
 import testingLibrary from 'eslint-plugin-testing-library'
 import unusedImports from 'eslint-plugin-unused-imports'
@@ -44,6 +45,12 @@ export default defineConfig(
     rules: {
       'no-relative-import-paths/no-relative-import-paths': 'error',
       '@typescript-eslint/no-non-null-assertion': 'off',
+      'no-console': [
+        'error',
+        {
+          allow: ['error'],
+        },
+      ],
 
       /* unused-imports */
       'unused-imports/no-unused-imports': 'error',
@@ -78,13 +85,22 @@ export default defineConfig(
   },
   //   /* 👉 Test 用設定（Testing Library + Vitest） */
   {
-    files: ['tests/**'],
+    files: ['**/*.test.ts', '**/*.test.tsx'],
     ...testingLibrary.configs['flat/dom'],
     plugins: {
       vitest,
     },
     rules: {
-      ...vitest.configs.all.rules,
+      ...vitest.configs.recommended.rules,
+      'vitest/valid-title': ['error', { ignoreTypeOfDescribeName: true }],
+    },
+  },
+  {
+    files: ['tests/**'],
+    extends: [playwright.configs['flat/recommended']],
+    rules: {
+      // Customize Playwright rules
+      // ...
     },
   },
 )

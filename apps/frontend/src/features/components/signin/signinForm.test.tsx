@@ -6,7 +6,7 @@ import { describe, it, expect, vi } from 'vitest'
 import { SigninForm } from '~/features/components/signin/signinForm'
 
 // mock useSubmission
-vi.mock('@solidjs/router', async () => {
+vi.mock(import('@solidjs/router'), async () => {
   const actual = await vi.importActual('@solidjs/router')
   return {
     ...actual,
@@ -14,7 +14,7 @@ vi.mock('@solidjs/router', async () => {
   }
 })
 
-describe('SigninForm', () => {
+describe(SigninForm, () => {
   it('should render signin form', () => {
     vi.mocked(useSubmission).mockReturnValue({
       result: undefined,
@@ -31,7 +31,7 @@ describe('SigninForm', () => {
   it('should display errors when submission result has errors', () => {
     vi.mocked(useSubmission).mockReturnValue({
       result: {
-        error: [
+        fieldErrors: [
           { key: 'email', message: 'Invalid email' },
           { key: 'password', message: 'Password is required' },
         ],
@@ -43,5 +43,18 @@ describe('SigninForm', () => {
 
     expect(screen.getByText('Invalid email')).toBeInTheDocument()
     expect(screen.getByText('Password is required')).toBeInTheDocument()
+  })
+
+  it('should display general error message', () => {
+    vi.mocked(useSubmission).mockReturnValue({
+      result: {
+        message: 'Something went wrong',
+      },
+      pending: false,
+    } as any)
+
+    render(() => <SigninForm action={vi.fn() as any} />)
+
+    expect(screen.getByText('Something went wrong')).toBeInTheDocument()
   })
 })

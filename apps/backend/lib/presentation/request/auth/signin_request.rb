@@ -41,7 +41,9 @@ module Presentation
             result = AuthBaseRequest::SIGNIN_CONTRACT.new.call(params)
             return unless result.failure?
 
-            raise ::Presentation::Exception::BadRequestException.new(message: result.errors.to_h.to_json)
+            raise ::Presentation::Exception::BadRequestException.new(
+              field_errors: FieldErrors.build_field_errors(result.errors)
+            )
           end
         end
       end

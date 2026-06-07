@@ -1,0 +1,12 @@
+# Generated from helper/app_env.rb with RBS::Inline
+
+module AppEnv
+  class Contract < Dry::Validation::Contract
+  end
+
+  # @rbs () -> void
+  def self.validate!: () -> void
+
+  # @rbs () -> Hash[String, String]
+  def self.get: () -> Hash[String, String]
+end

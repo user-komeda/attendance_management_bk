@@ -4,7 +4,7 @@ import { describe, it, expect } from 'vitest'
 
 import Nav from '~/components/Nav'
 
-describe('Nav', () => {
+describe(Nav, () => {
   it('renders navigation links', () => {
     render(() => (
       <MemoryRouter>
@@ -24,9 +24,11 @@ describe('Nav', () => {
     ))
 
     const homeLink = screen.getByText('Home').parentElement
+
     expect(homeLink).toHaveClass('border-sky-600')
 
     const aboutLink = screen.getByText('About').parentElement
+
     expect(aboutLink).toHaveClass('border-transparent')
   })
 })

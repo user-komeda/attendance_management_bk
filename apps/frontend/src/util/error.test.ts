@@ -1,28 +1,28 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import * as v from 'valibot'
 import { describe, it, expect } from 'vitest'
 
 import { findError, createError } from '~/util/error'
 
 describe('error util', () => {
-  describe('findError', () => {
+  describe(findError, () => {
     it('should find the error message for a given key', () => {
       const errors = [
         { key: 'email', message: 'Invalid email' },
         { key: 'password', message: 'Too short' },
       ]
+
       expect(findError(errors, 'email')).toBe('Invalid email')
       expect(findError(errors, 'password')).toBe('Too short')
     })
 
     it('should return undefined if the key is not found', () => {
       const errors = [{ key: 'email', message: 'Invalid email' }]
+
       expect(findError(errors, 'password')).toBeUndefined()
     })
   })
 
-  describe('createError', () => {
+  describe(createError, () => {
     it('should transform valibot issues into custom error objects', () => {
       const schema = v.object({
         email: v.pipe(v.string(), v.email('Invalid email')),
@@ -30,15 +30,24 @@ describe('error util', () => {
       })
 
       const result = v.safeParse(schema, { email: 'invalid', password: '123' })
-      if (!result.success) {
-        const errors = createError<typeof schema>(result.issues as any)
-        expect(errors).toEqual([
-          { key: 'email', message: 'Invalid email' },
-          { key: 'password', message: 'Too short' },
-        ])
-      } else {
+      expect(result.success).toBe(false)
+      if (result.success) {
         throw new Error('Validation should have failed')
       }
+      const errors = createError(result.issues)
+
+      expect(errors).toEqual([
+        { key: 'email', message: 'Invalid email' },
+        { key: 'password', message: 'Too short' },
+      ])
+    })
+
+    it('should return empty array for issues without path or non-string key', () => {
+      const issues = [{ message: 'General error' }]
+
+      const errors = createError(issues as unknown as v.BaseIssue<unknown>[])
+
+      expect(errors).toEqual([])
     })
   })
 })

@@ -1,12 +1,11 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import * as v from 'valibot'
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 
+import { ApiActionError } from '~/types/fetch'
 import actionWrapper from '~/util/actionWrapper'
-import postWrapper from '~/util/postWrapper'
+import bffFetchWrapper from '~/util/bffFetchWrapper'
 
-vi.mock('./postWrapper', () => ({
+vi.mock(import('~/util/bffFetchWrapper'), () => ({
   default: vi.fn(),
 }))
 
@@ -15,7 +14,7 @@ vi.mock('@solidjs/router', () => ({
   redirect: vi.fn((url) => ({ type: 'redirect', url })),
 }))
 
-describe('actionWrapper', () => {
+describe(actionWrapper, () => {
   const schema = v.object({
     name: v.pipe(v.string(), v.nonEmpty()),
   })
@@ -25,7 +24,7 @@ describe('actionWrapper', () => {
   })
 
   it('should return errors if validation fails', async () => {
-    const action = actionWrapper<typeof schema, any>(
+    const action = actionWrapper<typeof schema>(
       '/api/test',
       'test-action',
       schema,
@@ -34,35 +33,72 @@ describe('actionWrapper', () => {
     formData.append('name', '')
 
     const result = await action(formData)
-    expect(result).toHaveProperty('error')
-    expect(Array.isArray(result.error)).toBe(true)
+
+    expect(result).toBeDefined()
+    expect(result).toHaveProperty('fieldErrors')
+    expect(Array.isArray(result!.fieldErrors)).toBe(true)
   })
 
-  it('should call postWrapper and return result if validation succeeds', async () => {
+  it('should call bffFetchWrapper and return result if validation succeeds', async () => {
     const mockResponse = { success: true }
-    vi.mocked(postWrapper).mockResolvedValueOnce(mockResponse)
+    vi.mocked(bffFetchWrapper).mockResolvedValueOnce({
+      ok: true,
+      status: 200,
+      data: mockResponse,
+    })
 
     const action = actionWrapper('/api/test', 'test-action', schema)
     const formData = new FormData()
     formData.append('name', 'John')
 
     const result = await action(formData)
-    expect(postWrapper).toHaveBeenCalledWith('/api/test', { name: 'John' })
-    expect(result).toEqual(mockResponse)
+
+    expect(bffFetchWrapper).toHaveBeenCalledWith('/api/test', 'POST', {
+      name: 'John',
+    })
+    expect(result).toBeUndefined()
   })
 
   it('should throw redirect if redirectUrl is provided', async () => {
-    vi.mocked(postWrapper).mockResolvedValueOnce({ success: true })
+    vi.mocked(bffFetchWrapper).mockResolvedValueOnce({
+      ok: true,
+      status: 200,
+      data: { success: true },
+    })
 
     const action = actionWrapper('/api/test', 'test-action', schema, '/')
     const formData = new FormData()
     formData.append('name', 'John')
 
+    let caughtError: { type?: string; url?: string } | null = null
     try {
       await action(formData)
-    } catch (e: any) {
-      expect(e.type).toBe('redirect')
-      expect(e.url).toBe('/')
+    } catch (e) {
+      caughtError = e as { type?: string; url?: string }
     }
+
+    expect(caughtError).not.toBeNull()
+    expect(caughtError?.type).toBe('redirect')
+    expect(caughtError?.url).toBe('/')
+  })
+
+  it('should return error if bffFetchWrapper fails', async () => {
+    const mockError: ApiActionError<'name'> = {
+      message: 'failed',
+      fieldErrors: [],
+    }
+    vi.mocked(bffFetchWrapper).mockResolvedValueOnce({
+      ok: false,
+      status: 500,
+      error: mockError,
+    })
+
+    const action = actionWrapper('/api/test', 'test-action', schema)
+    const formData = new FormData()
+    formData.append('name', 'John')
+
+    const result = await action(formData)
+
+    expect(result).toEqual(mockError)
   })
 })

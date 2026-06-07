@@ -15,7 +15,7 @@ module SinatraSettings
     app.use Rack::Protection
 
     app.before do
-      allowed_origin = ENV.fetch('FRONTEND_ORIGIN', 'http://localhost:3000')
+      allowed_origin = AppEnv.get['FRONTEND_ORIGIN']
 
       headers['Access-Control-Allow-Origin'] = allowed_origin
       headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, PATCH, DELETE, OPTIONS'

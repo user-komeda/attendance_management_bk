@@ -1,0 +1,6 @@
+# Generated from helper/field_errors.rb with RBS::Inline
+
+module FieldErrors
+  # @rbs (untyped errors) -> Array[{ key: String, message: String }]
+  def self.build_field_errors: (untyped errors) -> Array[{ key: String, message: String }]
+end

@@ -1,35 +1,43 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { useSession } from 'vinxi/http'
-import { describe, it, expect, vi } from 'vitest'
+import { describe, it, expect, vi, beforeAll } from 'vitest'
 
 import createSession from '~/lib/createSeession'
 import { redisSet } from '~/util/redisClient'
 
-vi.mock('uuid', () => ({
+vi.mock(import('uuid'), () => ({
   v4: () => 'mock-uuid',
 }))
 
-vi.mock('~/util/redisClient', () => ({
+vi.mock(import('~/util/redisClient'), () => ({
   redisSet: vi.fn(),
+  redisSAdd: vi.fn(),
+  redisExpire: vi.fn(),
 }))
 
-vi.mock('vinxi/http', () => ({
+vi.mock(import('vinxi/http'), () => ({
   useSession: vi.fn(),
 }))
 
-describe('createSession', () => {
+describe(createSession, () => {
+  beforeAll(() => {
+    process.env.SESSION_PASSWORD =
+      'dJs3wmlkeHdFwul605ZWnDmlePyKGt/Q8XIMFDEySq4='
+  })
+
   it('should create a session with uuid and store it in redis and session store', async () => {
     const mockSession = {
       update: vi.fn(),
     }
     vi.mocked(useSession).mockResolvedValue(mockSession as any)
 
-    const result = await createSession()
+    const userId = 'user123'
+    const result = await createSession(userId)
 
     expect(redisSet).toHaveBeenCalledWith(
       'session:mock-uuid',
-      'mock-uuid',
+      userId,
       60 * 60 * 24,
     )
     expect(useSession).toHaveBeenCalledWith({

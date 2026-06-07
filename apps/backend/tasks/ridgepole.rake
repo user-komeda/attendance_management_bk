@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 SCHEMA_DIR = 'schema/tables'
-DB_URL = ENV.fetch('DB_URL', nil)
+DB_URL = AppEnv.get['DB_URL']
 namespace :db do
   desc 'Export schema from DB into split files'
   task :schema_export do
