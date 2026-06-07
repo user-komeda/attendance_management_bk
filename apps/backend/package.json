@@ -4,8 +4,14 @@
   "type": "module",
   "scripts": {
     "check": "infisicalLauncher --path=/microCms/sinatra/local -- node ./scripts/rake.mjs code_quality:all",
+    "test": "infisicalLauncher --path=/microCms/sinatra/local -- node ./scripts/rake.mjs code_quality:test",
+    "lint": "infisicalLauncher --path=/microCms/sinatra/local -- node ./scripts/rake.mjs code_quality:lint",
+    "typecheck": "infisicalLauncher --path=/microCms/sinatra/local -- node ./scripts/rake.mjs code_quality:typecheck",
     "dev": "infisicalLauncher --path=/microCms/sinatra/local -- node ./scripts/rake.mjs app:start",
     "migrate": "infisicalLauncher --path=/microCms/sinatra/local -- node ./scripts/rake.mjs db:schema_apply"
+  },
+  "devDependencies": {
+    "infisicalLauncher": "git+ssh://git@github.com:user-komeda/infisicalLauncher.git"
   },
   "packageManager": "yarn@4.15.0"
 }

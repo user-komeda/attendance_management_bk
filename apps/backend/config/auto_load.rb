@@ -2,6 +2,7 @@
 
 require 'zeitwerk'
 require_relative 'container'
+require 'dry/validation'
 
 loader = Zeitwerk::Loader.new
 loader.push_dir(Container.config.root.join('lib').realpath)

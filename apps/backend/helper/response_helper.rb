@@ -18,6 +18,6 @@ module ResponseHelper
   def respond_with_error(error)
     response.status = error.status_code
     response['Content-Type'] = 'application/json'
-    { error_code: error.error_code, message: error.message }.to_json
+    { error_code: error.error_code, message: error.message, field_errors: error.field_errors }.to_json
   end
 end

@@ -1,0 +1,6 @@
+module JWT
+  class DecodeError < StandardError
+  end
+
+  def self.decode: (String token, String? key, bool verify, ?untyped options) -> Array[untyped]
+end

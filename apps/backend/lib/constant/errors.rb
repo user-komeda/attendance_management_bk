@@ -31,7 +31,7 @@ module Constant
         Codes::INVALID_TOKEN => 401,
         Codes::TOKEN_REVOKED => 401,
         Codes::TOKEN_MISMATCH => 401,
-        Codes::INVALID_PASSWORD => 401,
+        Codes::INVALID_PASSWORD => 400,
         Codes::SESSION_VERSION_MISMATCH => 401,
         Codes::USER_NOT_FOUND_FROM_SUB => 401,
         Codes::NOT_FOUND => 404,

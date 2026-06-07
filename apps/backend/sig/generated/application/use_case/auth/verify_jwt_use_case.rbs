@@ -1,0 +1,23 @@
+# Generated from lib/application/use_case/auth/verify_jwt_use_case.rb with RBS::Inline
+
+module Application
+  module UseCase
+    module Auth
+      class VerifyJwtUseCase < AuthBaseUseCase
+        def invoke: (token: untyped, type: untyped) -> untyped
+
+        private
+
+        def decode_and_validate_payload: (untyped token, untyped type) -> untyped
+
+        def secret_for: (untyped type) -> untyped
+
+        def validate_payload: (untyped payload, untyped type) -> untyped
+
+        def validate_expiration: (untyped exp_val) -> untyped
+
+        def validate_type: (untyped payload, untyped type) -> untyped
+      end
+    end
+  end
+end

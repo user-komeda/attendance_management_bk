@@ -2,8 +2,6 @@
 
 # rbs_inline: enabled
 
-require 'dry-validation'
-
 module Presentation
   module Request
     module Contract

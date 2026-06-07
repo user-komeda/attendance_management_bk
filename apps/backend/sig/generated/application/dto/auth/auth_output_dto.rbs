@@ -10,11 +10,11 @@ module Application
         # rubocop:disable all
         attr_reader user_id: String
 
-        # @rbs (id: String?, user_id: String) -> void
-        def initialize: (id: String?, user_id: String) -> void
+        # @rbs (id: String, user_id: String) -> void
+        def initialize: (id: String, user_id: String) -> void
 
-        # @rbs (id: String?, user_id: String) -> AuthOutputDto
-        def self.build: (id: String?, user_id: String) -> AuthOutputDto
+        # @rbs (id: String, user_id: String) -> AuthOutputDto
+        def self.build: (id: String, user_id: String) -> AuthOutputDto
       end
     end
   end

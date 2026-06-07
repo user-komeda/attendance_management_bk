@@ -16,11 +16,19 @@ class Main < Sinatra::Base
   register SinatraErrorHandler
 
   before do
-    # path = request.path
-    # return if VerifyJwt.skip_jwt_verification?(path)
-    # result= VerifyJwt.verify_jwt(VerifyJwt.parse_bearer_token(request.env['HTTP_AUTHORIZATION']))
+    path = request.path
+    return if VerifyJwt.skip_jwt_verification?(path)
+
+    token = VerifyJwt.parse_bearer_token(request.env['HTTP_AUTHORIZATION'])
+
+    if VerifyJwt.bff_jwt_verification?(path)
+      VerifyJwt.verify_bff_jwt(token)
+      next
+    end
+
+    result = VerifyJwt.verify_user_jwt(token)
     auth_context = {
-      user_id: '04e8496c-6b8c-4f4f-9746-2d96a10f13ec'
+      user_id: result.user_id
     }
     ContextHelper.set_context(:auth_context, auth_context)
   end
@@ -28,10 +36,16 @@ class Main < Sinatra::Base
   after do
     ContextHelper.set_context(:auth_context, nil)
   end
+
   # :nocov:
   get '/swagger' do
     send_file 'public/swagger.html'
   end
+
+  get '/health' do
+    'OK'
+  end
+
   # :nocov:
   # :nocov:
   get '/openapi/*' do

@@ -4,13 +4,14 @@ import { describe, it, expect } from 'vitest'
 
 import NotFound from '~/routes/[...404]'
 
-describe('NotFound Route', () => {
+describe('notFound Route', () => {
   it('renders Not Found title', () => {
     render(() => (
       <MemoryRouter>
         <Route path="*all" component={NotFound} />
       </MemoryRouter>
     ))
+
     expect(screen.getByText('Not Found')).toBeInTheDocument()
   })
 
@@ -20,6 +21,7 @@ describe('NotFound Route', () => {
         <Route path="*all" component={NotFound} />
       </MemoryRouter>
     ))
+
     expect(screen.getByText('Home')).toBeInTheDocument()
     expect(screen.getByText('About Page')).toBeInTheDocument()
   })

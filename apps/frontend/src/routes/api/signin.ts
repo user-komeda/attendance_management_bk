@@ -4,7 +4,7 @@ import * as v from 'valibot'
 import createSession from '~/lib/createSeession'
 import { SigninSchema } from '~/schema/signinSchema'
 import { createError } from '~/util/error'
-import postWrapper from '~/util/postWrapper'
+import fetchWrapper from '~/util/fetchWrapper'
 
 export const POST = async (event: APIEvent) => {
   const body = await event.request.json()
@@ -19,16 +19,26 @@ export const POST = async (event: APIEvent) => {
     email: result.output.email,
     password: result.output.password,
   }
-  const res = await postWrapper<{ user_id: string }>(
-    `${process.env.API_URL}/signin`,
+
+  const res = await fetchWrapper<{ userId: string }>(
+    'signin',
+    'POST',
     requestBody,
   )
-  if (!res?.user_id) {
+
+  if (!res.ok) {
+    return new Response(JSON.stringify(res.error), {
+      status: res.status,
+    })
+  }
+
+  if (!res.data?.userId) {
     return new Response(JSON.stringify({ error: ['internal serverError'] }), {
       status: 500,
     })
   }
-  await createSession()
+
+  await createSession(res.data.userId)
 
   return new Response(null, { status: 204 })
 }

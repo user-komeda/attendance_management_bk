@@ -7,7 +7,7 @@ Container.register_provider(:rom) do
     require 'rom'
     require 'rom-sql'
     require 'pg'
-    config = ROM::Configuration.new(:sql, ENV.fetch('DB_URL', nil))
+    config = ROM::Configuration.new(:sql, AppEnv.get['DB_URL'])
     register('db.config', config)
   end
 end

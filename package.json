@@ -9,7 +9,8 @@
     "check": "turbo run check",
     "compose:up": "infisicalLauncher --path=/postgres/local -- docker compose up -d",
     "compose:upAll": "infisicalLauncher --path=/postgres/local -- docker compose --profile frontend --profile backend up -d --build",
-    "compose:down": "docker compose down --remove-orphans"
+    "compose:down": "docker compose --profile frontend --profile backend down",
+    "compose:downV": "docker compose --profile frontend --profile backend down -v"
   },
   "devDependencies": {
     "dotenv": "17.4.2",

@@ -29,7 +29,7 @@ RSpec.describe 'WorkSpace API integration', type: :request do
     }.to_json, { 'CONTENT_TYPE' => 'application/json' }
 
     post '/signin', { email: email, password: password }.to_json, { 'CONTENT_TYPE' => 'application/json' }
-    token = JSON.parse(last_response.body)['id']
+    token = JSON.parse(last_response.body)['user_id']
     { 'CONTENT_TYPE' => 'application/json', 'HTTP_AUTHORIZATION' => "Bearer #{token}" }
   end
 

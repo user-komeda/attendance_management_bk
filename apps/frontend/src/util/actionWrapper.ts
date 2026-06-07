@@ -1,30 +1,40 @@
 import { action, redirect } from '@solidjs/router'
 import * as v from 'valibot'
-import { ObjectSchema } from 'valibot'
 
+import { ActionResultOf, FieldKeyOf, FormDataActionOf } from '~/types/action'
+import bffFetchWrapper from '~/util/bffFetchWrapper'
 import { createError } from '~/util/error'
-import postWrapper from '~/util/postWrapper'
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const actionWrapper = <S extends ObjectSchema<any, any>, R>(
+const actionWrapper = <S extends v.GenericSchema>(
   url: string,
   name: string,
   schema: S,
   redirectUrl?: string,
-) => {
-  return action(async (formData: FormData) => {
+): FormDataActionOf<S> => {
+  return action(async (formData: FormData): Promise<ActionResultOf<S>> => {
     const rawData = Object.fromEntries(formData.entries())
     const result = v.safeParse(schema, rawData)
+
     if (!result.success) {
-      const errors = createError(result.issues)
-      return { error: errors }
+      return {
+        fieldErrors: createError<FieldKeyOf<S>>(result.issues),
+        message: '',
+      }
     }
-    const body = await postWrapper<R>(url, result.output)
+    const fetchResult = await bffFetchWrapper<unknown, FieldKeyOf<S>>(
+      url,
+      'POST',
+      result.output,
+    )
+    if (!fetchResult.ok) {
+      return fetchResult.error
+    }
+
     if (redirectUrl) {
-      throw redirect('/')
+      throw redirect(redirectUrl)
     }
-    return body
+
+    return undefined
   }, name)
 }
-
 export default actionWrapper

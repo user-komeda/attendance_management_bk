@@ -1,5 +1,3 @@
-import { A } from '@solidjs/router'
-
 import Counter from '~/components/Counter'
 
 export default function Home() {
@@ -19,13 +17,6 @@ export default function Home() {
           solidjs.com
         </a>{' '}
         to learn how to build Solid apps.
-      </p>
-      <p class="my-4">
-        <span>Home</span>
-        {' - '}
-        <A href="/about" class="text-sky-600 hover:underline">
-          About Page
-        </A>{' '}
       </p>
     </main>
   )

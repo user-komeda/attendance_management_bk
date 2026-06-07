@@ -2,7 +2,7 @@ import { SignupForm } from '~/features/components/signup/signupForm'
 import SignupSchema from '~/schema/signupSchema'
 import actionWrapper from '~/util/actionWrapper'
 
-const signup = actionWrapper<typeof SignupSchema, undefined>(
+const signup = actionWrapper<typeof SignupSchema>(
   '/api/signup',
   'signup',
   SignupSchema,

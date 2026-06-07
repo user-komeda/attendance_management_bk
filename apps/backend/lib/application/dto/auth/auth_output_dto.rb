@@ -12,14 +12,14 @@ module Application
 
         private_class_method :new
 
-        # @rbs (id: String?, user_id: String) -> void
+        # @rbs (id: String, user_id: String) -> void
         def initialize(id:, user_id:)
           super()
           @id = id
           @user_id = user_id
         end
 
-        # @rbs (id: String?, user_id: String) -> AuthOutputDto
+        # @rbs (id: String, user_id: String) -> AuthOutputDto
         def self.build(id:, user_id:)
           new(
             id: id,
