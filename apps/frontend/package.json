@@ -35,7 +35,7 @@
     "@types/node": "25.9.2",
     "@vitest/coverage-v8": "4.1.8",
     "@vitest/eslint-plugin": "1.6.19",
-    "concurrently": "9.2.1",
+    "concurrently": "10.0.3",
     "dotenv-cli": "11.0.0",
     "eslint": "9.39.4",
     "eslint-config-prettier": "10.1.8",
@@ -60,5 +60,5 @@
   "engines": {
     "node": ">=22"
   },
-  "packageManager": "yarn@4.15.0"
+  "packageManager": "yarn@4.16.0"
 }
