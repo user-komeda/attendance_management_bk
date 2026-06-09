@@ -20,7 +20,7 @@
   },
   "packageManager": "yarn@4.16.0",
   "dependencies": {
-    "concurrently": "^9.2.1",
+    "concurrently": "^10.0.0",
     "redis": "^5.12.1",
     "uuid": "^14.0.0"
   }
