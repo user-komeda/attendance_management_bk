@@ -18,7 +18,7 @@
     "lefthook": "2.1.9",
     "turbo": "2.9.16"
   },
-  "packageManager": "yarn@4.15.0",
+  "packageManager": "yarn@4.16.0",
   "dependencies": {
     "concurrently": "^9.2.1",
     "redis": "^5.12.1",
