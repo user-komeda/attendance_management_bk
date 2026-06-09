@@ -42,7 +42,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql
   redis:
-    image: redis:8.6@sha256:4d25e2fe601f7ffaeb4437cb6ced3518bc36edf34ebe98863c80836943d94529
+    image: redis:8.6@sha256:68c62772be3d54679250821f3e434306b352a388f1963d47d167f02639f662da
     container_name: redis
     command: >
       redis-server
