@@ -21,7 +21,7 @@
   "packageManager": "yarn@4.16.0",
   "dependencies": {
     "concurrently": "^10.0.0",
-    "redis": "^5.12.1",
+    "redis": "^6.0.0",
     "uuid": "^14.0.0"
   }
 }
