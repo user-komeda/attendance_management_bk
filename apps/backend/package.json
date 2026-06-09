@@ -13,5 +13,5 @@
   "devDependencies": {
     "infisicalLauncher": "git+ssh://git@github.com:user-komeda/infisicalLauncher.git"
   },
-  "packageManager": "yarn@4.15.0"
+  "packageManager": "yarn@4.16.0"
 }
