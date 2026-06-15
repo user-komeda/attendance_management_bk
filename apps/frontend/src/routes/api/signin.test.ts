@@ -8,12 +8,12 @@ import fetchWrapper from '~/util/fetchWrapper'
 vi.mock(import('~/util/fetchWrapper'))
 vi.mock(import('~/lib/createSeession'))
 
-describe('signin API', () => {
+describe('(signin) API', () => {
   beforeEach(() => {
     vi.clearAllMocks()
   })
 
-  it('should return 204 on successful signin', async () => {
+  it('should return 204 on successful (signin)', async () => {
     const mockEvent = {
       request: {
         json: async () => ({
@@ -34,7 +34,7 @@ describe('signin API', () => {
     const response = await POST(mockEvent)
 
     expect(response.status).toBe(204)
-    expect(fetchWrapper).toHaveBeenCalledWith('signin', 'POST', {
+    expect(fetchWrapper).toHaveBeenCalledWith('(signin)', 'POST', {
       email: 'test@example.com',
       password: 'password123',
     })

@@ -27,7 +27,7 @@ describe(fetchWrapper, () => {
       json: async () => mockResponse,
     } as Response)
 
-    const result = await fetchWrapper('signin', 'POST', { name: 'test' })
+    const result = await fetchWrapper('(signin)', 'POST', { name: 'test' })
 
     expect(result).toEqual({
       ok: true,
@@ -47,7 +47,7 @@ describe(fetchWrapper, () => {
       status: 204,
     } as Response)
 
-    const result = await fetchWrapper('signin', 'POST', { name: 'test' })
+    const result = await fetchWrapper('(signin)', 'POST', { name: 'test' })
 
     expect(result).toEqual({
       ok: true,
@@ -63,7 +63,7 @@ describe(fetchWrapper, () => {
       json: async () => ({ message: 'Unauthorized', fieldErrors: [] }),
     } as Response)
 
-    const result = await fetchWrapper('signin', 'POST', { name: 'test' })
+    const result = await fetchWrapper('(signin)', 'POST', { name: 'test' })
 
     expect(result).toEqual({
       ok: false,
@@ -79,7 +79,7 @@ describe(fetchWrapper, () => {
       json: async () => ({ message: 'Forbidden', fieldErrors: [] }),
     } as Response)
 
-    const result = await fetchWrapper('signin', 'POST', { name: 'test' })
+    const result = await fetchWrapper('(signin)', 'POST', { name: 'test' })
 
     expect(result).toEqual({
       ok: false,
@@ -95,7 +95,7 @@ describe(fetchWrapper, () => {
       json: async () => ({ message: 'Internal Server Error', fieldErrors: [] }),
     } as Response)
 
-    const result = await fetchWrapper('signin', 'POST', { name: 'test' })
+    const result = await fetchWrapper('(signin)', 'POST', { name: 'test' })
 
     expect(result).toEqual({
       ok: false,
@@ -111,7 +111,7 @@ describe(fetchWrapper, () => {
       json: async () => ({}),
     } as Response)
 
-    await fetchWrapper('signin', 'POST', {
+    await fetchWrapper('(signin)', 'POST', {
       userName: 'test',
       items: [{ itemName: 'test' }],
     })
@@ -134,7 +134,7 @@ describe(fetchWrapper, () => {
       json: async () => ({}),
     } as Response)
 
-    await fetchWrapper('signin', 'POST', null)
+    await fetchWrapper('(signin)', 'POST', null)
 
     expect(fetch).toHaveBeenCalledWith(
       expect.anything(),
@@ -186,7 +186,7 @@ describe(fetchWrapper, () => {
       json: async () => mockResponse,
     } as Response)
 
-    const result = await fetchWrapper('signin', 'POST', { name: 'test' })
+    const result = await fetchWrapper('(signin)', 'POST', { name: 'test' })
 
     expect(result).toEqual({
       ok: true,

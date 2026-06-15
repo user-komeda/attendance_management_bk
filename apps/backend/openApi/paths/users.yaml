@@ -1,5 +1,5 @@
 get:
-  tags: [user]
+  tags: [ user ]
   summary: ユーザー一覧の取得
   operationId: listUsers
   description: |
@@ -10,9 +10,7 @@ get:
       content:
         application/json:
           schema:
-            type: array
-            items:
-              $ref: '../components/schemas/User.yaml'
+            $ref: '../components/schemas/ListUsersResponse.yaml'
           examples:
             sample:
               summary: 例

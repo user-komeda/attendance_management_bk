@@ -2,7 +2,7 @@ import { MemoryRouter, Route } from '@solidjs/router'
 import { render } from '@solidjs/testing-library'
 import { describe, it, expect } from 'vitest'
 
-import Signup from '~/routes/signup'
+import Signup from '~/routes/(signup)/signup'
 
 describe('signup Route', () => {
   it('renders Signup Page', () => {

@@ -46,4 +46,4 @@ COPY --chown=appuser:appuser apps/backend apps/backend
 
 WORKDIR /app/apps/backend
 
-CMD ["node", "../../node_modules/infisicalLauncher/dist/index.cjs", "--path=/microCms/sinatra/local", "--", "env", "APP_RUNTIME_ONLY=true", "bundle", "exec", "rake", "app:start"]
+CMD ["node", "../../node_modules/infisicalLauncher/dist/index.cjs", "--path=/microCms/sinatra", "--", "env", "APP_RUNTIME_ONLY=true", "bundle", "exec", "rake", "app:start"]

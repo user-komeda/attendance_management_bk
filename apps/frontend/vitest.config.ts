@@ -4,9 +4,11 @@ import { resolve } from 'node:path'
 
 import solid from 'vite-plugin-solid'
 import { defineConfig } from 'vitest/config'
+import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
   plugins: [
+    tailwindcss(),
     solid({
       hot: false,
     }) as any,

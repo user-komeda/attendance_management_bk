@@ -15,7 +15,7 @@ vi.mock(import('@solidjs/router'), async () => {
 })
 
 describe(SigninForm, () => {
-  it('should render signin form', () => {
+  it('should render (signin) form', () => {
     vi.mocked(useSubmission).mockReturnValue({
       result: undefined,
       pending: false,

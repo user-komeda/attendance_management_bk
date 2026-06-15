@@ -9,3 +9,9 @@ properties:
     type: string
     description: エラーメッセージ
     example: invalid request body
+  field_errors:
+    type: array
+    description: フィールド単位のエラー情報
+    items:
+      type: object
+required: [ error_code, message ]

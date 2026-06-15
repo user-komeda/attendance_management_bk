@@ -1,5 +1,5 @@
 get:
-  tags: [user]
+  tags: [ user ]
   summary: ユーザー詳細の取得
   operationId: getUser
   description: 指定 ID のユーザーを返します。
@@ -32,7 +32,7 @@ get:
             $ref: '../components/schemas/Error.yaml'
 
 patch:
-  tags: [user]
+  tags: [ user ]
   summary: ユーザー情報の更新
   operationId: updateUser
   parameters:
@@ -65,30 +65,30 @@ patch:
           schema:
             $ref: '../components/schemas/Error.yaml'
 
-delete:
-  tags: [user]
-  summary: ユーザーの削除
-  operationId: deleteUser
-  parameters:
-    - $ref: '../components/parameters/UserId.yaml'
-  responses:
-    "204":
-      description: 削除に成功しました（レスポンスボディなし）
-    "400":
-      description: リクエスト内容が不正です
-      content:
-        application/json:
-          schema:
-            $ref: '../components/schemas/Error.yaml'
-    "404":
-      description: 指定されたユーザーが存在しません
-      content:
-        application/json:
-          schema:
-            $ref: '../components/schemas/Error.yaml'
-    default:
-      description: サーバー内部エラー
-      content:
-        application/json:
-          schema:
-            $ref: '../components/schemas/Error.yaml'
+#delete:
+#  tags: [user]
+#  summary: ユーザーの削除
+#  operationId: deleteUser
+#  parameters:
+#    - $ref: '../components/parameters/UserId.yaml'
+#  responses:
+#    "204":
+#      description: 削除に成功しました（レスポンスボディなし）
+#    "400":
+#      description: リクエスト内容が不正です
+#      content:
+#        application/json:
+#          schema:
+#            $ref: '../components/schemas/Error.yaml'
+#    "404":
+#      description: 指定されたユーザーが存在しません
+#      content:
+#        application/json:
+#          schema:
+#            $ref: '../components/schemas/Error.yaml'
+#    default:
+#      description: サーバー内部エラー
+#      content:
+#        application/json:
+#          schema:
+#            $ref: '../components/schemas/Error.yaml'

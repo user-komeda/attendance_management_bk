@@ -1,4 +1,4 @@
-﻿openapi: 3.0.1
+openapi: 3.0.1
 info:
   title: Attendance Management API
   description: |
@@ -25,6 +25,9 @@ paths:
   "/users":
     $ref: './paths/users.yaml'
 
+  "/users/{id}":
+    $ref: './paths/users_id.yaml'
+
   "/signup":
     $ref: './paths/signup.yaml'
 
@@ -37,9 +40,6 @@ paths:
   "/work_spaces/{id}":
     $ref: './paths/work_space_id.yaml'
 
-  "/users/{id}":
-    $ref: './paths/id.yaml'
-
 components:
   schemas:
     User:
@@ -48,6 +48,16 @@ components:
       $ref: './components/schemas/CreateUserRequest.yaml'
     UpdateUserRequest:
       $ref: './components/schemas/UpdateUserRequest.yaml'
+    ListUsersResponse:
+      $ref: './components/schemas/ListUsersResponse.yaml'
+    SigninRequest:
+      $ref: './components/schemas/SigninRequest.yaml'
+    SigninResponse:
+      $ref: './components/schemas/SigninResponse.yaml'
+    SignupRequest:
+      $ref: './components/schemas/SignupRequest.yaml'
+    SignupResponse:
+      $ref: './components/schemas/SignupResponse.yaml'
     WorkSpace:
       $ref: './components/schemas/WorkSpace.yaml'
     WorkSpaceWithStatus:
@@ -60,8 +70,12 @@ components:
       $ref: './components/schemas/CreateWorkSpaceRequest.yaml'
     UpdateWorkSpaceRequest:
       $ref: './components/schemas/UpdateWorkSpaceRequest.yaml'
+    ListWorkSpacesResponse:
+      $ref: './components/schemas/ListWorkSpacesResponse.yaml'
     Error:
       $ref: './components/schemas/Error.yaml'
   parameters:
     UserId:
       $ref: './components/parameters/UserId.yaml'
+    WorkSpaceId:
+      $ref: './components/parameters/WorkSpaceId.yaml'

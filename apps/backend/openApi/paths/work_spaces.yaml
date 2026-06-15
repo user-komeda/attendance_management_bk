@@ -1,5 +1,5 @@
 get:
-  tags: [workspace]
+  tags: [ workspace ]
   summary: ワークスペース一覧の取得
   operationId: listWorkSpaces
   description: |
@@ -10,9 +10,7 @@ get:
       content:
         application/json:
           schema:
-            type: array
-            items:
-              $ref: '../components/schemas/WorkSpaceWithStatus.yaml'
+            $ref: '../components/schemas/ListWorkSpacesResponse.yaml'
     default:
       description: サーバー内部エラー
       content:
@@ -21,7 +19,7 @@ get:
             $ref: '../components/schemas/Error.yaml'
 
 post:
-  tags: [workspace]
+  tags: [ workspace ]
   summary: ワークスペースの作成
   operationId: createWorkSpace
   description: |
@@ -51,4 +49,3 @@ post:
         application/json:
           schema:
             $ref: '../components/schemas/Error.yaml'
-

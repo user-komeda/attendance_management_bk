@@ -102,7 +102,7 @@ test.describe('E2E Authentication Tests', () => {
 
     await page.locator('button[type="submit"]').click()
 
-    // signin 成功後のリダイレクト先（トップページ '/'）に遷移することを期待
+    // (signin) 成功後のリダイレクト先（トップページ '/'）に遷移することを期待
     await expect(page).toHaveURL('http://localhost:3000/', { timeout: 15000 })
     await expect(page.locator('h1')).toContainText('Hello world!')
   })
