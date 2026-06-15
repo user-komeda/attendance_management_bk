@@ -1,10 +1,10 @@
-import { For, Show } from 'solid-js'
 import {
   ColumnDef,
   createSolidTable,
   flexRender,
   getCoreRowModel,
 } from '@tanstack/solid-table'
+import { For, Show } from 'solid-js'
 
 import {
   Table,

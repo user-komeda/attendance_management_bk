@@ -1,10 +1,16 @@
 import { test, expect } from '@playwright/test'
 
 test.describe('E2E Authentication Tests', () => {
-  test('トップページが正しく表示されること', async ({ page }) => {
+  test('未ログインでトップページにアクセスするとログイン画面にリダイレクトされること', async ({
+    page,
+  }) => {
     await page.goto('http://localhost:3000/')
 
-    await expect(page.locator('h1')).toContainText('Hello world!')
+    await expect(page).toHaveURL('http://localhost:3000/signin', {
+      timeout: 15000,
+    })
+    await expect(page.locator('input[name="email"]')).toBeVisible()
+    await expect(page.locator('input[name="password"]')).toBeVisible()
   })
 
   test('新規登録画面でバリデーションエラーが表示されること', async ({

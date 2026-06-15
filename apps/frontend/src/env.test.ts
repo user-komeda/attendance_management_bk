@@ -21,6 +21,7 @@ describe('env', () => {
       BFF_JWT_SECRET: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
       JWT_ISSUER: 'test',
       JWT_AUDIENCE: 'test',
+      REDIS_URL: expect.any(String),
     })
   })
 

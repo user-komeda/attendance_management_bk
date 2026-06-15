@@ -1,5 +1,3 @@
-import { APIEvent } from '@solidjs/start/server/spa'
-
 import getCurrentUserId from '~/lib/getCurrentUserId'
 
 export const GET = async () => {

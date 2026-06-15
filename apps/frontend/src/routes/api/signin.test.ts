@@ -34,7 +34,7 @@ describe('(signin) API', () => {
     const response = await POST(mockEvent)
 
     expect(response.status).toBe(204)
-    expect(fetchWrapper).toHaveBeenCalledWith('(signin)', 'POST', {
+    expect(fetchWrapper).toHaveBeenCalledWith('signin', 'POST', {
       email: 'test@example.com',
       password: 'password123',
     })

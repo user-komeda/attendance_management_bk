@@ -1,6 +1,4 @@
-import type { components } from '~/schema/apiTypes'
-
-import type { operations } from '~/schema/apiTypes'
+import type { components, operations } from '~/schema/apiTypes'
 
 export type User = components['schemas']['User']
 

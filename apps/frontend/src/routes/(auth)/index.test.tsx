@@ -1,17 +1,12 @@
-import { MemoryRouter, Route } from '@solidjs/router'
 import { render } from '@solidjs/testing-library'
 import { describe, it, expect } from 'vitest'
 
-import Home from '~/routes/(auth)'
+import { HomePage } from '~/features/pages/home/HomePage'
 
 describe('home Route', () => {
-  it('renders Hello world!', () => {
-    const { getByText } = render(() => (
-      <MemoryRouter>
-        <Route path="/" component={Home} />
-      </MemoryRouter>
-    ))
+  it('renders HomePage', () => {
+    const { container } = render(() => <HomePage />)
 
-    expect(getByText('Hello world!')).toBeInTheDocument()
+    expect(container.textContent).toContain('Hello world!')
   })
 })

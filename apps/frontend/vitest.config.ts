@@ -2,9 +2,9 @@
 
 import { resolve } from 'node:path'
 
+import tailwindcss from '@tailwindcss/vite'
 import solid from 'vite-plugin-solid'
 import { defineConfig } from 'vitest/config'
-import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
   plugins: [

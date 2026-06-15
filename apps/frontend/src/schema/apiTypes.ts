@@ -307,27 +307,21 @@ export interface operations {
     responses: {
       /** @description 正常にユーザー一覧を返却します */
       200: {
-        headers: {
-          [name: string]: unknown
-        }
+        headers: Record<string, unknown>
         content: {
           'application/json': components['schemas']['ListUsersResponse']
         }
       }
       /** @description 認証に失敗しました */
       401: {
-        headers: {
-          [name: string]: unknown
-        }
+        headers: Record<string, unknown>
         content: {
           'application/json': components['schemas']['Error']
         }
       }
       /** @description サーバー内部エラー */
       default: {
-        headers: {
-          [name: string]: unknown
-        }
+        headers: Record<string, unknown>
         content: {
           'application/json': components['schemas']['Error']
         }
@@ -348,36 +342,28 @@ export interface operations {
     responses: {
       /** @description 正常にユーザー情報を返却します */
       200: {
-        headers: {
-          [name: string]: unknown
-        }
+        headers: Record<string, unknown>
         content: {
           'application/json': components['schemas']['User']
         }
       }
       /** @description リクエスト内容が不正、または UUID が不正です */
       400: {
-        headers: {
-          [name: string]: unknown
-        }
+        headers: Record<string, unknown>
         content: {
           'application/json': components['schemas']['Error']
         }
       }
       /** @description 指定されたユーザーが存在しません */
       404: {
-        headers: {
-          [name: string]: unknown
-        }
+        headers: Record<string, unknown>
         content: {
           'application/json': components['schemas']['Error']
         }
       }
       /** @description サーバー内部エラー */
       default: {
-        headers: {
-          [name: string]: unknown
-        }
+        headers: Record<string, unknown>
         content: {
           'application/json': components['schemas']['Error']
         }
@@ -402,34 +388,26 @@ export interface operations {
     responses: {
       /** @description 更新が成功しました（レスポンスボディなし） */
       204: {
-        headers: {
-          [name: string]: unknown
-        }
+        headers: Record<string, unknown>
         content?: never
       }
       /** @description リクエスト内容が不正です */
       400: {
-        headers: {
-          [name: string]: unknown
-        }
+        headers: Record<string, unknown>
         content: {
           'application/json': components['schemas']['Error']
         }
       }
       /** @description 指定されたユーザーが存在しません */
       404: {
-        headers: {
-          [name: string]: unknown
-        }
+        headers: Record<string, unknown>
         content: {
           'application/json': components['schemas']['Error']
         }
       }
       /** @description サーバー内部エラー */
       default: {
-        headers: {
-          [name: string]: unknown
-        }
+        headers: Record<string, unknown>
         content: {
           'application/json': components['schemas']['Error']
         }
@@ -451,27 +429,21 @@ export interface operations {
     responses: {
       /** @description 登録が成功しました */
       201: {
-        headers: {
-          [name: string]: unknown
-        }
+        headers: Record<string, unknown>
         content: {
           'application/json': components['schemas']['SignupResponse']
         }
       }
       /** @description リクエスト内容が不正です */
       400: {
-        headers: {
-          [name: string]: unknown
-        }
+        headers: Record<string, unknown>
         content: {
           'application/json': components['schemas']['Error']
         }
       }
       /** @description サーバー内部エラー */
       default: {
-        headers: {
-          [name: string]: unknown
-        }
+        headers: Record<string, unknown>
         content: {
           'application/json': components['schemas']['Error']
         }
@@ -493,36 +465,28 @@ export interface operations {
     responses: {
       /** @description サインインに成功しました */
       200: {
-        headers: {
-          [name: string]: unknown
-        }
+        headers: Record<string, unknown>
         content: {
           'application/json': components['schemas']['SigninResponse']
         }
       }
       /** @description リクエスト内容が不正です */
       400: {
-        headers: {
-          [name: string]: unknown
-        }
+        headers: Record<string, unknown>
         content: {
           'application/json': components['schemas']['Error']
         }
       }
       /** @description 認証に失敗しました（メールまたはパスワードが不正） */
       401: {
-        headers: {
-          [name: string]: unknown
-        }
+        headers: Record<string, unknown>
         content: {
           'application/json': components['schemas']['Error']
         }
       }
       /** @description サーバー内部エラー */
       default: {
-        headers: {
-          [name: string]: unknown
-        }
+        headers: Record<string, unknown>
         content: {
           'application/json': components['schemas']['Error']
         }
@@ -540,18 +504,14 @@ export interface operations {
     responses: {
       /** @description 正常にワークスペース一覧を返却します */
       200: {
-        headers: {
-          [name: string]: unknown
-        }
+        headers: Record<string, unknown>
         content: {
           'application/json': components['schemas']['ListWorkSpacesResponse']
         }
       }
       /** @description サーバー内部エラー */
       default: {
-        headers: {
-          [name: string]: unknown
-        }
+        headers: Record<string, unknown>
         content: {
           'application/json': components['schemas']['Error']
         }
@@ -573,27 +533,21 @@ export interface operations {
     responses: {
       /** @description ワークスペースが正常に作成されました */
       201: {
-        headers: {
-          [name: string]: unknown
-        }
+        headers: Record<string, unknown>
         content: {
           'application/json': components['schemas']['WorkSpaceWithMemberShips']
         }
       }
       /** @description バリデーションエラー */
       400: {
-        headers: {
-          [name: string]: unknown
-        }
+        headers: Record<string, unknown>
         content: {
           'application/json': components['schemas']['Error']
         }
       }
       /** @description サーバー内部エラー */
       default: {
-        headers: {
-          [name: string]: unknown
-        }
+        headers: Record<string, unknown>
         content: {
           'application/json': components['schemas']['Error']
         }
@@ -614,27 +568,21 @@ export interface operations {
     responses: {
       /** @description 正常にワークスペース情報を返却します */
       200: {
-        headers: {
-          [name: string]: unknown
-        }
+        headers: Record<string, unknown>
         content: {
           'application/json': components['schemas']['WorkSpaceWithMemberShips']
         }
       }
       /** @description ワークスペースが見つかりません */
       404: {
-        headers: {
-          [name: string]: unknown
-        }
+        headers: Record<string, unknown>
         content: {
           'application/json': components['schemas']['Error']
         }
       }
       /** @description サーバー内部エラー */
       default: {
-        headers: {
-          [name: string]: unknown
-        }
+        headers: Record<string, unknown>
         content: {
           'application/json': components['schemas']['Error']
         }
@@ -655,25 +603,19 @@ export interface operations {
     responses: {
       /** @description ワークスペースが正常に削除されました */
       204: {
-        headers: {
-          [name: string]: unknown
-        }
+        headers: Record<string, unknown>
         content?: never
       }
       /** @description ワークスペースが見つかりません */
       404: {
-        headers: {
-          [name: string]: unknown
-        }
+        headers: Record<string, unknown>
         content: {
           'application/json': components['schemas']['Error']
         }
       }
       /** @description サーバー内部エラー */
       default: {
-        headers: {
-          [name: string]: unknown
-        }
+        headers: Record<string, unknown>
         content: {
           'application/json': components['schemas']['Error']
         }
@@ -698,34 +640,26 @@ export interface operations {
     responses: {
       /** @description ワークスペースが正常に更新されました（レスポンスボディなし） */
       204: {
-        headers: {
-          [name: string]: unknown
-        }
+        headers: Record<string, unknown>
         content?: never
       }
       /** @description バリデーションエラー */
       400: {
-        headers: {
-          [name: string]: unknown
-        }
+        headers: Record<string, unknown>
         content: {
           'application/json': components['schemas']['Error']
         }
       }
       /** @description ワークスペースが見つかりません */
       404: {
-        headers: {
-          [name: string]: unknown
-        }
+        headers: Record<string, unknown>
         content: {
           'application/json': components['schemas']['Error']
         }
       }
       /** @description サーバー内部エラー */
       default: {
-        headers: {
-          [name: string]: unknown
-        }
+        headers: Record<string, unknown>
         content: {
           'application/json': components['schemas']['Error']
         }

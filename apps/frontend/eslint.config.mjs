@@ -13,7 +13,11 @@ import { configs } from 'typescript-eslint'
 
 export default defineConfig(
   {
-    ignores: ['coverage/**'],
+    ignores: [
+      'coverage/**',
+      'scripts/generate-api-aliases.mjs',
+      'tailwind.config.mjs',
+    ],
   },
   eslint.configs.recommended,
   importPlugin.flatConfigs.recommended,
