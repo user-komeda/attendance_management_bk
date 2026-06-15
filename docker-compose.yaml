@@ -29,7 +29,7 @@ services:
       - "4567:4567"
   db:
     container_name: db
-    image: postgres:18@sha256:65f70a152846cf504dff86e807007e9aeac98c3aeb7b62541b2c55ab9d264e56
+    image: postgres:18@sha256:29ee7bb30d804447dc9a91fd0d74322ae1dc3a4072cc6346f70a5ed6e783b565
     restart: always
     security_opt:
       - no-new-privileges:true
@@ -42,7 +42,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql
   redis:
-    image: redis:8.8@sha256:4c7ecf5d14207f5baf8e140ab428a54ae5cf2a0411956f75deb0ef89d3cb4fda
+    image: redis:8.8@sha256:0a972391db0b24ec336e35d1bc98b237237e26f82bf5120cf2f6b1688d1df973
     container_name: redis
     command: >
       redis-server

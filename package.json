@@ -16,7 +16,7 @@
     "dotenv": "17.4.2",
     "infisicalLauncher": "git+ssh://git@github.com:user-komeda/infisicalLauncher.git",
     "lefthook": "2.1.9",
-    "turbo": "2.9.16"
+    "turbo": "2.9.18"
   },
   "packageManager": "yarn@4.16.0",
   "dependencies": {
