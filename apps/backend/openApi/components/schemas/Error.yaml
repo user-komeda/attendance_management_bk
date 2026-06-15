@@ -14,4 +14,10 @@ properties:
     description: フィールド単位のエラー情報
     items:
       type: object
+      required: [ key, message ]
+      properties:
+        key:
+          type: string
+        message:
+          type: string
 required: [ error_code, message ]

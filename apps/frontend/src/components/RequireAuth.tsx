@@ -3,10 +3,10 @@ import { ParentComponent, Show } from 'solid-js'
 import useRedirectAuth from '~/hooks/useRedirectAuth'
 
 const RequireAuth: ParentComponent = (props) => {
-  const { isLoading } = useRedirectAuth()
+  const { isLoading, isAuthenticated } = useRedirectAuth()
 
   return (
-    <Show when={!isLoading()} fallback={<p>Loading...</p>}>
+    <Show when={!isLoading() && isAuthenticated()} fallback={<p>Loading...</p>}>
       {props.children}
     </Show>
   )

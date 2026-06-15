@@ -49,7 +49,7 @@ RSpec.describe Presentation::Controller::Auth::AuthController do
     end
   end
 
-  describe '#(signin)' do
+  describe '#signin' do
     let(:signin_params) { { email: 'test@example.com', password: 'Password123!' } }
     let(:signin_request_double) { instance_double(Presentation::Request::Auth::SigninRequest) }
     let(:use_case_result) { instance_double(Application::Dto::Auth::AuthOutputDto, id: 'auth-2', user_id: 'user-2') }
@@ -69,7 +69,7 @@ RSpec.describe Presentation::Controller::Auth::AuthController do
       expect(result).to eq({ id: 'auth-2', user_id: 'user-2' })
     end
 
-    it 'invokes (signin) use case' do
+    it 'invokes signin use case' do
       controller.signin(signin_params)
       expect(controller).to have_received(:invoke_use_case).with(:signin, signin_request_double)
     end
