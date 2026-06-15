@@ -44,7 +44,7 @@ export default defineConfig({
       reuseExistingServer: false,
     },
     {
-      command: 'yarn dev',
+      command: 'yarn migrate && yarn dev',
       url: 'http://localhost:4567/health',
       name: 'Backend',
       cwd: backendDir,
