@@ -58,7 +58,7 @@ jobs:
         run: yarn install --immutable
 
       - name: Install Playwright browsers
-        run: yarn workspace qiita-trend-front exec playwright install --with-deps chromium
+        run: yarn workspace frontend exec playwright install --with-deps chromium
 
       - name: yarn check
         run: yarn check
