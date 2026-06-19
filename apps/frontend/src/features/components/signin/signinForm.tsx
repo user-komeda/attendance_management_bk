@@ -6,13 +6,14 @@ import type { FormDataActionOf } from '~/types/action'
 import { InputText } from '~/components/inputText'
 import { SigninSchema } from '~/schema/signinSchema'
 import { createObjectSchemaFields } from '~/util/createObjectSchemaFields'
-import { findError } from '~/util/error'
+import { findActionMessage, findError } from '~/util/error'
 
 type SigninAction = FormDataActionOf<typeof SigninSchema>
 
 export const SigninForm = ({ action }: { action: SigninAction }) => {
   const submission = useSubmission(action)
   const signinField = createObjectSchemaFields(SigninSchema)
+
   return (
     <div class="flex flex-col justify-center p-4 sm:h-screen">
       <div class="mx-auto w-full max-w-md rounded-2xl border border-gray-300 p-8">
@@ -20,32 +21,23 @@ export const SigninForm = ({ action }: { action: SigninAction }) => {
           <div class="space-y-6">
             <div>
               <InputText name={signinField.email} label="Email" />
-              <Show
-                when={findError(
-                  submission.result?.fieldErrors,
-                  signinField.email,
-                )}
-              >
-                {(message) => (
-                  <span class="text-sm text-red-500">{message()}</span>
-                )}
-              </Show>
-            </div>
-            <div>
-              <InputText name={signinField.password} label="Password" />
-              <Show
-                when={findError(
-                  submission.result?.fieldErrors,
-                  signinField.password,
-                )}
-              >
+              <Show when={findError(submission.result, signinField.email)}>
                 {(message) => (
                   <span class="text-sm text-red-500">{message()}</span>
                 )}
               </Show>
             </div>
 
-            <Show when={submission.result?.message}>
+            <div>
+              <InputText name={signinField.password} label="Password" />
+              <Show when={findError(submission.result, signinField.password)}>
+                {(message) => (
+                  <span class="text-sm text-red-500">{message()}</span>
+                )}
+              </Show>
+            </div>
+
+            <Show when={findActionMessage(submission.result)}>
               {(message) => <p class="text-sm text-red-500">{message()}</p>}
             </Show>
           </div>

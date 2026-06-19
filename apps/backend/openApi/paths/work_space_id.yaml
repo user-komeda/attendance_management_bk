@@ -1,21 +1,18 @@
 get:
-  tags: [workspace]
+  tags: [ workspace ]
   summary: ワークスペース詳細の取得
+  security:
+    - bearerAuth: [ ]
   operationId: getWorkSpace
   parameters:
-    - name: id
-      in: path
-      required: true
-      schema:
-        type: string
-        format: uuid
+    - $ref: '../components/parameters/WorkSpaceId.yaml'
   responses:
     "200":
       description: 正常にワークスペース情報を返却します
       content:
         application/json:
           schema:
-            $ref: '../components/schemas/WorkSpace.yaml'
+            $ref: '../components/schemas/WorkSpaceWithMemberShips.yaml'
     "404":
       description: ワークスペースが見つかりません
       content:
@@ -30,16 +27,13 @@ get:
             $ref: '../components/schemas/Error.yaml'
 
 patch:
-  tags: [workspace]
+  tags: [ workspace ]
   summary: ワークスペースの更新
+  security:
+    - bearerAuth: [ ]
   operationId: updateWorkSpace
   parameters:
-    - name: id
-      in: path
-      required: true
-      schema:
-        type: string
-        format: uuid
+    - $ref: '../components/parameters/WorkSpaceId.yaml'
   requestBody:
     required: true
     content:
@@ -47,12 +41,8 @@ patch:
         schema:
           $ref: '../components/schemas/UpdateWorkSpaceRequest.yaml'
   responses:
-    "200":
-      description: ワークスペースが正常に更新されました
-      content:
-        application/json:
-          schema:
-            $ref: '../components/schemas/WorkSpace.yaml'
+    "204":
+      description: ワークスペースが正常に更新されました（レスポンスボディなし）
     "400":
       description: バリデーションエラー
       content:
@@ -73,16 +63,13 @@ patch:
             $ref: '../components/schemas/Error.yaml'
 
 delete:
-  tags: [workspace]
+  tags: [ workspace ]
   summary: ワークスペースの削除
+  security:
+    - bearerAuth: [ ]
   operationId: deleteWorkSpace
   parameters:
-    - name: id
-      in: path
-      required: true
-      schema:
-        type: string
-        format: uuid
+    - $ref: '../components/parameters/WorkSpaceId.yaml'
   responses:
     "204":
       description: ワークスペースが正常に削除されました

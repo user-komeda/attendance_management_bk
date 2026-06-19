@@ -1,10 +1,26 @@
 import * as v from 'valibot'
 
+import type { ActionResult } from '~/types/action'
+
 export const findError = <Key extends string>(
-  errors: readonly { key: Key; message: string }[] | undefined,
+  result: ActionResult<Key> | undefined,
   key: Key,
 ) => {
-  return errors?.find((error) => error.key === key)?.message
+  if (result?.ok !== false) {
+    return undefined
+  }
+
+  return result.fieldErrors?.find((error) => error.key === key)?.message
+}
+
+export const findActionMessage = <Key extends string>(
+  result: ActionResult<Key> | undefined,
+) => {
+  if (result?.ok !== false) {
+    return undefined
+  }
+
+  return result.message || undefined
 }
 
 export const createError = <Key extends string>(

@@ -1,6 +1,7 @@
 post:
   tags: [ auth ]
   summary: サインイン（ログイン）
+  security: [ ]
   description: |-
     既存ユーザーのサインインを行います。POST + JSON で受け付けます。
   operationId: signin
@@ -9,29 +10,14 @@ post:
     content:
       application/json:
         schema:
-          type: object
-          required: [ email, password ]
-          properties:
-            email:
-              type: string
-              format: email
-              description: メールアドレス
-            password:
-              type: string
-              minLength: 6
-              description: パスワード（平文）
+          $ref: '../components/schemas/SigninRequest.yaml'
   responses:
     "200":
       description: サインインに成功しました
       content:
         application/json:
           schema:
-            type: object
-            required: [ user_id ]
-            properties:
-              user_id:
-                type: string
-                format: uuid
+            $ref: '../components/schemas/SigninResponse.yaml'
           examples:
             success:
               value:

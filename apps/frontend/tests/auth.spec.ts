@@ -1,10 +1,16 @@
 import { test, expect } from '@playwright/test'
 
 test.describe('E2E Authentication Tests', () => {
-  test('トップページが正しく表示されること', async ({ page }) => {
+  test('未ログインでトップページにアクセスするとログイン画面にリダイレクトされること', async ({
+    page,
+  }) => {
     await page.goto('http://localhost:3000/')
 
-    await expect(page.locator('h1')).toContainText('Hello world!')
+    await expect(page).toHaveURL('http://localhost:3000/signin', {
+      timeout: 15000,
+    })
+    await expect(page.locator('input[name="email"]')).toBeVisible()
+    await expect(page.locator('input[name="password"]')).toBeVisible()
   })
 
   test('新規登録画面でバリデーションエラーが表示されること', async ({
@@ -66,7 +72,7 @@ test.describe('E2E Authentication Tests', () => {
 
     // 登録成功後のリダイレクト先（トップページ '/'）に遷移することを期待
     await expect(page).toHaveURL('http://localhost:3000/', { timeout: 15000 })
-    await expect(page.locator('h1')).toContainText('Hello world!')
+    await expect(page.locator('button', { hasText: '追加' })).toBeVisible()
   })
 
   test('正しい情報を入力してログインし、トップページにリダイレクトされること', async ({
@@ -92,6 +98,9 @@ test.describe('E2E Authentication Tests', () => {
     // signup 成功後、トップページに遷移することを確認
     await expect(page).toHaveURL('http://localhost:3000/', { timeout: 15000 })
 
+    // signup 時点でログイン済みになるため、signin テスト前にセッションを消す
+    await page.context().clearCookies()
+
     await page.goto('http://localhost:3000/signin')
 
     // 入力フォームがロードされるのを待つ
@@ -104,6 +113,6 @@ test.describe('E2E Authentication Tests', () => {
 
     // signin 成功後のリダイレクト先（トップページ '/'）に遷移することを期待
     await expect(page).toHaveURL('http://localhost:3000/', { timeout: 15000 })
-    await expect(page.locator('h1')).toContainText('Hello world!')
+    await expect(page.locator('button', { hasText: '追加' })).toBeVisible()
   })
 })

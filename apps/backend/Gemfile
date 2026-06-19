@@ -41,6 +41,9 @@ group :development, :test do
 end
 
 group :test do
+  gem 'openapi_first',
+      git: 'git@github.com:user-komeda/openapi_first_for_me.git',
+      branch: 'main'
   gem 'simplecov', require: false
 end
 

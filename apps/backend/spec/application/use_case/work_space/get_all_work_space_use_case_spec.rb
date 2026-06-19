@@ -30,23 +30,29 @@ RSpec.describe Application::UseCase::WorkSpace::GetAllWorkSpaceUseCase do
   end
 
   describe '#invoke' do
-    it 'returns an array of WorkSpaceWithStatusDto' do
-      allow(membership_repo).to receive(:work_space_ids_via_membership_by_user_id)
-        .and_return([[workspace_id, 'active']])
-      allow(work_space_repo).to receive(:find_by_ids).and_return([workspace_entity])
-
-      result = use_case.invoke
-      expect(result.first.work_spaces.id).to eq(workspace_id)
+    it 'returns data' do
+      mock_repos(workspace_id, 'active', [workspace_entity], 1)
+      expect(use_case.invoke[:data].first.work_spaces.id).to eq(workspace_id)
     end
 
-    it 'returns an empty array when no memberships' do
-      allow(membership_repo).to receive(:work_space_ids_via_membership_by_user_id)
-        .with(user_id: user_id)
-        .and_return([])
-
-      # .transpose on empty array returns empty array, but zip will also be empty
-      result = use_case.invoke
-      expect(result).to eq([])
+    it 'returns total_count' do
+      mock_repos(workspace_id, 'active', [workspace_entity], 1)
+      expect(use_case.invoke[:total_count]).to eq(1)
     end
+
+    it 'returns empty data when no memberships' do
+      allow(membership_repo).to receive(:work_space_ids_via_membership_by_user_id).with(user_id: user_id).and_return([])
+      expect(use_case.invoke[:data]).to eq([])
+    end
+
+    it 'returns zero total_count when no memberships' do
+      allow(membership_repo).to receive(:work_space_ids_via_membership_by_user_id).with(user_id: user_id).and_return([])
+      expect(use_case.invoke[:total_count]).to eq(0)
+    end
+  end
+
+  def mock_repos(ws_id, status, entities, total)
+    allow(membership_repo).to receive(:work_space_ids_via_membership_by_user_id).and_return([[ws_id, status]])
+    allow(work_space_repo).to receive(:find_by_ids_with_pagination).and_return({ data: entities, total_count: total })
   end
 end

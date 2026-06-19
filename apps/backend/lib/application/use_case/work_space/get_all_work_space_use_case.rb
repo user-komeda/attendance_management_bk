@@ -6,17 +6,28 @@ module Application
   module UseCase
     module WorkSpace
       class GetAllWorkSpaceUseCase < WorkSpaceBaseUseCase
-        # @rbs () -> Array[::Application::Dto::WorkSpace::WorkSpaceWithStatusDto]
-        def invoke
-          work_space_repository = resolve(WORK_SPACE_REPOSITORY)
-          member_ships_repository = resolve(MEMBER_SHIPS_REPOSITORY)
+        # @rbs (page: Integer, per_page: Integer, search_query: String?) -> { data: Array[::Application::Dto::WorkSpace::WorkSpaceWithStatusDto], total_count: Integer }
+        def invoke(page: Constant::Pagination::DEFAULT_PAGE_NUMBER, per_page: Constant::Pagination::DEFAULT_PAGE_SIZE,
+                   search_query: nil)
           user_id = ContextHelper.get_context(:auth_context)[:user_id]
-          member_ships = member_ships_repository.work_space_ids_via_membership_by_user_id(user_id: user_id)
-          return [] if member_ships.empty?
+          member_ships = resolve(MEMBER_SHIPS_REPOSITORY).work_space_ids_via_membership_by_user_id(user_id: user_id)
+          return { data: [], total_count: 0 } if member_ships.empty?
 
           work_space_ids, status_list = member_ships.transpose
-          result = work_space_repository.find_by_ids(workspace_ids: work_space_ids)
-          result.zip(status_list).map do |work_space, status|
+          status_map = work_space_ids.zip(status_list).to_h
+
+          result = resolve(WORK_SPACE_REPOSITORY).find_by_ids_with_pagination(
+            workspace_ids: work_space_ids, page: page, per_page: per_page, search_query: search_query
+          )
+
+          { data: build_dto_list(result[:data], status_map), total_count: result[:total_count] }
+        end
+
+        private
+
+        def build_dto_list(work_spaces, status_map)
+          work_spaces.map do |work_space|
+            status = status_map[work_space.id.value] || ''
             WORK_SPACE_WITH_STATUS_DTO.build(work_space_entity: work_space, status: status)
           end
         end

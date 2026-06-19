@@ -2,11 +2,13 @@
 
 import { resolve } from 'node:path'
 
+import tailwindcss from '@tailwindcss/vite'
 import solid from 'vite-plugin-solid'
 import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
   plugins: [
+    tailwindcss(),
     solid({
       hot: false,
     }) as any,
@@ -33,6 +35,9 @@ export default defineConfig({
         'src/entry-server.tsx',
         'src/global.d.ts',
         'src/types',
+        'src/components/ui/**',
+        'src/schema/apiTypes.ts',
+        'src/schema/api/**',
       ],
     },
     server: {

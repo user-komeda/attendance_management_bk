@@ -7,6 +7,7 @@ const EnvSchema = v.object({
   BFF_JWT_SECRET: v.pipe(v.string(), v.nonEmpty(), v.minLength(32)),
   JWT_ISSUER: v.pipe(v.string(), v.nonEmpty()),
   JWT_AUDIENCE: v.pipe(v.string(), v.nonEmpty()),
+  REDIS_URL: v.pipe(v.string(), v.nonEmpty(), v.url()),
 })
 
 export const getEnv = () => {

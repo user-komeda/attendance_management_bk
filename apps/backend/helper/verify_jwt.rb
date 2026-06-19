@@ -5,7 +5,7 @@
 module VerifyJwt
   extend ContainerHelper
 
-  PUBLIC_PATH = %w[/swagger /health].freeze
+  PUBLIC_PATH = %w[/swagger /swagger/token /health /openapi].freeze
   BFF_JWT_PATH = %w[/signin /signup].freeze
 
   def self.skip_jwt_verification?(path)

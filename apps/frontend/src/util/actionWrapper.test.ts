@@ -33,10 +33,13 @@ describe(actionWrapper, () => {
     formData.append('name', '')
 
     const result = await action(formData)
+    if (!result || result.ok) {
+      throw new Error('Expected result to be ok: false')
+    }
 
     expect(result).toBeDefined()
     expect(result).toHaveProperty('fieldErrors')
-    expect(Array.isArray(result!.fieldErrors)).toBe(true)
+    expect(Array.isArray(result.fieldErrors)).toBe(true)
   })
 
   it('should call bffFetchWrapper and return result if validation succeeds', async () => {
@@ -56,7 +59,7 @@ describe(actionWrapper, () => {
     expect(bffFetchWrapper).toHaveBeenCalledWith('/api/test', 'POST', {
       name: 'John',
     })
-    expect(result).toBeUndefined()
+    expect(result).toEqual({ ok: true })
   })
 
   it('should throw redirect if redirectUrl is provided', async () => {
@@ -99,6 +102,9 @@ describe(actionWrapper, () => {
 
     const result = await action(formData)
 
-    expect(result).toEqual(mockError)
+    expect(result).toEqual({
+      ok: false,
+      ...mockError,
+    })
   })
 })

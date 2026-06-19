@@ -18,3 +18,12 @@ node_modules
 .turbo/*
 /.junie_rake_log.txt
 .env
+/apps/.idea/apps.iml
+/.idea/attendance_management.iml
+/.idea/attendance_management_bk.iml
+/apps/.idea/workspace.xml
+/.idea/prettier.xml
+/apps/.idea/prettier.xml
+/.idea/inspectionProfiles/Project_Default.xml
+/apps/.idea/inspectionProfiles/Project_Default.xml
+/.idea/modules.xml

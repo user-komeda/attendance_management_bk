@@ -34,14 +34,22 @@ module Presentation
         end
 
         # rubocop:disable all
-        # @rbs (status_list: Array[String], work_spaces: Array[Application::Dto::WorkSpace::WorkSpaceDto]) -> Array[Hash[Symbol, String]]
+        # @rbs (status_list: Array[String], work_spaces: Array[Application::Dto::WorkSpace::WorkSpaceDto], pagination: { page: Integer, per_page: Integer }, total_count: Integer, ?search_query: String?) -> Hash[Symbol, untyped]
         # rubocop:enable all
-        def self.build_from_array(status_list:, work_spaces:)
-          work_spaces.zip(status_list).map do |work_space, status|
+        def self.build_from_array(status_list:, work_spaces:, pagination:, total_count:, search_query: nil)
+          data = work_spaces.zip(status_list).map do |work_space, status|
             next if work_space.nil? || status.nil?
 
             build(status: status, work_space: work_space)
           end.compact
+
+          build_paginated_response(
+            data: data,
+            page: pagination[:page],
+            per_page: pagination[:per_page],
+            total_count: total_count,
+            additional_meta: { search_query: search_query }
+          )
         end
 
         # @rbs () -> {id: String, name: String, slug: String ,status: String}

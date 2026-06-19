@@ -35,4 +35,4 @@ USER solidjs
 
 EXPOSE 3000
 
-CMD ["node", "./node_modules/infisicalLauncher/dist/index.cjs", "--path=/microCms/solid/local", "--", "node", ".output/server/index.mjs"]
+CMD ["node", "./node_modules/infisicalLauncher/dist/index.cjs", "--path=/microCms/solid/", "--", "node", ".output/server/index.mjs"]

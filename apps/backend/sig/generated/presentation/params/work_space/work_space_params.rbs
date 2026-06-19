@@ -1,0 +1,20 @@
+# Generated from lib/presentation/params/work_space/work_space_params.rb with RBS::Inline
+
+module Presentation
+  module Params
+    module WorkSpace
+      class WorkSpaceParams < BaseParams
+        # rubocop:disable all
+        attr_reader pagination: Presentation::Params::PaginationParams
+
+        attr_reader search_query: String?
+
+        # @rbs (pagination: Presentation::Params::PaginationParams, search_query: String?) -> void
+        def initialize: (pagination: Presentation::Params::PaginationParams, search_query: String?) -> void
+
+        # @rbs (Hash[Symbol, untyped] params) -> WorkSpaceParams
+        def self.build: (Hash[Symbol, untyped] params) -> WorkSpaceParams
+      end
+    end
+  end
+end

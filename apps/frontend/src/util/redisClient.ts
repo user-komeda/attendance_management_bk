@@ -1,11 +1,13 @@
 import { createClient, RedisClientType } from 'redis'
 
+import { getEnv } from '~/env'
+
 let client: RedisClientType
 
 export const getRedisClient = async () => {
   if (!client) {
     client = createClient({
-      url: 'redis://default:password@localhost:6379/0',
+      url: getEnv().REDIS_URL,
     })
 
     client.on('error', (err) => {

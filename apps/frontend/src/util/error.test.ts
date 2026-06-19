@@ -1,53 +1,111 @@
-import * as v from 'valibot'
 import { describe, it, expect } from 'vitest'
 
-import { findError, createError } from '~/util/error'
+import { ActionResult } from '~/types/action'
+import { findError, findActionMessage, createError } from '~/util/error'
 
-describe('error util', () => {
-  describe(findError, () => {
-    it('should find the error message for a given key', () => {
-      const errors = [
-        { key: 'email', message: 'Invalid email' },
-        { key: 'password', message: 'Too short' },
-      ]
-
-      expect(findError(errors, 'email')).toBe('Invalid email')
-      expect(findError(errors, 'password')).toBe('Too short')
+describe('error utils', () => {
+  describe('findError', () => {
+    it('resultがundefinedの場合はundefinedを返すこと', () => {
+      expect(findError(undefined, 'key')).toBeUndefined()
     })
 
-    it('should return undefined if the key is not found', () => {
-      const errors = [{ key: 'email', message: 'Invalid email' }]
+    it('result.okがtrueの場合はundefinedを返すこと', () => {
+      expect(findError({ ok: true }, 'key')).toBeUndefined()
+    })
 
-      expect(findError(errors, 'password')).toBeUndefined()
+    it('該当するkeyのエラーがある場合はそのメッセージを返すこと', () => {
+      const result = {
+        ok: false as const,
+        fieldErrors: [{ key: 'email', message: 'invalid email' }],
+        message: 'error',
+      }
+      expect(findError(result, 'email')).toBe('invalid email')
+    })
+
+    it('該当するkeyのエラーがない場合はundefinedを返すこと', () => {
+      const result = {
+        ok: false as const,
+        fieldErrors: [{ key: 'password', message: 'too short' }],
+        message: 'error',
+      }
+      expect(findError(result, 'email')).toBeUndefined()
+    })
+
+    it('fieldErrorsがundefinedの場合はundefinedを返すこと', () => {
+      const result = {
+        ok: false as const,
+        message: 'error',
+      }
+      expect(
+        findError(result as unknown as ActionResult, 'email'),
+      ).toBeUndefined()
     })
   })
 
-  describe(createError, () => {
-    it('should transform valibot issues into custom error objects', () => {
-      const schema = v.object({
-        email: v.pipe(v.string(), v.email('Invalid email')),
-        password: v.pipe(v.string(), v.minLength(8, 'Too short')),
-      })
+  describe('findActionMessage', () => {
+    it('resultがundefinedの場合はundefinedを返すこと', () => {
+      expect(findActionMessage(undefined)).toBeUndefined()
+    })
 
-      const result = v.safeParse(schema, { email: 'invalid', password: '123' })
-      expect(result.success).toBe(false)
-      if (result.success) {
-        throw new Error('Validation should have failed')
+    it('result.okがtrueの場合はundefinedを返すこと', () => {
+      expect(findActionMessage({ ok: true })).toBeUndefined()
+    })
+
+    it('messageがある場合はそのメッセージを返すこと', () => {
+      const result = {
+        ok: false as const,
+        message: 'global error',
+        fieldErrors: [],
       }
-      const errors = createError(result.issues)
+      expect(findActionMessage(result)).toBe('global error')
+    })
 
-      expect(errors).toEqual([
-        { key: 'email', message: 'Invalid email' },
-        { key: 'password', message: 'Too short' },
+    it('messageがない場合はundefinedを返すこと', () => {
+      const result = {
+        ok: false as const,
+      }
+      expect(
+        findActionMessage(result as unknown as ActionResult),
+      ).toBeUndefined()
+    })
+  })
+
+  describe('createError', () => {
+    it('issuesからエラーオブジェクトの配列を作成すること', () => {
+      const issues = [
+        {
+          path: [{ key: 'email' }],
+          message: 'invalid email',
+        },
+        {
+          path: [{ key: 'password' }],
+          message: 'too short',
+        },
+      ]
+      const result = createError(
+        issues as unknown as Parameters<typeof createError>[0],
+      )
+      expect(result).toEqual([
+        { key: 'email', message: 'invalid email' },
+        { key: 'password', message: 'too short' },
       ])
     })
 
-    it('should return empty array for issues without path or non-string key', () => {
-      const issues = [{ message: 'General error' }]
-
-      const errors = createError(issues as unknown as v.BaseIssue<unknown>[])
-
-      expect(errors).toEqual([])
+    it('pathがない、またはkeyが文字列でない場合はスキップすること', () => {
+      const issues = [
+        {
+          path: [],
+          message: 'no path',
+        },
+        {
+          path: [{ key: 123 }],
+          message: 'invalid key type',
+        },
+      ]
+      const result = createError(
+        issues as unknown as Parameters<typeof createError>[0],
+      )
+      expect(result).toEqual([])
     })
   })
 })

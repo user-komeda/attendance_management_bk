@@ -12,12 +12,15 @@ interface ActionFieldError<Key extends string = string> {
   message: string
 }
 
-type ActionResult<Key extends string = string> =
+export type ActionResult<Key extends string = string> =
   | {
+      ok: true
+    }
+  | {
+      ok: false
       fieldErrors: ActionFieldError<Key>[]
       message: string
     }
-  | undefined
 
 export type ActionResultOf<Schema extends v.GenericSchema> = ActionResult<
   FieldKeyOf<Schema>

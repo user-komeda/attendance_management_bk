@@ -15,7 +15,7 @@ vi.mock(import('@solidjs/router'), async () => {
 })
 
 describe(SigninForm, () => {
-  it('should render signin form', () => {
+  it('should render (signin) form', () => {
     vi.mocked(useSubmission).mockReturnValue({
       result: undefined,
       pending: false,
@@ -31,6 +31,7 @@ describe(SigninForm, () => {
   it('should display errors when submission result has errors', () => {
     vi.mocked(useSubmission).mockReturnValue({
       result: {
+        ok: false,
         fieldErrors: [
           { key: 'email', message: 'Invalid email' },
           { key: 'password', message: 'Password is required' },
@@ -48,6 +49,7 @@ describe(SigninForm, () => {
   it('should display general error message', () => {
     vi.mocked(useSubmission).mockReturnValue({
       result: {
+        ok: false,
         message: 'Something went wrong',
       },
       pending: false,

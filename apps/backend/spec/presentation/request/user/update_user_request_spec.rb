@@ -53,8 +53,8 @@ RSpec.describe Presentation::Request::User::UpdateUserRequest do
 
   it 'provides error details for empty params' do
     error = capture_bad_request_error { described_class.build(params: {}) }
-    error_data = JSON.parse(error.message)
-    expect(error_data).to eq({ 'id' => ['is missing'] })
+    error_data = error.field_errors
+    expect(error_data).to eq([{ key: 'id', message: 'is missing' }])
   end
 
   it 'raises BadRequestException when id format is invalid' do
@@ -64,8 +64,8 @@ RSpec.describe Presentation::Request::User::UpdateUserRequest do
 
   it 'provides error details when id format is invalid' do
     error = capture_bad_request_error { described_class.build(params: { id: '00000000000000000000000000000001' }) }
-    error_data = JSON.parse(error.message)
-    expect(error_data).to eq({ 'id' => ['is in invalid format'] })
+    error_data = error.field_errors
+    expect(error_data).to eq([{ key: 'id', message: 'is in invalid format' }])
   end
 
   it 'raises BadRequestException when email is invalid (with id only)' do
@@ -77,8 +77,8 @@ RSpec.describe Presentation::Request::User::UpdateUserRequest do
     error = capture_bad_request_error do
       described_class.build(params: { id: '00000000-0000-0000-0000-000000000001', email: 'not-an-email' })
     end
-    error_data = JSON.parse(error.message)
-    expect(error_data).to eq({ 'email' => ['is in invalid format'] })
+    error_data = error.field_errors
+    expect(error_data).to eq([{ key: 'email', message: 'is in invalid format' }])
   end
 
   it 'raises BadRequestException when email is invalid format (with full params)' do
