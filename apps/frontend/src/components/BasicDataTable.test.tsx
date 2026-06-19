@@ -33,7 +33,7 @@ describe('BasicDataTable', () => {
     totalCount: 2,
   }
 
-  it('renders data and headers', () => {
+  it('headersとdataを表示すること', () => {
     render(() => (
       <BasicDataTable
         columns={columns}
@@ -50,12 +50,16 @@ describe('BasicDataTable', () => {
     expect(screen.getByText('Item 2')).toBeInTheDocument()
   })
 
-  it('renders "No results." when data is empty', () => {
+  it('dataが空の場合はNo results.を表示すること', () => {
     render(() => (
       <BasicDataTable
         columns={columns}
         data={[]}
-        paginationMeta={{ ...paginationMeta, totalCount: 0, totalPages: 0 }}
+        paginationMeta={{
+          ...paginationMeta,
+          totalCount: 0,
+          totalPages: 0,
+        }}
         onPageChange={vi.fn()}
         onPageSizeChange={vi.fn()}
       />
@@ -64,8 +68,28 @@ describe('BasicDataTable', () => {
     expect(screen.getByText('No results.')).toBeInTheDocument()
   })
 
-  it('calls onPageSizeChange when select value changes', () => {
+  it('paginationMetaに基づいてページ情報を表示すること', () => {
+    render(() => (
+      <BasicDataTable
+        columns={columns}
+        data={data}
+        paginationMeta={{
+          page: 2,
+          perPage: 10,
+          totalPages: 5,
+          totalCount: 50,
+        }}
+        onPageChange={vi.fn()}
+        onPageSizeChange={vi.fn()}
+      />
+    ))
+
+    expect(screen.getByText('2 / 5 ページ')).toBeInTheDocument()
+  })
+
+  it('表示件数を変更したときonPageSizeChangeを呼ぶこと', () => {
     const onPageSizeChange = vi.fn()
+
     render(() => (
       <BasicDataTable
         columns={columns}
@@ -76,100 +100,101 @@ describe('BasicDataTable', () => {
       />
     ))
 
-    const select = screen.getByRole('combobox')
-    fireEvent.change(select, { target: { value: '20' } })
+    fireEvent.change(screen.getByRole('combobox'), {
+      target: { value: '20' },
+    })
 
     expect(onPageSizeChange).toHaveBeenCalledWith(20)
   })
 
-  it('handles pagination button clicks', () => {
+  it('Nextをクリックしたとき次ページをonPageChangeに渡すこと', () => {
     const onPageChange = vi.fn()
-    const multiPageMeta = {
-      page: 1,
-      perPage: 1,
-      totalPages: 2,
-      totalCount: 2,
-    }
 
     render(() => (
       <BasicDataTable
         columns={columns}
         data={[data[0]]}
-        paginationMeta={multiPageMeta}
+        paginationMeta={{
+          page: 1,
+          perPage: 1,
+          totalPages: 2,
+          totalCount: 2,
+        }}
         onPageChange={onPageChange}
         onPageSizeChange={vi.fn()}
       />
     ))
 
-    const nextButton = screen.getByRole('button', { name: /next/i })
-    fireEvent.click(nextButton)
-    expect(onPageChange).toHaveBeenCalledWith(2, 1)
+    fireEvent.click(screen.getByRole('button', { name: /next/i }))
 
-    const prevButton = screen.getByRole('button', { name: /previous/i })
-    // In this test, current page is 1 and totalPages is 2. prev should be disabled.
-    // If we click it, onPageChange should NOT be called.
-    fireEvent.click(prevButton)
-    expect(onPageChange).not.toHaveBeenCalledWith(0, 1)
+    expect(onPageChange).toHaveBeenCalledWith(2, 1)
   })
 
-  it('handles previous button click and enables it on page 2', () => {
+  it('Previousをクリックしたとき前ページをonPageChangeに渡すこと', () => {
     const onPageChange = vi.fn()
-    const pageTwoMeta = {
-      page: 2,
-      perPage: 1,
-      totalPages: 2,
-      totalCount: 2,
-    }
 
     render(() => (
       <BasicDataTable
         columns={columns}
         data={[data[1]]}
-        paginationMeta={pageTwoMeta}
+        paginationMeta={{
+          page: 2,
+          perPage: 1,
+          totalPages: 2,
+          totalCount: 2,
+        }}
         onPageChange={onPageChange}
         onPageSizeChange={vi.fn()}
       />
     ))
 
-    const prevButton = screen.getByRole('button', { name: /previous/i })
-    fireEvent.click(prevButton)
-    expect(onPageChange).toHaveBeenCalledWith(1, 1)
+    fireEvent.click(screen.getByRole('button', { name: /previous/i }))
 
-    const nextButton = screen.getByRole('button', { name: /next/i })
-    // In this test, current page is 2 and totalPages is 2. next should be disabled.
-    fireEvent.click(nextButton)
-    expect(onPageChange).not.toHaveBeenCalledWith(3, 1)
+    expect(onPageChange).toHaveBeenCalledWith(1, 1)
   })
 
-  it('handles placeholder headers', () => {
-    const columnsWithPlaceholder: ColumnDef<TestData, unknown>[] = [
-      {
-        header: 'ID',
-        accessorKey: 'id',
-      },
-      {
-        header: () => null, // This might trigger isPlaceholder in some contexts, but usually isPlaceholder is for grouped headers
-        accessorKey: 'name',
-      },
-    ]
-
+  it('最初のページではPreviousをdisabledにすること', () => {
     render(() => (
       <BasicDataTable
-        columns={columnsWithPlaceholder}
-        data={data}
-        paginationMeta={paginationMeta}
+        columns={columns}
+        data={[data[0]]}
+        paginationMeta={{
+          page: 1,
+          perPage: 1,
+          totalPages: 2,
+          totalCount: 2,
+        }}
         onPageChange={vi.fn()}
         onPageSizeChange={vi.fn()}
       />
     ))
 
-    expect(screen.getByText('ID')).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /previous/i })).toBeDisabled()
+    expect(screen.getByRole('button', { name: /next/i })).not.toBeDisabled()
   })
 
-  it('renders selected row state', () => {
-    const dataWithSelection = [{ id: 1, name: 'Item 1' }]
+  it('最後のページではNextをdisabledにすること', () => {
+    render(() => (
+      <BasicDataTable
+        columns={columns}
+        data={[data[1]]}
+        paginationMeta={{
+          page: 2,
+          perPage: 1,
+          totalPages: 2,
+          totalCount: 2,
+        }}
+        onPageChange={vi.fn()}
+        onPageSizeChange={vi.fn()}
+      />
+    ))
 
-    const Selectioncolumns: ColumnDef<TestData, unknown>[] = [
+    expect(screen.getByRole('button', { name: /previous/i })).not.toBeDisabled()
+    expect(screen.getByRole('button', { name: /next/i })).toBeDisabled()
+  })
+
+  it('選択された行にdata-state="selected"を付与すること', () => {
+    const columnsWithSelection: ColumnDef<TestData, unknown>[] = [
       {
         id: 'select',
         header: 'Select',
@@ -186,23 +211,21 @@ describe('BasicDataTable', () => {
 
     render(() => (
       <BasicDataTable
-        columns={Selectioncolumns}
-        data={dataWithSelection}
+        columns={columnsWithSelection}
+        data={[data[0]]}
         paginationMeta={paginationMeta}
         onPageChange={vi.fn()}
         onPageSizeChange={vi.fn()}
       />
     ))
 
-    const checkbox = screen.getByRole('checkbox')
-    fireEvent.click(checkbox)
+    fireEvent.click(screen.getByRole('checkbox'))
 
-    // Check if data-state="selected" appears
     const row = screen.getByText('Item 1').closest('tr')
     expect(row).toHaveAttribute('data-state', 'selected')
   })
 
-  it('uses default values for paginationMeta when missing', () => {
+  it('paginationMetaが不足している場合はデフォルト値でページ情報を表示すること', () => {
     render(() => (
       <BasicDataTable
         columns={columns}
@@ -212,6 +235,7 @@ describe('BasicDataTable', () => {
         onPageSizeChange={vi.fn()}
       />
     ))
+
     expect(screen.getByText('1 / 0 ページ')).toBeInTheDocument()
   })
 })

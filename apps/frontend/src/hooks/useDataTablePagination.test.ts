@@ -11,7 +11,7 @@ describe('useDataTablePagination', () => {
     totalCount: 30,
   }
 
-  it('initializes with pagination meta', () => {
+  it('paginationMetaで初期化すること', () => {
     createRoot((dispose) => {
       const [meta] = createSignal(defaultMeta)
       const { pagination, pageCount } = useDataTablePagination({
@@ -22,12 +22,13 @@ describe('useDataTablePagination', () => {
 
       expect(pagination()).toEqual({ pageIndex: 0, pageSize: 10 })
       expect(pageCount()).toBe(3)
+
       dispose()
     })
   })
 
-  it('updates pagination when meta changes', () => {
-    createRoot((dispose) => {
+  it('paginationMetaが変わったときpaginationを更新すること', async () => {
+    await createRoot((dispose) => {
       const [meta, setMeta] = createSignal(defaultMeta)
       const { pagination } = useDataTablePagination({
         paginationMeta: meta,
@@ -36,7 +37,7 @@ describe('useDataTablePagination', () => {
       })
 
       setMeta({ ...defaultMeta, page: 2 })
-      // Use a timeout or Promise to wait for the effect
+
       return new Promise<void>((resolve) => {
         setTimeout(() => {
           expect(pagination()).toEqual({ pageIndex: 1, pageSize: 10 })
@@ -47,59 +48,111 @@ describe('useDataTablePagination', () => {
     })
   })
 
-  it('handles next and previous page', () => {
+  it('次ページに進むこと', () => {
     createRoot((dispose) => {
       const [meta] = createSignal(defaultMeta)
       const onPageChange = vi.fn()
-      const {
-        handleNextPage,
-        handlePreviousPage,
-        canNextPage,
-        canPreviousPage,
-        pagination,
-      } = useDataTablePagination({
-        paginationMeta: meta,
-        onPageChange,
-        onPageSizeChange: vi.fn(),
-      })
 
-      expect(canPreviousPage()).toBe(false)
+      const { handleNextPage, canNextPage, pagination } =
+        useDataTablePagination({
+          paginationMeta: meta,
+          onPageChange,
+          onPageSizeChange: vi.fn(),
+        })
+
       expect(canNextPage()).toBe(true)
 
       handleNextPage()
-      expect(pagination().pageIndex).toBe(1)
+
+      expect(pagination()).toEqual({ pageIndex: 1, pageSize: 10 })
       expect(onPageChange).toHaveBeenCalledWith(2, 10)
 
+      dispose()
+    })
+  })
+
+  it('前ページに戻ること', () => {
+    createRoot((dispose) => {
+      const [meta] = createSignal({
+        ...defaultMeta,
+        page: 2,
+      })
+      const onPageChange = vi.fn()
+
+      const { handlePreviousPage, canPreviousPage, pagination } =
+        useDataTablePagination({
+          paginationMeta: meta,
+          onPageChange,
+          onPageSizeChange: vi.fn(),
+        })
+
       expect(canPreviousPage()).toBe(true)
+
       handlePreviousPage()
-      expect(pagination().pageIndex).toBe(0)
+
+      expect(pagination()).toEqual({ pageIndex: 0, pageSize: 10 })
       expect(onPageChange).toHaveBeenCalledWith(1, 10)
 
       dispose()
     })
   })
 
-  it('does not change page if cannot move', () => {
+  it('最初のページでは前ページに戻らないこと', () => {
     createRoot((dispose) => {
-      const [meta] = createSignal({ ...defaultMeta, totalPages: 1 })
+      const [meta] = createSignal({
+        ...defaultMeta,
+        page: 1,
+      })
       const onPageChange = vi.fn()
-      const { handleNextPage, handlePreviousPage } = useDataTablePagination({
+
+      const { handlePreviousPage, canPreviousPage } = useDataTablePagination({
         paginationMeta: meta,
         onPageChange,
         onPageSizeChange: vi.fn(),
       })
 
-      handleNextPage()
+      expect(canPreviousPage()).toBe(false)
+
       handlePreviousPage()
+
       expect(onPageChange).not.toHaveBeenCalled()
+
       dispose()
     })
   })
 
-  it('handles page size change', () => {
+  it('最後のページでは次ページに進まないこと', () => {
     createRoot((dispose) => {
-      const [meta] = createSignal(defaultMeta)
+      const [meta] = createSignal({
+        ...defaultMeta,
+        page: 3,
+      })
+      const onPageChange = vi.fn()
+
+      const { handleNextPage, canNextPage } = useDataTablePagination({
+        paginationMeta: meta,
+        onPageChange,
+        onPageSizeChange: vi.fn(),
+      })
+
+      expect(canNextPage()).toBe(false)
+
+      handleNextPage()
+
+      expect(onPageChange).not.toHaveBeenCalled()
+
+      dispose()
+    })
+  })
+
+  it('ページサイズ変更時にpageIndexを0に戻してonPageSizeChangeを呼ぶこと', () => {
+    createRoot((dispose) => {
+      const [meta] = createSignal({
+        ...defaultMeta,
+        page: 2,
+      })
       const onPageSizeChange = vi.fn()
+
       const { handlePageSizeChange, pagination } = useDataTablePagination({
         paginationMeta: meta,
         onPageChange: vi.fn(),
@@ -107,22 +160,27 @@ describe('useDataTablePagination', () => {
       })
 
       handlePageSizeChange(20)
+
       expect(pagination()).toEqual({ pageIndex: 0, pageSize: 20 })
       expect(onPageSizeChange).toHaveBeenCalledWith(20)
+
       dispose()
     })
   })
 
-  it('uses default values when meta is empty', () => {
+  it('paginationMetaが空の場合はデフォルト値を使うこと', () => {
     createRoot((dispose) => {
       const [meta] = createSignal({} as unknown as typeof defaultMeta)
-      const { pagination } = useDataTablePagination({
+
+      const { pagination, pageCount } = useDataTablePagination({
         paginationMeta: meta,
         onPageChange: vi.fn(),
         onPageSizeChange: vi.fn(),
       })
 
       expect(pagination()).toEqual({ pageIndex: 0, pageSize: 10 })
+      expect(pageCount()).toBe(0)
+
       dispose()
     })
   })

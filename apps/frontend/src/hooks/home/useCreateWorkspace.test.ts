@@ -1,97 +1,78 @@
-import { useSubmission } from '@solidjs/router'
+import { useSubmission, type Submission } from '@solidjs/router'
 import { renderHook } from '@solidjs/testing-library'
 import { createRoot, createSignal } from 'solid-js'
 import { describe, it, expect, vi } from 'vitest'
 
 import { useCreateWorkspace } from '~/hooks/home/useCreateWorkspace'
-import { useHomeWorkspaces } from '~/provider/homeWorkspacesProvider'
-
-vi.mock('@solidjs/router', () => ({
-  useSubmission: vi.fn(),
-  action: vi.fn(),
-}))
+import {
+  useHomeWorkspaces,
+  type HomeWorkspacesContextValue,
+} from '~/provider/homeWorkspacesProvider'
 
 vi.mock('~/provider/homeWorkspacesProvider', () => ({
   useHomeWorkspaces: vi.fn(),
 }))
 
+vi.mock('@solidjs/router', async (importOriginal) => {
+  const actual = (await importOriginal()) as Record<string, unknown>
+  return {
+    ...actual,
+    useSubmission: vi.fn(),
+  }
+})
+
 describe('useCreateWorkspace', () => {
-  it('初期状態が正しいこと', () => {
-    vi.mocked(useSubmission).mockReturnValue(
-      {} as unknown as ReturnType<typeof useSubmission>,
-    )
-    vi.mocked(useHomeWorkspaces).mockReturnValue({
-      fetchWorkspaces: vi.fn(),
-    } as unknown as ReturnType<typeof useHomeWorkspaces>)
-
-    const { result } = renderHook(() => useCreateWorkspace())
-    expect(result.isOpen()).toBe(false)
-  })
-
-  it('handleOpenでisOpenがtrueになること', () => {
-    vi.mocked(useSubmission).mockReturnValue(
-      {} as unknown as ReturnType<typeof useSubmission>,
-    )
-    vi.mocked(useHomeWorkspaces).mockReturnValue({
-      fetchWorkspaces: vi.fn(),
-    } as unknown as ReturnType<typeof useHomeWorkspaces>)
-
-    const { result } = renderHook(() => useCreateWorkspace())
-    result.handleOpen()
-    expect(result.isOpen()).toBe(true)
-  })
-
-  it('handleCloseでisOpenがfalseになること', () => {
-    vi.mocked(useSubmission).mockReturnValue({
-      pending: false,
-    } as unknown as ReturnType<typeof useSubmission>)
-    vi.mocked(useHomeWorkspaces).mockReturnValue({
-      fetchWorkspaces: vi.fn(),
-    } as unknown as ReturnType<typeof useHomeWorkspaces>)
-
-    const { result } = renderHook(() => useCreateWorkspace())
-    result.handleOpen()
-    result.handleClose()
-    expect(result.isOpen()).toBe(false)
-  })
-
-  it('pending中はhandleCloseでisOpenが変わらないこと', () => {
-    vi.mocked(useSubmission).mockReturnValue({
-      pending: true,
-    } as unknown as ReturnType<typeof useSubmission>)
-    vi.mocked(useHomeWorkspaces).mockReturnValue({
-      fetchWorkspaces: vi.fn(),
-    } as unknown as ReturnType<typeof useHomeWorkspaces>)
-
-    const { result } = renderHook(() => useCreateWorkspace())
-    result.handleOpen()
-    result.handleClose()
-    expect(result.isOpen()).toBe(true)
-  })
-
-  it('submissionが成功した場合、isOpenがfalseになりfetchWorkspacesが呼ばれること', async () => {
+  it('closes modal and refetches on success', async () => {
     const fetchWorkspaces = vi.fn()
-    const [submissionResult, setSubmissionResult] = createSignal<unknown>(null)
-    vi.mocked(useSubmission).mockReturnValue({
-      get result() {
-        return submissionResult()
-      },
-    } as unknown as ReturnType<typeof useSubmission>)
     vi.mocked(useHomeWorkspaces).mockReturnValue({
       fetchWorkspaces,
-    } as unknown as ReturnType<typeof useHomeWorkspaces>)
+    } as unknown as HomeWorkspacesContextValue)
 
-    await createRoot(async (dispose) => {
-      const { result } = renderHook(() => useCreateWorkspace())
-      result.handleOpen()
+    // Create a reactive state for submission result
+    const [result, setResult] = createSignal<{ ok: boolean } | null>(null)
+    vi.mocked(useSubmission).mockReturnValue({
+      get result() {
+        return result()
+      },
+      pending: false,
+    } as unknown as Submission<[formData: FormData], unknown>)
 
-      setSubmissionResult({ ok: true })
+    await createRoot(async () => {
+      const { result: hook } = renderHook(() => useCreateWorkspace())
 
-      await new Promise((resolve) => setTimeout(resolve, 10))
+      hook.handleOpen()
+      expect(hook.isOpen()).toBe(true)
 
-      expect(result.isOpen()).toBe(false)
+      setResult({ ok: true })
+
+      await new Promise((r) => setTimeout(r, 0))
+
+      expect(hook.isOpen()).toBe(false)
       expect(fetchWorkspaces).toHaveBeenCalled()
-      dispose()
     })
+  })
+
+  it('handleClose does nothing if pending', () => {
+    vi.mocked(useSubmission).mockReturnValue({
+      result: null,
+      pending: true,
+    } as unknown as Submission<[formData: FormData], unknown>)
+
+    const { result: hook } = renderHook(() => useCreateWorkspace())
+    hook.handleOpen()
+    hook.handleClose()
+    expect(hook.isOpen()).toBe(true)
+  })
+
+  it('handleClose closes modal if not pending', () => {
+    vi.mocked(useSubmission).mockReturnValue({
+      result: null,
+      pending: false,
+    } as unknown as Submission<[formData: FormData], unknown>)
+
+    const { result: hook } = renderHook(() => useCreateWorkspace())
+    hook.handleOpen()
+    hook.handleClose()
+    expect(hook.isOpen()).toBe(false)
   })
 })

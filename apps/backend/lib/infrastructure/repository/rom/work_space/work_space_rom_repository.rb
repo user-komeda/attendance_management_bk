@@ -26,6 +26,8 @@ module Infrastructure
               query = query.where(sequel.ilike(:name, "%#{search_query}%"))
             end
 
+            query = query.order(:name, :id)
+
             # @type var total_count: Integer
             total_count = query.count
             data = query.limit(per_page).offset((page - 1) * per_page).to_a

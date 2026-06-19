@@ -102,4 +102,51 @@ test.describe('Home Page E2E Tests', () => {
     await expect(page.locator('text=Alpha Project')).toBeVisible()
     await expect(page.locator('text=Beta Project')).toBeVisible()
   })
+
+  test('ページネーションが正しく動作すること', async ({ page }) => {
+    // 6個のワークスペースを作成する
+    const wsBaseName = 'Pg'
+    for (let i = 1; i <= 6; i++) {
+      await page
+        .getByRole('button', { name: '追加', exact: true })
+        .first()
+        .click()
+      await page.locator('input[name="name"]').fill(`${wsBaseName} ${i}`)
+      await page
+        .locator('input[name="slug"]')
+        .fill(`pg-${i}-${Math.random().toString(36).substring(2, 5)}`)
+      const submitButton = page.locator('button[type="submit"]', {
+        hasText: '追加',
+      })
+      await submitButton.click()
+      await expect(
+        page.getByRole('button', { name: '追加', exact: true }).first(),
+      ).toBeEnabled({ timeout: 15000 })
+    }
+
+    // 作成後の状態を安定させる
+    await expect(
+      page.getByRole('cell', { name: `${wsBaseName} 6`, exact: true }).first(),
+    ).toBeVisible({ timeout: 15000 })
+
+    // 表示件数を5件に変更
+    await page.locator('select').selectOption('5')
+
+    // 1ページ目の確認（1が表示され、6が非表示）
+    await expect(
+      page.getByRole('cell', { name: `${wsBaseName} 1`, exact: true }).first(),
+    ).toBeVisible()
+
+    // 2ページ目に遷移
+    await page.locator('button', { hasText: 'Next' }).click()
+    await expect(
+      page.getByRole('cell', { name: `${wsBaseName} 6`, exact: true }).first(),
+    ).toBeVisible()
+
+    // 1ページ目に戻る
+    await page.locator('button', { hasText: 'Previous' }).click()
+    await expect(
+      page.getByRole('cell', { name: `${wsBaseName} 1`, exact: true }).first(),
+    ).toBeVisible()
+  })
 })

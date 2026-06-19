@@ -1,117 +1,171 @@
+import { type Submission } from '@solidjs/router'
 import { render, screen, fireEvent } from '@solidjs/testing-library'
-import { describe, it, expect, vi } from 'vitest'
+import { describe, it, expect, vi, beforeEach } from 'vitest'
 
 import { HomeTableHeader } from '~/features/components/home/homeTableHeader'
-import { useCreateWorkspace } from '~/hooks/home/useCreateWorkspace'
-import { useSearchWorkspaces } from '~/hooks/home/useSearchWorkspaces'
+import * as useCreateWorkspaceHook from '~/hooks/home/useCreateWorkspace'
+import * as useSearchWorkspacesHook from '~/hooks/home/useSearchWorkspaces'
+import { CreateWorkspaceSchema } from '~/schema/createWorkspaceSchema'
+import { ActionResultOf, FormDataActionOf } from '~/types/action'
 
-vi.mock('~/hooks/home/useSearchWorkspaces', () => ({
-  useSearchWorkspaces: vi.fn(),
-}))
-
-vi.mock('~/hooks/home/useCreateWorkspace', () => ({
-  useCreateWorkspace: vi.fn(),
-}))
+vi.mock('~/hooks/home/useSearchWorkspaces')
+vi.mock('~/hooks/home/useCreateWorkspace')
 
 describe('HomeTableHeader', () => {
-  it('検索キーワードの入力と検索ボタンが動作すること', () => {
-    const setKeyword = vi.fn()
-    const handleSearch = vi.fn()
-    vi.mocked(useSearchWorkspaces).mockReturnValue({
-      keyword: () => 'test',
-      setKeyword,
-      isSearching: () => false,
-      handleSearch,
-    } as unknown as ReturnType<typeof useSearchWorkspaces>)
+  const mockSetKeyword = vi.fn()
+  const mockHandleSearch = vi.fn()
+  const mockHandleOpen = vi.fn()
+  const mockHandleClose = vi.fn()
 
-    vi.mocked(useCreateWorkspace).mockReturnValue({
-      isOpen: () => false,
-      handleOpen: vi.fn(),
-    } as unknown as ReturnType<typeof useCreateWorkspace>)
+  const setupHooks = ({
+    keyword = '',
+    isSearching = false,
+    isOpen = false,
+    submissionResult = undefined,
+    submissionPending = false,
+  }: {
+    keyword?: string
+    isSearching?: boolean
+    isOpen?: boolean
+    submissionResult?: unknown
+    submissionPending?: boolean
+  } = {}) => {
+    vi.mocked(useSearchWorkspacesHook.useSearchWorkspaces).mockReturnValue({
+      keyword: () => keyword,
+      setKeyword: mockSetKeyword,
+      isSearching: () => isSearching,
+      handleSearch: mockHandleSearch,
+    })
 
+    vi.mocked(useCreateWorkspaceHook.useCreateWorkspace).mockReturnValue({
+      action: '/api/workspaces' as unknown as FormDataActionOf<
+        typeof CreateWorkspaceSchema
+      >,
+      submission: {
+        result: submissionResult,
+        pending: submissionPending,
+      } as unknown as Submission<
+        [formData: FormData],
+        ActionResultOf<typeof CreateWorkspaceSchema>
+      >,
+      isOpen: () => isOpen,
+      handleOpen: mockHandleOpen,
+      handleClose: mockHandleClose,
+    })
+  }
+
+  beforeEach(() => {
+    vi.clearAllMocks()
+    setupHooks()
+  })
+
+  it('検索キーワードを表示すること', () => {
+    setupHooks({ keyword: 'test-query' })
+
+    render(() => <HomeTableHeader />)
+
+    expect(screen.getByDisplayValue('test-query')).toBeInTheDocument()
+  })
+
+  it('検索キーワードを変更したときsetKeywordを呼ぶこと', () => {
     render(() => <HomeTableHeader />)
 
     const input = screen.getByPlaceholderText('ワークスペースを検索...')
-    expect(input).toHaveValue('test')
+    fireEvent.input(input, { target: { value: 'test-query' } })
 
-    const searchButton = screen.getByText('検索')
-    fireEvent.click(searchButton)
-    expect(handleSearch).toHaveBeenCalled()
+    expect(mockSetKeyword).toHaveBeenCalledWith('test-query')
   })
 
-  it('検索中はボタンが検索中になること', () => {
-    vi.mocked(useSearchWorkspaces).mockReturnValue({
-      keyword: () => '',
-      isSearching: () => true,
-    } as unknown as ReturnType<typeof useSearchWorkspaces>)
+  it('検索ボタンをクリックしたときhandleSearchを呼ぶこと', () => {
+    render(() => <HomeTableHeader />)
+
+    fireEvent.click(screen.getByRole('button', { name: '検索' }))
+
+    expect(mockHandleSearch).toHaveBeenCalled()
+  })
+
+  it('検索中の場合は検索ボタンをdisabledにし、検索中表示にすること', () => {
+    setupHooks({ isSearching: true })
 
     render(() => <HomeTableHeader />)
-    expect(screen.getByText('検索中...')).toBeInTheDocument()
-    expect(screen.getByText('検索中...')).toBeDisabled()
+
+    const searchButton = screen.getByRole('button', { name: '検索中...' })
+    expect(searchButton).toBeInTheDocument()
+    expect(searchButton).toBeDisabled()
   })
 
-  it('追加ボタンをクリックするとモーダルが開くこと', () => {
-    const handleOpen = vi.fn()
-    vi.mocked(useSearchWorkspaces).mockReturnValue({
-      keyword: () => '',
-      isSearching: () => false,
-    } as unknown as ReturnType<typeof useSearchWorkspaces>)
-
-    vi.mocked(useCreateWorkspace).mockReturnValue({
-      isOpen: () => false,
-      handleOpen,
-    } as unknown as ReturnType<typeof useCreateWorkspace>)
-
+  it('追加ボタンをクリックしたときhandleOpenを呼ぶこと', () => {
     render(() => <HomeTableHeader />)
-    fireEvent.click(screen.getByText('追加'))
-    expect(handleOpen).toHaveBeenCalled()
+
+    fireEvent.click(screen.getByRole('button', { name: '追加' }))
+
+    expect(mockHandleOpen).toHaveBeenCalled()
   })
 
-  it('モーダルが表示され、エラーメッセージが表示されること', () => {
-    const handleClose = vi.fn()
-    vi.mocked(useSearchWorkspaces).mockReturnValue({
-      keyword: () => '',
-      isSearching: () => false,
-    } as unknown as ReturnType<typeof useSearchWorkspaces>)
-
-    vi.mocked(useCreateWorkspace).mockReturnValue({
-      isOpen: () => true,
-      handleClose,
-      submission: {
-        result: {
-          ok: false,
-          fieldErrors: [
-            { key: 'name', message: 'Name error' },
-            { key: 'slug', message: 'Slug error' },
-          ],
-          message: 'Global error',
-        },
-        pending: false,
-      },
-    } as unknown as ReturnType<typeof useCreateWorkspace>)
+  it('isOpenがtrueの場合はワークスペース追加モーダルを表示すること', () => {
+    setupHooks({ isOpen: true })
 
     render(() => <HomeTableHeader />)
 
     expect(screen.getByText('ワークスペース追加')).toBeInTheDocument()
-    expect(screen.getByText('Name error')).toBeInTheDocument()
-    expect(screen.getByText('Slug error')).toBeInTheDocument()
-    expect(screen.getByText('Global error')).toBeInTheDocument()
-
-    fireEvent.click(screen.getByText('キャンセル'))
-    expect(handleClose).toHaveBeenCalled()
+    expect(
+      screen.getByText('新しいワークスペースを作成します。'),
+    ).toBeInTheDocument()
+    expect(screen.getByPlaceholderText('ワークスペース名')).toBeInTheDocument()
+    expect(screen.getByPlaceholderText('サービスID')).toBeInTheDocument()
   })
 
-  it('送信中はボタンが「追加中...」になり無効化されること', () => {
-    vi.mocked(useCreateWorkspace).mockReturnValue({
-      isOpen: () => true,
-      submission: {
-        pending: true,
-      },
-    } as unknown as ReturnType<typeof useCreateWorkspace>)
+  it('キャンセルボタンをクリックしたときhandleCloseを呼ぶこと', () => {
+    setupHooks({ isOpen: true })
 
     render(() => <HomeTableHeader />)
-    expect(screen.getByText('追加中...')).toBeInTheDocument()
-    expect(screen.getByText('追加中...')).toBeDisabled()
-    expect(screen.getByText('キャンセル')).toBeDisabled()
+
+    fireEvent.click(screen.getByRole('button', { name: 'キャンセル' }))
+
+    expect(mockHandleClose).toHaveBeenCalled()
+  })
+
+  it('submission resultにfieldErrorsがある場合はフィールドエラーを表示すること', () => {
+    setupHooks({
+      isOpen: true,
+      submissionResult: {
+        ok: false,
+        fieldErrors: [
+          { key: 'name', message: 'Name is required' },
+          { key: 'slug', message: 'Slug is invalid' },
+        ],
+      },
+    })
+
+    render(() => <HomeTableHeader />)
+
+    expect(screen.getByText('Name is required')).toBeInTheDocument()
+    expect(screen.getByText('Slug is invalid')).toBeInTheDocument()
+  })
+
+  it('submission resultにmessageがある場合は共通エラーを表示すること', () => {
+    setupHooks({
+      isOpen: true,
+      submissionResult: {
+        ok: false,
+        message: 'General server error',
+      },
+    })
+
+    render(() => <HomeTableHeader />)
+
+    expect(screen.getByText('General server error')).toBeInTheDocument()
+  })
+
+  it('submission pendingの場合は追加中表示にし、操作ボタンをdisabledにすること', () => {
+    setupHooks({
+      isOpen: true,
+      submissionPending: true,
+    })
+
+    render(() => <HomeTableHeader />)
+
+    expect(screen.getByRole('button', { name: '追加中...' })).toBeDisabled()
+    expect(screen.getByRole('button', { name: 'キャンセル' })).toBeDisabled()
   })
 })

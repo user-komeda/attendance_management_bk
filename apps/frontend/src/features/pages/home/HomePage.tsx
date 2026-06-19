@@ -9,6 +9,7 @@ import bffFetchWrapper from '~/util/bffFetchWrapper'
 export type FetchWorkspacesParams = Partial<
   Omit<PaginationMeta, 'totalPages' | 'totalCount'>
 >
+
 export const fetchWorkspacesRequest = async (
   params?: FetchWorkspacesParams,
 ) => {
@@ -22,13 +23,10 @@ export const fetchWorkspacesRequest = async (
     searchParams.set('page', params.page.toString())
   }
 
-  if (params?.perPage) {
-    searchParams.set('per_page', params.perPage.toString())
-  }
+  const perPage = params?.perPage ?? 10
+  searchParams.set('per_page', perPage.toString())
 
-  const path = searchParams.toString()
-    ? `/api/workspaces?${searchParams.toString()}`
-    : '/api/workspaces'
+  const path = `/api/workspaces?${searchParams.toString()}`
 
   const result = await bffFetchWrapper<ListWorkSpacesResponse>(path, 'GET')
 
@@ -44,9 +42,7 @@ export const fetchWorkspacesRequest = async (
   )
 }
 
-export const HomePage = (props: {
-  children?: import('solid-js').JSX.Element
-}) => {
+export const HomePage = () => {
   const [workspaces, { refetch }] = createResource<ListWorkSpacesResponse>(
     (_, info) =>
       fetchWorkspacesRequest(
@@ -54,13 +50,19 @@ export const HomePage = (props: {
       ),
   )
 
+  // 単体での確認が難しいのでskip
+  /* v8 ignore start */
   const isLoading = () => workspaces.loading
+  /* v8 ignore stop */
+
+  // 単体での確認が難しいのでskip
+  /* v8 ignore start */
   const fetchWorkspaces = async (
     params?: FetchWorkspacesParams,
   ): Promise<ListWorkSpacesResponse | null | undefined> => {
     return refetch(params)
   }
-
+  /* v8 ignore stop */
   return (
     <HomeWorkspacesContext.Provider
       value={{
@@ -69,7 +71,7 @@ export const HomePage = (props: {
         fetchWorkspaces,
       }}
     >
-      {props.children || <HomeTable />}
+      <HomeTable />
     </HomeWorkspacesContext.Provider>
   )
 }

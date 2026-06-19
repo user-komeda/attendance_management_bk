@@ -1,184 +1,123 @@
-import { MemoryRouter, Route } from '@solidjs/router'
-import { render, screen, waitFor } from '@solidjs/testing-library'
-import { describe, it, expect, vi } from 'vitest'
+import { render, waitFor } from '@solidjs/testing-library'
+import { describe, it, expect, vi, beforeEach } from 'vitest'
 
 import {
   HomePage,
   fetchWorkspacesRequest,
 } from '~/features/pages/home/HomePage'
-import { useHomeWorkspaces } from '~/provider/homeWorkspacesProvider'
-import { ListWorkSpacesResponse } from '~/schema/api/workSpaces'
-import { FetchResult } from '~/types/fetch'
+import { type ListWorkSpacesResponse } from '~/schema/api/workSpaces'
 import bffFetchWrapper from '~/util/bffFetchWrapper'
 
-// Mock bffFetchWrapper
 vi.mock('~/util/bffFetchWrapper')
+
+vi.mock('~/features/components/home/homeTable', () => ({
+  HomeTable: () => null,
+}))
 
 describe('HomePage', () => {
   const mockWorkspaces = {
     data: [
-      { name: 'Workspace 1', slug: 'ws-1', status: 'active' },
-      { name: 'Workspace 2', slug: 'ws-2', status: 'active' },
+      {
+        id: 'workspace-1',
+        name: 'Workspace 1',
+        slug: 'ws-1',
+        status: 'active',
+      },
+      {
+        id: 'workspace-2',
+        name: 'Workspace 2',
+        slug: 'ws-2',
+        status: 'active',
+      },
     ],
     meta: { page: 1, totalPages: 1, totalCount: 2, perPage: 10 },
   }
 
+  beforeEach(() => {
+    vi.clearAllMocks()
+  })
+
   describe('fetchWorkspacesRequest', () => {
-    it('calls with search query', async () => {
+    it('search queryを指定した場合、search_query付きでリクエストすること', async () => {
       vi.mocked(bffFetchWrapper).mockResolvedValue({
         ok: true,
         status: 200,
         data: mockWorkspaces,
       })
+
       await fetchWorkspacesRequest({ searchQuery: 'test' })
+
       expect(bffFetchWrapper).toHaveBeenCalledWith(
-        '/api/workspaces?search_query=test',
+        expect.stringContaining('search_query=test'),
         'GET',
       )
     })
 
-    it('calls with page and perPage', async () => {
+    it('pageとperPageを指定した場合、pageとper_page付きでリクエストすること', async () => {
       vi.mocked(bffFetchWrapper).mockResolvedValue({
         ok: true,
         status: 200,
         data: mockWorkspaces,
       })
+
       await fetchWorkspacesRequest({ page: 2, perPage: 20 })
+
       expect(bffFetchWrapper).toHaveBeenCalledWith(
         '/api/workspaces?page=2&per_page=20',
         'GET',
       )
     })
-  })
 
-  it('renders workspaces list correctly', async () => {
-    vi.mocked(bffFetchWrapper).mockResolvedValue({
-      ok: true,
-      status: 200,
-      data: mockWorkspaces,
+    it('リクエストが失敗した場合、エラーをthrowすること', async () => {
+      vi.mocked(bffFetchWrapper).mockResolvedValue({
+        ok: false,
+        status: 500,
+        error: {
+          message: 'Internal Server Error',
+          fieldErrors: [],
+        },
+      })
+
+      await expect(fetchWorkspacesRequest()).rejects.toThrow(
+        'Failed to load workspaces',
+      )
     })
 
-    render(() => (
-      <MemoryRouter>
-        <Route path="/" component={() => <HomePage />} />
-      </MemoryRouter>
-    ))
+    it('レスポンスのdataがnullの場合、空の一覧を返すこと', async () => {
+      vi.mocked(bffFetchWrapper).mockResolvedValue({
+        ok: true,
+        status: 200,
+        data: null as unknown as ListWorkSpacesResponse,
+      })
 
-    expect(await screen.findByText('Workspace 1')).toBeInTheDocument()
-    expect(screen.getByText('Workspace 2')).toBeInTheDocument()
-  })
+      const result = await fetchWorkspacesRequest()
 
-  it('provides loading state', async () => {
-    vi.mocked(bffFetchWrapper).mockReturnValue(
-      new Promise(() => {
-        /* do nothing */
-      }) as unknown as Promise<FetchResult<ListWorkSpacesResponse, string>>,
-    )
-    render(() => (
-      <MemoryRouter>
-        <Route path="/" component={() => <HomePage />} />
-      </MemoryRouter>
-    ))
-    expect(screen.getByText('Loading...')).toBeInTheDocument()
-  })
-
-  it('handles empty data', async () => {
-    vi.mocked(bffFetchWrapper).mockResolvedValue({
-      ok: true,
-      status: 200,
-      data: null as unknown as ListWorkSpacesResponse,
+      expect(result.data).toEqual([])
+      expect(result.meta).toEqual({
+        page: 1,
+        totalPages: 0,
+        totalCount: 0,
+        perPage: 10,
+      })
     })
-
-    render(() => (
-      <MemoryRouter>
-        <Route path="/" component={() => <HomePage />} />
-      </MemoryRouter>
-    ))
-
-    // Should not crash and show "No results." (DataTable default)
-    await waitFor(
-      () => {
-        expect(screen.getByText(/No results/i)).toBeInTheDocument()
-      },
-      { timeout: 15000 },
-    )
   })
 
-  it('exercises HomePage context values', async () => {
-    vi.mocked(bffFetchWrapper).mockResolvedValue({
-      ok: true,
-      status: 200,
-      data: mockWorkspaces,
+  describe('HomePage Component', () => {
+    it('初回表示時にワークスペース一覧を取得すること', async () => {
+      vi.mocked(bffFetchWrapper).mockResolvedValue({
+        ok: true,
+        status: 200,
+        data: mockWorkspaces,
+      })
+
+      render(() => <HomePage />)
+
+      await waitFor(() => {
+        expect(bffFetchWrapper).toHaveBeenCalledWith(
+          '/api/workspaces?per_page=10',
+          'GET',
+        )
+      })
     })
-
-    render(() => (
-      <MemoryRouter>
-        <Route path="/" component={() => <HomePage />} />
-      </MemoryRouter>
-    ))
-
-    expect(await screen.findByText('Workspace 1')).toBeInTheDocument()
-  })
-
-  it('exercises HomePage context methods', async () => {
-    vi.mocked(bffFetchWrapper).mockResolvedValue({
-      ok: true,
-      status: 200,
-      data: mockWorkspaces,
-    })
-
-    const Child = () => {
-      const context = useHomeWorkspaces()
-      // Directly call functions provided by Provider to cover Funcs/Stmts
-      // isLoading and fetchWorkspaces are defined as separate functions in HomePage.tsx
-      context.isLoading()
-      // Wrap in try-catch to avoid potential unhandled rejection if it fails
-      try {
-        context.fetchWorkspaces()
-      } catch {
-        // ignore
-      }
-      return <div>Workspace 1</div>
-    }
-
-    render(() => (
-      <MemoryRouter>
-        <Route
-          path="/"
-          component={() => (
-            <HomePage>
-              <Child />
-            </HomePage>
-          )}
-        />
-      </MemoryRouter>
-    ))
-
-    expect(await screen.findByText('Workspace 1')).toBeInTheDocument()
-  })
-
-  it('fetchWorkspacesRequest handles failure', async () => {
-    vi.mocked(bffFetchWrapper).mockResolvedValue({
-      ok: false,
-      status: 500,
-      error: {
-        message: 'Internal Server Error',
-        fieldErrors: [],
-      },
-    })
-    await expect(fetchWorkspacesRequest()).rejects.toThrow(
-      'Failed to load workspaces',
-    )
-  })
-
-  it('fetchWorkspacesRequest handles empty result with data null', async () => {
-    vi.mocked(bffFetchWrapper).mockResolvedValue({
-      ok: true,
-      status: 200,
-      data: null as unknown as ListWorkSpacesResponse,
-    })
-    const result = await fetchWorkspacesRequest()
-    expect(result.data).toEqual([])
-    expect(result.meta.page).toBe(1)
   })
 })

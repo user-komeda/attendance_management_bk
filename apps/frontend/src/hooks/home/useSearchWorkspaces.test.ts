@@ -1,52 +1,70 @@
-import { renderHook } from '@solidjs/testing-library'
-import { createRoot, createSignal } from 'solid-js'
+import { renderHook, waitFor } from '@solidjs/testing-library'
+import { createSignal } from 'solid-js'
 import { describe, it, expect, vi } from 'vitest'
 
 import { useSearchWorkspaces } from '~/hooks/home/useSearchWorkspaces'
-import { useHomeWorkspaces } from '~/provider/homeWorkspacesProvider'
+import {
+  useHomeWorkspaces,
+  type HomeWorkspacesContextValue,
+} from '~/provider/homeWorkspacesProvider'
+import { type ListWorkSpacesResponse } from '~/schema/api/workSpaces'
 
 vi.mock('~/provider/homeWorkspacesProvider', () => ({
   useHomeWorkspaces: vi.fn(),
 }))
 
 describe('useSearchWorkspaces', () => {
-  it('keywordが初期化されること', async () => {
-    const workspaces = createSignal({ meta: { searchQuery: 'initial' } })[0]
-    vi.mocked(useHomeWorkspaces).mockReturnValue({
-      fetchWorkspaces: vi.fn(),
-      workspaces,
-    } as unknown as ReturnType<typeof useHomeWorkspaces>)
-
-    await createRoot(async (dispose) => {
-      const { result } = renderHook(() => useSearchWorkspaces())
-
-      await new Promise((resolve) => setTimeout(resolve, 10))
-
-      expect(result.keyword()).toBe('initial')
-      dispose()
-    })
-  })
-
-  it('handleSearchが正しく動作すること', async () => {
+  it('updates keyword when workspaces meta changes', async () => {
     const fetchWorkspaces = vi.fn()
-    const workspaces = createSignal({ meta: { searchQuery: '' } })[0]
+    const [workspaces, setWorkspaces] = createSignal<
+      Partial<ListWorkSpacesResponse>
+    >({
+      meta: {
+        searchQuery: 'initial',
+        page: 1,
+        totalPages: 1,
+        totalCount: 1,
+        perPage: 10,
+      },
+    })
+
     vi.mocked(useHomeWorkspaces).mockReturnValue({
       fetchWorkspaces,
       workspaces,
-    } as unknown as ReturnType<typeof useHomeWorkspaces>)
+    } as unknown as HomeWorkspacesContextValue)
 
-    await createRoot(async (dispose) => {
-      const { result } = renderHook(() => useSearchWorkspaces())
-      result.setKeyword('  new search  ')
+    const { result } = renderHook(() => useSearchWorkspaces())
 
-      await result.handleSearch()
+    expect(result.keyword()).toBe('initial')
 
-      expect(fetchWorkspaces).toHaveBeenCalledWith({
-        searchQuery: 'new search',
+    setWorkspaces({
+      meta: {
+        searchQuery: 'updated',
         page: 1,
-      })
-      expect(result.isSearching()).toBe(false)
-      dispose()
+        totalPages: 1,
+        totalCount: 1,
+        perPage: 10,
+      },
+    })
+    await waitFor(() => expect(result.keyword()).toBe('updated'))
+  })
+
+  it('calls fetchWorkspaces with keyword on handleSearch', async () => {
+    const fetchWorkspaces = vi.fn().mockResolvedValue(undefined)
+    vi.mocked(useHomeWorkspaces).mockReturnValue({
+      fetchWorkspaces,
+      workspaces: () =>
+        ({ meta: { searchQuery: '' } }) as ListWorkSpacesResponse,
+    } as unknown as HomeWorkspacesContextValue)
+
+    const { result } = renderHook(() => useSearchWorkspaces())
+
+    result.setKeyword('  new search  ')
+    await result.handleSearch()
+
+    expect(fetchWorkspaces).toHaveBeenCalledWith({
+      searchQuery: 'new search',
+      page: 1,
     })
   })
 })

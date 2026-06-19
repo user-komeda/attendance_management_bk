@@ -31,23 +31,20 @@ export const HomeTable = () => {
       <HomeTableHeader />
 
       <Show when={workspaces()} fallback={<h1>Loading...</h1>}>
-        {(workspaceResponse) => {
-          const meta = workspaceResponse()?.meta ?? {
-            page: 1,
-            totalPages: 0,
-            totalCount: 0,
-            perPage: 10,
+        <BasicDataTable
+          data={workspaces()?.data ?? []}
+          columns={columns}
+          paginationMeta={
+            workspaces()?.meta ?? {
+              page: 1,
+              totalPages: 0,
+              totalCount: 0,
+              perPage: 10,
+            }
           }
-          return (
-            <BasicDataTable
-              data={workspaceResponse()?.data ?? []}
-              columns={columns}
-              paginationMeta={meta}
-              onPageChange={handlePageChange}
-              onPageSizeChange={handlePageSizeChange}
-            />
-          )
-        }}
+          onPageChange={handlePageChange}
+          onPageSizeChange={handlePageSizeChange}
+        />
       </Show>
     </div>
   )
