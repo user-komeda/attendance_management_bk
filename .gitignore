@@ -22,7 +22,6 @@ node_modules
 /.idea/attendance_management.iml
 /.idea/attendance_management_bk.iml
 /apps/.idea/workspace.xml
-/apps/backend/lib/presentation/params/work_space/work_space_params.rb
 /.idea/prettier.xml
 /apps/.idea/prettier.xml
 /.idea/inspectionProfiles/Project_Default.xml

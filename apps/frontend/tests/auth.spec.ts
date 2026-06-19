@@ -98,6 +98,9 @@ test.describe('E2E Authentication Tests', () => {
     // signup 成功後、トップページに遷移することを確認
     await expect(page).toHaveURL('http://localhost:3000/', { timeout: 15000 })
 
+    // signup 時点でログイン済みになるため、signin テスト前にセッションを消す
+    await page.context().clearCookies()
+
     await page.goto('http://localhost:3000/signin')
 
     // 入力フォームがロードされるのを待つ
@@ -108,7 +111,7 @@ test.describe('E2E Authentication Tests', () => {
 
     await page.locator('button[type="submit"]').click()
 
-    // (signin) 成功後のリダイレクト先（トップページ '/'）に遷移することを期待
+    // signin 成功後のリダイレクト先（トップページ '/'）に遷移することを期待
     await expect(page).toHaveURL('http://localhost:3000/', { timeout: 15000 })
     await expect(page.locator('button', { hasText: '追加' })).toBeVisible()
   })
