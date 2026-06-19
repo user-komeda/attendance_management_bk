@@ -20,6 +20,7 @@ module Constant
       TOKEN_MISMATCH = :token_mismatch
       USER_NOT_FOUND_FROM_SUB = :user_not_found_from_sub
       SESSION_VERSION_MISMATCH = :session_version_mismatch
+      INTERNAL_SERVER_ERROR = :internal_server_error
     end
 
     module Status
@@ -36,7 +37,8 @@ module Constant
         Codes::USER_NOT_FOUND_FROM_SUB => 401,
         Codes::NOT_FOUND => 404,
         Codes::DUPLICATE => 409,
-        Codes::ALREADY_DELETED => 409
+        Codes::ALREADY_DELETED => 409,
+        Codes::INTERNAL_SERVER_ERROR => 500
       }.freeze
     end
   end

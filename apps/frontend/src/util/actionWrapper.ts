@@ -17,24 +17,33 @@ const actionWrapper = <S extends v.GenericSchema>(
 
     if (!result.success) {
       return {
+        ok: false,
         fieldErrors: createError<FieldKeyOf<S>>(result.issues),
         message: '',
       }
     }
+
     const fetchResult = await bffFetchWrapper<unknown, FieldKeyOf<S>>(
       url,
       'POST',
       result.output,
     )
+
     if (!fetchResult.ok) {
-      return fetchResult.error
+      return {
+        ok: false,
+        fieldErrors: fetchResult.error.fieldErrors,
+        message: fetchResult.error.message,
+      }
     }
 
     if (redirectUrl) {
       throw redirect(redirectUrl)
     }
 
-    return undefined
+    return {
+      ok: true,
+    }
   }, name)
 }
 export default actionWrapper

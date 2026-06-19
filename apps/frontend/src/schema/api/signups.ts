@@ -1,5 +1,11 @@
 import type { components } from '~/schema/apiTypes'
 
-export type SignupRequest = components['schemas']['SignupRequest']
+import type { DeepCamelCase } from '~/types/camelCase'
 
-export type SignupResponse = components['schemas']['SignupResponse']
+export type SignupRequest = DeepCamelCase<
+  components['schemas']['SignupRequest']
+>
+
+export type SignupResponse = DeepCamelCase<
+  components['schemas']['SignupResponse']
+>

@@ -7,13 +7,14 @@ import { InputPassword } from '~/components/inputPassword'
 import { InputText } from '~/components/inputText'
 import SignupSchema from '~/schema/signupSchema'
 import { createObjectSchemaFields } from '~/util/createObjectSchemaFields'
-import { findError } from '~/util/error'
+import { findActionMessage, findError } from '~/util/error'
 
 type SignupAction = FormDataActionOf<typeof SignupSchema>
 
 export const SignupForm = ({ action }: { action: SignupAction }) => {
   const submission = useSubmission(action)
   const signupField = createObjectSchemaFields(SignupSchema)
+
   return (
     <div class="flex flex-col justify-center p-4 sm:h-screen">
       <div class="mx-auto w-full max-w-md rounded-2xl border border-gray-300 p-8">
@@ -21,12 +22,7 @@ export const SignupForm = ({ action }: { action: SignupAction }) => {
           <div class="space-y-6">
             <div>
               <InputText name={signupField.firstName} label="firstName" />
-              <Show
-                when={findError(
-                  submission.result?.fieldErrors,
-                  signupField.firstName,
-                )}
-              >
+              <Show when={findError(submission.result, signupField.firstName)}>
                 {(message) => (
                   <span class="text-sm text-red-500">{message()}</span>
                 )}
@@ -35,12 +31,7 @@ export const SignupForm = ({ action }: { action: SignupAction }) => {
 
             <div>
               <InputText name={signupField.lastName} label="lastName" />
-              <Show
-                when={findError(
-                  submission.result?.fieldErrors,
-                  signupField.lastName,
-                )}
-              >
+              <Show when={findError(submission.result, signupField.lastName)}>
                 {(message) => (
                   <span class="text-sm text-red-500">{message()}</span>
                 )}
@@ -49,12 +40,7 @@ export const SignupForm = ({ action }: { action: SignupAction }) => {
 
             <div>
               <InputText name={signupField.email} label="Email" />
-              <Show
-                when={findError(
-                  submission.result?.fieldErrors,
-                  signupField.email,
-                )}
-              >
+              <Show when={findError(submission.result, signupField.email)}>
                 {(message) => (
                   <span class="text-sm text-red-500">{message()}</span>
                 )}
@@ -63,12 +49,7 @@ export const SignupForm = ({ action }: { action: SignupAction }) => {
 
             <div>
               <InputPassword name={signupField.password} label="Password" />
-              <Show
-                when={findError(
-                  submission.result?.fieldErrors,
-                  signupField.password,
-                )}
-              >
+              <Show when={findError(submission.result, signupField.password)}>
                 {(message) => (
                   <span class="text-sm text-red-500">{message()}</span>
                 )}
@@ -81,10 +62,7 @@ export const SignupForm = ({ action }: { action: SignupAction }) => {
                 label="Confirm Password"
               />
               <Show
-                when={findError(
-                  submission.result?.fieldErrors,
-                  signupField.confirmPassword,
-                )}
+                when={findError(submission.result, signupField.confirmPassword)}
               >
                 {(message) => (
                   <span class="text-sm text-red-500">{message()}</span>
@@ -92,7 +70,7 @@ export const SignupForm = ({ action }: { action: SignupAction }) => {
               </Show>
             </div>
 
-            <Show when={submission.result?.message}>
+            <Show when={findActionMessage(submission.result)}>
               {(message) => <p class="text-sm text-red-500">{message()}</p>}
             </Show>
           </div>

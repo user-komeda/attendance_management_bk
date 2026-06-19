@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 require 'sinatra/base'
+require 'jwt'
+require 'securerandom'
 require_relative 'root'
 require_relative 'sinatra_settings'
 require_relative 'sinatra_error_handler'
@@ -12,9 +14,12 @@ class Main < Sinatra::Base
   helpers ResponseHelper
   helpers VerifyJwt
   helpers ContextHelper
+  helpers SinatraErrorHandler
   register SinatraSettings
   register SinatraErrorHandler
-
+  SWAGGER_USER_ID = '04e8496c-6b8c-4f4f-9746-2d96a10f13ec'
+  USER_JWT_EXPIRES_IN_SECONDS = 60
+  BFF_JWT_EXPIRES_IN_SECONDS = 60
   before do
     path = request.path
     return if VerifyJwt.skip_jwt_verification?(path)
@@ -42,6 +47,13 @@ class Main < Sinatra::Base
     send_file 'public/swagger.html'
   end
 
+  get '/swagger/token' do
+    halt 404 if ENV['RACK_ENV'] == 'production'
+
+    content_type :json
+    JSON.generate(user_token: swagger_user_token, bff_token: swagger_bff_token)
+  end
+
   get '/health' do
     'OK'
   end
@@ -64,5 +76,41 @@ class Main < Sinatra::Base
   end
   Root::ROUTE_CONFIG.each do |route|
     route_resources(route)
+  end
+
+  private
+
+  def swagger_user_token
+    env = AppEnv.get
+    now = Time.now.to_i
+    JWT.encode(
+      {
+        typ: 'access_token',
+        iss: env['JWT_ISSUER'],
+        aud: env['JWT_AUDIENCE'],
+        sub: SWAGGER_USER_ID,
+        jti: SecureRandom.uuid,
+        iat: now,
+        nbf: now,
+        exp: now + USER_JWT_EXPIRES_IN_SECONDS
+      },
+      env['JWT_SECRET'], 'HS256', { typ: 'USER_JWT' }
+    )
+  end
+
+  def swagger_bff_token
+    env = AppEnv.get
+    now = Time.now.to_i
+    JWT.encode(
+      {
+        typ: 'bff_assertion',
+        iss: env['JWT_ISSUER'],
+        aud: env['JWT_AUDIENCE'],
+        iat: now,
+        nbf: now,
+        exp: now + BFF_JWT_EXPIRES_IN_SECONDS
+      },
+      env['BFF_JWT_SECRET'], 'HS256', { typ: 'BFF_JWT' }
+    )
   end
 end

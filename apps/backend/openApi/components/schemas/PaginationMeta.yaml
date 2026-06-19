@@ -1,0 +1,28 @@
+type: object
+properties:
+  page:
+    type: integer
+    description: 現在のページ番号
+    example: 1
+  total_pages:
+    type: integer
+    description: 総ページ数
+    example: 5
+  total_count:
+    type: integer
+    description: 総データ件数
+    example: 100
+  per_page:
+    type: integer
+    description: 1ページあたりの件数
+    example: 20
+  search_query:
+    type: string
+    nullable: true
+    description: 現在適用されている検索クエリ
+    example: "test"
+required:
+  - page
+  - total_pages
+  - total_count
+  - per_page

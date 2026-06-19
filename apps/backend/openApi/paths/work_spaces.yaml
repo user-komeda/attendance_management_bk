@@ -1,9 +1,15 @@
 get:
   tags: [ workspace ]
   summary: ワークスペース一覧の取得
+  security:
+    - bearerAuth: [ ]
   operationId: listWorkSpaces
   description: |
     ログインユーザーが所属する（または閲覧可能な）ワークスペースの一覧を返します。
+  parameters:
+    - $ref: '../components/parameters/Page.yaml'
+    - $ref: '../components/parameters/PerPage.yaml'
+    - $ref: '../components/parameters/SearchQuery.yaml'
   responses:
     "200":
       description: 正常にワークスペース一覧を返却します
@@ -21,6 +27,8 @@ get:
 post:
   tags: [ workspace ]
   summary: ワークスペースの作成
+  security:
+    - bearerAuth: [ ]
   operationId: createWorkSpace
   description: |
     新しいワークスペースを作成します。

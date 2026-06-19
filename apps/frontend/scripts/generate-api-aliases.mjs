@@ -14,6 +14,8 @@ const commonSchemas = new Set(['Error'])
 
 const schemaAlias = (name) => (name === 'Error' ? 'ApiError' : name)
 
+const schemaType = (name) => `DeepCamelCase<components['schemas']['${name}']>`
+
 const pascal = (value) =>
   value
     .replace(/^\((.*)\)$/, '$1')
@@ -98,7 +100,7 @@ if (schemas?.type && ts.isTypeLiteralNode(schemas.type)) {
       files,
       schemaFile(name),
       'schema',
-      `export type ${schemaAlias(name)} = components['schemas']['${name}']`,
+      `export type ${schemaAlias(name)} = ${schemaType(name)}`,
     )
   }
 }
@@ -149,6 +151,7 @@ for (const [file, entries] of [...files.entries()].sort()) {
 
   if (entries.some((entry) => entry.kind === 'schema')) {
     imports.push("import type { components } from '~/schema/apiTypes'")
+    imports.push("import type { DeepCamelCase } from '~/types/camelCase'")
   }
 
   if (entries.some((entry) => entry.kind === 'operation')) {

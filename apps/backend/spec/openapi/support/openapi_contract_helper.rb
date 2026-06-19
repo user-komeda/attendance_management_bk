@@ -138,7 +138,7 @@ module OpenapiContractHelper
     ref = value.fetch('$ref')
 
     YAML.safe_load_file(
-      File.expand_path(File.join(ROOT_DIR, 'openApi', ref)),
+      File.expand_path(File.join(ROOT_DIR, 'openApi', 'paths', ref)),
       aliases: true
     )
   end

@@ -21,9 +21,9 @@ module Presentation
         def self.build: (status: String, work_space: Application::Dto::WorkSpace::WorkSpaceDto) -> Hash[Symbol, String]
 
         # rubocop:disable all
-        # @rbs (status_list: Array[String], work_spaces: Array[Application::Dto::WorkSpace::WorkSpaceDto]) -> Array[Hash[Symbol, String]]
+        # @rbs (status_list: Array[String], work_spaces: Array[Application::Dto::WorkSpace::WorkSpaceDto], pagination: { page: Integer, per_page: Integer }, total_count: Integer, ?search_query: String?) -> Hash[Symbol, untyped]
         # rubocop:enable all
-        def self.build_from_array: (status_list: Array[String], work_spaces: Array[Application::Dto::WorkSpace::WorkSpaceDto]) -> Array[Hash[Symbol, String]]
+        def self.build_from_array: (status_list: Array[String], work_spaces: Array[Application::Dto::WorkSpace::WorkSpaceDto], pagination: { page: Integer, per_page: Integer }, total_count: Integer, ?search_query: String?) -> Hash[Symbol, untyped]
 
         # @rbs () -> {id: String, name: String, slug: String ,status: String}
         def to_h: () -> { id: String, name: String, slug: String, status: String }

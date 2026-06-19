@@ -1,6 +1,7 @@
 post:
   tags: [ auth ]
   summary: サインイン（ログイン）
+  security: [ ]
   description: |-
     既存ユーザーのサインインを行います。POST + JSON で受け付けます。
   operationId: signin

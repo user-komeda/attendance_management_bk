@@ -15,6 +15,10 @@ export default defineConfig(
   {
     ignores: [
       'coverage/**',
+      'test-results/**',
+      'playwright-report/**',
+      'src/components/ui/**',
+      'src/schema/',
       'scripts/generate-api-aliases.mjs',
       'tailwind.config.mjs',
     ],

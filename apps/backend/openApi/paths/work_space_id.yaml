@@ -1,6 +1,8 @@
 get:
   tags: [ workspace ]
   summary: ワークスペース詳細の取得
+  security:
+    - bearerAuth: [ ]
   operationId: getWorkSpace
   parameters:
     - $ref: '../components/parameters/WorkSpaceId.yaml'
@@ -27,6 +29,8 @@ get:
 patch:
   tags: [ workspace ]
   summary: ワークスペースの更新
+  security:
+    - bearerAuth: [ ]
   operationId: updateWorkSpace
   parameters:
     - $ref: '../components/parameters/WorkSpaceId.yaml'
@@ -61,6 +65,8 @@ patch:
 delete:
   tags: [ workspace ]
   summary: ワークスペースの削除
+  security:
+    - bearerAuth: [ ]
   operationId: deleteWorkSpace
   parameters:
     - $ref: '../components/parameters/WorkSpaceId.yaml'

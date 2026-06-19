@@ -1,6 +1,8 @@
 get:
   tags: [ user ]
   summary: ユーザー一覧の取得
+  security:
+    - bearerAuth: [ ]
   operationId: listUsers
   description: |
     登録済みユーザーの一覧を返します。

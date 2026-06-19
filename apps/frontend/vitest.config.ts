@@ -35,6 +35,9 @@ export default defineConfig({
         'src/entry-server.tsx',
         'src/global.d.ts',
         'src/types',
+        'src/components/ui/**',
+        'src/schema/apiTypes.ts',
+        'src/schema/api/**',
       ],
     },
     server: {

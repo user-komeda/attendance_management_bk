@@ -1,3 +1,11 @@
-type: array
-items:
-  $ref: './WorkSpaceWithStatus.yaml'
+type: object
+properties:
+  data:
+    type: array
+    items:
+      $ref: './WorkSpaceWithStatus.yaml'
+  meta:
+    $ref: './PaginationMeta.yaml'
+required:
+  - data
+  - meta

@@ -7,6 +7,7 @@ module Presentation
     module WorkSpace
       class WorkSpaceControllerBase < Presentation::Controller::ControllerBase
         WORK_SPACE_USE_CASE = Constant::ContainerKey::ApplicationKey::WORK_SPACE_USE_CASE.freeze
+        WORK_SPACE_PARAMS = ::Presentation::Params::WorkSpace::WorkSpaceParams.freeze
         WORK_SPACE_RESPONSE = ::Presentation::Response::WorkSpace::WorkSpaceResponse.freeze
         MEMBER_SHIPS_RESPONSE = ::Presentation::Response::WorkSpace::MemberShipsResponse.freeze
         WORK_SPACE_WITH_STATUS_RESPONSE = ::Presentation::Response::WorkSpace::WorkSpaceWithStatusResponse.freeze
@@ -22,12 +23,18 @@ module Presentation
           request_class.build(params: request_payload)
         end
 
-        # @rbs [T] (Symbol key, *untyped args) -> T
-        def invoke_use_case(key, *args)
+        # @rbs [T] (Symbol key, *untyped args, **untyped kwargs) -> T
+        def invoke_use_case(key, *args, **kwargs)
           key = WORK_SPACE_USE_CASE[key].key
           invoker = resolve(key)
           # @type var params: Hash[Symbol, untyped]
-          params = UtilMethod.nil_or_empty?(args) ? {} : { args: args.first }
+          params = if !UtilMethod.nil_or_empty?(args)
+                     { args: args.first }
+                   elsif !kwargs.empty?
+                     kwargs
+                   else
+                     {}
+                   end
           invoker.invoke(**params)
         end
       end

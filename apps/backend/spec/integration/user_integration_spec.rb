@@ -75,7 +75,7 @@ RSpec.describe 'User API integration', type: :request do
   it 'validates id format (example validation test)' do
     patch '/users/bad-uuid', { first_name: 'Test' }.to_json, json_headers
 
-    expect(last_response.status).to eq(404)
+    expect(last_response.status).to eq(400)
   end
 
   it 'performs full CRUD lifecycle' do

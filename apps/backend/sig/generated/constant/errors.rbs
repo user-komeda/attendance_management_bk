@@ -26,6 +26,8 @@ module Constant
       USER_NOT_FOUND_FROM_SUB: ::Symbol
 
       SESSION_VERSION_MISMATCH: ::Symbol
+
+      INTERNAL_SERVER_ERROR: ::Symbol
     end
 
     module Status

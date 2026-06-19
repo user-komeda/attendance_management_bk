@@ -1,0 +1,19 @@
+# Generated from lib/presentation/params/pagination_params.rb with RBS::Inline
+
+module Presentation
+  module Params
+    class PaginationParams < BaseParams
+      # rubocop:disable all
+      attr_reader page: Integer
+
+      # rubocop:disable all
+      attr_reader per_page: Integer
+
+      # @rbs (page: Integer, per_page: Integer) -> void
+      def initialize: (page: Integer, per_page: Integer) -> void
+
+      # @rbs (Hash[Symbol, untyped] params) -> PaginationParams
+      def self.build: (Hash[Symbol, untyped] params) -> PaginationParams
+    end
+  end
+end

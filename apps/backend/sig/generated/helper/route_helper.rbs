@@ -3,8 +3,23 @@
 module RouteHelper
   DEFAULT_ACTIONS: untyped
 
-  # @rbs (Hash[Symbol, untyped] route) -> void
-  def route_resources: (Hash[Symbol, untyped] route) -> void
+  def route_resources: (untyped route) -> untyped
+
+  private
+
+  def define_route: (untyped action, untyped base_path, untyped controller, untyped resource_name) -> untyped
+
+  def define_index_route: (untyped base_path, untyped controller) -> untyped
+
+  def define_show_route: (untyped base_path, untyped controller) -> untyped
+
+  def define_create_route: (untyped base_path, untyped controller, untyped resource_name) -> untyped
+
+  def define_update_route: (untyped base_path, untyped controller) -> untyped
+
+  def define_destroy_route: (untyped base_path, untyped controller, untyped resource_name) -> untyped
+
+  def uuid_pattern: () -> untyped
 
   def route_path: (untyped route) -> untyped
 

@@ -21,6 +21,9 @@ tags:
   - name: workspace
     description: ワークスペースに関する操作
 
+security:
+  - bearerAuth: [ ]
+
 paths:
   "/users":
     $ref: './paths/users.yaml'
@@ -72,6 +75,8 @@ components:
       $ref: './components/schemas/UpdateWorkSpaceRequest.yaml'
     ListWorkSpacesResponse:
       $ref: './components/schemas/ListWorkSpacesResponse.yaml'
+    PaginationMeta:
+      $ref: './components/schemas/PaginationMeta.yaml'
     Error:
       $ref: './components/schemas/Error.yaml'
   parameters:
@@ -79,3 +84,14 @@ components:
       $ref: './components/parameters/UserId.yaml'
     WorkSpaceId:
       $ref: './components/parameters/WorkSpaceId.yaml'
+    Page:
+      $ref: './components/parameters/Page.yaml'
+    PerPage:
+      $ref: './components/parameters/PerPage.yaml'
+    SearchQuery:
+      $ref: './components/parameters/SearchQuery.yaml'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

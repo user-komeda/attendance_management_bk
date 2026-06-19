@@ -1,0 +1,10 @@
+# Generated from lib/presentation/params/base_params.rb with RBS::Inline
+
+module Presentation
+  module Params
+    class BaseParams
+      # @rbs (Hash[Symbol, untyped] params) -> BaseParams
+      def self.build: (Hash[Symbol, untyped] params) -> BaseParams
+    end
+  end
+end

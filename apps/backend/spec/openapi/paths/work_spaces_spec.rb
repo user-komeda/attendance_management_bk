@@ -11,14 +11,34 @@ RSpec.describe 'WorkSpaces', type: :openapi do
       expect(last_response.status).to eq(200)
     end
 
-    it 'has no optional query parameters' do
-      expect(optional_query_parameters('work_spaces.yaml', :get)).to be_empty
+    it 'has correct optional query parameters' do
+      expect(optional_query_parameters('work_spaces.yaml', :get)).to contain_exactly('page', 'per_page', 'search_query')
     end
 
     it 'touches all schema properties' do
       get '/work_spaces'
-      json(last_response.body).each do |work_space|
+      body = json(last_response.body)
+      expect(touch_openapi_schema_properties('ListWorkSpacesResponse', body)).to be_a(Set)
+      expect_touches_workspace_properties(body['data'])
+    end
+
+    def expect_touches_workspace_properties(work_spaces)
+      work_spaces.each do |work_space|
         expect(touch_openapi_schema_properties('WorkSpaceWithStatus', work_space)).to be_a(Set)
+      end
+    end
+
+    it 'touches all schema properties with query parameters' do
+      query_params = { page: 1, per_page: 10, search_query: 'test' }
+      get '/work_spaces', query_params
+      expect_touches_all_schema_properties(json(last_response.body), query_params)
+    end
+
+    def expect_touches_all_schema_properties(body, query_params)
+      aggregate_failures do
+        expect(touch_openapi_schema_properties('ListWorkSpacesResponse', body)).to be_a(Set)
+        expect(touch_openapi_schema_properties('PaginationMeta', body['meta'])).to be_a(Set)
+        expect(touch_openapi_query_parameters('work_spaces.yaml', :get, query_params)).to be_a(Set)
       end
     end
   end

@@ -6,11 +6,27 @@ module Presentation
   module Controller
     module WorkSpace
       class WorkSpaceController < WorkSpaceControllerBase
-        # @rbs () -> Array[Hash[Symbol, String]]
-        def index
-          work_spaces_with_status = invoke_use_case(:get_all)
-          WORK_SPACE_WITH_STATUS_RESPONSE.build_from_array(status_list: work_spaces_with_status.map(&:status),
-                                                           work_spaces: work_spaces_with_status.map(&:work_spaces))
+        # @rbs (Hash[Symbol, untyped] params) -> Hash[Symbol, untyped]
+        def index(params)
+          work_space_params = WORK_SPACE_PARAMS.build(params)
+          pagination = work_space_params.pagination
+
+          result = invoke_use_case(
+            :get_all, page: pagination.page, per_page: pagination.per_page,
+                      search_query: work_space_params.search_query
+          )
+
+          build_index_response(result, pagination, work_space_params.search_query)
+        end
+
+        def build_index_response(result, pagination, search_query)
+          WORK_SPACE_WITH_STATUS_RESPONSE.build_from_array(
+            status_list: result[:data].map(&:status),
+            work_spaces: result[:data].map(&:work_spaces),
+            pagination: { page: pagination.page, per_page: pagination.per_page },
+            total_count: result[:total_count],
+            search_query: search_query
+          )
         end
 
         # @rbs (String id) -> Hash[Symbol, String]

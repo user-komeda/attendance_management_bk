@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <title>Swagger UI</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swagger-ui-dist@4/swagger-ui.css">
+  <meta charset="UTF-8">
+  <title>Swagger UI</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swagger-ui-dist@4/swagger-ui.css">
 </head>
 <body>
 <div id="swagger-ui"></div>
@@ -12,15 +12,47 @@
 <script src="https://cdn.jsdelivr.net/npm/swagger-ui-dist@4/swagger-ui-standalone-preset.js"></script>
 
 <script>
+  window.onload = function () {
     const ui = SwaggerUIBundle({
-        dom_id: '#swagger-ui',
-        url: 'http://localhost:4567/openapi/openapi.yaml', // Sinatra から配信される YAML
-        presets: [
-            SwaggerUIBundle.presets.apis,
-            SwaggerUIStandalonePreset
-        ],
-        layout: "StandaloneLayout"
+      url: "/openapi/openapi.yaml?v=20260618",
+      dom_id: '#swagger-ui',
+      deepLinking: true,
+      presets: [
+        SwaggerUIBundle.presets.apis,
+        SwaggerUIStandalonePreset
+      ],
+      plugins: [
+        SwaggerUIBundle.plugins.DownloadUrl
+      ],
+      layout: "StandaloneLayout",
+      persistAuthorization: true,
+      requestInterceptor: async function (request) {
+        if (
+          request.url.includes("/openapi/") ||
+          request.url.includes("/swagger/token")
+        ) {
+          return request;
+        }
+
+        const response = await fetch("/swagger/token");
+
+        if (!response.ok) {
+          return request;
+        }
+
+        const data = await response.json();
+        const requestUrl = new URL(request.url, window.location.origin);
+        const token = ["/signin", "/signup"].includes(requestUrl.pathname)
+          ? data.bff_token
+          : data.user_token;
+
+        request.headers.Authorization = `Bearer ${token}`;
+
+        return request;
+      }
     });
+    window.ui = ui;
+  };
 </script>
 </body>
 </html>

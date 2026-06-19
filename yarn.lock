@@ -803,6 +803,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@corvu/utils@npm:~0.4.0, @corvu/utils@npm:~0.4.1":
+  version: 0.4.2
+  resolution: "@corvu/utils@npm:0.4.2"
+  dependencies:
+    "@floating-ui/dom": "npm:^1.6.11"
+  peerDependencies:
+    solid-js: ^1.8
+  checksum: 10c0/00895468ec0fe0707d1afcd4f88e776fad02e488f9f936aa0db15dd0957ac97a3d61209dc6d42dbb3ce558f7c26303efd0d4376873153908e9a592c0d073213f
+  languageName: node
+  linkType: hard
+
 "@csstools/color-helpers@npm:^6.0.2":
   version: 6.0.2
   resolution: "@csstools/color-helpers@npm:6.0.2"
@@ -1398,6 +1409,32 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@floating-ui/core@npm:^1.7.5":
+  version: 1.7.5
+  resolution: "@floating-ui/core@npm:1.7.5"
+  dependencies:
+    "@floating-ui/utils": "npm:^0.2.11"
+  checksum: 10c0/f9c52205e198b231d63a387b09c659aab08c46a1899e0b0bbe147b8b4f048b546f15ba17cb5d2a471da9534f1883d979425e13e5c4ceee67be63e4b0abd4db5d
+  languageName: node
+  linkType: hard
+
+"@floating-ui/dom@npm:^1.5.1, @floating-ui/dom@npm:^1.6.11":
+  version: 1.7.6
+  resolution: "@floating-ui/dom@npm:1.7.6"
+  dependencies:
+    "@floating-ui/core": "npm:^1.7.5"
+    "@floating-ui/utils": "npm:^0.2.11"
+  checksum: 10c0/5c098e0d7b58c9bc769f276cca1766994c2c9c70c92d091a61bba8b3e9be53c011e0a79a8457fc2fb2f3d91697a26eb52e0a4962ef936dc963b45f58613c212f
+  languageName: node
+  linkType: hard
+
+"@floating-ui/utils@npm:^0.2.11":
+  version: 0.2.11
+  resolution: "@floating-ui/utils@npm:0.2.11"
+  checksum: 10c0/f4bcea1559bdbb721ecc8e8ead423ac58d6a5b6e70b602cf0810ba6ad4ed1c77211b207faa88b278a9042f0c743133de08a203ed6741c1b6443423332884d5b3
+  languageName: node
+  linkType: hard
+
 "@humanfs/core@npm:^0.19.2":
   version: 0.19.2
   resolution: "@humanfs/core@npm:0.19.2"
@@ -1450,6 +1487,24 @@ __metadata:
     typescript: "npm:^5.5.4"
     zod: "npm:^3.23.8"
   checksum: 10c0/d3d48a6bf4cddb202cf8b3f6933d8e841e708efbdb529c7bf49cea1b6a8ec69687f4a80f0d9692dff5c390659771b3a064ce8798d6d938d4c7cb9f2edeffa89f
+  languageName: node
+  linkType: hard
+
+"@internationalized/date@npm:^3.4.0":
+  version: 3.12.2
+  resolution: "@internationalized/date@npm:3.12.2"
+  dependencies:
+    "@swc/helpers": "npm:^0.5.0"
+  checksum: 10c0/1640dbec517b07a820b754c128ecd85930cc2f50b753b406611e59bff5aae8cac3a7ede575a66e462778ff007720af601779da08f0a2e5cdcac496c8b9593172
+  languageName: node
+  linkType: hard
+
+"@internationalized/number@npm:^3.2.1":
+  version: 3.6.7
+  resolution: "@internationalized/number@npm:3.6.7"
+  dependencies:
+    "@swc/helpers": "npm:^0.5.0"
+  checksum: 10c0/b5d60cccc05e4549eedcaee4ef3fc7b972532321e841bce1251c4993f1f7b3416c2b92e7fddd22292ed494140fb3ca6eb6dafc6cbe37e267483e9510954a618f
   languageName: node
   linkType: hard
 
@@ -1534,6 +1589,41 @@ __metadata:
     "@jridgewell/resolve-uri": "npm:^3.1.0"
     "@jridgewell/sourcemap-codec": "npm:^1.4.14"
   checksum: 10c0/4b30ec8cd56c5fd9a661f088230af01e0c1a3888d11ffb6b47639700f71225be21d1f7e168048d6d4f9449207b978a235c07c8f15c07705685d16dc06280e9d9
+  languageName: node
+  linkType: hard
+
+"@kobalte/core@npm:^0.13.11":
+  version: 0.13.11
+  resolution: "@kobalte/core@npm:0.13.11"
+  dependencies:
+    "@floating-ui/dom": "npm:^1.5.1"
+    "@internationalized/date": "npm:^3.4.0"
+    "@internationalized/number": "npm:^3.2.1"
+    "@kobalte/utils": "npm:^0.9.1"
+    "@solid-primitives/props": "npm:^3.1.8"
+    "@solid-primitives/resize-observer": "npm:^2.0.26"
+    solid-presence: "npm:^0.1.8"
+    solid-prevent-scroll: "npm:^0.1.4"
+  peerDependencies:
+    solid-js: ^1.8.15
+  checksum: 10c0/0adeee986cf84075d247492896711beb4b8d541f193a8bf38e8d431a9f1fd1a5f5e5a779a6429e1972a75f826d678e6765d45f589276e3cc729cd377fac1709c
+  languageName: node
+  linkType: hard
+
+"@kobalte/utils@npm:^0.9.1":
+  version: 0.9.1
+  resolution: "@kobalte/utils@npm:0.9.1"
+  dependencies:
+    "@solid-primitives/event-listener": "npm:^2.2.14"
+    "@solid-primitives/keyed": "npm:^1.2.0"
+    "@solid-primitives/map": "npm:^0.4.7"
+    "@solid-primitives/media": "npm:^2.2.4"
+    "@solid-primitives/props": "npm:^3.1.8"
+    "@solid-primitives/refs": "npm:^1.0.5"
+    "@solid-primitives/utils": "npm:^6.2.1"
+  peerDependencies:
+    solid-js: ^1.8.8
+  checksum: 10c0/5cc916885322c7ad3bf361c7dc565ba0aa4442e9b7e6bd1c1c706eb7f51fff0633cd7254512bdc3bc7065bd4146700352fb0cf0259224be61d112e4e5bf8a6cd
   languageName: node
   linkType: hard
 
@@ -2730,6 +2820,129 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@solid-primitives/event-listener@npm:^2.2.14, @solid-primitives/event-listener@npm:^2.4.5":
+  version: 2.4.5
+  resolution: "@solid-primitives/event-listener@npm:2.4.5"
+  dependencies:
+    "@solid-primitives/utils": "npm:^6.4.0"
+  peerDependencies:
+    solid-js: ^1.6.12
+  checksum: 10c0/f490f8a4d071e7027fe7d1544ff1a05aad3ed8e167144bd11b0e8719435249900d32b909cfa652741d6f2e8e534082ac24fe4398c1c63bdd2852326607c7960a
+  languageName: node
+  linkType: hard
+
+"@solid-primitives/keyed@npm:^1.2.0":
+  version: 1.5.3
+  resolution: "@solid-primitives/keyed@npm:1.5.3"
+  peerDependencies:
+    solid-js: ^1.6.12
+  checksum: 10c0/30be9b406b9900524ea07d7620c67134a6091a0c3ee40ef4e7db47ebe435937edf67aa60080065f522f162eda890b1c41d73d20fa9a9d391087b88fe3b910102
+  languageName: node
+  linkType: hard
+
+"@solid-primitives/map@npm:^0.4.7":
+  version: 0.4.13
+  resolution: "@solid-primitives/map@npm:0.4.13"
+  dependencies:
+    "@solid-primitives/trigger": "npm:^1.1.0"
+  peerDependencies:
+    solid-js: ^1.6.12
+  checksum: 10c0/eaaea822349d82a56d47adebbeec12b4d95fc0245e8fff1dc29cfae7c5afd9a18752718cbb0070dd0f942f2f352a9b84064b9f97316ea41ef20e02406317c32c
+  languageName: node
+  linkType: hard
+
+"@solid-primitives/media@npm:^2.2.4":
+  version: 2.3.5
+  resolution: "@solid-primitives/media@npm:2.3.5"
+  dependencies:
+    "@solid-primitives/event-listener": "npm:^2.4.5"
+    "@solid-primitives/rootless": "npm:^1.5.3"
+    "@solid-primitives/static-store": "npm:^0.1.3"
+    "@solid-primitives/utils": "npm:^6.4.0"
+  peerDependencies:
+    solid-js: ^1.6.12
+  checksum: 10c0/8d1daf6fe23231ee9e201ba08744cfed5428617cfa11512f966a9d3d790bec02922621b28fbf5085c669063201ce4fba8a8d119fe39fe167c39cd41735e50ddd
+  languageName: node
+  linkType: hard
+
+"@solid-primitives/props@npm:^3.1.8":
+  version: 3.2.3
+  resolution: "@solid-primitives/props@npm:3.2.3"
+  dependencies:
+    "@solid-primitives/utils": "npm:^6.4.0"
+  peerDependencies:
+    solid-js: ^1.6.12
+  checksum: 10c0/7c0c8a4e038b525457d2412206c5141442163ce228e4c96bc33ae1937e4d4abbfb23ce732fedca78b23b08a0ae0e8b0077beca577f10c7ed86548480b1e01d15
+  languageName: node
+  linkType: hard
+
+"@solid-primitives/refs@npm:^1.0.5":
+  version: 1.1.3
+  resolution: "@solid-primitives/refs@npm:1.1.3"
+  dependencies:
+    "@solid-primitives/utils": "npm:^6.4.0"
+  peerDependencies:
+    solid-js: ^1.6.12
+  checksum: 10c0/af1e27b5b38f639e5a3125a982ff8f9c58fe2aea4609718c9383d88d1fc5a13e490fb40c262eb183c695b3efacd89b5328876a615814c0edb54981b58b3804fa
+  languageName: node
+  linkType: hard
+
+"@solid-primitives/resize-observer@npm:^2.0.26":
+  version: 2.1.5
+  resolution: "@solid-primitives/resize-observer@npm:2.1.5"
+  dependencies:
+    "@solid-primitives/event-listener": "npm:^2.4.5"
+    "@solid-primitives/rootless": "npm:^1.5.3"
+    "@solid-primitives/static-store": "npm:^0.1.3"
+    "@solid-primitives/utils": "npm:^6.4.0"
+  peerDependencies:
+    solid-js: ^1.6.12
+  checksum: 10c0/f50ad9557ae2ff417da0d42c2436f1cc5b5aa4056ee090ce2f5f104a0d41cefff1717c44b9ab4008be954a30621f1e12c6cb577f292e71646c45270150ec66e0
+  languageName: node
+  linkType: hard
+
+"@solid-primitives/rootless@npm:^1.5.3":
+  version: 1.5.3
+  resolution: "@solid-primitives/rootless@npm:1.5.3"
+  dependencies:
+    "@solid-primitives/utils": "npm:^6.4.0"
+  peerDependencies:
+    solid-js: ^1.6.12
+  checksum: 10c0/aa6900866eda73f80cdb46dba3a5ad043c43b37dd339126af2c3e0d58b90f22d7a90a07d886a1317c173c04a0888f9ede2bd2126e4200f20dfb3a3fa7ad92848
+  languageName: node
+  linkType: hard
+
+"@solid-primitives/static-store@npm:^0.1.3":
+  version: 0.1.3
+  resolution: "@solid-primitives/static-store@npm:0.1.3"
+  dependencies:
+    "@solid-primitives/utils": "npm:^6.4.0"
+  peerDependencies:
+    solid-js: ^1.6.12
+  checksum: 10c0/4c0cae0e78ba1453188e088691d347c6dec99632fb55c7aab0928ff7bc8e0ffc7baea8572d5dae0f2f99e6789a86689e41be337334e11f63d7b8cc0a3c368356
+  languageName: node
+  linkType: hard
+
+"@solid-primitives/trigger@npm:^1.1.0":
+  version: 1.2.3
+  resolution: "@solid-primitives/trigger@npm:1.2.3"
+  dependencies:
+    "@solid-primitives/utils": "npm:^6.4.0"
+  peerDependencies:
+    solid-js: ^1.6.12
+  checksum: 10c0/baa5e1769f1462163788b2311d488bce6c94107bb2c843036f88e276fbb55a7a076ff116060c18aaf552481e683114996eb5036ddb1df1f1c7be39a417a17a61
+  languageName: node
+  linkType: hard
+
+"@solid-primitives/utils@npm:^6.2.1, @solid-primitives/utils@npm:^6.4.0":
+  version: 6.4.0
+  resolution: "@solid-primitives/utils@npm:6.4.0"
+  peerDependencies:
+    solid-js: ^1.6.12
+  checksum: 10c0/fdac336c74be180251ac40df280571534d427c773b207e19a51aa01f013e16864f15c5c829f53a8e7d0033543bef07a6410c2dbaf364410dc29783966e14fcac
+  languageName: node
+  linkType: hard
+
 "@solidjs/router@npm:^0.16.1":
   version: 0.16.1
   resolution: "@solidjs/router@npm:0.16.1"
@@ -2790,6 +3003,33 @@ __metadata:
   version: 1.1.0
   resolution: "@standard-schema/spec@npm:1.1.0"
   checksum: 10c0/d90f55acde4b2deb983529c87e8025fa693de1a5e8b49ecc6eb84d1fd96328add0e03d7d551442156c7432fd78165b2c26ff561b970a9a881f046abb78d6a526
+  languageName: node
+  linkType: hard
+
+"@swc/helpers@npm:^0.5.0":
+  version: 0.5.23
+  resolution: "@swc/helpers@npm:0.5.23"
+  dependencies:
+    tslib: "npm:^2.8.0"
+  checksum: 10c0/02da7b4df465693933ecd4851cc193ec729c309939c8a84eccae5ec0010aafc3894e713b8ef8d13a6ba401759f0e900c88e2dcfef5872c27bb91e70f73275cce
+  languageName: node
+  linkType: hard
+
+"@tabler/icons-solidjs@npm:^3.44.0":
+  version: 3.44.0
+  resolution: "@tabler/icons-solidjs@npm:3.44.0"
+  dependencies:
+    "@tabler/icons": "npm:3.44.0"
+  peerDependencies:
+    solid-js: ^1.4.7
+  checksum: 10c0/0bf6d36eceed077010180fcf225db8bfdf85f2cd6136ca7beb592623668d16f045436f92ce0041f5e807c014392246af1f5b163eec044d34f7e38adcaba3a2cc
+  languageName: node
+  linkType: hard
+
+"@tabler/icons@npm:3.44.0":
+  version: 3.44.0
+  resolution: "@tabler/icons@npm:3.44.0"
+  checksum: 10c0/0d5c1f9d6e68aa04c4a661e96035190e0884e0bc0022d31922efad3cfba210a25b2f013c0b6c0ab6aeb3d5a402a9b85a168966bd11a30ba6087f614f8521ccf3
   languageName: node
   linkType: hard
 
@@ -6268,10 +6508,12 @@ __metadata:
   resolution: "frontend@workspace:apps/frontend"
   dependencies:
     "@eslint/js": "npm:9.39.4"
+    "@kobalte/core": "npm:^0.13.11"
     "@playwright/test": "npm:1.60.0"
     "@solidjs/router": "npm:^0.16.1"
     "@solidjs/start": "npm:^1.3.2"
     "@solidjs/testing-library": "npm:0.8.10"
+    "@tabler/icons-solidjs": "npm:^3.44.0"
     "@tailwindcss/vite": "npm:^4.3.0"
     "@tanstack/solid-table": "npm:^8.21.3"
     "@testing-library/dom": "npm:10.4.1"
@@ -9874,6 +10116,28 @@ __metadata:
   languageName: node
   linkType: hard
 
+"solid-presence@npm:^0.1.8":
+  version: 0.1.8
+  resolution: "solid-presence@npm:0.1.8"
+  dependencies:
+    "@corvu/utils": "npm:~0.4.0"
+  peerDependencies:
+    solid-js: ^1.8
+  checksum: 10c0/61c88306dd4c025188111fa2889927d084f2e63c8b17e75866d2a0be8021154cf214393cdd10bc5f89c15ec4f6d27e65442a36f17b67b08d19c48e9abe6c21a2
+  languageName: node
+  linkType: hard
+
+"solid-prevent-scroll@npm:^0.1.4":
+  version: 0.1.10
+  resolution: "solid-prevent-scroll@npm:0.1.10"
+  dependencies:
+    "@corvu/utils": "npm:~0.4.1"
+  peerDependencies:
+    solid-js: ^1.8
+  checksum: 10c0/ec5915193eff30a23120765c4c020fe5176bece9ab9d097923cc50e54d1acdab70e87cf450f8fb8bbb87ad196df94151fa910afc40fda98aeefafe97775dd7e6
+  languageName: node
+  linkType: hard
+
 "solid-refresh@npm:^0.6.3":
   version: 0.6.3
   resolution: "solid-refresh@npm:0.6.3"
@@ -10462,7 +10726,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:^2.0.1, tslib@npm:^2.1.0, tslib@npm:^2.4.0, tslib@npm:^2.6.2, tslib@npm:^2.8.1":
+"tslib@npm:^2.0.1, tslib@npm:^2.1.0, tslib@npm:^2.4.0, tslib@npm:^2.6.2, tslib@npm:^2.8.0, tslib@npm:^2.8.1":
   version: 2.8.1
   resolution: "tslib@npm:2.8.1"
   checksum: 10c0/9c4759110a19c53f992d9aae23aac5ced636e99887b51b9e61def52611732872ff7668757d4e4c61f19691e36f4da981cd9485e869b4a7408d689f6bf1f14e62

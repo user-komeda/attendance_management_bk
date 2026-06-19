@@ -22,19 +22,28 @@ RSpec.describe Presentation::Controller::WorkSpace::WorkSpaceController do
 
     before do
       allow(controller).to receive(:resolve).and_return(mock_use_case)
-      allow(mock_use_case).to receive(:invoke).and_return([dto])
+      allow(mock_use_case).to receive(:invoke).and_return({ data: [dto], total_count: 1 })
     end
 
-    it 'returns an array of responses' do
-      result = controller.index
+    it 'returns an object with data and meta' do
+      result = controller.index({})
       expect_index_response(result)
     end
   end
 
   def expect_index_response(result)
     aggregate_failures do
-      expect(result).to be_an(Array)
-      expect_first_workspace(result.first)
+      expect(result).to be_a(Hash)
+      expect(result[:data]).to be_an(Array)
+      expect_meta(result[:meta])
+      expect_first_workspace(result[:data].first)
+    end
+  end
+
+  def expect_meta(meta)
+    aggregate_failures do
+      expect(meta).to be_a(Hash)
+      expect(meta[:total_count]).to eq(1)
     end
   end
 

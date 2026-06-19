@@ -1,6 +1,8 @@
 get:
   tags: [ user ]
   summary: ユーザー詳細の取得
+  security:
+    - bearerAuth: [ ]
   operationId: getUser
   description: 指定 ID のユーザーを返します。
   parameters:
@@ -34,6 +36,8 @@ get:
 patch:
   tags: [ user ]
   summary: ユーザー情報の更新
+  security:
+    - bearerAuth: [ ]
   operationId: updateUser
   parameters:
     - $ref: '../components/parameters/UserId.yaml'

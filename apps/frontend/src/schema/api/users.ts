@@ -1,12 +1,22 @@
-import type { components, operations } from '~/schema/apiTypes'
+import type { components } from '~/schema/apiTypes'
 
-export type User = components['schemas']['User']
+import type { DeepCamelCase } from '~/types/camelCase'
 
-export type CreateUserRequest = components['schemas']['CreateUserRequest']
+import type { operations } from '~/schema/apiTypes'
 
-export type UpdateUserRequest = components['schemas']['UpdateUserRequest']
+export type User = DeepCamelCase<components['schemas']['User']>
 
-export type ListUsersResponse = components['schemas']['ListUsersResponse']
+export type CreateUserRequest = DeepCamelCase<
+  components['schemas']['CreateUserRequest']
+>
+
+export type UpdateUserRequest = DeepCamelCase<
+  components['schemas']['UpdateUserRequest']
+>
+
+export type ListUsersResponse = DeepCamelCase<
+  components['schemas']['ListUsersResponse']
+>
 
 export type GetUserPathParams = operations['getUser']['parameters']['path']
 

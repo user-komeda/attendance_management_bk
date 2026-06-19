@@ -76,10 +76,14 @@ RSpec.describe 'WorkSpace API integration', type: :request do
     def expect_workspace_list
       aggregate_failures do
         expect(last_response.status).to eq(200)
-        body = JSON.parse(last_response.body)
-        expect(body).to be_an(Array)
-        expect(body.size).to be >= 1
+        expect_valid_workspace_list_body(JSON.parse(last_response.body))
       end
+    end
+
+    def expect_valid_workspace_list_body(body)
+      expect(body).to be_an(Hash)
+      expect(body['data']).to be_an(Array)
+      expect(body['data'].size).to be >= 1
     end
   end
 

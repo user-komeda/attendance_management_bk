@@ -1,10 +1,10 @@
 # Project Guidelines — Attendance Management (Monorepo)
 
-Last updated: 2026-01-04
+Last updated: 2026-06-19
 
 ## Overview
 
-This repository is a monorepo containing a Ruby backend (Hanami/Roda/ROM style stack with RSpec tests and Sorbet/RBS
+This repository is a monorepo containing a Ruby backend (Sinatra/ROM style stack with RSpec tests and Sorbet/RBS
 types) and a JavaScript frontend (Node/Yarn workspace). Docker is available for local development. The backend exposes
 authentication and user management endpoints and includes OpenAPI specs. Tests live under `apps/backend/spec` and cover
 domain, infrastructure, presentation, and integration layers.
@@ -26,6 +26,8 @@ Top-level items of interest:
   - `domain` — entities and repositories interfaces
   - `infrastructure` — persistence (ROM), repositories, entities
   - `presentation` — controllers, responses
+- `apps/backend/helper` — Common helper utilities (e.g., JWT verification, response formatting). No unit tests required.
+- `apps/backend/tasks` — Rake tasks (e.g., database migrations using Ridgepole). No unit tests required.
 - `apps/backend/spec` — RSpec tests
   - `integration` — end-to-end style specs for controllers/auth
   - `infrastructure` — entities, repositories specs
@@ -52,49 +54,83 @@ Top-level items of interest:
 - `src/routes`: Unit tests
 - `src/lib`:Unit tests
 
-4. Backend unit tests should be performed only for code under `apps/backend/lib`. (Note: Code in other directories like `config` or `helper` does not require unit tests.)
+4. Backend unit tests should be performed only for code under `apps/backend/lib`. (Note: Code in other directories like
+   `config` or `helper` does not require unit tests.)
 5. Do not introduce new external services or long-running background commands unless requested.
 6. When unsure about behavior, check specs under `apps/backend/spec` and OpenAPI under `apps/backend/openApi`.
 
-## Running Backend (local)
+- Backend uses `openapi_first` to validate requests against the OpenAPI spec in tests.
 
-Prerequisites: Ruby (version compatible with the project), Bundler, and a database (via Docker or locally). On Windows,
-use PowerShell.
+7. **Only use commands defined in `package.json` for running tasks, tests, and development.**
 
-- Install dependencies:
-  - Ruby gems: `cd apps\backend; bundle install`
-  - If using Docker for DB: `docker-compose up -d`
-- Database setup (if applicable for the stack): run the project’s migration task (check available Rake tasks). Common
-  examples:
-  - `bundle exec rake db:create`
-  - `bundle exec rake db:migrate`
-- Run the app (example, adjust to project’s actual entry):
-  - `bundle exec rackup` or `bundle exec hanami server` (depending on framework in use)
+- Frontend tests and dev server use `infisicalLauncher` for secret management. Ensure it is available via `yarn`.
 
-If a framework-specific command exists in this project, prefer that over the generic examples.
+## Running Application (local)
 
-## Running Frontend (local)
+Prerequisites: Node.js (>=22), Yarn, Ruby, Bundler, and a database (via Docker or locally). On Windows, use PowerShell.
 
-- From repo root: `yarn install`
-- Then: `yarn --filter apps/frontend dev` (or `cd apps\frontend; yarn dev`) depending on workspace setup.
+### Starting Backend and Frontend together
+
+From the repository root:
+
+- Install dependencies: `yarn install`
+- Start both services: `yarn dev`
+
+### Running individual services
+
+#### Backend
+
+- Install dependencies: `cd apps\backend; bundle install`
+- Start backend: `cd apps\backend; yarn dev`
+- Database setup: `cd apps\backend; yarn migrate`
+
+#### Frontend
+
+- Install dependencies: `cd apps\frontend; yarn install`
+- Start frontend: `cd apps\frontend; yarn dev`
+
+### Generating API Types
+
+The frontend uses `openapi-typescript` to generate TypeScript types from the backend OpenAPI specification.
+
+- Run from frontend directory: `cd apps\frontend; yarn generate:api-types`
+- Generated types are saved to `apps\frontend\src\schema\apiTypes.ts`.
+- Run this whenever backend OpenAPI definitions change.
 
 ## Tests
 
-Backend uses RSpec. Always run specs relevant to changed files; for broader changes, run the full suite.
+### Backend Tests
+
+Backend uses RSpec. Always run specs relevant to changed files; for broader changes, run the full suite via
+`package.json` scripts.
 
 - Run all backend tests:
-  - `cd apps\backend; bundle exec rspec`
-- Run a subset (example for auth specs):
-  - `bundle exec rspec spec\integration\auth_integration_spec.rb`
-- Coverage is generated under `apps/backend/coverage` (open `index.html`).
+  - `cd apps\backend; yarn test`
+- Run linting:
+  - `cd apps\backend; yarn lint`
+- Run typecheck:
+  - `cd apps\backend; yarn typecheck`
 
-Frontend test setup is not enforced here; if frontend tests are added, follow the package.json scripts.
+### Frontend Tests
+
+- Run all frontend tests:
+  - `cd apps\frontend; yarn test`
+- Run E2E tests:
+  - `cd apps\frontend; yarn test:e2e`
 
 ## Build and CI
 
 - Unless otherwise specified, Junie should not build release artifacts before submitting. Focus on tests passing
   locally.
-- If a build is required, prefer repo scripts (Turbo/Yarn workspaces) and document the steps taken.
+- If a build is required, prefer repo scripts (Turbo/Yarn workspaces): `yarn build`.
+
+## Git Hooks (Lefthook)
+
+This project uses `lefthook` for managing Git hooks.
+
+- It is configured in `lefthook.yml` at the root.
+- It typically runs linters and formatters before commits.
+- To run hooks manually: `yarn lefthook run pre-commit`
 
 ## Code Style
 
@@ -112,9 +148,10 @@ Frontend test setup is not enforced here; if frontend tests are added, follow th
 
 ## When to run tests before submitting
 
-- Any backend code change (domain, infrastructure, application, presentation) → run RSpec.
+- Any backend code change (domain, infrastructure, application, presentation) → run backend tests via `yarn test`.
 - Changes to generated type signatures alone typically do not require tests, but if they reflect code changes, run
   tests.
+- If you change OpenAPI definitions, ensure you run `yarn generate:api-types` in `apps/frontend` to keep types in sync.
 - Documentation-only changes (like this guidelines file) do not require running tests.
 
 ## Notes for Windows users
@@ -125,4 +162,6 @@ Frontend test setup is not enforced here; if frontend tests are added, follow th
 ## Contact/Extensions
 
 - OpenAPI files in `apps/backend/openApi` describe backend endpoints; use them to validate request/response shapes.
+  - The frontend uses these to generate types and the backend uses them for request validation in integration tests.
 - If environment variables are needed, document them in the PR description.
+  - Note: Frontend environment variables are managed via `infisical`.

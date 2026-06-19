@@ -1,0 +1,9 @@
+# Generated from lib/constant/pagination.rb with RBS::Inline
+
+module Constant
+  module Pagination
+    DEFAULT_PAGE_SIZE: ::Integer
+
+    DEFAULT_PAGE_NUMBER: ::Integer
+  end
+end

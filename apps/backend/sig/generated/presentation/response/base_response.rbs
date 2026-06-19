@@ -11,6 +11,10 @@ module Presentation
 
       # @rbs (Array[untyped] _value_list) -> Array[Hash[Symbol, untyped]]
       def self.build_from_array: (Array[untyped] _value_list) -> Array[Hash[Symbol, untyped]]
+
+      # @rbs (data: Array[Hash[Symbol, untyped]], page: Integer, per_page: Integer, total_count: Integer,
+      #       ?additional_meta: Hash[Symbol, untyped]) -> Hash[Symbol, untyped]
+      private def self.build_paginated_response: (data: Array[Hash[Symbol, untyped]], page: Integer, per_page: Integer, total_count: Integer, ?additional_meta: Hash[Symbol, untyped]) -> Hash[Symbol, untyped]
     end
   end
 end

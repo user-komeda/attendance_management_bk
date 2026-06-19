@@ -12,6 +12,15 @@ module Domain
           caller.find_by_ids(workspace_ids: workspace_ids)
         end
 
+        # rubocop:disable all
+        # @rbs (workspace_ids: Array[String], page: Integer, per_page: Integer, search_query: String?) -> { data: Array[::Domain::Entity::WorkSpace::WorkSpaceEntity], total_count: Integer }
+        # rubocop:enable all
+        def find_by_ids_with_pagination(workspace_ids:, page:, per_page:, search_query: nil)
+          caller = resolve(REPOSITORY_KEY)
+          caller.find_by_ids_with_pagination(workspace_ids: workspace_ids, page: page, per_page: per_page,
+                                             search_query: search_query)
+        end
+
         # @rbs (slug: String) -> Domain::Entity::WorkSpace::WorkSpaceEntity
         def find_by_slug(slug:)
           caller = resolve(REPOSITORY_KEY)

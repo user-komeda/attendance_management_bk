@@ -1,3 +1,5 @@
 import type { components } from '~/schema/apiTypes'
 
-export type ApiError = components['schemas']['Error']
+import type { DeepCamelCase } from '~/types/camelCase'
+
+export type ApiError = DeepCamelCase<components['schemas']['Error']>

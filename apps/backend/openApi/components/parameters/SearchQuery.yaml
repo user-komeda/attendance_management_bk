@@ -1,0 +1,6 @@
+name: search_query
+in: query
+description: 検索クエリ（名前などでフィルタリング）
+required: false
+schema:
+  type: string

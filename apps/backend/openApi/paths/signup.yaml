@@ -1,6 +1,7 @@
 post:
   tags: [ auth ]
   summary: サインアップ（ユーザー登録）
+  security: [ ]
   description: |-
     新規ユーザーを登録します。POST + JSON で受け付けます。
   operationId: signup

@@ -37,6 +37,7 @@ describe(SignupForm, () => {
   it('should display errors when submission result has errors', () => {
     vi.mocked(useSubmission).mockReturnValue({
       result: {
+        ok: false,
         fieldErrors: [
           { key: 'firstName', message: 'First name is required' },
           { key: 'email', message: 'Invalid email' },
@@ -54,6 +55,7 @@ describe(SignupForm, () => {
   it('should display general error message', () => {
     vi.mocked(useSubmission).mockReturnValue({
       result: {
+        ok: false,
         message: 'Something went wrong',
       },
       pending: false,
@@ -67,6 +69,7 @@ describe(SignupForm, () => {
   it('should display all errors', () => {
     vi.mocked(useSubmission).mockReturnValue({
       result: {
+        ok: false,
         fieldErrors: [
           { key: 'firstName', message: 'First name is required' },
           { key: 'lastName', message: 'Last name is required' },

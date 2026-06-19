@@ -1,20 +1,33 @@
-import type { components, operations } from '~/schema/apiTypes'
+import type { components } from '~/schema/apiTypes'
 
-export type WorkSpace = components['schemas']['WorkSpace']
+import type { DeepCamelCase } from '~/types/camelCase'
 
-export type WorkSpaceWithStatus = components['schemas']['WorkSpaceWithStatus']
+import type { operations } from '~/schema/apiTypes'
 
-export type WorkSpaceWithMemberShips =
+export type WorkSpace = DeepCamelCase<components['schemas']['WorkSpace']>
+
+export type WorkSpaceWithStatus = DeepCamelCase<
+  components['schemas']['WorkSpaceWithStatus']
+>
+
+export type WorkSpaceWithMemberShips = DeepCamelCase<
   components['schemas']['WorkSpaceWithMemberShips']
+>
 
-export type CreateWorkSpaceRequest =
+export type CreateWorkSpaceRequest = DeepCamelCase<
   components['schemas']['CreateWorkSpaceRequest']
+>
 
-export type UpdateWorkSpaceRequest =
+export type UpdateWorkSpaceRequest = DeepCamelCase<
   components['schemas']['UpdateWorkSpaceRequest']
+>
 
-export type ListWorkSpacesResponse =
+export type ListWorkSpacesResponse = DeepCamelCase<
   components['schemas']['ListWorkSpacesResponse']
+>
+
+export type ListWorkSpacesQueryParams =
+  operations['listWorkSpaces']['parameters']['query']
 
 export type GetWorkSpacePathParams =
   operations['getWorkSpace']['parameters']['path']
