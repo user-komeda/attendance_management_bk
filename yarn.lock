@@ -6623,7 +6623,7 @@ __metadata:
     infisicalLauncher: "git+ssh://git@github.com:user-komeda/infisicalLauncher.git"
     jose: "npm:^6.2.3"
     jsdom: "npm:29.1.1"
-    openapi-typescript: "npm:^7.13.0"
+    openapi-typescript: "npm:7.13.0"
     prettier: "npm:3.8.4"
     prettier-plugin-tailwindcss: "npm:0.8.0"
     solid-js: "npm:^1.9.13"
@@ -8928,7 +8928,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"openapi-typescript@npm:^7.13.0":
+"openapi-typescript@npm:7.13.0":
   version: 7.13.0
   resolution: "openapi-typescript@npm:7.13.0"
   dependencies:
