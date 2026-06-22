@@ -1,7 +1,6 @@
 import { ColumnDef, flexRender, HeaderGroup } from '@tanstack/solid-table'
 import { For, Show } from 'solid-js'
 
-import { DataTableProps, useDataTable } from '~/hooks/useDataTable'
 import type { useDataTablePagination } from '~/hooks/useDataTablePagination'
 
 import { PaginationArea } from '~/components/table/paginationArea'
@@ -13,6 +12,7 @@ import {
   TableHeader,
   TableRow,
 } from '~/components/ui/table'
+import { DataTableProps, useDataTable } from '~/hooks/useDataTable'
 
 export type PaginationProps = ReturnType<typeof useDataTablePagination>
 
