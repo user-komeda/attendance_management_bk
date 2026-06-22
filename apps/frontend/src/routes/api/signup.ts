@@ -22,11 +22,11 @@ export const POST = async (event: APIEvent) => {
     lastName: result.output.lastName,
   }
 
-  const res = await fetchWrapper<{ userId: string }>(
-    'signup',
-    'POST',
-    requestBody,
-  )
+  const res = await fetchWrapper<{ userId: string }>({
+    path: 'signup',
+    method: 'POST',
+    data: requestBody,
+  })
 
   if (!res.ok) {
     return new Response(JSON.stringify(res.error), {

@@ -1,5 +1,5 @@
 import { useNavigate } from '@solidjs/router'
-import { renderHook } from '@solidjs/testing-library'
+import { renderHook, waitFor } from '@solidjs/testing-library'
 import { createRoot } from 'solid-js'
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 
@@ -19,6 +19,7 @@ vi.mock('~/util/bffFetchWrapper', () => ({
   default: vi.fn(),
 }))
 
+// eslint-disable-next-line max-lines-per-function
 describe('useRequireAuth', () => {
   const mockNavigate = vi.fn()
 
@@ -36,10 +37,9 @@ describe('useRequireAuth', () => {
     await createRoot(async (dispose) => {
       const { result } = renderHook(() => useRequireAuth())
 
-      await new Promise((resolve) => setTimeout(resolve, 100))
+      await waitFor(() => expect(result.isLoading()).toBe(false))
 
       expect(result.isAuthenticated()).toBe(true)
-      expect(result.isLoading()).toBe(false)
       expect(mockNavigate).not.toHaveBeenCalled()
       dispose()
     })
@@ -54,7 +54,7 @@ describe('useRequireAuth', () => {
     await createRoot(async (dispose) => {
       const { result } = renderHook(() => useRequireAuth())
 
-      await new Promise((resolve) => setTimeout(resolve, 100))
+      await waitFor(() => expect(result.isLoading()).toBe(false))
 
       expect(result.isAuthenticated()).toBe(false)
       expect(mockNavigate).toHaveBeenCalledWith('/signin', { replace: true })
@@ -70,7 +70,7 @@ describe('useRequireAuth', () => {
     await createRoot(async (dispose) => {
       const { result } = renderHook(() => useRequireAuth())
 
-      await new Promise((resolve) => setTimeout(resolve, 100))
+      await waitFor(() => expect(result.isLoading()).toBe(false))
 
       expect(result.isAuthenticated()).toBe(false)
       expect(mockNavigate).toHaveBeenCalledWith('/signin', { replace: true })
@@ -87,7 +87,7 @@ describe('useRequireAuth', () => {
     await createRoot(async (dispose) => {
       const { result } = renderHook(() => useRequireAuth())
 
-      await new Promise((resolve) => setTimeout(resolve, 100))
+      await waitFor(() => expect(result.isLoading()).toBe(false))
 
       expect(result.isAuthenticated()).toBe(false)
       expect(mockNavigate).toHaveBeenCalledWith('/signin', { replace: true })
@@ -111,9 +111,8 @@ describe('useRequireAuth', () => {
       expect(result.isAuthenticated()).toBe(false)
 
       resolvePromise!({ ok: true, data: { authenticated: true } })
-      await new Promise((resolve) => setTimeout(resolve, 0))
+      await waitFor(() => expect(result.isLoading()).toBe(false))
 
-      expect(result.isLoading()).toBe(false)
       expect(result.isAuthenticated()).toBe(true)
       dispose()
     })

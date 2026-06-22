@@ -23,6 +23,11 @@ module Infrastructure
         # @rbs (user_with_auth_user: {user_with_auth_user: Domain::Entity::User::UserEntity, auth_user: Domain::Entity::Auth::AuthUserEntity}) -> {user_entity: Domain::Entity::User::UserEntity, auth_user_entity: Domain::Entity::Auth::AuthUserEntity}
         # rubocop:enable Layout/LineLength
         def create_with_auth_user: (user_with_auth_user: { user_with_auth_user: Domain::Entity::User::UserEntity, auth_user: Domain::Entity::Auth::AuthUserEntity }) -> { user_entity: Domain::Entity::User::UserEntity, auth_user_entity: Domain::Entity::Auth::AuthUserEntity }
+
+        private
+
+        # @rbs () -> untyped
+        def rom_repository: () -> untyped
       end
     end
   end

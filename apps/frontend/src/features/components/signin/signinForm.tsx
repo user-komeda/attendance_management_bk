@@ -1,56 +1,69 @@
 import { useSubmission } from '@solidjs/router'
-import { Show } from 'solid-js'
+import { Accessor, Show } from 'solid-js'
 
-import type { FormDataActionOf } from '~/types/action'
+import type { ActionResultOf, FormDataActionOf } from '~/types/action'
 
-import { InputText } from '~/components/inputText'
+import { FormInputText } from '~/components/formInputText'
+import { Button } from '~/components/ui/button'
+import { CommonCard } from '~/components/ui/commonCard'
 import { SigninSchema } from '~/schema/signinSchema'
 import { createObjectSchemaFields } from '~/util/createObjectSchemaFields'
-import { findActionMessage, findError } from '~/util/error'
+import { findActionMessage } from '~/util/error'
 
 type SigninAction = FormDataActionOf<typeof SigninSchema>
+type SigninResult = ActionResultOf<typeof SigninSchema>
 
-export const SigninForm = ({ action }: { action: SigninAction }) => {
-  const submission = useSubmission(action)
+const Content = (props: { result: Accessor<SigninResult | undefined> }) => {
+  const { result } = props
   const signinField = createObjectSchemaFields(SigninSchema)
 
   return (
+    <div class="space-y-6">
+      <div>
+        <FormInputText
+          type="email"
+          result={result()}
+          name={signinField.email}
+          label="Email"
+        />
+      </div>
+
+      <div>
+        <FormInputText
+          type="password"
+          result={result()}
+          name={signinField.password}
+          label="Password"
+        />
+      </div>
+
+      <Show when={findActionMessage(result())}>
+        {(message) => <p class="text-sm text-red-500">{message()}</p>}
+      </Show>
+    </div>
+  )
+}
+
+export const SigninForm = ({ action }: { action: SigninAction }) => {
+  const submission = useSubmission(action)
+  const formId = 'signin-form'
+
+  return (
     <div class="flex flex-col justify-center p-4 sm:h-screen">
-      <div class="mx-auto w-full max-w-md rounded-2xl border border-gray-300 p-8">
-        <form action={action} method="post">
-          <div class="space-y-6">
-            <div>
-              <InputText name={signinField.email} label="Email" />
-              <Show when={findError(submission.result, signinField.email)}>
-                {(message) => (
-                  <span class="text-sm text-red-500">{message()}</span>
-                )}
-              </Show>
-            </div>
-
-            <div>
-              <InputText name={signinField.password} label="Password" />
-              <Show when={findError(submission.result, signinField.password)}>
-                {(message) => (
-                  <span class="text-sm text-red-500">{message()}</span>
-                )}
-              </Show>
-            </div>
-
-            <Show when={findActionMessage(submission.result)}>
-              {(message) => <p class="text-sm text-red-500">{message()}</p>}
-            </Show>
-          </div>
-
-          <div class="mt-12">
-            <button
-              type="submit"
-              class="w-full cursor-pointer rounded-md bg-blue-600 px-4 py-3 text-sm font-medium tracking-wider text-white hover:bg-blue-700 focus:outline-none"
-            >
-              login
-            </button>
-          </div>
-        </form>
+      <div class="mx-auto w-full max-w-md">
+        <CommonCard
+          title="ログイン"
+          description="アカウントにログインします"
+          footer={
+            <Button type="submit" form={formId} disabled={submission.pending}>
+              {'Login'}
+            </Button>
+          }
+        >
+          <form id={formId} action={action} method="post">
+            <Content result={() => submission.result} />
+          </form>
+        </CommonCard>
       </div>
     </div>
   )

@@ -89,8 +89,6 @@ RSpec.describe 'Auth API integration (signup)', type: :request do
     end
   end
 
-  private
-
   def json(body)
     JSON.parse(body)
   end

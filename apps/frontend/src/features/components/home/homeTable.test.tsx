@@ -21,11 +21,11 @@ const basicDataTableMock = vi.hoisted(() => ({
     | undefined,
 }))
 
-vi.mock('~/features/components/home/homeTableHeader', () => ({
+vi.mock('~/features/components/home/homeTablePrevArea', () => ({
   HomeTableHeader: () => null,
 }))
 
-vi.mock('~/components/BasicDataTable', () => ({
+vi.mock('~/components/table/BasicDataTable', () => ({
   BasicDataTable: (props: {
     data: unknown[]
     paginationMeta: {
@@ -42,6 +42,7 @@ vi.mock('~/components/BasicDataTable', () => ({
   },
 }))
 
+// eslint-disable-next-line max-lines-per-function
 describe('HomeTable', () => {
   beforeEach(() => {
     basicDataTableMock.props = undefined
@@ -154,6 +155,7 @@ describe('HomeTable', () => {
     })
   })
 
+  // eslint-disable-next-line max-lines-per-function
   it('workspacesのdataがある場合はBasicDataTableにdataとpaginationMetaを渡すこと', () => {
     const workspaces = {
       data: [

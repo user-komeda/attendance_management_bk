@@ -5,11 +5,11 @@ module Presentation
     class ControllerBase
       include ContainerHelper
 
-      # @rbs (Symbol key, *untyped args) -> untyped
-      def invoke_use_case: (Symbol key, *untyped args) -> untyped
+      # @rbs (Symbol key, *untyped args, **untyped kwargs) -> untyped
+      def invoke_use_case: (Symbol key, *untyped args, **untyped kwargs) -> untyped
 
-      # @rbs (untyped request_payload, untyped class_name) -> untyped
-      def build_request: (untyped request_payload, untyped class_name) -> untyped
+      # @rbs (untyped request_payload, untyped request_class) -> untyped
+      def build_request: (untyped request_payload, untyped request_class) -> untyped
     end
   end
 end

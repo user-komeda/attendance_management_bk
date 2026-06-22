@@ -1,10 +1,15 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 
 import bffFetchWrapper from '~/util/bffFetchWrapper'
 
+// eslint-disable-next-line max-lines-per-function
 describe(bffFetchWrapper, () => {
   beforeEach(() => {
     vi.stubGlobal('fetch', vi.fn())
+  })
+
+  afterEach(() => {
+    vi.unstubAllGlobals()
   })
 
   it('should successfully fetch data', async () => {
@@ -15,7 +20,7 @@ describe(bffFetchWrapper, () => {
       json: async () => mockData,
     } as Response)
 
-    const result = await bffFetchWrapper('/api/test', 'GET')
+    const result = await bffFetchWrapper({ path: '/api/test', method: 'GET' })
 
     expect(result).toEqual({
       ok: true,
@@ -30,7 +35,10 @@ describe(bffFetchWrapper, () => {
       status: 204,
     } as Response)
 
-    const result = await bffFetchWrapper('/api/test', 'DELETE')
+    const result = await bffFetchWrapper({
+      path: '/api/test',
+      method: 'DELETE',
+    })
 
     expect(result).toEqual({
       ok: true,
@@ -47,7 +55,11 @@ describe(bffFetchWrapper, () => {
       json: async () => mockError,
     } as Response)
 
-    const result = await bffFetchWrapper('/api/test', 'POST', { data: 1 })
+    const result = await bffFetchWrapper({
+      path: '/api/test',
+      method: 'POST',
+      data: { data: 1 },
+    })
 
     expect(result).toEqual({
       ok: false,
@@ -59,8 +71,8 @@ describe(bffFetchWrapper, () => {
   it('should throw error when fetch fails', async () => {
     vi.mocked(fetch).mockRejectedValueOnce(new Error('network error'))
 
-    await expect(bffFetchWrapper('/api/test', 'GET')).rejects.toThrow(
-      'network error',
-    )
+    await expect(
+      bffFetchWrapper({ path: '/api/test', method: 'GET' }),
+    ).rejects.toThrow('network error')
   })
 })

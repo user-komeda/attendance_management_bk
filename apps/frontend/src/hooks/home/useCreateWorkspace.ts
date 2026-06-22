@@ -5,11 +5,12 @@ import { useHomeWorkspaces } from '~/provider/homeWorkspacesProvider'
 import { CreateWorkspaceSchema } from '~/schema/createWorkspaceSchema'
 import actionWrapper from '~/util/actionWrapper'
 
-const action = actionWrapper<typeof CreateWorkspaceSchema>(
-  '/api/workspaces',
-  'workspaces',
-  CreateWorkspaceSchema,
-)
+const action = actionWrapper<typeof CreateWorkspaceSchema>({
+  path: '/api/workspaces',
+  method: 'POST',
+  schema: CreateWorkspaceSchema,
+  name: 'createWorkspace',
+})
 
 export const useCreateWorkspace = () => {
   const { fetchWorkspaces } = useHomeWorkspaces()
@@ -42,6 +43,7 @@ export const useCreateWorkspace = () => {
     action,
     submission,
     isOpen,
+    setIsOpen,
     handleOpen,
     handleClose,
   }

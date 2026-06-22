@@ -12,6 +12,12 @@ vi.mock('~/util/redisClient', () => ({
   redisGet: vi.fn(),
 }))
 
+vi.mock('~/env', () => ({
+  getEnv: vi.fn().mockReturnValue({
+    SESSION_PASSWORD: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+  }),
+}))
+
 describe('getCurrentUserId', () => {
   it('sessionIdがない場合はnullを返すこと', async () => {
     vi.mocked(useSession).mockResolvedValue({

@@ -3,6 +3,7 @@ import { describe, it, expect, vi } from 'vitest'
 
 import { useDataTablePagination } from '~/hooks/useDataTablePagination'
 
+// eslint-disable-next-line max-lines-per-function
 describe('useDataTablePagination', () => {
   const defaultMeta = {
     page: 1,

@@ -3,6 +3,7 @@ import { describe, it, expect } from 'vitest'
 import { ActionResult } from '~/types/action'
 import { findError, findActionMessage, createError } from '~/util/error'
 
+// eslint-disable-next-line max-lines-per-function
 describe('error utils', () => {
   describe('findError', () => {
     it('resultがundefinedの場合はundefinedを返すこと', () => {

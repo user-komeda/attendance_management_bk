@@ -12,7 +12,9 @@ vi.mock('~/util/fetchWrapper', () => ({
   default: vi.fn(),
 }))
 
+// eslint-disable-next-line max-lines-per-function
 describe('workspaces api', () => {
+  // eslint-disable-next-line max-lines-per-function
   describe('GET', () => {
     it('未ログインの場合は401を返すこと', async () => {
       vi.mocked(getCurrentUserId).mockResolvedValue(null)
@@ -41,12 +43,11 @@ describe('workspaces api', () => {
 
       const response = await GET(event)
       expect(response.status).toBe(200)
-      expect(fetchWrapper).toHaveBeenCalledWith(
-        'work_spaces?page=1&per_page=10&search_query=test',
-        'GET',
-        undefined,
-        'user-123',
-      )
+      expect(fetchWrapper).toHaveBeenCalledWith({
+        path: 'work_spaces?page=1&per_page=10&search_query=test',
+        method: 'GET',
+        userId: 'user-123',
+      })
     })
 
     it('fetchWrapperがエラーを返した場合はそのステータスを返すこと', async () => {
@@ -65,6 +66,7 @@ describe('workspaces api', () => {
     })
   })
 
+  // eslint-disable-next-line max-lines-per-function
   describe('POST', () => {
     it('未ログインの場合は401を返すこと', async () => {
       vi.mocked(getCurrentUserId).mockResolvedValue(null)
@@ -103,12 +105,12 @@ describe('workspaces api', () => {
 
       const response = await POST(event)
       expect(response.status).toBe(201)
-      expect(fetchWrapper).toHaveBeenCalledWith(
-        'work_spaces',
-        'POST',
-        { name: 'New Space', slug: 'new-space' },
-        'user-123',
-      )
+      expect(fetchWrapper).toHaveBeenCalledWith({
+        path: 'work_spaces',
+        method: 'POST',
+        data: { name: 'New Space', slug: 'new-space' },
+        userId: 'user-123',
+      })
     })
 
     it('作成時にfetchWrapperがエラーを返した場合はそのステータスを返すこと', async () => {

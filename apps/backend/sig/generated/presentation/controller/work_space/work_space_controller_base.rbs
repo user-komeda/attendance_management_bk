@@ -6,6 +6,8 @@ module Presentation
       class WorkSpaceControllerBase < Presentation::Controller::ControllerBase
         WORK_SPACE_USE_CASE: untyped
 
+        USE_CASE_CONTAINER: untyped
+
         WORK_SPACE_PARAMS: untyped
 
         WORK_SPACE_RESPONSE: untyped
@@ -21,12 +23,6 @@ module Presentation
         CREATE_REQUEST: untyped
 
         UPDATE_REQUEST: untyped
-
-        # @rbs (Hash[Symbol, untyped] request_payload, untyped request_class) -> ::Presentation::Request::WorkSpace::WorkSpaceBaseRequest
-        def build_request: (Hash[Symbol, untyped] request_payload, untyped request_class) -> ::Presentation::Request::WorkSpace::WorkSpaceBaseRequest
-
-        # @rbs [T] (Symbol key, *untyped args, **untyped kwargs) -> T
-        def invoke_use_case: [T] (Symbol key, *untyped args, **untyped kwargs) -> T
       end
     end
   end

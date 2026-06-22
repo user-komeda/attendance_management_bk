@@ -19,3 +19,8 @@ export type FetchResult<R, ErrorKey extends string = string> =
     }
 
 export type HttpMethod = 'GET' | 'POST' | 'DELETE' | 'PATCH' | 'PUT'
+
+export interface FetchParms {
+  method: HttpMethod
+  path: string
+}

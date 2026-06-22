@@ -62,6 +62,16 @@ RSpec.describe 'WorkSpaceId', type: :openapi do
         expect(touch_openapi_schema_properties('UpdateWorkSpaceRequest', update_properties)).to be_a(Set)
       end
     end
+
+    it 'returns 400 with invalid params' do
+      patch "/work_spaces/#{workspace_id}", { name: '' }.to_json, json_headers
+      expect(last_response.status).to eq(400)
+    end
+
+    it 'returns 404 for nonexistent workspace' do
+      patch "/work_spaces/#{SecureRandom.uuid}", update_properties.to_json, json_headers
+      expect(last_response.status).to eq(404)
+    end
   end
 
   describe 'GET /work_spaces/:id' do
@@ -76,6 +86,11 @@ RSpec.describe 'WorkSpaceId', type: :openapi do
       expect(last_response.status).to eq(200)
       touch_openapi_schema_properties('WorkSpaceWithMemberShips', json(last_response.body))
     end
+
+    it 'returns 404 for nonexistent workspace' do
+      get "/work_spaces/#{SecureRandom.uuid}"
+      expect(last_response.status).to eq(404)
+    end
   end
 
   describe 'DELETE /work_spaces/:id' do
@@ -88,6 +103,11 @@ RSpec.describe 'WorkSpaceId', type: :openapi do
     it 'returns 204' do
       delete "/work_spaces/#{workspace_id}"
       expect(last_response.status).to eq(204)
+    end
+
+    it 'returns 404 for nonexistent workspace' do
+      delete "/work_spaces/#{SecureRandom.uuid}"
+      expect(last_response.status).to eq(404)
     end
   end
 end

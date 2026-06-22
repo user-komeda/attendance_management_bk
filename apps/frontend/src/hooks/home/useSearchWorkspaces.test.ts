@@ -13,6 +13,7 @@ vi.mock('~/provider/homeWorkspacesProvider', () => ({
   useHomeWorkspaces: vi.fn(),
 }))
 
+// eslint-disable-next-line max-lines-per-function
 describe('useSearchWorkspaces', () => {
   it('updates keyword when workspaces meta changes', async () => {
     const fetchWorkspaces = vi.fn()
@@ -66,5 +67,37 @@ describe('useSearchWorkspaces', () => {
       searchQuery: 'new search',
       page: 1,
     })
+  })
+
+  it('キーワードが空の場合は空文字で検索すること', async () => {
+    const fetchWorkspaces = vi.fn().mockResolvedValue(undefined)
+    vi.mocked(useHomeWorkspaces).mockReturnValue({
+      fetchWorkspaces,
+      workspaces: () =>
+        ({ meta: { searchQuery: '' } }) as ListWorkSpacesResponse,
+    } as unknown as HomeWorkspacesContextValue)
+
+    const { result } = renderHook(() => useSearchWorkspaces())
+
+    result.setKeyword('   ')
+    await result.handleSearch()
+
+    expect(fetchWorkspaces).toHaveBeenCalledWith({
+      searchQuery: '',
+      page: 1,
+    })
+  })
+
+  it('fetchWorkspacesが失敗した場合はエラーをスローすること', async () => {
+    const fetchWorkspaces = vi.fn().mockRejectedValue(new Error('fetch error'))
+    vi.mocked(useHomeWorkspaces).mockReturnValue({
+      fetchWorkspaces,
+      workspaces: () =>
+        ({ meta: { searchQuery: '' } }) as ListWorkSpacesResponse,
+    } as unknown as HomeWorkspacesContextValue)
+
+    const { result } = renderHook(() => useSearchWorkspaces())
+
+    await expect(result.handleSearch()).rejects.toThrow('fetch error')
   })
 })

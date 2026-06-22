@@ -41,7 +41,6 @@ const buildWorkSpacesPath = (requestUrl: string) => {
 
 export const GET = async (event: APIEvent) => {
   const userId = await getCurrentUserId()
-
   if (!userId) {
     return new Response(
       JSON.stringify({
@@ -53,12 +52,11 @@ export const GET = async (event: APIEvent) => {
     )
   }
 
-  const res = await fetchWrapper<ListWorkSpacesResponse>(
-    buildWorkSpacesPath(event.request.url),
-    'GET',
-    undefined,
+  const res = await fetchWrapper<ListWorkSpacesResponse>({
+    path: buildWorkSpacesPath(event.request.url),
+    method: 'GET',
     userId,
-  )
+  })
   if (!res.ok) {
     return new Response(JSON.stringify(res.error), {
       status: res.status,
@@ -72,15 +70,11 @@ export const POST = async (event: APIEvent) => {
   const userId = await getCurrentUserId()
 
   if (!userId) {
-    return new Response(
-      JSON.stringify({
-        error: ['unauthorized'],
-      }),
-      {
-        status: 401,
-      },
-    )
+    return new Response(JSON.stringify({ error: ['unauthorized'] }), {
+      status: 401,
+    })
   }
+
   const body = await event.request.json()
   const result = v.safeParse(CreateWorkspaceSchema, body)
   if (!result.success) {
@@ -89,17 +83,15 @@ export const POST = async (event: APIEvent) => {
     })
   }
 
-  const requestBody = {
-    name: result.output.name,
-    slug: result.output.slug,
-  }
-
-  const res = await fetchWrapper<WorkSpaceWithMemberShips>(
-    'work_spaces',
-    'POST',
-    requestBody,
+  const res = await fetchWrapper<WorkSpaceWithMemberShips>({
+    path: 'work_spaces',
+    method: 'POST',
+    data: {
+      name: result.output.name,
+      slug: result.output.slug,
+    },
     userId,
-  )
+  })
 
   if (!res.ok) {
     return new Response(JSON.stringify(res.error), {
