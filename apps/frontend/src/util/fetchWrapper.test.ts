@@ -1,9 +1,11 @@
+/* eslint-disable max-lines */
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 
 import * as env from '~/env'
 import * as createJwt from '~/lib/createJwt'
 import fetchWrapper from '~/util/fetchWrapper'
 
+// eslint-disable-next-line max-lines-per-function
 describe(fetchWrapper, () => {
   beforeEach(() => {
     vi.stubGlobal('fetch', vi.fn())
@@ -28,7 +30,11 @@ describe(fetchWrapper, () => {
       json: async () => mockResponse,
     } as Response)
 
-    const result = await fetchWrapper('signin', 'POST', { name: 'test' })
+    const result = await fetchWrapper({
+      path: 'signin',
+      method: 'POST',
+      data: { name: 'test' },
+    })
 
     expect(result).toEqual({
       ok: true,
@@ -48,7 +54,11 @@ describe(fetchWrapper, () => {
       status: 204,
     } as Response)
 
-    const result = await fetchWrapper('signin', 'POST', { name: 'test' })
+    const result = await fetchWrapper({
+      path: 'signin',
+      method: 'POST',
+      data: { name: 'test' },
+    })
 
     expect(result).toEqual({
       ok: true,
@@ -64,7 +74,11 @@ describe(fetchWrapper, () => {
       json: async () => ({ message: 'Unauthorized', fieldErrors: [] }),
     } as Response)
 
-    const result = await fetchWrapper('signin', 'POST', { name: 'test' })
+    const result = await fetchWrapper({
+      path: 'signin',
+      method: 'POST',
+      data: { name: 'test' },
+    })
 
     expect(result).toEqual({
       ok: false,
@@ -80,7 +94,11 @@ describe(fetchWrapper, () => {
       json: async () => ({ message: 'Forbidden', fieldErrors: [] }),
     } as Response)
 
-    const result = await fetchWrapper('signin', 'POST', { name: 'test' })
+    const result = await fetchWrapper({
+      path: 'signin',
+      method: 'POST',
+      data: { name: 'test' },
+    })
 
     expect(result).toEqual({
       ok: false,
@@ -96,7 +114,11 @@ describe(fetchWrapper, () => {
       json: async () => ({ message: 'Internal Server Error', fieldErrors: [] }),
     } as Response)
 
-    const result = await fetchWrapper('signin', 'POST', { name: 'test' })
+    const result = await fetchWrapper({
+      path: 'signin',
+      method: 'POST',
+      data: { name: 'test' },
+    })
 
     expect(result).toEqual({
       ok: false,
@@ -112,9 +134,13 @@ describe(fetchWrapper, () => {
       json: async () => ({}),
     } as Response)
 
-    await fetchWrapper('signin', 'POST', {
-      userName: 'test',
-      items: [{ itemName: 'test' }],
+    await fetchWrapper({
+      path: 'signin',
+      method: 'POST',
+      data: {
+        userName: 'test',
+        items: [{ itemName: 'test' }],
+      },
     })
 
     expect(fetch).toHaveBeenCalledWith(
@@ -135,7 +161,7 @@ describe(fetchWrapper, () => {
       json: async () => ({}),
     } as Response)
 
-    await fetchWrapper('signin', 'POST', null)
+    await fetchWrapper({ path: 'signin', method: 'POST', data: null })
 
     expect(fetch).toHaveBeenCalledWith(
       expect.anything(),
@@ -146,9 +172,9 @@ describe(fetchWrapper, () => {
   })
 
   it('should throw error if userId is missing for private path', async () => {
-    await expect(fetchWrapper('private', 'GET')).rejects.toThrow(
-      'User id is required',
-    )
+    await expect(
+      fetchWrapper({ path: 'private', method: 'GET' }),
+    ).rejects.toThrow('User id is required')
   })
 
   it('should call createUserJwt for private path with userId', async () => {
@@ -158,7 +184,7 @@ describe(fetchWrapper, () => {
       json: async () => ({}),
     } as Response)
 
-    await fetchWrapper('private', 'GET', undefined, 'user-123')
+    await fetchWrapper({ path: 'private', method: 'GET', userId: 'user-123' })
 
     expect(createJwt.createUserJwt).toHaveBeenCalledWith('user-123')
   })
@@ -170,7 +196,11 @@ describe(fetchWrapper, () => {
       json: async () => ({}),
     } as Response)
 
-    await fetchWrapper('signup', 'POST', { name: 'test' })
+    await fetchWrapper({
+      path: 'signup',
+      method: 'POST',
+      data: { name: 'test' },
+    })
 
     expect(createJwt.createBffJwt).toHaveBeenCalledWith()
   })
@@ -187,7 +217,11 @@ describe(fetchWrapper, () => {
       json: async () => mockResponse,
     } as Response)
 
-    const result = await fetchWrapper('signin', 'POST', { name: 'test' })
+    const result = await fetchWrapper({
+      path: 'signin',
+      method: 'POST',
+      data: { name: 'test' },
+    })
 
     expect(result).toEqual({
       ok: true,

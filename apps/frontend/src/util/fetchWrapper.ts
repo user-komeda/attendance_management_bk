@@ -60,21 +60,36 @@ const buildHeaders = async (path: string, userId?: string) => {
   return headers
 }
 
-const fetchWrapper = async <R, ErrorKey extends string = string>(
-  path: string,
-  method: HttpMethod,
-  data?: unknown,
-  userId?: string,
-): Promise<FetchResult<R, ErrorKey>> => {
+const executeRequest = async ({
+  path,
+  method,
+  data,
+  userId,
+}: FetchWrapperParams) => {
   const requestData =
     data === undefined ? undefined : convertKeysToSnakeCase(data)
-
   const res = await fetch(`${getEnv().API_URL}/${path}`, {
     method,
     headers: await buildHeaders(path, userId),
     body: requestData === undefined ? undefined : JSON.stringify(requestData),
   })
+  return res
+}
 
+interface FetchWrapperParams {
+  path: string
+  method: HttpMethod
+  data?: unknown
+  userId?: string
+}
+
+const fetchWrapper = async <R, ErrorKey extends string = string>({
+  path,
+  method,
+  data,
+  userId,
+}: FetchWrapperParams): Promise<FetchResult<R, ErrorKey>> => {
+  const res = await executeRequest({ path, method, data, userId })
   const responseData =
     res.status === 204 ? undefined : convertKeysToCamelCase(await res.json())
 

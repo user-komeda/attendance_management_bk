@@ -14,6 +14,7 @@ vi.mock('~/features/components/home/homeTable', () => ({
   HomeTable: () => null,
 }))
 
+// eslint-disable-next-line max-lines-per-function
 describe('HomePage', () => {
   const mockWorkspaces = {
     data: [
@@ -37,6 +38,7 @@ describe('HomePage', () => {
     vi.clearAllMocks()
   })
 
+  // eslint-disable-next-line max-lines-per-function
   describe('fetchWorkspacesRequest', () => {
     it('search queryを指定した場合、search_query付きでリクエストすること', async () => {
       vi.mocked(bffFetchWrapper).mockResolvedValue({
@@ -48,8 +50,10 @@ describe('HomePage', () => {
       await fetchWorkspacesRequest({ searchQuery: 'test' })
 
       expect(bffFetchWrapper).toHaveBeenCalledWith(
-        expect.stringContaining('search_query=test'),
-        'GET',
+        expect.objectContaining({
+          method: 'GET',
+          path: expect.stringContaining('search_query=test'),
+        }),
       )
     })
 
@@ -62,10 +66,10 @@ describe('HomePage', () => {
 
       await fetchWorkspacesRequest({ page: 2, perPage: 20 })
 
-      expect(bffFetchWrapper).toHaveBeenCalledWith(
-        '/api/workspaces?page=2&per_page=20',
-        'GET',
-      )
+      expect(bffFetchWrapper).toHaveBeenCalledWith({
+        path: '/api/workspaces?page=2&per_page=20',
+        method: 'GET',
+      })
     })
 
     it('リクエストが失敗した場合、エラーをthrowすること', async () => {
@@ -113,10 +117,10 @@ describe('HomePage', () => {
       render(() => <HomePage />)
 
       await waitFor(() => {
-        expect(bffFetchWrapper).toHaveBeenCalledWith(
-          '/api/workspaces?per_page=10',
-          'GET',
-        )
+        expect(bffFetchWrapper).toHaveBeenCalledWith({
+          path: '/api/workspaces?per_page=10',
+          method: 'GET',
+        })
       })
     })
   })

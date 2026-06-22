@@ -3,6 +3,7 @@ import { describe, it, expect } from 'vitest'
 
 import { useUserId, UserIdProvider } from '~/provider/userIdProvider'
 
+// eslint-disable-next-line max-lines-per-function
 describe('UserIdProvider', () => {
   it('provides userId and can update it', () => {
     const TestComponent = () => {

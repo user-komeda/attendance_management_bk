@@ -23,6 +23,16 @@ RSpec.describe 'UsersId', type: :openapi do
       get "/users/#{user_id}"
       expect(last_response.status).to eq(200)
     end
+
+    it 'returns 400 with invalid uuid format' do
+      get '/users/bad-uuid'
+      expect(last_response.status).to eq(400)
+    end
+
+    it 'returns 404 for nonexistent user' do
+      get "/users/#{SecureRandom.uuid}"
+      expect(last_response.status).to eq(404)
+    end
   end
 
   describe 'PATCH /users/:id' do
@@ -62,6 +72,11 @@ RSpec.describe 'UsersId', type: :openapi do
 
       expect(last_response.status).to eq(400)
       touch_openapi_schema_properties('Error', json(last_response.body))
+    end
+
+    it 'returns 404 for nonexistent user' do
+      patch "/users/#{SecureRandom.uuid}", { first_name: 'Test' }.to_json, json_headers
+      expect(last_response.status).to eq(404)
     end
   end
 

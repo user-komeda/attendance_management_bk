@@ -2,12 +2,13 @@ import { SignupForm } from '~/features/components/signup/signupForm'
 import SignupSchema from '~/schema/signupSchema'
 import actionWrapper from '~/util/actionWrapper'
 
-const signup = actionWrapper<typeof SignupSchema>(
-  '/api/signup',
-  'signup',
-  SignupSchema,
-  '/',
-)
+const signup = actionWrapper<typeof SignupSchema>({
+  path: '/api/signup',
+  method: 'POST',
+  schema: SignupSchema,
+  redirectUrl: '/',
+  name: 'signup',
+})
 
 export const SignupPage = () => {
   return <SignupForm action={signup} />

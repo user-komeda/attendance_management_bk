@@ -2,12 +2,13 @@ import { SigninForm } from '~/features/components/signin/signinForm'
 import { SigninSchema } from '~/schema/signinSchema'
 import actionWrapper from '~/util/actionWrapper'
 
-const signin = actionWrapper<typeof SigninSchema>(
-  '/api/signin',
-  'signin',
-  SigninSchema,
-  '/',
-)
+const signin = actionWrapper<typeof SigninSchema>({
+  path: '/api/signin',
+  method: 'POST',
+  schema: SigninSchema,
+  redirectUrl: '/',
+  name: 'signin',
+})
 export const SigninPage = () => {
   return <SigninForm action={signin} />
 }

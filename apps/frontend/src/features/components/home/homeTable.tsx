@@ -1,8 +1,8 @@
 import { ColumnDef } from '@tanstack/solid-table'
 import { Show } from 'solid-js'
 
-import { BasicDataTable } from '~/components/BasicDataTable'
-import { HomeTableHeader } from '~/features/components/home/homeTableHeader'
+import { BasicDataTable } from '~/components/table/BasicDataTable'
+import { HomeTableHeader } from '~/features/components/home/homeTablePrevArea'
 import { usePagination } from '~/hooks/usePagination'
 import { useHomeWorkspaces } from '~/provider/homeWorkspacesProvider'
 import { WorkSpaceWithStatus } from '~/schema/api/workSpaces'

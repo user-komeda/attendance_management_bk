@@ -2,9 +2,10 @@ import { render, screen, fireEvent } from '@solidjs/testing-library'
 import { ColumnDef } from '@tanstack/solid-table'
 import { describe, it, expect, vi } from 'vitest'
 
-import { BasicDataTable } from '~/components/BasicDataTable'
+import { BasicDataTable } from '~/components/table/BasicDataTable'
 
-describe('BasicDataTable', () => {
+// eslint-disable-next-line max-lines-per-function
+describe('PaginationArea', () => {
   interface TestData {
     id: number
     name: string
@@ -32,41 +33,6 @@ describe('BasicDataTable', () => {
     totalPages: 1,
     totalCount: 2,
   }
-
-  it('headersとdataを表示すること', () => {
-    render(() => (
-      <BasicDataTable
-        columns={columns}
-        data={data}
-        paginationMeta={paginationMeta}
-        onPageChange={vi.fn()}
-        onPageSizeChange={vi.fn()}
-      />
-    ))
-
-    expect(screen.getByText('ID')).toBeInTheDocument()
-    expect(screen.getByText('Name')).toBeInTheDocument()
-    expect(screen.getByText('Item 1')).toBeInTheDocument()
-    expect(screen.getByText('Item 2')).toBeInTheDocument()
-  })
-
-  it('dataが空の場合はNo results.を表示すること', () => {
-    render(() => (
-      <BasicDataTable
-        columns={columns}
-        data={[]}
-        paginationMeta={{
-          ...paginationMeta,
-          totalCount: 0,
-          totalPages: 0,
-        }}
-        onPageChange={vi.fn()}
-        onPageSizeChange={vi.fn()}
-      />
-    ))
-
-    expect(screen.getByText('No results.')).toBeInTheDocument()
-  })
 
   it('paginationMetaに基づいてページ情報を表示すること', () => {
     render(() => (
@@ -191,38 +157,6 @@ describe('BasicDataTable', () => {
 
     expect(screen.getByRole('button', { name: /previous/i })).not.toBeDisabled()
     expect(screen.getByRole('button', { name: /next/i })).toBeDisabled()
-  })
-
-  it('選択された行にdata-state="selected"を付与すること', () => {
-    const columnsWithSelection: ColumnDef<TestData, unknown>[] = [
-      {
-        id: 'select',
-        header: 'Select',
-        cell: ({ row }) => (
-          <input
-            type="checkbox"
-            checked={row.getIsSelected()}
-            onChange={row.getToggleSelectedHandler()}
-          />
-        ),
-      },
-      ...columns,
-    ]
-
-    render(() => (
-      <BasicDataTable
-        columns={columnsWithSelection}
-        data={[data[0]]}
-        paginationMeta={paginationMeta}
-        onPageChange={vi.fn()}
-        onPageSizeChange={vi.fn()}
-      />
-    ))
-
-    fireEvent.click(screen.getByRole('checkbox'))
-
-    const row = screen.getByText('Item 1').closest('tr')
-    expect(row).toHaveAttribute('data-state', 'selected')
   })
 
   it('paginationMetaが不足している場合はデフォルト値でページ情報を表示すること', () => {

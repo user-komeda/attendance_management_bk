@@ -67,5 +67,10 @@ RSpec.describe 'WorkSpaces', type: :openapi do
         expect(touch_openapi_schema_properties('WorkSpaceWithMemberShips', json(last_response.body))).to be_a(Set)
       end
     end
+
+    it 'returns 400 with invalid params' do
+      post '/work_spaces', { name: '' }.to_json, json_headers
+      expect(last_response.status).to eq(400)
+    end
   end
 end

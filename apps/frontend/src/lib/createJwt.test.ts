@@ -1,3 +1,4 @@
+import { SignJWT } from 'jose'
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 
 import * as env from '~/env'
@@ -19,6 +20,7 @@ vi.mock(import('jose'), () => ({
   }),
 }))
 
+// eslint-disable-next-line max-lines-per-function
 describe('createJwt', () => {
   beforeEach(() => {
     vi.spyOn(env, 'getEnv').mockReturnValue({
@@ -36,11 +38,29 @@ describe('createJwt', () => {
     const jwt = await createUserJwt('user-1')
 
     expect(jwt).toBeTypeOf('string')
+    expect(SignJWT).toHaveBeenCalledWith({ typ: 'access_token' })
+    const instance = vi.mocked(SignJWT).mock.results[0].value
+    expect(instance.setProtectedHeader).toHaveBeenCalledWith({
+      alg: 'HS256',
+      typ: 'USER_JWT',
+    })
+    expect(instance.setIssuer).toHaveBeenCalledWith('test')
+    expect(instance.setAudience).toHaveBeenCalledWith('test')
+    expect(instance.setSubject).toHaveBeenCalledWith('user-1')
   })
 
   it('should create bff jwt', async () => {
+    vi.mocked(SignJWT).mockClear()
     const jwt = await createBffJwt()
 
     expect(jwt).toBeTypeOf('string')
+    expect(SignJWT).toHaveBeenCalledWith({ typ: 'bff_assertion' })
+    const instance = vi.mocked(SignJWT).mock.results[0].value
+    expect(instance.setProtectedHeader).toHaveBeenCalledWith({
+      alg: 'HS256',
+      typ: 'BFF_JWT',
+    })
+    expect(instance.setIssuer).toHaveBeenCalledWith('test')
+    expect(instance.setAudience).toHaveBeenCalledWith('test')
   })
 })

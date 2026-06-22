@@ -86,14 +86,23 @@ RSpec.describe 'User API integration', type: :request do
   end
 
   it 'allows multiple users to coexist' do
-    emails = [unique_email('u1'), unique_email('u2')]
-    ids = emails.map { |e| sql_insert_user(first_name: 'T', last_name: 'Y', email: e)['id'] }
-    expect(ids.map { |id| get("/users/#{id}") }).to all(satisfy { last_response.status == 200 })
+    ids = create_user_ids(unique_email('u1'), unique_email('u2'))
+
+    ids.each { |id| expect_user_to_exist(id) }
   end
 
   # テスト用の簡易実装は匿名クラスで提供する
 
   private
+
+  def expect_user_to_exist(id)
+    get "/users/#{id}"
+    expect(last_response.status).to eq(200)
+  end
+
+  def create_user_ids(*emails)
+    emails.map { |email| sql_insert_user(first_name: 'T', last_name: 'Y', email: email)['id'] }
+  end
 
   def json(body)
     JSON.parse(body)

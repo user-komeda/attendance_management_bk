@@ -20,11 +20,11 @@ export const POST = async (event: APIEvent) => {
     password: result.output.password,
   }
 
-  const res = await fetchWrapper<{ userId: string }>(
-    'signin',
-    'POST',
-    requestBody,
-  )
+  const res = await fetchWrapper<{ userId: string }>({
+    path: 'signin',
+    method: 'POST',
+    data: requestBody,
+  })
 
   if (!res.ok) {
     return new Response(JSON.stringify(res.error), {

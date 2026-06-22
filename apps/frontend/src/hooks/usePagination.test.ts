@@ -8,6 +8,7 @@ vi.mock('~/provider/homeWorkspacesProvider', () => ({
   useHomeWorkspaces: vi.fn(),
 }))
 
+// eslint-disable-next-line max-lines-per-function
 describe('usePagination', () => {
   it('handlePageChangeが正しく動作すること', async () => {
     const fetchWorkspaces = vi.fn()

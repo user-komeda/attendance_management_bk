@@ -1,10 +1,12 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { useSubmission } from '@solidjs/router'
 import { render, screen } from '@solidjs/testing-library'
 import { describe, it, expect, vi } from 'vitest'
 
+import type { Action, Submission } from '@solidjs/router'
+import type { ActionResultOf } from '~/types/action'
+
 import { SignupForm } from '~/features/components/signup/signupForm'
+import SignupSchema from '~/schema/signupSchema'
 
 // mock useSubmission
 vi.mock(import('@solidjs/router'), async () => {
@@ -15,14 +17,25 @@ vi.mock(import('@solidjs/router'), async () => {
   }
 })
 
+// eslint-disable-next-line max-lines-per-function
 describe(SignupForm, () => {
   it('should render signup form', () => {
     vi.mocked(useSubmission).mockReturnValue({
       result: undefined,
       pending: false,
-    } as any)
+    } as unknown as Submission<[FormData], ActionResultOf<typeof SignupSchema>>)
 
-    render(() => <SignupForm action={vi.fn() as any} />)
+    render(() => (
+      <SignupForm
+        action={
+          vi.fn() as unknown as Action<
+            [FormData],
+            ActionResultOf<typeof SignupSchema>,
+            [FormData]
+          >
+        }
+      />
+    ))
 
     expect(screen.getByLabelText('firstName')).toBeInTheDocument()
     expect(screen.getByLabelText('lastName')).toBeInTheDocument()
@@ -44,9 +57,19 @@ describe(SignupForm, () => {
         ],
       },
       pending: false,
-    } as any)
+    } as unknown as Submission<[FormData], ActionResultOf<typeof SignupSchema>>)
 
-    render(() => <SignupForm action={vi.fn() as any} />)
+    render(() => (
+      <SignupForm
+        action={
+          vi.fn() as unknown as Action<
+            [FormData],
+            ActionResultOf<typeof SignupSchema>,
+            [FormData]
+          >
+        }
+      />
+    ))
 
     expect(screen.getByText('First name is required')).toBeInTheDocument()
     expect(screen.getByText('Invalid email')).toBeInTheDocument()
@@ -59,9 +82,19 @@ describe(SignupForm, () => {
         message: 'Something went wrong',
       },
       pending: false,
-    } as any)
+    } as unknown as Submission<[FormData], ActionResultOf<typeof SignupSchema>>)
 
-    render(() => <SignupForm action={vi.fn() as any} />)
+    render(() => (
+      <SignupForm
+        action={
+          vi.fn() as unknown as Action<
+            [FormData],
+            ActionResultOf<typeof SignupSchema>,
+            [FormData]
+          >
+        }
+      />
+    ))
 
     expect(screen.getByText('Something went wrong')).toBeInTheDocument()
   })
@@ -79,14 +112,47 @@ describe(SignupForm, () => {
         ],
       },
       pending: false,
-    } as any)
+    } as unknown as Submission<[FormData], ActionResultOf<typeof SignupSchema>>)
 
-    render(() => <SignupForm action={vi.fn() as any} />)
+    render(() => (
+      <SignupForm
+        action={
+          vi.fn() as unknown as Action<
+            [FormData],
+            ActionResultOf<typeof SignupSchema>,
+            [FormData]
+          >
+        }
+      />
+    ))
 
     expect(screen.getByText('First name is required')).toBeInTheDocument()
     expect(screen.getByText('Last name is required')).toBeInTheDocument()
     expect(screen.getByText('Invalid email')).toBeInTheDocument()
     expect(screen.getByText('Password is required')).toBeInTheDocument()
     expect(screen.getByText('Confirm password is required')).toBeInTheDocument()
+  })
+
+  it('pending中もアカウント作成ボタンが表示されること', () => {
+    vi.mocked(useSubmission).mockReturnValue({
+      result: undefined,
+      pending: true,
+    } as unknown as Submission<[FormData], ActionResultOf<typeof SignupSchema>>)
+
+    render(() => (
+      <SignupForm
+        action={
+          vi.fn() as unknown as Action<
+            [FormData],
+            ActionResultOf<typeof SignupSchema>,
+            [FormData]
+          >
+        }
+      />
+    ))
+
+    expect(
+      screen.getByRole('button', { name: /Create an account/i }),
+    ).toBeInTheDocument()
   })
 })

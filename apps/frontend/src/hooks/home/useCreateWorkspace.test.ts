@@ -21,8 +21,9 @@ vi.mock('@solidjs/router', async (importOriginal) => {
   }
 })
 
+// eslint-disable-next-line max-lines-per-function
 describe('useCreateWorkspace', () => {
-  it('closes modal and refetches on success', async () => {
+  it('成功時にモーダルを閉じてワークスペースを再取得すること', async () => {
     const fetchWorkspaces = vi.fn()
     vi.mocked(useHomeWorkspaces).mockReturnValue({
       fetchWorkspaces,
@@ -52,7 +53,7 @@ describe('useCreateWorkspace', () => {
     })
   })
 
-  it('handleClose does nothing if pending', () => {
+  it('pending中はhandleCloseを呼んでもモーダルが閉じないこと', () => {
     vi.mocked(useSubmission).mockReturnValue({
       result: null,
       pending: true,
@@ -64,7 +65,7 @@ describe('useCreateWorkspace', () => {
     expect(hook.isOpen()).toBe(true)
   })
 
-  it('handleClose closes modal if not pending', () => {
+  it('pending中でなければhandleCloseでモーダルが閉じること', () => {
     vi.mocked(useSubmission).mockReturnValue({
       result: null,
       pending: false,

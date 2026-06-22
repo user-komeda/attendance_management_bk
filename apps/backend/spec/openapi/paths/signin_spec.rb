@@ -27,14 +27,16 @@ RSpec.describe 'Signin', type: :openapi do
       expect(last_response.status).to eq(200)
     end
 
-    it 'matches OpenAPI contract with invalid request' do
-      request_body = {
-        email: 'invalid-email'
-      }
-
+    it 'returns 400 with missing password' do
+      request_body = { email: email }
       post '/signin', request_body.to_json, json_headers
-
       expect(last_response.status).to eq(400)
+    end
+
+    it 'returns 401 with wrong password' do
+      request_body = { email: email, password: 'WrongPassword!' }
+      post '/signin', request_body.to_json, json_headers
+      expect(last_response.status).to eq(401)
     end
   end
 end

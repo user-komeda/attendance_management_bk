@@ -1,4 +1,5 @@
 // @ts-check
+/* eslint-disable max-lines */
 import eslint from '@eslint/js'
 import vitest from '@vitest/eslint-plugin'
 import { defineConfig } from 'eslint/config'
@@ -51,6 +52,11 @@ export default defineConfig(
       'no-relative-import-paths': noRelativeImportPaths,
     },
     rules: {
+      complexity: ['error', 10],
+      'max-depth': ['error', 2],
+      'max-params': ['error', 3],
+      'max-lines': ['error', 115],
+      'max-lines-per-function': ['error', 40],
       'no-relative-import-paths/no-relative-import-paths': 'error',
       '@typescript-eslint/no-non-null-assertion': 'off',
       'no-console': [
@@ -101,14 +107,14 @@ export default defineConfig(
     rules: {
       ...vitest.configs.recommended.rules,
       'vitest/valid-title': ['error', { ignoreTypeOfDescribeName: true }],
+      'max-lines': ['error', 205],
     },
   },
   {
     files: ['tests/**'],
     extends: [playwright.configs['flat/recommended']],
     rules: {
-      // Customize Playwright rules
-      // ...
+      'max-lines': ['error', 205],
     },
   },
 )

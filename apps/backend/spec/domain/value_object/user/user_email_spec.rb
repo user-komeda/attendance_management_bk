@@ -21,9 +21,8 @@ RSpec.describe Domain::ValueObject::User::UserEmail do
       expect { described_class.build(nil) }.to raise_error(ArgumentError)
     end
 
-    it 'allows empty string (current implementation)' do
-      email = described_class.build('')
-      expect(email.value).to eq('')
+    it 'raises ArgumentError when email is empty' do
+      expect { described_class.build('') }.to raise_error(ArgumentError)
     end
   end
 

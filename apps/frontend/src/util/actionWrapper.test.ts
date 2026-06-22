@@ -14,6 +14,7 @@ vi.mock('@solidjs/router', () => ({
   redirect: vi.fn((url) => ({ type: 'redirect', url })),
 }))
 
+// eslint-disable-next-line max-lines-per-function
 describe(actionWrapper, () => {
   const schema = v.object({
     name: v.pipe(v.string(), v.nonEmpty()),
@@ -24,11 +25,11 @@ describe(actionWrapper, () => {
   })
 
   it('should return errors if validation fails', async () => {
-    const action = actionWrapper<typeof schema>(
-      '/api/test',
-      'test-action',
+    const action = actionWrapper<typeof schema>({
+      path: '/api/test',
+      method: 'POST',
       schema,
-    )
+    })
     const formData = new FormData()
     formData.append('name', '')
 
@@ -50,14 +51,20 @@ describe(actionWrapper, () => {
       data: mockResponse,
     })
 
-    const action = actionWrapper('/api/test', 'test-action', schema)
+    const action = actionWrapper({
+      path: '/api/test',
+      method: 'POST',
+      schema,
+    })
     const formData = new FormData()
     formData.append('name', 'John')
 
     const result = await action(formData)
 
-    expect(bffFetchWrapper).toHaveBeenCalledWith('/api/test', 'POST', {
-      name: 'John',
+    expect(bffFetchWrapper).toHaveBeenCalledWith({
+      path: '/api/test',
+      method: 'POST',
+      data: { name: 'John' },
     })
     expect(result).toEqual({ ok: true })
   })
@@ -69,7 +76,12 @@ describe(actionWrapper, () => {
       data: { success: true },
     })
 
-    const action = actionWrapper('/api/test', 'test-action', schema, '/')
+    const action = actionWrapper({
+      path: '/api/test',
+      method: 'POST',
+      schema,
+      redirectUrl: '/',
+    })
     const formData = new FormData()
     formData.append('name', 'John')
 
@@ -96,7 +108,11 @@ describe(actionWrapper, () => {
       error: mockError,
     })
 
-    const action = actionWrapper('/api/test', 'test-action', schema)
+    const action = actionWrapper({
+      path: '/api/test',
+      method: 'POST',
+      schema,
+    })
     const formData = new FormData()
     formData.append('name', 'John')
 

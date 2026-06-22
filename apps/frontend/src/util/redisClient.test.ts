@@ -5,6 +5,12 @@ vi.mock(import('redis'), () => ({
   createClient: vi.fn(),
 }))
 
+vi.mock('~/env', () => ({
+  getEnv: vi.fn().mockReturnValue({
+    REDIS_URL: 'redis://default:password@localhost:6379/0',
+  }),
+}))
+
 interface MockRedisClient {
   on: ReturnType<typeof vi.fn>
   connect: ReturnType<typeof vi.fn>
@@ -18,6 +24,7 @@ interface MockRedisClient {
   expire: ReturnType<typeof vi.fn>
 }
 
+// eslint-disable-next-line max-lines-per-function
 describe('redisClient', () => {
   let mockClient: MockRedisClient
 

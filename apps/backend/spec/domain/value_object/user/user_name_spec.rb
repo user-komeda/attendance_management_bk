@@ -29,11 +29,11 @@ RSpec.describe Domain::ValueObject::User::UserName do
       expect { described_class.build('', 'Yamada') }.to raise_error(ArgumentError)
     end
 
-    it 'does not raise when last_name is nil (current implementation behavior)' do
+    it 'raises when last_name is nil' do
       expect { described_class.build('Taro', nil) }.to raise_error(ArgumentError)
     end
 
-    it 'does not raise when last_name is empty (current implementation behavior)' do
+    it 'raises when last_name is empty' do
       expect { described_class.build('Taro', '') }.to raise_error(ArgumentError)
     end
   end

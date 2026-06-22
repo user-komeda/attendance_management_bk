@@ -28,6 +28,12 @@ post:
         application/json:
           schema:
             $ref: '../components/schemas/Error.yaml'
+    "409":
+      description: メールアドレスが既に登録されています
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas/Error.yaml'
     default:
       description: サーバー内部エラー
       content:

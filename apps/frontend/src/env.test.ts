@@ -11,6 +11,7 @@ describe('env', () => {
     process.env.BFF_JWT_SECRET = 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
     process.env.JWT_ISSUER = 'test'
     process.env.JWT_AUDIENCE = 'test'
+    process.env.REDIS_URL = 'redis://localhost:6379'
   })
 
   it('should return env variables when all are valid', () => {

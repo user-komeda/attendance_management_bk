@@ -32,6 +32,7 @@ module Domain
         # @rbs (String args) -> void
         def self.validate!(args)
           raise ArgumentError, 'Email cannot be nil' if args.nil?
+          raise ArgumentError, 'Email cannot be empty' if args.empty?
         end
       end
     end

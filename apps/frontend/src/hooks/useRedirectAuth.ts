@@ -8,7 +8,10 @@ interface AuthState {
 }
 
 const fetchAuthState = async () => {
-  const result = await bffFetchWrapper<AuthState>('/api/auth/me', 'GET')
+  const result = await bffFetchWrapper<AuthState>({
+    path: '/api/auth/me',
+    method: 'GET',
+  })
 
   if (!result.ok) {
     return {

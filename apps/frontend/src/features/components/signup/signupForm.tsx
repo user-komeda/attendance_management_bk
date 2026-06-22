@@ -1,99 +1,106 @@
 import { useSubmission } from '@solidjs/router'
-import { Show } from 'solid-js'
+import { Accessor, Show } from 'solid-js'
 
-import type { FormDataActionOf } from '~/types/action'
+import type { ActionResultOf, FormDataActionOf } from '~/types/action'
 
-import { InputPassword } from '~/components/inputPassword'
-import { InputText } from '~/components/inputText'
+import { FormInputText } from '~/components/formInputText'
+import { Button } from '~/components/ui/button'
+import { CommonCard } from '~/components/ui/commonCard'
 import SignupSchema from '~/schema/signupSchema'
 import { createObjectSchemaFields } from '~/util/createObjectSchemaFields'
-import { findActionMessage, findError } from '~/util/error'
+import { findActionMessage } from '~/util/error'
 
 type SignupAction = FormDataActionOf<typeof SignupSchema>
+type SignupResult = ActionResultOf<typeof SignupSchema>
+
+// eslint-disable-next-line max-lines-per-function
+const Content = (props: { result: Accessor<SignupResult | undefined> }) => {
+  const signupField = createObjectSchemaFields(SignupSchema)
+  const { result } = props
+  return (
+    <div class="space-y-6">
+      <div>
+        <FormInputText
+          name={signupField.firstName}
+          label={'firstName'}
+          result={result()}
+        />
+      </div>
+
+      <div>
+        <FormInputText
+          name={signupField.lastName}
+          label="lastName"
+          result={result()}
+        />
+      </div>
+
+      <div>
+        <FormInputText
+          type="email"
+          name={signupField.email}
+          label="Email"
+          result={result()}
+        />
+      </div>
+
+      <div>
+        <FormInputText
+          type="password"
+          name={signupField.password}
+          label="Password"
+          result={result()}
+        />
+      </div>
+
+      <div>
+        <FormInputText
+          type="password"
+          name={signupField.confirmPassword}
+          label="Confirm Password"
+          result={result()}
+        />
+      </div>
+
+      <Show when={findActionMessage(result())}>
+        {(message) => <p class="text-sm text-red-500">{message()}</p>}
+      </Show>
+    </div>
+  )
+}
 
 export const SignupForm = ({ action }: { action: SignupAction }) => {
   const submission = useSubmission(action)
-  const signupField = createObjectSchemaFields(SignupSchema)
+  const formId = 'signup-form'
 
   return (
     <div class="flex flex-col justify-center p-4 sm:h-screen">
-      <div class="mx-auto w-full max-w-md rounded-2xl border border-gray-300 p-8">
-        <form action={action} method="post">
-          <div class="space-y-6">
-            <div>
-              <InputText name={signupField.firstName} label="firstName" />
-              <Show when={findError(submission.result, signupField.firstName)}>
-                {(message) => (
-                  <span class="text-sm text-red-500">{message()}</span>
-                )}
-              </Show>
+      <div class="mx-auto w-full max-w-md">
+        <CommonCard
+          title="アカウント作成"
+          description="必要な情報を入力してください"
+          footer={
+            <div class="w-full">
+              <Button type="submit" form={formId} disabled={submission.pending}>
+                {'Create an account'}
+              </Button>
+
+              <p class="mt-6 text-center text-sm text-slate-600">
+                Already have an account?{' '}
+                <a
+                  href="/signin"
+                  class="ml-1 font-medium text-blue-600 hover:underline"
+                >
+                  Login here
+                </a>
+              </p>
             </div>
-
-            <div>
-              <InputText name={signupField.lastName} label="lastName" />
-              <Show when={findError(submission.result, signupField.lastName)}>
-                {(message) => (
-                  <span class="text-sm text-red-500">{message()}</span>
-                )}
-              </Show>
-            </div>
-
-            <div>
-              <InputText name={signupField.email} label="Email" />
-              <Show when={findError(submission.result, signupField.email)}>
-                {(message) => (
-                  <span class="text-sm text-red-500">{message()}</span>
-                )}
-              </Show>
-            </div>
-
-            <div>
-              <InputPassword name={signupField.password} label="Password" />
-              <Show when={findError(submission.result, signupField.password)}>
-                {(message) => (
-                  <span class="text-sm text-red-500">{message()}</span>
-                )}
-              </Show>
-            </div>
-
-            <div>
-              <InputPassword
-                name={signupField.confirmPassword}
-                label="Confirm Password"
-              />
-              <Show
-                when={findError(submission.result, signupField.confirmPassword)}
-              >
-                {(message) => (
-                  <span class="text-sm text-red-500">{message()}</span>
-                )}
-              </Show>
-            </div>
-
-            <Show when={findActionMessage(submission.result)}>
-              {(message) => <p class="text-sm text-red-500">{message()}</p>}
-            </Show>
-          </div>
-
-          <div class="mt-12">
-            <button
-              type="submit"
-              class="w-full cursor-pointer rounded-md bg-blue-600 px-4 py-3 text-sm font-medium tracking-wider text-white hover:bg-blue-700 focus:outline-none"
-            >
-              Create an account
-            </button>
-          </div>
-
-          <p class="mt-6 text-center text-sm text-slate-600">
-            Already have an account?{' '}
-            <a
-              href="javascript:void(0);"
-              class="ml-1 font-medium text-blue-600 hover:underline"
-            >
-              Login here
-            </a>
-          </p>
-        </form>
+          }
+        >
+          <form id={formId} action={action} method="post">
+            <Content result={() => submission.result} />
+          </form>
+        </CommonCard>
       </div>
     </div>
   )

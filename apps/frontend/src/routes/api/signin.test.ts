@@ -8,6 +8,7 @@ import fetchWrapper from '~/util/fetchWrapper'
 vi.mock(import('~/util/fetchWrapper'))
 vi.mock(import('~/lib/createSeession'))
 
+// eslint-disable-next-line max-lines-per-function
 describe('(signin) API', () => {
   beforeEach(() => {
     vi.clearAllMocks()
@@ -34,9 +35,13 @@ describe('(signin) API', () => {
     const response = await POST(mockEvent)
 
     expect(response.status).toBe(204)
-    expect(fetchWrapper).toHaveBeenCalledWith('signin', 'POST', {
-      email: 'test@example.com',
-      password: 'password123',
+    expect(fetchWrapper).toHaveBeenCalledWith({
+      path: 'signin',
+      method: 'POST',
+      data: {
+        email: 'test@example.com',
+        password: 'password123',
+      },
     })
     expect(createSession).toHaveBeenCalledWith('user-123')
   })

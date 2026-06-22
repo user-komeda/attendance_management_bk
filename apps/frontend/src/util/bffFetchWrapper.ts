@@ -1,12 +1,16 @@
-import { FetchResult } from '~/types/fetch'
+import { FetchResult, HttpMethod } from '~/types/fetch'
 
-type HttpMethod = 'GET' | 'POST' | 'DELETE' | 'PATCH' | 'PUT'
+interface BffFetchWrapperParams {
+  path: string
+  method: HttpMethod
+  data?: unknown
+}
 
-const bffFetchWrapper = async <R, ErrorKey extends string = string>(
-  path: string,
-  method: HttpMethod,
-  data?: unknown,
-): Promise<FetchResult<R, ErrorKey>> => {
+const bffFetchWrapper = async <R, ErrorKey extends string = string>({
+  path,
+  method,
+  data,
+}: BffFetchWrapperParams): Promise<FetchResult<R, ErrorKey>> => {
   const res = await fetch(path, {
     method,
     headers: {

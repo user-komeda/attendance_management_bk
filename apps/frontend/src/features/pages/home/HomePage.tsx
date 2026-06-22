@@ -14,7 +14,6 @@ export const fetchWorkspacesRequest = async (
   params?: FetchWorkspacesParams,
 ) => {
   const searchParams = new URLSearchParams()
-
   if (params?.searchQuery) {
     searchParams.set('search_query', params.searchQuery)
   }
@@ -27,8 +26,10 @@ export const fetchWorkspacesRequest = async (
   searchParams.set('per_page', perPage.toString())
 
   const path = `/api/workspaces?${searchParams.toString()}`
-
-  const result = await bffFetchWrapper<ListWorkSpacesResponse>(path, 'GET')
+  const result = await bffFetchWrapper<ListWorkSpacesResponse>({
+    path,
+    method: 'GET',
+  })
 
   if (!result.ok) {
     throw new Error('Failed to load workspaces')

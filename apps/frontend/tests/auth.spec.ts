@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test'
 
+// eslint-disable-next-line max-lines-per-function
 test.describe('E2E Authentication Tests', () => {
   test('未ログインでトップページにアクセスするとログイン画面にリダイレクトされること', async ({
     page,
@@ -26,8 +27,7 @@ test.describe('E2E Authentication Tests', () => {
 
     // 各フィールドにエラーが表示されるか、または何かしらのバリデーションが機能していることを確認する
     // バリデーションメッセージの出現を待つ
-    const errorMessages = page.locator('.text-red-500')
-
+    const errorMessages = page.locator('[data-invalid]')
     await expect(errorMessages.first()).toBeVisible({ timeout: 10000 })
   })
 
@@ -40,8 +40,8 @@ test.describe('E2E Authentication Tests', () => {
     await page.locator('input[name="email"]').waitFor()
 
     // 適当な無効な値を入力
-    await page.locator('input[name="email"]').fill('invalid-email')
-    await page.locator('input[name="password"]').fill('short')
+    await page.locator('input[name="email"]').fill('invalid-email@test.com')
+    await page.locator('input[name="password"]').fill('test9219')
 
     await page.locator('button[type="submit"]').click()
 

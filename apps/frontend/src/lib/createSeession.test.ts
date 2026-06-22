@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { useSession } from 'vinxi/http'
-import { describe, it, expect, vi, beforeAll } from 'vitest'
+import { describe, it, expect, vi, beforeEach } from 'vitest'
 
 import createSession from '~/lib/createSeession'
 import { redisSet } from '~/util/redisClient'
@@ -20,8 +20,10 @@ vi.mock(import('vinxi/http'), () => ({
   useSession: vi.fn(),
 }))
 
+// eslint-disable-next-line max-lines-per-function
 describe(createSession, () => {
-  beforeAll(() => {
+  beforeEach(() => {
+    vi.clearAllMocks()
     process.env.SESSION_PASSWORD =
       'dJs3wmlkeHdFwul605ZWnDmlePyKGt/Q8XIMFDEySq4='
   })
@@ -47,5 +49,20 @@ describe(createSession, () => {
       sessionId: 'mock-uuid',
     })
     expect(result).toBe(mockSession)
+  })
+
+  it('redisSetが失敗した場合はエラーをスローすること', async () => {
+    const { redisSet } = await import('~/util/redisClient')
+    vi.mocked(redisSet).mockRejectedValue(new Error('redis error'))
+
+    await expect(createSession('user123')).rejects.toThrow('redis error')
+  })
+
+  it('useSessionが失敗した場合はエラーをスローすること', async () => {
+    const { redisSet } = await import('~/util/redisClient')
+    vi.mocked(redisSet).mockResolvedValue(undefined)
+    vi.mocked(useSession).mockRejectedValue(new Error('session error'))
+
+    await expect(createSession('user123')).rejects.toThrow('session error')
   })
 })

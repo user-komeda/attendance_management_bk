@@ -8,6 +8,7 @@ require 'rackup'
 require 'simplecov'
 SimpleCov.start do
   enable_coverage :branch
+  minimum_coverage line: 95, branch: 95
   add_filter do |source_file|
     source_file.filename.include?('base') || source_file.filename.include?('spec')
   end

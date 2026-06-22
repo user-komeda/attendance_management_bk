@@ -6,6 +6,8 @@ module Presentation
       class UserControllerBase < Presentation::Controller::ControllerBase
         USER_USE_CASE: untyped
 
+        USE_CASE_CONTAINER: untyped
+
         RESPONSE: untyped
 
         BASE_REQUEST: untyped
@@ -13,12 +15,6 @@ module Presentation
         CREATE_REQUEST: untyped
 
         UPDATE_REQUEST: untyped
-
-        # @rbs (Hash[Symbol, untyped] request_payload, untyped request_class) -> ::Presentation::Request::User::UserBaseRequest
-        def build_request: (Hash[Symbol, untyped] request_payload, untyped request_class) -> ::Presentation::Request::User::UserBaseRequest
-
-        # @rbs [T] (Symbol key, *untyped args) -> T
-        def invoke_use_case: [T] (Symbol key, *untyped args) -> T
       end
     end
   end

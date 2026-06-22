@@ -1,8 +1,9 @@
 import { type Submission } from '@solidjs/router'
 import { render, screen, fireEvent } from '@solidjs/testing-library'
+import { type JSX } from 'solid-js'
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 
-import { HomeTableHeader } from '~/features/components/home/homeTableHeader'
+import { HomeTableHeader } from '~/features/components/home/homeTablePrevArea'
 import * as useCreateWorkspaceHook from '~/hooks/home/useCreateWorkspace'
 import * as useSearchWorkspacesHook from '~/hooks/home/useSearchWorkspaces'
 import { CreateWorkspaceSchema } from '~/schema/createWorkspaceSchema'
@@ -10,7 +11,28 @@ import { ActionResultOf, FormDataActionOf } from '~/types/action'
 
 vi.mock('~/hooks/home/useSearchWorkspaces')
 vi.mock('~/hooks/home/useCreateWorkspace')
+vi.mock('~/components/CommonDialog', () => ({
+  CommonDialog: (props: {
+    open: () => boolean
+    title: JSX.Element
+    description: JSX.Element
+    children: JSX.Element
+    footer: JSX.Element
+  }) => (
+    <div>
+      {props.open() && (
+        <div>
+          {props.title}
+          {props.description}
+          {props.children}
+          {props.footer}
+        </div>
+      )}
+    </div>
+  ),
+}))
 
+// eslint-disable-next-line max-lines-per-function
 describe('HomeTableHeader', () => {
   const mockSetKeyword = vi.fn()
   const mockHandleSearch = vi.fn()
@@ -44,11 +66,13 @@ describe('HomeTableHeader', () => {
       submission: {
         result: submissionResult,
         pending: submissionPending,
+        clear: vi.fn(),
       } as unknown as Submission<
         [formData: FormData],
         ActionResultOf<typeof CreateWorkspaceSchema>
       >,
       isOpen: () => isOpen,
+      setIsOpen: vi.fn(),
       handleOpen: mockHandleOpen,
       handleClose: mockHandleClose,
     })
@@ -111,8 +135,8 @@ describe('HomeTableHeader', () => {
     expect(
       screen.getByText('新しいワークスペースを作成します。'),
     ).toBeInTheDocument()
-    expect(screen.getByPlaceholderText('ワークスペース名')).toBeInTheDocument()
-    expect(screen.getByPlaceholderText('サービスID')).toBeInTheDocument()
+    expect(screen.getByText('ワークスペース名')).toBeInTheDocument()
+    expect(screen.getByText('ワークスペースID')).toBeInTheDocument()
   })
 
   it('キャンセルボタンをクリックしたときhandleCloseを呼ぶこと', () => {

@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test'
 
+// eslint-disable-next-line max-lines-per-function
 test.describe('Home Page E2E Tests', () => {
   let email: string
   const password = 'Password123!'
@@ -59,6 +60,7 @@ test.describe('Home Page E2E Tests', () => {
     await expect(errorMessages.first()).toBeVisible()
   })
 
+  // eslint-disable-next-line max-lines-per-function
   test('ワークスペースの検索ができること', async ({ page }) => {
     // 2つワークスペースを作成
     const ws1 = {
@@ -103,6 +105,7 @@ test.describe('Home Page E2E Tests', () => {
     await expect(page.locator('text=Beta Project')).toBeVisible()
   })
 
+  // eslint-disable-next-line max-lines-per-function
   test('ページネーションが正しく動作すること', async ({ page }) => {
     // 6個のワークスペースを作成する
     const wsBaseName = 'Pg'
