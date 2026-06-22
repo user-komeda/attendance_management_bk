@@ -1,8 +1,8 @@
-import { FetchResult } from '~/types/fetch'
+import { FetchResult, HttpMethod } from '~/types/fetch'
 
 interface BffFetchWrapperParams {
   path: string
-  method: string
+  method: HttpMethod
   data?: unknown
 }
 

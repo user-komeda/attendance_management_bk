@@ -11,7 +11,7 @@ import { ActionResultOf, FormDataActionOf } from '~/types/action'
 
 vi.mock('~/hooks/home/useSearchWorkspaces')
 vi.mock('~/hooks/home/useCreateWorkspace')
-vi.mock('~/components/CommonDialig', () => ({
+vi.mock('~/components/CommonDialog', () => ({
   CommonDialog: (props: {
     open: () => boolean
     title: JSX.Element

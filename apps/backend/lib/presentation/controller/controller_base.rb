@@ -30,7 +30,7 @@ module Presentation
       # @rbs (untyped request_payload, untyped request_class) -> untyped
       def build_request(request_payload, request_class)
         base = self.class.const_get(:BASE_REQUEST)
-        raise ArgumentError, "#{request_class} is not a valid User request class" unless request_class <= base
+        raise ArgumentError, "#{request_class} is not a valid #{base} request class" unless request_class <= base
 
         request_class.build(params: request_payload)
       end

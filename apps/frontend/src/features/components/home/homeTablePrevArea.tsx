@@ -1,6 +1,6 @@
 import { Show } from 'solid-js'
 
-import { CommonDialog } from '~/components/CommonDialig'
+import { CommonDialog } from '~/components/CommonDialog'
 import { FormInputText } from '~/components/formInputText'
 import { Button } from '~/components/ui/button'
 import { HomeTableSearchArea } from '~/features/components/home/homeTableSearchArea'

@@ -11,7 +11,7 @@ import {
   TableRow,
 } from '~/components/ui/table'
 import { DataTableProps, useDataTable } from '~/hooks/useDataTable'
-import { useDataTablePagination } from '~/hooks/useDataTablePagination'
+import type { useDataTablePagination } from '~/hooks/useDataTablePagination'
 
 export type PaginationProps = ReturnType<typeof useDataTablePagination>
 

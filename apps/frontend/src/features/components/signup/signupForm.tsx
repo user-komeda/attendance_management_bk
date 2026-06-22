@@ -88,7 +88,7 @@ export const SignupForm = ({ action }: { action: SignupAction }) => {
               <p class="mt-6 text-center text-sm text-slate-600">
                 Already have an account?{' '}
                 <a
-                  href="javascript:void(0);"
+                  href="/signin"
                   class="ml-1 font-medium text-blue-600 hover:underline"
                 >
                   Login here

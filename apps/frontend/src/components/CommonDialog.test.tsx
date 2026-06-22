@@ -2,7 +2,7 @@ import { render, screen } from '@solidjs/testing-library'
 import { createSignal, type JSX } from 'solid-js'
 import { describe, it, expect, vi } from 'vitest'
 
-import { CommonDialog } from '~/components/CommonDialig'
+import { CommonDialog } from '~/components/CommonDialog'
 
 vi.mock('~/components/ui/dialog', () => ({
   Dialog: (props: {

@@ -1,6 +1,6 @@
 import { getEnv } from '~/env'
 import { createBffJwt, createUserJwt } from '~/lib/createJwt'
-import { ApiActionError, FetchResult } from '~/types/fetch'
+import { ApiActionError, FetchResult, HttpMethod } from '~/types/fetch'
 
 const PUBLIC_API_PATHS = ['signin', 'signup']
 
@@ -78,7 +78,7 @@ const executeRequest = async ({
 
 interface FetchWrapperParams {
   path: string
-  method: string
+  method: HttpMethod
   data?: unknown
   userId?: string
 }

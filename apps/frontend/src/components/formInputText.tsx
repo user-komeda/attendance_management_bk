@@ -23,6 +23,7 @@ export const FormInputText = <Key extends string>(props: {
       <TextField validationState={errorMessage() ? 'invalid' : 'valid'}>
         <TextFieldLabel for={props.name}>{props.label}</TextFieldLabel>
         <TextFieldInput
+          id={props.name}
           type={props.type ?? 'text'}
           name={props.name}
           placeholder={props.placeHolder}
