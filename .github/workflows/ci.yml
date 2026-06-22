@@ -24,7 +24,7 @@ jobs:
           --health-timeout=5s
           --health-retries=5
       redis:
-        image: redis:8.8.0@sha256:4c7ecf5d14207f5baf8e140ab428a54ae5cf2a0411956f75deb0ef89d3cb4fda
+        image: redis:8.8.0@sha256:0a972391db0b24ec336e35d1bc98b237237e26f82bf5120cf2f6b1688d1df973
         command: redis-server --requirepass password
         env:
           REDIS_PASSWORD: password
@@ -40,7 +40,7 @@ jobs:
         uses: webfactory/ssh-agent@e83874834305fe9a4a2997156cb26c5de65a8555 # v0.10.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
         with:
           fetch-depth: 0
 
