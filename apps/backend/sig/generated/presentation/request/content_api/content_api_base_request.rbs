@@ -1,0 +1,25 @@
+# Generated from lib/presentation/request/content_api/content_api_base_request.rb with RBS::Inline
+
+module Presentation
+  module Request
+    module ContentApi
+      class ContentApiBaseRequest < BaseRequest
+        # rubocop:disable all
+        attr_reader work_space_id: String
+
+        # rubocop:disable all
+        attr_reader name: String
+
+        # rubocop:disable all
+        attr_reader endpoint: String
+
+        # rubocop:disable all
+        attr_reader api_type: String
+
+        CREATE_INPUT_DTO: untyped
+
+        CREATE_CONTRACT: untyped
+      end
+    end
+  end
+end

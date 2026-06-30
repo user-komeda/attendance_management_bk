@@ -13,9 +13,15 @@ module Infrastructure
             work_spaces.map_to(Entity::WorkSpace::WorkSpaceEntity).by_ids(workspace_ids).to_a
           end
 
-          # rubocop:disable all
-          # @rbs (workspace_ids: Array[String], page: Integer, per_page: Integer, search_query: String?) -> { data: Array[Infrastructure::Entity::WorkSpace::WorkSpaceEntity], total_count: Integer }
-          # rubocop:enable all
+          # @rbs (
+          #   workspace_ids: Array[String],
+          #   page: Integer,
+          #   per_page: Integer,
+          #   search_query: String?
+          # ) -> {
+          #   data: Array[Infrastructure::Entity::WorkSpace::WorkSpaceEntity],
+          #   total_count: Integer
+          # }
           def find_by_ids_with_pagination(workspace_ids:, page:, per_page:, search_query: nil)
             query = work_spaces.map_to(Entity::WorkSpace::WorkSpaceEntity).by_ids(workspace_ids)
             # @type var query: untyped

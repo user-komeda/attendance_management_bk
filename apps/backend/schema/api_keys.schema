@@ -1,0 +1,28 @@
+# frozen_string_literal: true
+
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+create_table :api_keys, id: :uuid do |t|
+  t.references :work_space, type: :uuid, null: false, foreign_key: { on_delete: :cascade }
+
+  t.string :name, null: false
+
+  t.string :key_prefix, null: false
+  t.string :key_hash,   null: false
+
+  t.boolean :default_can_get,    null: false, default: true
+  t.boolean :default_can_post,   null: false, default: false
+  t.boolean :default_can_put,    null: false, default: false
+  t.boolean :default_can_patch,  null: false, default: false
+  t.boolean :default_can_delete, null: false, default: false
+
+  t.datetime :revoked_at
+
+  t.datetime :created_at, null: false, default: -> { 'CURRENT_TIMESTAMP' }
+  t.datetime :updated_at, null: false, default: -> { 'CURRENT_TIMESTAMP' }
+end
+
+add_index :api_keys, :key_hash,      unique: true
+add_index :api_keys, :work_space_id, name: 'idx_api_keys_workspace_id'
+add_index :api_keys, :key_prefix,    name: 'idx_api_keys_key_prefix'

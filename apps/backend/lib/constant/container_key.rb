@@ -31,6 +31,14 @@ module Constant
         update_work_space: Key.new(key: 'application.use_case.work_space.update_work_space_use_case'),
         delete_work_space: Key.new(key: 'application.use_case.work_space.delete_work_space_use_case')
       }.freeze
+
+      # @rbs CONTENT_API_USE_CASE: Hash[Symbol, Key]
+      CONTENT_API_USE_CASE = {
+        get_detail: Key.new(key: 'application.use_case.content_api.get_detail_content_api_use_case'),
+        create_content_api: Key.new(key: 'application.use_case.content_api.create_content_api_use_case'),
+        update_content_api: Key.new(key: 'application.use_case.content_api.update_content_api_use_case'),
+        delete_content_api: Key.new(key: 'application.use_case.content_api.delete_content_api_use_case')
+      }.freeze
     end
 
     # ドメインサービス層のキー
@@ -50,6 +58,11 @@ module Constant
         work_space: Key.new(key: 'domain.service.work_space.work_space_service'),
         member_ships: Key.new(key: 'domain.service.work_space.member_ships_service')
       }.freeze
+
+      # @rbs CONTENT_API_SERVICE: Hash[Symbol, Key]
+      CONTENT_API_SERVICE = {
+        content_api: Key.new(key: 'domain.service.content_api.content_api_service')
+      }.freeze
     end
 
     # ドメインリポジトリ（Interface）のキー
@@ -67,7 +80,15 @@ module Constant
       # @rbs WORK_SPACE_DOMAIN_REPOSITORY: Hash[Symbol, Key]
       WORK_SPACE_DOMAIN_REPOSITORY = {
         work_space: Key.new(key: 'domain.repository.work_space.work_space_repository'),
-        member_ships: Key.new(key: 'domain.repository.work_space.member_ships_repository')
+        member_ships: Key.new(key: 'domain.repository.work_space.member_ships_repository'),
+        content_api: Key.new(key: 'domain.repository.work_space.content_api_repository'),
+        field: Key.new(key: 'domain.repository.work_space.field_repository')
+      }.freeze
+
+      # @rbs CONTENT_API_DOMAIN_REPOSITORY: Hash[Symbol, Key]
+      CONTENT_API_DOMAIN_REPOSITORY = {
+        content_api: Key.new(key: 'domain.repository.content_api.content_api_repository'),
+        field: Key.new(key: 'domain.repository.content_api.field_repository')
       }.freeze
     end
 
@@ -86,7 +107,15 @@ module Constant
       # @rbs WORK_SPACE_REPOSITORY: Hash[Symbol, Key]
       WORK_SPACE_REPOSITORY = {
         work_space: Key.new(key: 'infrastructure.repository.work_space.work_space_repository'),
-        member_ships: Key.new(key: 'infrastructure.repository.work_space.member_ships_repository')
+        member_ships: Key.new(key: 'infrastructure.repository.work_space.member_ships_repository'),
+        content_api: Key.new(key: 'infrastructure.repository.work_space.content_api_repository'),
+        field: Key.new(key: 'infrastructure.repository.work_space.field_repository')
+      }.freeze
+
+      # @rbs CONTENT_API_REPOSITORY: Hash[Symbol, Key]
+      CONTENT_API_REPOSITORY = {
+        content_api: Key.new(key: 'infrastructure.repository.content_api.content_api_repository'),
+        field: Key.new(key: 'infrastructure.repository.content_api.field_repository')
       }.freeze
     end
 
@@ -105,7 +134,15 @@ module Constant
       # @rbs WORK_SPACE_ROM_REPOSITORY: Hash[Symbol, Key]
       WORK_SPACE_ROM_REPOSITORY = {
         work_space: Key.new(key: 'infrastructure.repository.rom.work_space.work_space_rom_repository'),
-        member_ships: Key.new(key: 'infrastructure.repository.rom.work_space.member_ships_rom_repository')
+        member_ships: Key.new(key: 'infrastructure.repository.rom.work_space.member_ships_rom_repository'),
+        content_api: Key.new(key: 'infrastructure.repository.rom.work_space.content_api_rom_repository'),
+        field: Key.new(key: 'infrastructure.repository.rom.work_space.field_rom_repository')
+      }.freeze
+
+      # @rbs CONTENT_API_ROM_REPOSITORY: Hash[Symbol, Key]
+      CONTENT_API_ROM_REPOSITORY = {
+        content_api: Key.new(key: 'infrastructure.repository.rom.content_api.content_api_rom_repository'),
+        field: Key.new(key: 'infrastructure.repository.rom.content_api.field_rom_repository')
       }.freeze
     end
   end

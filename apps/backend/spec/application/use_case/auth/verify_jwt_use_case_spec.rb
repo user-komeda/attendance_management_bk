@@ -42,6 +42,23 @@ RSpec.describe Application::UseCase::Auth::VerifyJwtUseCase do
     }
   end
 
+  def build_env
+    {
+      'JWT_SECRET' => secret,
+      'BFF_JWT_SECRET' => bff_secret,
+      'JWT_ISSUER' => issuer,
+      'JWT_AUDIENCE' => audience
+    }
+  end
+
+  def build_use_case_with_stub
+    use_case_with_stub = described_class.new
+    allow(use_case_with_stub).to receive(:secret_for).and_return(secret)
+    allow(use_case_with_stub).to receive(:validate_expiration)
+    allow(use_case_with_stub).to receive(:validate_type).and_call_original
+    use_case_with_stub
+  end
+
   describe '#invoke' do
     context 'when type is :user and token is valid' do
       let(:token) { encode_token(valid_user_payload, secret) }
@@ -143,6 +160,24 @@ RSpec.describe Application::UseCase::Auth::VerifyJwtUseCase do
         allow(JWT).to receive(:decode).and_return([valid_user_payload, {}])
         expect { use_case.invoke(token: encode_token(valid_user_payload, secret), type: :unknown) }
           .to raise_error(Application::Exception::InvalidToken)
+      end
+    end
+
+    context 'when secret_for is called with unknown type' do
+      it 'raises InvalidToken from secret_for else branch' do
+        allow(JWT).to receive(:decode).and_call_original
+        expect { use_case.invoke(token: encode_token(valid_user_payload, secret), type: :unknown) }
+          .to raise_error(Application::Exception::InvalidToken)
+      end
+    end
+
+    context 'when validate_type is called with unknown type after decode succeeds' do
+      it 'raises InvalidToken from validate_type else branch' do
+        allow(JWT).to receive(:decode).and_return([valid_user_payload.merge('typ' => 'access_token'), {}])
+        allow(AppEnv).to receive(:get).and_return(build_env)
+        use_case_with_stub = build_use_case_with_stub
+        expect { use_case_with_stub.send(:validate_type, valid_user_payload, :unknown) }
+          .to raise_error(Application::Exception::InvalidToken, 'invalid token type')
       end
     end
   end

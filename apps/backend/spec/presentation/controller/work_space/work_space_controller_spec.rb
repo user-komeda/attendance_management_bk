@@ -66,7 +66,8 @@ RSpec.describe Presentation::Controller::WorkSpace::WorkSpaceController do
       instance_double(
         Application::Dto::WorkSpace::WorkSpaceWithMemberShipsDto,
         work_spaces: ws_dto,
-        member_ships: ms_dto
+        member_ships: ms_dto,
+        content_api_names: ['articles']
       )
     end
 
@@ -106,7 +107,8 @@ RSpec.describe Presentation::Controller::WorkSpace::WorkSpaceController do
       dto = instance_double(
         Application::Dto::WorkSpace::WorkSpaceWithMemberShipsDto,
         work_spaces: ws_dto,
-        member_ships: ms_dto
+        member_ships: ms_dto,
+        content_api_names: []
       )
       allow(controller).to receive(:resolve).and_return(mock_use_case)
       allow(mock_use_case).to receive(:invoke).and_return(dto)
@@ -150,7 +152,7 @@ RSpec.describe Presentation::Controller::WorkSpace::WorkSpaceController do
 
     it 'deletes a workspace' do
       controller.destroy(workspace_id)
-      expect(mock_use_case).to have_received(:invoke).with(args: workspace_id)
+      expect(mock_use_case).to have_received(:invoke).with(arg: workspace_id)
     end
 
     it 'raises ArgumentError with empty id' do

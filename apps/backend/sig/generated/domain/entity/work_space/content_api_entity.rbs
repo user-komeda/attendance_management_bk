@@ -1,0 +1,32 @@
+# Generated from lib/domain/entity/work_space/content_api_entity.rb with RBS::Inline
+
+module Domain
+  module Entity
+    module WorkSpace
+      class ContentApiEntity < DomainEntity
+        ID: untyped
+
+        # rubocop:disable all
+        attr_reader id: ::Domain::ValueObject::IdentityId
+
+        attr_reader work_space_id: ::Domain::ValueObject::IdentityId
+
+        attr_reader name: String
+
+        attr_reader endpoint: String
+
+        attr_reader api_type: String
+
+        # @rbs (work_space_id: ::Domain::ValueObject::IdentityId, name: String, endpoint: String, api_type: String, ?id: ::Domain::ValueObject::IdentityId?) -> void
+        # rubocop:enable all
+        def initialize: (work_space_id: ::Domain::ValueObject::IdentityId, name: String, endpoint: String, api_type: String, ?id: ::Domain::ValueObject::IdentityId?) -> void
+
+        # @rbs (work_space_id: String, name: String, endpoint: String, api_type: String) -> ContentApiEntity
+        def self.build: (work_space_id: String, name: String, endpoint: String, api_type: String) -> ContentApiEntity
+
+        # @rbs (id: String, work_space_id: String, name: String, endpoint: String, api_type: String) -> ContentApiEntity
+        def self.build_with_id: (id: String, work_space_id: String, name: String, endpoint: String, api_type: String) -> ContentApiEntity
+      end
+    end
+  end
+end

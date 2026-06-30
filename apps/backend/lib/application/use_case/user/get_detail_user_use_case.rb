@@ -6,10 +6,10 @@ module Application
   module UseCase
     module User
       class GetDetailUserUseCase < Application::UseCase::User::UserBaseUseCase
-        # @rbs (args: String) -> ::Application::Dto::User::UserDto
-        def invoke(args:)
+        # @rbs (arg: String) -> ::Application::Dto::User::UserDto
+        def invoke(arg:)
           caller = resolve(KEY)
-          user = caller.get_by_id(id: args)
+          user = caller.get_by_id(id: arg)
           raise ::Application::Exception::NotFoundException.new(message: 'user not found') if user.nil?
 
           USER_DTO.build(user_entity: user)

@@ -6,10 +6,10 @@ module Application
   module UseCase
     module Auth
       class SignupUseCase < AuthBaseUseCase
-        # @rbs (args: ::Application::Dto::Auth::SignupInputDto) -> ::Application::Dto::Auth::AuthOutputDto
-        def invoke(args:)
-          check_duplicate!(input_dto: args)
-          entities = build_entities(input_dto: args)
+        # @rbs (arg: ::Application::Dto::Auth::SignupInputDto) -> ::Application::Dto::Auth::AuthOutputDto
+        def invoke(arg:)
+          check_duplicate!(input_dto: arg)
+          entities = build_entities(input_dto: arg)
           result = persist(user_entity: entities[:user_entity], auth_user_entity: entities[:auth_user_entity])
           build_output_dto(result: result)
         end
@@ -24,9 +24,12 @@ module Application
           raise ::Application::Exception::DuplicatedException.new(message: 'User already exists')
         end
 
-        # rubocop:disable Layout/LineLength
-        # @rbs (input_dto: ::Application::Dto::Auth::SignupInputDto) -> {user_entity: Domain::Entity::User::UserEntity, auth_user_entity: Domain::Entity::Auth::AuthUserEntity}
-        # rubocop:enable Layout/LineLength
+        # @rbs (
+        #   input_dto: ::Application::Dto::Auth::SignupInputDto
+        # ) -> {
+        #   user_entity: Domain::Entity::User::UserEntity,
+        #   auth_user_entity: Domain::Entity::Auth::AuthUserEntity
+        # }
         def build_entities(input_dto:)
           user_entity = UserEntity.build(
             first_name: input_dto.first_name,
@@ -43,9 +46,13 @@ module Application
           { user_entity: user_entity, auth_user_entity: auth_user_entity }
         end
 
-        # rubocop:disable Layout/LineLength
-        # @rbs (user_entity: Domain::Entity::User::UserEntity, auth_user_entity: Domain::Entity::Auth::AuthUserEntity) -> {user_entity: Domain::Entity::User::UserEntity, auth_user_entity: Domain::Entity::Auth::AuthUserEntity}
-        # rubocop:enable Layout/LineLength
+        # @rbs (
+        #   user_entity: Domain::Entity::User::UserEntity,
+        #   auth_user_entity: Domain::Entity::Auth::AuthUserEntity
+        # ) -> {
+        #   user_entity: Domain::Entity::User::UserEntity,
+        #   auth_user_entity: Domain::Entity::Auth::AuthUserEntity
+        # }
         def persist(user_entity:, auth_user_entity:)
           user_with_auth_user = UserEntity.build_with_auth_user(
             user: user_entity,
@@ -55,9 +62,12 @@ module Application
           user_repository.create_with_auth_user(user_with_auth_user: user_with_auth_user)
         end
 
-        # rubocop:disable Layout/LineLength
-        # @rbs (result: {user_entity: Domain::Entity::User::UserEntity, auth_user_entity: Domain::Entity::Auth::AuthUserEntity}) ->Application::Dto::Auth::AuthOutputDto
-        # rubocop:enable Layout/LineLength
+        # @rbs (
+        #   result: {
+        #     user_entity: Domain::Entity::User::UserEntity,
+        #     auth_user_entity: Domain::Entity::Auth::AuthUserEntity
+        #   }
+        # ) -> Application::Dto::Auth::AuthOutputDto
         def build_output_dto(result:)
           AUTH_OUTPUT_DTO.build(
             id: result[:user_entity].id.value,

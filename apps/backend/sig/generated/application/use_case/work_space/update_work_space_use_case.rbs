@@ -4,8 +4,8 @@ module Application
   module UseCase
     module WorkSpace
       class UpdateWorkSpaceUseCase < WorkSpaceBaseUseCase
-        # @rbs (args: ::Application::Dto::WorkSpace::UpdateWorkSpaceInputDto) -> ::Application::Dto::WorkSpace::WorkSpaceDto
-        def invoke: (args: ::Application::Dto::WorkSpace::UpdateWorkSpaceInputDto) -> ::Application::Dto::WorkSpace::WorkSpaceDto
+        # @rbs (arg: ::Application::Dto::WorkSpace::UpdateWorkSpaceInputDto) -> ::Application::Dto::WorkSpace::WorkSpaceDto
+        def invoke: (arg: ::Application::Dto::WorkSpace::UpdateWorkSpaceInputDto) -> ::Application::Dto::WorkSpace::WorkSpaceDto
 
         private
 

@@ -3,8 +3,18 @@ import { ColumnDef } from '@tanstack/solid-table'
 import { describe, it, expect, vi } from 'vitest'
 
 import { BasicDataTable } from '~/components/table/BasicDataTable'
+import { useDataTable } from '~/hooks/table/useDataTable'
+import { PaginationMeta } from '~/schema/api/paginationMetas'
 
-// eslint-disable-next-line max-lines-per-function
+vi.mock('@solidjs/router', async (importOriginal) => {
+  const actual = (await importOriginal()) as Record<string, unknown>
+  return {
+    ...actual,
+    useNavigate: () => vi.fn(),
+  }
+})
+
+ 
 describe('PaginationArea', () => {
   interface TestData {
     id: number
@@ -27,24 +37,41 @@ describe('PaginationArea', () => {
     { id: 2, name: 'Item 2' },
   ]
 
-  const paginationMeta = {
-    page: 1,
-    perPage: 10,
-    totalPages: 1,
-    totalCount: 2,
+  interface WrapperProps {
+    data: TestData[]
+    paginationMeta: Omit<PaginationMeta, 'searchQuery'>
+    onPageChange: (page: number, perPage: number) => void
+    onPageSizeChange: (pageSize: number) => void
+  }
+
+  const TableWrapper = (props: WrapperProps) => {
+    const { table, ...paginationData } = useDataTable({
+      get columns() {
+        return columns
+      },
+      get data() {
+        return props.data
+      },
+      get paginationMeta() {
+        return props.paginationMeta
+      },
+      onPageChange: props.onPageChange,
+      onPageSizeChange: props.onPageSizeChange,
+    })
+    return (
+      <BasicDataTable
+        table={table}
+        columns={columns}
+        paginationData={paginationData}
+      />
+    )
   }
 
   it('paginationMetaに基づいてページ情報を表示すること', () => {
     render(() => (
-      <BasicDataTable
-        columns={columns}
+      <TableWrapper
         data={data}
-        paginationMeta={{
-          page: 2,
-          perPage: 10,
-          totalPages: 5,
-          totalCount: 50,
-        }}
+        paginationMeta={{ page: 2, perPage: 10, totalPages: 5, totalCount: 50 }}
         onPageChange={vi.fn()}
         onPageSizeChange={vi.fn()}
       />
@@ -57,10 +84,9 @@ describe('PaginationArea', () => {
     const onPageSizeChange = vi.fn()
 
     render(() => (
-      <BasicDataTable
-        columns={columns}
+      <TableWrapper
         data={data}
-        paginationMeta={paginationMeta}
+        paginationMeta={{ page: 1, perPage: 10, totalPages: 1, totalCount: 2 }}
         onPageChange={vi.fn()}
         onPageSizeChange={onPageSizeChange}
       />
@@ -77,15 +103,9 @@ describe('PaginationArea', () => {
     const onPageChange = vi.fn()
 
     render(() => (
-      <BasicDataTable
-        columns={columns}
+      <TableWrapper
         data={[data[0]]}
-        paginationMeta={{
-          page: 1,
-          perPage: 1,
-          totalPages: 2,
-          totalCount: 2,
-        }}
+        paginationMeta={{ page: 1, perPage: 1, totalPages: 2, totalCount: 2 }}
         onPageChange={onPageChange}
         onPageSizeChange={vi.fn()}
       />
@@ -100,15 +120,9 @@ describe('PaginationArea', () => {
     const onPageChange = vi.fn()
 
     render(() => (
-      <BasicDataTable
-        columns={columns}
+      <TableWrapper
         data={[data[1]]}
-        paginationMeta={{
-          page: 2,
-          perPage: 1,
-          totalPages: 2,
-          totalCount: 2,
-        }}
+        paginationMeta={{ page: 2, perPage: 1, totalPages: 2, totalCount: 2 }}
         onPageChange={onPageChange}
         onPageSizeChange={vi.fn()}
       />
@@ -121,15 +135,9 @@ describe('PaginationArea', () => {
 
   it('最初のページではPreviousをdisabledにすること', () => {
     render(() => (
-      <BasicDataTable
-        columns={columns}
+      <TableWrapper
         data={[data[0]]}
-        paginationMeta={{
-          page: 1,
-          perPage: 1,
-          totalPages: 2,
-          totalCount: 2,
-        }}
+        paginationMeta={{ page: 1, perPage: 1, totalPages: 2, totalCount: 2 }}
         onPageChange={vi.fn()}
         onPageSizeChange={vi.fn()}
       />
@@ -141,15 +149,9 @@ describe('PaginationArea', () => {
 
   it('最後のページではNextをdisabledにすること', () => {
     render(() => (
-      <BasicDataTable
-        columns={columns}
+      <TableWrapper
         data={[data[1]]}
-        paginationMeta={{
-          page: 2,
-          perPage: 1,
-          totalPages: 2,
-          totalCount: 2,
-        }}
+        paginationMeta={{ page: 2, perPage: 1, totalPages: 2, totalCount: 2 }}
         onPageChange={vi.fn()}
         onPageSizeChange={vi.fn()}
       />
@@ -161,10 +163,9 @@ describe('PaginationArea', () => {
 
   it('paginationMetaが不足している場合はデフォルト値でページ情報を表示すること', () => {
     render(() => (
-      <BasicDataTable
-        columns={columns}
+      <TableWrapper
         data={data}
-        paginationMeta={{} as unknown as typeof paginationMeta}
+        paginationMeta={{} as unknown as Omit<PaginationMeta, 'searchQuery'>}
         onPageChange={vi.fn()}
         onPageSizeChange={vi.fn()}
       />

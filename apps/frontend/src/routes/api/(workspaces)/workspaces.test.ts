@@ -12,9 +12,9 @@ vi.mock('~/util/fetchWrapper', () => ({
   default: vi.fn(),
 }))
 
-// eslint-disable-next-line max-lines-per-function
-describe('workspaces api', () => {
-  // eslint-disable-next-line max-lines-per-function
+ 
+describe('contentApi api', () => {
+   
   describe('GET', () => {
     it('未ログインの場合は401を返すこと', async () => {
       vi.mocked(getCurrentUserId).mockResolvedValue(null)
@@ -66,7 +66,7 @@ describe('workspaces api', () => {
     })
   })
 
-  // eslint-disable-next-line max-lines-per-function
+   
   describe('POST', () => {
     it('未ログインの場合は401を返すこと', async () => {
       vi.mocked(getCurrentUserId).mockResolvedValue(null)

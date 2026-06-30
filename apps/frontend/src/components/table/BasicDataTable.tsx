@@ -1,9 +1,11 @@
+import { useNavigate } from '@solidjs/router'
 import { ColumnDef, flexRender, HeaderGroup } from '@tanstack/solid-table'
 import { For, Show } from 'solid-js'
 
-import type { useDataTablePagination } from '~/hooks/useDataTablePagination'
-
+import { FailbackTable } from '~/components/table/failbackTable'
 import { PaginationArea } from '~/components/table/paginationArea'
+import { DataTableProps } from '~/components/table/type/type'
+import { navigateRow } from '~/components/table/util/navigateRow'
 import {
   Table,
   TableBody,
@@ -12,9 +14,7 @@ import {
   TableHeader,
   TableRow,
 } from '~/components/ui/table'
-import { DataTableProps, useDataTable } from '~/hooks/useDataTable'
-
-export type PaginationProps = ReturnType<typeof useDataTablePagination>
+import { useDataTable } from '~/hooks/table/useDataTable'
 
 const TableHeadersContent = <TData,>(props: {
   headers: HeaderGroup<TData>[]
@@ -45,34 +45,37 @@ const TableHeadersContent = <TData,>(props: {
 const TableBodyContent = <TData, TValue>(props: {
   table: ReturnType<typeof useDataTable<TData, TValue>>['table']
   columns: ColumnDef<TData, TValue>[]
+  getRowHref?: (row: TData) => string
 }) => {
+  const navigate = useNavigate()
+
   return (
     <Show
       when={props.table.getRowModel().rows.length}
-      fallback={
-        <TableRow>
-          <TableCell colSpan={props.columns.length} class="h-24 text-center">
-            No results.
-          </TableCell>
-        </TableRow>
-      }
+      fallback={<FailbackTable length={props.columns.length} />}
     >
       <For each={props.table.getRowModel().rows}>
-        {(row) => (
-          <TableRow
-            data-state={
-              row.getIsSelected && row.getIsSelected() ? 'selected' : undefined
-            }
-          >
-            <For each={row.getVisibleCells()}>
-              {(cell) => (
-                <TableCell>
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </TableCell>
-              )}
-            </For>
-          </TableRow>
-        )}
+        {(row) => {
+          const href = () => props.getRowHref?.(row.original)
+
+          return (
+            <TableRow
+              data-state={row.getIsSelected() ? 'selected' : undefined}
+              class={props.getRowHref ? 'cursor-pointer' : undefined}
+              onClick={() => {
+                navigateRow(navigate, href)
+              }}
+            >
+              <For each={row.getVisibleCells()}>
+                {(cell) => (
+                  <TableCell>
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </TableCell>
+                )}
+              </For>
+            </TableRow>
+          )
+        }}
       </For>
     </Show>
   )
@@ -81,34 +84,26 @@ const TableBodyContent = <TData, TValue>(props: {
 export function BasicDataTable<TData, TValue>(
   props: DataTableProps<TData, TValue>,
 ) {
-  const { table, ...paginationData } = useDataTable({
-    get columns() {
-      return props.columns
-    },
-    get data() {
-      return props.data
-    },
-    get paginationMeta() {
-      return props.paginationMeta
-    },
-    onPageChange: props.onPageChange,
-    onPageSizeChange: props.onPageSizeChange,
-  })
-
   return (
     <div class="space-y-4">
       <div class="rounded-md border">
         <Table>
           <TableHeader>
-            <TableHeadersContent<TData> headers={table.getHeaderGroups()} />
+            <TableHeadersContent<TData>
+              headers={props.table.getHeaderGroups()}
+            />
           </TableHeader>
 
           <TableBody>
-            <TableBodyContent table={table} columns={props.columns} />
+            <TableBodyContent
+              table={props.table}
+              columns={props.columns}
+              getRowHref={props.getRowHref}
+            />
           </TableBody>
         </Table>
       </div>
-      <PaginationArea {...paginationData} />
+      <PaginationArea {...props.paginationData} />
     </div>
   )
 }

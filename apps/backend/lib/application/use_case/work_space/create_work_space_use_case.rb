@@ -6,23 +6,26 @@ module Application
   module UseCase
     module WorkSpace
       class CreateWorkSpaceUseCase < WorkSpaceBaseUseCase
-        # @rbs (args: ::Application::Dto::WorkSpace::CreateWorkSpaceInputDto) -> ::Application::Dto::WorkSpace::WorkSpaceWithMemberShipsDto
-        def invoke(args:)
+        # @rbs (arg: ::Application::Dto::WorkSpace::CreateWorkSpaceInputDto) -> ::Application::Dto::WorkSpace::WorkSpaceWithMemberShipsDto
+        def invoke(arg:)
           user_id = ContextHelper.get_context(:auth_context)[:user_id]
           rom = resolve('db.config')
 
           rom.gateways[:default].transaction do
-            validate_uniqueness!(slug: args.slug)
+            validate_uniqueness!(slug: arg.slug)
 
-            created_workspace = create_workspace(input_dto: args)
+            created_workspace = create_workspace(input_dto: arg)
             created_member_ships = create_memberships(
-              input_dto: args,
+              input_dto: arg,
               user_id: user_id,
               workspace_id: created_workspace.id.value
             )
 
+            content_apis = [] # : Array[::Domain::Entity::WorkSpace::ContentApiEntity]
+
             WORK_SPACE_WITH_MEMBER_SHIPS_DTO.build(work_space_entity: created_workspace,
-                                                   member_ships: created_member_ships)
+                                                   member_ships: created_member_ships,
+                                                   content_apis: content_apis)
           end
         end
 
@@ -42,9 +45,11 @@ module Application
           work_space_repository.create(workspace_entity: input_dto.convert_to_entity)
         end
 
-        # rubocop:disable Layout/LineLength
-        # @rbs (input_dto: ::Application::Dto::WorkSpace::CreateWorkSpaceInputDto, user_id: String, workspace_id: String) -> ::Domain::Entity::WorkSpace::MemberShipsEntity
-        # rubocop:enable Layout/LineLength
+        # @rbs (
+        #   input_dto: ::Application::Dto::WorkSpace::CreateWorkSpaceInputDto,
+        #   user_id: String,
+        #   workspace_id: String
+        # ) -> ::Domain::Entity::WorkSpace::MemberShipsEntity
         def create_memberships(input_dto:, user_id:, workspace_id:)
           member_ships_repository = resolve(MEMBER_SHIPS_REPOSITORY)
           member_ships_repository.create(member_ships_entity: input_dto.create_member_ships_entity(

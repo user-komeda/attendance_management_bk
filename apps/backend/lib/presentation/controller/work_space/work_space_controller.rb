@@ -9,23 +9,22 @@ module Presentation
         # @rbs (Hash[Symbol, untyped] params) -> Hash[Symbol, untyped]
         def index(params)
           work_space_params = WORK_SPACE_PARAMS.build(params)
-          pagination = work_space_params.pagination
+          input_dto = work_space_params.convert_to_dto
 
-          result = invoke_use_case(
-            :get_all, page: pagination.page, per_page: pagination.per_page,
-                      search_query: work_space_params.search_query
-          )
+          result = invoke_use_case(:get_all, input_dto)
 
-          build_index_response(result, pagination, work_space_params.search_query)
+          build_index_response(result, work_space_params)
         end
 
-        def build_index_response(result, pagination, search_query)
+        def build_index_response(result, work_space_params)
+          pagination = work_space_params.pagination
+
           WORK_SPACE_WITH_STATUS_RESPONSE.build_from_array(
             status_list: result[:data].map(&:status),
             work_spaces: result[:data].map(&:work_spaces),
             pagination: { page: pagination.page, per_page: pagination.per_page },
             total_count: result[:total_count],
-            search_query: search_query
+            search_query: work_space_params.search_query
           )
         end
 
@@ -37,7 +36,8 @@ module Presentation
           WORK_SPACE_WITH_MEMBER_SHIPS_RESPONSE.build(
             id: work_space_with_member_ships.work_spaces.id,
             work_spaces: work_space_with_member_ships.work_spaces,
-            member_ships: work_space_with_member_ships.member_ships
+            member_ships: work_space_with_member_ships.member_ships,
+            content_api_names: work_space_with_member_ships.content_api_names
           )
         end
 
@@ -48,7 +48,8 @@ module Presentation
           WORK_SPACE_WITH_MEMBER_SHIPS_RESPONSE.build(
             id: result.work_spaces.id,
             member_ships: result.member_ships,
-            work_spaces: result.work_spaces
+            work_spaces: result.work_spaces,
+            content_api_names: result.content_api_names
           )
         end
 

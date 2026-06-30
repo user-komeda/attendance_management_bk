@@ -5,6 +5,9 @@ require_relative 'container'
 require 'dry/validation'
 
 loader = Zeitwerk::Loader.new
+loader.inflector.inflect(
+  'api' => 'API'
+)
 loader.push_dir(Container.config.root.join('lib').realpath)
 loader.push_dir(Container.config.root.join('helper').realpath)
 loader.setup

@@ -1,0 +1,31 @@
+# Generated from lib/infrastructure/entity/content_api/content_api_entity.rb with RBS::Inline
+
+module Infrastructure
+  module Entity
+    module ContentApi
+      class ContentApiEntity < BaseEntity
+        attr_reader id: String
+
+        attr_reader work_space_id: String
+
+        attr_reader name: String
+
+        attr_reader endpoint: String
+
+        attr_reader api_type: String
+
+        # @rbs () -> ::Domain::Entity::ContentApi::ContentApiEntity
+        def to_domain: () -> ::Domain::Entity::ContentApi::ContentApiEntity
+
+        # @rbs (struct: untyped) -> ::Domain::Entity::ContentApi::ContentApiEntity
+        def self.struct_to_domain: (struct: untyped) -> ::Domain::Entity::ContentApi::ContentApiEntity
+
+        # @rbs (struct: untyped) -> ::Domain::Entity::ContentApi::ContentApiEntity
+        def self.struct_to_domain_with_fields: (struct: untyped) -> ::Domain::Entity::ContentApi::ContentApiEntity
+
+        # @rbs (content_api_entity: ::Domain::Entity::ContentApi::ContentApiEntity) -> ContentApiEntity
+        def self.build_from_domain_entity: (content_api_entity: ::Domain::Entity::ContentApi::ContentApiEntity) -> ContentApiEntity
+      end
+    end
+  end
+end

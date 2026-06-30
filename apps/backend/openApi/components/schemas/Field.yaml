@@ -1,0 +1,35 @@
+type: object
+description: フィールド情報
+properties:
+  id:
+    type: string
+    description: フィールドのID
+  content_api_id:
+    type: string
+    description: 所属コンテンツAPIのID
+  field_id:
+    type: string
+    description: フィールドの識別子
+  display_name:
+    type: string
+    description: 表示名
+  field_type:
+    type: string
+    description: フィールドタイプ
+  required:
+    type: boolean
+    description: 必須フラグ
+  unique_value:
+    type: boolean
+    description: ユニーク値フラグ
+  order_index:
+    type: integer
+    description: 表示順
+  is_active:
+    type: boolean
+    description: 有効フラグ
+  settings:
+    type: object
+    additionalProperties: true
+    description: 追加設定
+required: [ id, content_api_id, field_id, display_name, field_type, required, unique_value, order_index, is_active ]

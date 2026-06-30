@@ -9,14 +9,16 @@ module Application
 
         attr_reader work_spaces: WorkSpaceDto
 
-        # @rbs (member_ships: MemberShipsDto, work_spaces: WorkSpaceDto) -> void
+        attr_reader content_api_names: Array[String]
+
+        # @rbs (member_ships: MemberShipsDto, work_spaces: WorkSpaceDto, content_api_names: Array[String]) -> void
         # rubocop:enable all
-        def initialize: (member_ships: MemberShipsDto, work_spaces: WorkSpaceDto) -> void
+        def initialize: (member_ships: MemberShipsDto, work_spaces: WorkSpaceDto, content_api_names: Array[String]) -> void
 
         # rubocop:disable all
-        # @rbs (work_space_entity: ::Domain::Entity::WorkSpace::WorkSpaceEntity, member_ships: ::Domain::Entity::WorkSpace::MemberShipsEntity) -> WorkSpaceWithMemberShipsDto
+        # @rbs (work_space_entity: ::Domain::Entity::WorkSpace::WorkSpaceEntity, member_ships: ::Domain::Entity::WorkSpace::MemberShipsEntity, content_apis: Array[::Domain::Entity::WorkSpace::ContentApiEntity]) -> WorkSpaceWithMemberShipsDto
         # rubocop:enable all
-        def self.build: (work_space_entity: ::Domain::Entity::WorkSpace::WorkSpaceEntity, member_ships: ::Domain::Entity::WorkSpace::MemberShipsEntity) -> WorkSpaceWithMemberShipsDto
+        def self.build: (work_space_entity: ::Domain::Entity::WorkSpace::WorkSpaceEntity, member_ships: ::Domain::Entity::WorkSpace::MemberShipsEntity, content_apis: Array[::Domain::Entity::WorkSpace::ContentApiEntity]) -> WorkSpaceWithMemberShipsDto
       end
     end
   end

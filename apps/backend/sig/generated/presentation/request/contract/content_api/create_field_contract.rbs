@@ -1,0 +1,13 @@
+# Generated from lib/presentation/request/contract/content_api/create_field_contract.rb with RBS::Inline
+
+module Presentation
+  module Request
+    module Contract
+      module ContentApi
+        class CreateFieldContract < Dry::Validation::Contract
+          FIELD_TYPES: untyped
+        end
+      end
+    end
+  end
+end

@@ -6,12 +6,12 @@ module Application
   module UseCase
     module Auth
       class SigninUseCase < AuthBaseUseCase
-        # @rbs (args: ::Application::Dto::Auth::SigninInputDto) -> ::Application::Dto::Auth::AuthOutputDto
-        def invoke(args:)
+        # @rbs (arg: ::Application::Dto::Auth::SigninInputDto) -> ::Application::Dto::Auth::AuthOutputDto
+        def invoke(arg:)
           auth_repository = resolve(AUTH_REPOSITORY_KEY)
           auth_service = resolve(SERVICE_KEY)
-          auth_user = auth_repository.find_by_email(email: args.email)
-          unless auth_user && auth_service.can_login?(auth_user: auth_user, password: args.password)
+          auth_user = auth_repository.find_by_email(email: arg.email)
+          unless auth_user && auth_service.can_login?(auth_user: auth_user, password: arg.password)
             raise Application::Exception::AuthenticationFailedException.new(
               message: 'invalid email or password'
             )

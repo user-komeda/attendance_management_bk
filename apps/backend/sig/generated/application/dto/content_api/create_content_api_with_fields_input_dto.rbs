@@ -1,0 +1,27 @@
+# Generated from lib/application/dto/content_api/create_content_api_with_fields_input_dto.rb with RBS::Inline
+
+module Application
+  module Dto
+    module ContentApi
+      class CreateContentApiWithFieldsInputDto < InputBaseDto
+        attr_reader content_api: untyped
+
+        attr_reader fields: untyped
+
+        # @rbs (
+        #   params: {
+        #     content_api: ::Application::Dto::ContentApi::CreateContentApiInputDto,
+        #     fields: Array[::Application::Dto::ContentApi::CreateFieldInputDto]
+        #   }
+        # ) -> void
+        def initialize:
+
+        # @rbs () -> String
+        def work_space_slug: () -> String
+
+        # @rbs (?work_space_id: String?) -> ::Domain::Entity::ContentApi::ContentApiEntity
+        def convert_to_entity: (?work_space_id: String?) -> ::Domain::Entity::ContentApi::ContentApiEntity
+      end
+    end
+  end
+end

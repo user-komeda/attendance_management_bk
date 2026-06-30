@@ -1,0 +1,52 @@
+# Generated from lib/domain/entity/content_api/field_entity.rb with RBS::Inline
+
+module Domain
+  module Entity
+    module ContentApi
+      class FieldEntity < DomainEntity
+        ID: untyped
+
+        # rubocop:disable all
+        attr_reader id: ::Domain::ValueObject::IdentityId?
+
+        attr_reader content_api_id: ::Domain::ValueObject::IdentityId
+
+        attr_reader field_id: String
+
+        attr_reader display_name: String
+
+        attr_reader field_type: String
+
+        attr_reader required: bool
+
+        attr_reader unique_value: bool
+
+        attr_reader order_index: Integer
+
+        attr_reader is_active: bool
+
+        attr_reader settings: Hash[Symbol, untyped]
+
+        # rubocop:disable all
+        # @rbs (content_api_id: ::Domain::ValueObject::IdentityId, field_id: String, display_name: String, field_type: String, required: bool, unique_value: bool, order_index: Integer, is_active: bool, settings: Hash[Symbol, untyped], ?id: ::Domain::ValueObject::IdentityId?) -> void
+        # rubocop:enable all
+        def initialize: (content_api_id: ::Domain::ValueObject::IdentityId, field_id: String, display_name: String, field_type: String, required: bool, unique_value: bool, order_index: Integer, is_active: bool, settings: Hash[Symbol, untyped], ?id: ::Domain::ValueObject::IdentityId?) -> void
+
+        # rubocop:disable all
+        # @rbs (content_api_id: String, field_id: String, display_name: String, field_type: String, required: bool, unique_value: bool, order_index: Integer, is_active: bool, settings: Hash[Symbol, untyped]) -> FieldEntity
+        # rubocop:enable all
+        def self.build: (content_api_id: String, field_id: String, display_name: String, field_type: String, required: bool, unique_value: bool, order_index: Integer, is_active: bool, settings: Hash[Symbol, untyped]) -> FieldEntity
+
+        # rubocop:disable all
+        # @rbs (field_id: String, display_name: String, field_type: String, required: bool, unique_value: bool, order_index: Integer, is_active: bool, settings: Hash[Symbol, untyped]) -> FieldEntity
+        # rubocop:enable all
+        def self.build_without_content_api_id: (field_id: String, display_name: String, field_type: String, required: bool, unique_value: bool, order_index: Integer, is_active: bool, settings: Hash[Symbol, untyped]) -> FieldEntity
+
+        # rubocop:disable all
+        # @rbs (id: String, content_api_id: String, field_id: String, display_name: String, field_type: String, required: bool, unique_value: bool, order_index: Integer, is_active: bool, settings: Hash[Symbol, untyped]) -> FieldEntity
+        # rubocop:enable all
+        def self.build_with_id: (id: String, content_api_id: String, field_id: String, display_name: String, field_type: String, required: bool, unique_value: bool, order_index: Integer, is_active: bool, settings: Hash[Symbol, untyped]) -> FieldEntity
+      end
+    end
+  end
+end

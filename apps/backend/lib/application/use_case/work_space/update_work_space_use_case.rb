@@ -6,15 +6,15 @@ module Application
   module UseCase
     module WorkSpace
       class UpdateWorkSpaceUseCase < WorkSpaceBaseUseCase
-        # @rbs (args: ::Application::Dto::WorkSpace::UpdateWorkSpaceInputDto) -> ::Application::Dto::WorkSpace::WorkSpaceDto
-        def invoke(args:)
+        # @rbs (arg: ::Application::Dto::WorkSpace::UpdateWorkSpaceInputDto) -> ::Application::Dto::WorkSpace::WorkSpaceDto
+        def invoke(arg:)
           rom = resolve('db.config')
 
           rom.gateways[:default].transaction do
-            work_space = fetch_workspace(id: args.id)
-            validate_uniqueness!(new_slug: args.slug, current_slug: work_space.slug)
+            work_space = fetch_workspace(id: arg.id)
+            validate_uniqueness!(new_slug: arg.slug, current_slug: work_space.slug)
 
-            updated_workspace = update_workspace(work_space: work_space, input_dto: args)
+            updated_workspace = update_workspace(work_space: work_space, input_dto: arg)
             build_dto(workspace: updated_workspace)
           end
         end
@@ -33,7 +33,7 @@ module Application
 
         def fetch_workspace(id:)
           work_space_repository = resolve(WORK_SPACE_REPOSITORY)
-          work_space = work_space_repository.get_by_id(id: id)
+          work_space = work_space_repository.find_by_slug(slug: id)
           raise ::Application::Exception::NotFoundException.new(message: 'workspace not found') if work_space.nil?
 
           work_space

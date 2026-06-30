@@ -1,0 +1,13 @@
+# Generated from lib/domain/service/content_api/content_api_base_service.rb with RBS::Inline
+
+module Domain
+  module Service
+    module ContentApi
+      class ContentApiBaseService < BaseService
+        REPOSITORY_KEY: untyped
+
+        WORK_SPACE_REPOSITORY_KEY: untyped
+      end
+    end
+  end
+end

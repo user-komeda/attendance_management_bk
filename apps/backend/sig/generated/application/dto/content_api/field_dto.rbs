@@ -1,0 +1,38 @@
+# Generated from lib/application/dto/content_api/field_dto.rb with RBS::Inline
+
+module Application
+  module Dto
+    module ContentApi
+      class FieldDto < BaseDto
+        attr_reader id: untyped
+
+        attr_reader content_api_id: untyped
+
+        attr_reader field_id: untyped
+
+        attr_reader display_name: untyped
+
+        attr_reader field_type: untyped
+
+        attr_reader required: untyped
+
+        attr_reader unique_value: untyped
+
+        attr_reader order_index: untyped
+
+        attr_reader is_active: untyped
+
+        attr_reader settings: untyped
+
+        # @rbs (params: Hash[Symbol, untyped]) -> void
+        def initialize: (params: Hash[Symbol, untyped]) -> void
+
+        # @rbs (::Domain::Entity::ContentApi::FieldEntity field_entity) -> FieldDto
+        def self.build: (::Domain::Entity::ContentApi::FieldEntity field_entity) -> FieldDto
+
+        # @rbs (Array[::Domain::Entity::ContentApi::FieldEntity] field_entities) -> Array[FieldDto]
+        def self.build_from_array: (Array[::Domain::Entity::ContentApi::FieldEntity] field_entities) -> Array[FieldDto]
+      end
+    end
+  end
+end

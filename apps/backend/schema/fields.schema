@@ -1,0 +1,66 @@
+# frozen_string_literal: true
+
+# rubocop:disable Metrics/BlockLength
+create_table :fields, id: :uuid do |t|
+  t.references :content_api,
+               type: :uuid,
+               null: false,
+               foreign_key: { on_delete: :cascade }
+
+  t.string :field_id, null: false
+  t.string :display_name, null: false
+  t.string :field_type, null: false
+
+  t.boolean :required, null: false, default: false
+  t.boolean :unique_value, null: false, default: false
+
+  t.integer :order_index, null: false, default: 0
+  t.boolean :is_active, null: false, default: true
+
+  t.jsonb :settings, null: false, default: {}
+
+  t.check_constraint "field_id ~ '^[a-zA-Z][a-zA-Z0-9_]*$'",
+                     name: 'chk_fields_field_id_format'
+
+  t.check_constraint <<~SQL.squish,
+    field_type IN (
+      'text',
+      'textarea',
+      'rich_text',
+      'number',
+      'boolean',
+      'date',
+      'datetime',
+      'image',
+      'file',
+      'select',
+      'multi_select',
+      'relation',
+      'relation_list',
+      'custom_field',
+      'repeat_field',
+      'json'
+    )
+  SQL
+                     name: 'chk_fields_field_type'
+
+  t.check_constraint "jsonb_typeof(settings) = 'object'",
+                     name: 'chk_fields_settings_object'
+
+  t.datetime :created_at, null: false, default: -> { 'CURRENT_TIMESTAMP' }
+  t.datetime :updated_at, null: false, default: -> { 'CURRENT_TIMESTAMP' }
+end
+# rubocop:enable Metrics/BlockLength
+
+add_index :fields,
+          %i[content_api_id field_id],
+          unique: true,
+          name: 'idx_fields_content_api_id_field_id'
+
+add_index :fields,
+          :content_api_id,
+          name: 'idx_fields_content_api_id'
+
+add_index :fields,
+          %i[content_api_id order_index],
+          name: 'idx_fields_content_api_id_order_index'

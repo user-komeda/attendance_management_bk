@@ -1,6 +1,6 @@
 # Project Guidelines — Attendance Management (Monorepo)
 
-Last updated: 2026-06-19
+Last updated: 2026-06-28
 
 ## Overview
 
@@ -142,9 +142,15 @@ This project uses `lefthook` for managing Git hooks.
   - Maintain RBS signatures in `apps/backend/sig` if you alter public APIs; adjust generated files only via proper
     generation steps if available.
   - Favor RSpec idioms used in nearby specs; don’t add new testing frameworks.
+  - **All Ruby code must comply with RuboCop rules.** Do not suppress RuboCop offenses with `# rubocop:disable` comments
+    except for RBS inline annotation lines (e.g., `# @rbs ...`), which must be wrapped with `# rubocop:disable all` /
+    `# rubocop:enable all`. No other use of `# rubocop:disable` is permitted.
+  - **Do not modify `.rubocop.yml` to relax or disable rules.** RuboCop configuration changes are prohibited.
 - JavaScript/TypeScript (frontend):
   - Follow existing patterns in `apps/frontend/src`.
   - Use Yarn workspace scripts; do not introduce npm if Yarn is used.
+  - **All JavaScript/TypeScript code must comply with ESLint rules.** Do not suppress ESLint rules
+    with `// eslint-disable` comments unless the existing codebase already uses them for that specific pattern.
 
 ## When to run tests before submitting
 

@@ -1,0 +1,19 @@
+# Generated from lib/application/use_case/content_api/content_api_base_use_case.rb with RBS::Inline
+
+module Application
+  module UseCase
+    module ContentApi
+      class ContentApiBaseUseCase < BaseUseCase
+        CONTENT_API_REPOSITORY: untyped
+
+        CONTENT_API_DTO: untyped
+
+        FIELD_DTO: untyped
+
+        CONTENT_API_WITH_FIELDS_DTO: untyped
+
+        CONTENT_API_SERVICE: untyped
+      end
+    end
+  end
+end

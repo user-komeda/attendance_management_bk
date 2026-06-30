@@ -1,0 +1,22 @@
+# Generated from lib/presentation/request/content_api/create_content_api_request.rb with RBS::Inline
+
+module Presentation
+  module Request
+    module ContentApi
+      class CreateContentApiRequest < ContentApiBaseRequest
+        # @rbs (params: { work_space_id: String, name: String, endpoint: String, api_type: String }) -> void
+        def initialize: (params: { work_space_id: String, name: String, endpoint: String, api_type: String }) -> void
+
+        # @rbs () -> ::Application::Dto::ContentApi::CreateContentApiInputDto
+        def convert_to_dto: () -> ::Application::Dto::ContentApi::CreateContentApiInputDto
+
+        # @rbs (params: { work_space_id: String, name: String, endpoint: String, api_type: String }) -> CreateContentApiRequest
+        # rubocop:enable all
+        def self.build: (params: { work_space_id: String, name: String, endpoint: String, api_type: String }) -> CreateContentApiRequest
+
+        # @rbs (params: { work_space_id: String, name: String, endpoint: String, api_type: String }) -> void
+        private def self.validate: (params: { work_space_id: String, name: String, endpoint: String, api_type: String }) -> void
+      end
+    end
+  end
+end

@@ -1,0 +1,32 @@
+# Generated from lib/domain/entity/content_api/content_api_entity.rb with RBS::Inline
+
+module Domain
+  module Entity
+    module ContentApi
+      class ContentApiEntity < DomainEntity
+        ID: untyped
+
+        attr_reader id: untyped
+
+        attr_reader work_space_id: untyped
+
+        attr_reader name: untyped
+
+        attr_reader endpoint: untyped
+
+        attr_reader api_type: untyped
+
+        attr_reader fields: untyped
+
+        # @rbs (params: Hash[Symbol, untyped]) -> void
+        def initialize: (params: Hash[Symbol, untyped]) -> void
+
+        # @rbs (params: Hash[Symbol, untyped]) -> ContentApiEntity
+        def self.build: (params: Hash[Symbol, untyped]) -> ContentApiEntity
+
+        # @rbs (params: Hash[Symbol, untyped]) -> ContentApiEntity
+        def self.build_with_id: (params: Hash[Symbol, untyped]) -> ContentApiEntity
+      end
+    end
+  end
+end

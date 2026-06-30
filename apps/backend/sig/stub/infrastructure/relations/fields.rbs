@@ -1,0 +1,25 @@
+module Infrastructure
+  module Relations
+    class Fields < ::ROM::Relation[untyped]
+      def self.schema: (Symbol, ?infer: bool) ?{ () -> void } -> void
+
+      def self.associations: () { () -> void } -> void
+
+      def self.belongs_to: (Symbol) -> void
+
+      def where: (**untyped) -> Fields
+
+      def map_to: (untyped) -> Fields
+
+      def by_pk: (untyped) -> Fields
+
+      def one: () -> untyped
+
+      def first: () -> untyped
+
+      def to_a: () -> Array[untyped]
+
+      def command: (Symbol) -> untyped
+    end
+  end
+end

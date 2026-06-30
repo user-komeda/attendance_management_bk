@@ -1,0 +1,18 @@
+# Generated from lib/application/dto/content_api/update_content_api_input_dto.rb with RBS::Inline
+
+module Application
+  module Dto
+    module ContentApi
+      class UpdateContentApiInputDto < InputBaseDto
+        attr_reader name: untyped
+
+        attr_reader endpoint: untyped
+
+        attr_reader api_type: untyped
+
+        # @rbs (params: Hash[Symbol, untyped]) -> void
+        def initialize: (params: Hash[Symbol, untyped]) -> void
+      end
+    end
+  end
+end

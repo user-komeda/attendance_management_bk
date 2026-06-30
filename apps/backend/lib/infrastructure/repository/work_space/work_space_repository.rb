@@ -13,9 +13,15 @@ module Infrastructure
           work_spaces.map(&:to_domain)
         end
 
-        # rubocop:disable all
-        # @rbs (workspace_ids: Array[String], page: Integer, per_page: Integer, search_query: String?) -> { data: Array[Domain::Entity::WorkSpace::WorkSpaceEntity], total_count: Integer }
-        # rubocop:enable all
+        # @rbs (
+        #   workspace_ids: Array[String],
+        #   page: Integer,
+        #   per_page: Integer,
+        #   search_query: String?
+        # ) -> {
+        #   data: Array[Domain::Entity::WorkSpace::WorkSpaceEntity],
+        #   total_count: Integer
+        # }
         def find_by_ids_with_pagination(workspace_ids:, page:, per_page:, search_query: nil)
           caller = resolve(ROM_REPOSITORY_KEY)
           result = caller.find_by_ids_with_pagination(workspace_ids: workspace_ids, page: page, per_page: per_page,

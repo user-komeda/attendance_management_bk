@@ -1,0 +1,24 @@
+# Generated from lib/application/dto/work_space/get_all_work_space_input_dto.rb with RBS::Inline
+
+module Application
+  module Dto
+    module WorkSpace
+      class GetAllWorkSpaceInputDto < InputBaseDto
+        attr_reader page: untyped
+
+        attr_reader per_page: untyped
+
+        attr_reader search_query: untyped
+
+        # @rbs (page: Integer, per_page: Integer, search_query: String?) -> void
+        def initialize: (page: Integer, per_page: Integer, search_query: String?) -> void
+
+        # @rbs (page: Integer, per_page: Integer, search_query: String?) -> GetAllWorkSpaceInputDto
+        def self.build: (page: Integer, per_page: Integer, search_query: String?) -> GetAllWorkSpaceInputDto
+
+        # @rbs () -> ::Domain::Entity::DomainEntity
+        def convert_to_entity: () -> ::Domain::Entity::DomainEntity
+      end
+    end
+  end
+end

@@ -4,20 +4,19 @@ module Domain
   module Entity
     module Auth
       class AuthUserEntity
-        # rubocop:disable all
-        attr_reader id: Domain::ValueObject::IdentityId?
+        attr_reader id: untyped
 
-        attr_reader user_id: String?
+        attr_reader user_id: untyped
 
-        attr_reader email: Domain::ValueObject::User::UserEmail
+        attr_reader email: untyped
 
-        attr_reader password_digest: Domain::ValueObject::AuthUser::PasswordDigest
+        attr_reader password_digest: untyped
 
-        attr_reader provider: String?
+        attr_reader provider: untyped
 
-        attr_reader is_active: bool?
+        attr_reader is_active: untyped
 
-        attr_reader last_login_at: Time?
+        attr_reader last_login_at: untyped
 
         PASSWORD_DIGEST: untyped
 
@@ -25,10 +24,18 @@ module Domain
 
         ID: untyped
 
-        # rubocop:disable Layout/LineLength
-        # @rbs ({id: Domain::ValueObject::IdentityId?, user_id: String?, email: Domain::ValueObject::User::UserEmail, password_digest: Domain::ValueObject::AuthUser::PasswordDigest, provider: String?, is_active: bool?, last_login_at: Time?}) -> void
-        # rubocop:enable Layout/LineLength
-        def initialize: ({ id: Domain::ValueObject::IdentityId?, user_id: String?, email: Domain::ValueObject::User::UserEmail, password_digest: Domain::ValueObject::AuthUser::PasswordDigest, provider: String?, is_active: bool?, last_login_at: Time? }) -> void
+        # @rbs (
+        #   {
+        #     id: Domain::ValueObject::IdentityId?,
+        #     user_id: String?,
+        #     email: Domain::ValueObject::User::UserEmail,
+        #     password_digest: Domain::ValueObject::AuthUser::PasswordDigest,
+        #     provider: String?,
+        #     is_active: bool?,
+        #     last_login_at: Time?
+        #   }
+        # ) -> void
+        def initialize:
 
         # @rbs (String password) -> bool
         def password_match?: (String password) -> bool
@@ -36,15 +43,30 @@ module Domain
         # @rbs () -> bool
         def active?: () -> bool
 
-        # rubocop:disable Layout/LineLength
-        # @rbs ({?user_id: String, email: String, password: String, ?provider: String, ?is_active: bool, ?last_login_at: Time?}) -> AuthUserEntity
-        # rubocop:enable Layout/LineLength
-        def self.build: ({ ?user_id: String, email: String, password: String, ?provider: String, ?is_active: bool, ?last_login_at: Time? }) -> AuthUserEntity
+        # @rbs (
+        #   {
+        #     ?user_id: String,
+        #     email: String,
+        #     password: String,
+        #     ?provider: String,
+        #     ?is_active: bool,
+        #     ?last_login_at: Time?
+        #   }
+        # ) -> AuthUserEntity
+        def self.build:
 
-        # rubocop:disable Layout/LineLength
-        # @rbs ({id: String, user_id: String, email: String, password: String, provider: String, is_active: bool, last_login_at: Time?}) -> AuthUserEntity
-        # rubocop:enable Layout/LineLength
-        def self.build_with_id: ({ id: String, user_id: String, email: String, password: String, provider: String, is_active: bool, last_login_at: Time? }) -> AuthUserEntity
+        # @rbs (
+        #   {
+        #     id: String,
+        #     user_id: String,
+        #     email: String,
+        #     password: String,
+        #     provider: String,
+        #     is_active: bool,
+        #     last_login_at: Time?
+        #   }
+        # ) -> AuthUserEntity
+        def self.build_with_id:
       end
     end
   end

@@ -7,7 +7,6 @@ module Infrastructure
         # @rbs (workspace_ids: Array[String]) -> Array[Domain::Entity::WorkSpace::WorkSpaceEntity]
         def find_by_ids: (workspace_ids: Array[String]) -> Array[Domain::Entity::WorkSpace::WorkSpaceEntity]
 
-        # rubocop:disable all
         # @rbs (workspace_ids: Array[String], page: Integer, per_page: Integer, search_query: String?) -> { data: Array[Domain::Entity::WorkSpace::WorkSpaceEntity], total_count: Integer }
         # rubocop:enable all
         def find_by_ids_with_pagination: (workspace_ids: Array[String], page: Integer, per_page: Integer, search_query: String?) -> { data: Array[Domain::Entity::WorkSpace::WorkSpaceEntity], total_count: Integer }

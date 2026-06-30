@@ -1,0 +1,18 @@
+# Generated from lib/presentation/request/content_api/update_content_api_with_fields_request.rb with RBS::Inline
+
+module Presentation
+  module Request
+    module ContentApi
+      class UpdateContentApiWithFieldsRequest < ContentApiWithFieldsBaseRequest
+        # @rbs (id: String, work_space_id: String, content_api: UpdateContentApiRequest, fields: Array[CreateFieldRequest]) -> void
+        def initialize: (id: String, work_space_id: String, content_api: UpdateContentApiRequest, fields: Array[CreateFieldRequest]) -> void
+
+        # @rbs () -> ::Application::Dto::ContentApi::UpdateContentApiWithFieldsInputDto
+        def convert_to_dto: () -> ::Application::Dto::ContentApi::UpdateContentApiWithFieldsInputDto
+
+        # @rbs (params: Hash[Symbol, untyped]) -> UpdateContentApiWithFieldsRequest
+        def self.build: (params: Hash[Symbol, untyped]) -> UpdateContentApiWithFieldsRequest
+      end
+    end
+  end
+end

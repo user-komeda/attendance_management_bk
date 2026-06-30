@@ -1,0 +1,15 @@
+# Generated from lib/infrastructure/repository/content_api/content_api_base_repository.rb with RBS::Inline
+
+module Infrastructure
+  module Repository
+    module ContentApi
+      class ContentApiBaseRepository < RepositoryBase
+        ROM_REPOSITORY_KEY: untyped
+
+        CONTENT_API_ENTITY: untyped
+
+        FIELD_ENTITY: untyped
+      end
+    end
+  end
+end

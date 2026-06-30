@@ -6,7 +6,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { HomeTableHeader } from '~/features/components/home/homeTablePrevArea'
 import * as useCreateWorkspaceHook from '~/hooks/home/useCreateWorkspace'
 import * as useSearchWorkspacesHook from '~/hooks/home/useSearchWorkspaces'
-import { CreateWorkspaceSchema } from '~/schema/createWorkspaceSchema'
+import { CreateWorkspaceSchema } from '~/schema/workspace/createWorkspaceSchema'
 import { ActionResultOf, FormDataActionOf } from '~/types/action'
 
 vi.mock('~/hooks/home/useSearchWorkspaces')
@@ -32,7 +32,7 @@ vi.mock('~/components/CommonDialog', () => ({
   ),
 }))
 
-// eslint-disable-next-line max-lines-per-function
+ 
 describe('HomeTableHeader', () => {
   const mockSetKeyword = vi.fn()
   const mockHandleSearch = vi.fn()
@@ -60,7 +60,7 @@ describe('HomeTableHeader', () => {
     })
 
     vi.mocked(useCreateWorkspaceHook.useCreateWorkspace).mockReturnValue({
-      action: '/api/workspaces' as unknown as FormDataActionOf<
+      action: '/api/contentApi' as unknown as FormDataActionOf<
         typeof CreateWorkspaceSchema
       >,
       submission: {

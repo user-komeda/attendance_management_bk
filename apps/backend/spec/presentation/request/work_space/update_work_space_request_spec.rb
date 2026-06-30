@@ -12,7 +12,7 @@ RSpec.describe Presentation::Request::WorkSpace::UpdateWorkSpaceRequest do
     end
 
     it 'raises BadRequestException with invalid params' do
-      expect { described_class.build(params: { id: 'invalid' }) }.to raise_error(Presentation::Exception::BadRequestException)
+      expect { described_class.build(params: { id: '' }) }.to raise_error(Presentation::Exception::BadRequestException)
     end
   end
 

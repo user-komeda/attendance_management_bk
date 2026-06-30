@@ -1,0 +1,10 @@
+module Infrastructure
+  module Repository
+    module Rom
+      module WorkSpace
+        class ContentApiRomRepository < ContentApiBaseRomRepository
+        end
+      end
+    end
+  end
+end

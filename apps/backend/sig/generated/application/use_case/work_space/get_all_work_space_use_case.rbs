@@ -4,10 +4,12 @@ module Application
   module UseCase
     module WorkSpace
       class GetAllWorkSpaceUseCase < WorkSpaceBaseUseCase
-        # @rbs (page: Integer, per_page: Integer, search_query: String?) -> { data: Array[::Application::Dto::WorkSpace::WorkSpaceWithStatusDto], total_count: Integer }
-        def invoke: (page: Integer, per_page: Integer, search_query: String?) -> { data: Array[::Application::Dto::WorkSpace::WorkSpaceWithStatusDto], total_count: Integer }
+        # @rbs (arg: ::Application::Dto::WorkSpace::GetAllWorkSpaceInputDto) -> { data: Array[::Application::Dto::WorkSpace::WorkSpaceWithStatusDto], total_count: Integer }
+        def invoke: (arg: ::Application::Dto::WorkSpace::GetAllWorkSpaceInputDto) -> { data: Array[::Application::Dto::WorkSpace::WorkSpaceWithStatusDto], total_count: Integer }
 
         private
+
+        def fetch_work_spaces: (untyped arg, untyped member_ships) -> untyped
 
         def build_dto_list: (untyped work_spaces, untyped status_map) -> untyped
       end
