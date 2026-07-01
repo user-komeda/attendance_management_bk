@@ -12,30 +12,17 @@ module Application
         # @rbs (input_dto: ::Application::Dto::Auth::SignupInputDto) -> untyped
         def check_duplicate!: (input_dto: ::Application::Dto::Auth::SignupInputDto) -> untyped
 
-        # @rbs (
-        #   input_dto: ::Application::Dto::Auth::SignupInputDto
-        # ) -> {
-        #   user_entity: Domain::Entity::User::UserEntity,
-        #   auth_user_entity: Domain::Entity::Auth::AuthUserEntity
-        # }
-        def build_entities:
+        # @rbs (input_dto: ::Application::Dto::Auth::SignupInputDto) -> untyped
+        def check_duplicate: (input_dto: ::Application::Dto::Auth::SignupInputDto) -> untyped
 
-        # @rbs (
-        #   user_entity: Domain::Entity::User::UserEntity,
-        #   auth_user_entity: Domain::Entity::Auth::AuthUserEntity
-        # ) -> {
-        #   user_entity: Domain::Entity::User::UserEntity,
-        #   auth_user_entity: Domain::Entity::Auth::AuthUserEntity
-        # }
-        def persist:
+        # @rbs (input_dto: ::Application::Dto::Auth::SignupInputDto) -> Hash[Symbol, untyped]
+        def build_entities: (input_dto: ::Application::Dto::Auth::SignupInputDto) -> Hash[Symbol, untyped]
 
-        # @rbs (
-        #   result: {
-        #     user_entity: Domain::Entity::User::UserEntity,
-        #     auth_user_entity: Domain::Entity::Auth::AuthUserEntity
-        #   }
-        # ) -> Application::Dto::Auth::AuthOutputDto
-        def build_output_dto:
+        # @rbs (user_entity: ::Domain::Entity::User::UserEntity, auth_user_entity: untyped) -> Hash[Symbol, untyped]
+        def persist: (user_entity: ::Domain::Entity::User::UserEntity, auth_user_entity: untyped) -> Hash[Symbol, untyped]
+
+        # @rbs (result: Hash[Symbol, untyped]) -> Application::Dto::Auth::AuthOutputDto
+        def build_output_dto: (result: Hash[Symbol, untyped]) -> Application::Dto::Auth::AuthOutputDto
       end
     end
   end

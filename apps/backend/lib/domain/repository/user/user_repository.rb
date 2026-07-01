@@ -42,12 +42,7 @@ module Domain
           caller.find_by_email(email)
         end
 
-        # @rbs (
-        #   user_with_auth_user: Domain::Entity::User::UserEntity
-        # ) -> {
-        #   user_entity: Domain::Entity::User::UserEntity,
-        #   auth_user_entity: Domain::Entity::Auth::AuthUserEntity
-        # }
+        # @rbs (user_with_auth_user: Domain::Entity::User::UserEntity) -> Hash[Symbol, untyped]
         def create_with_auth_user(user_with_auth_user:)
           caller = resolve(REPOSITORY_KEY)
           caller.create_with_auth_user(user_with_auth_user: user_with_auth_user)

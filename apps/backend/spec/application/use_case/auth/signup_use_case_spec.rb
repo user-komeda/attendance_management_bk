@@ -92,4 +92,12 @@ RSpec.describe Application::UseCase::Auth::SignupUseCase do
       end
     end
   end
+
+  describe '#check_duplicate' do
+    let(:service_caller) { instance_double(Domain::Service::Auth::AuthService, exist?: false) }
+
+    it 'does not raise when the user does not exist' do
+      expect { use_case.send(:check_duplicate, input_dto: input_dto) }.not_to raise_error
+    end
+  end
 end

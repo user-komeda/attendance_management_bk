@@ -4,8 +4,10 @@ module Presentation
   module Request
     module ContentApi
       class CreateFieldRequest < FieldBaseRequest
+        # @rbs DEFAULT_SETTINGS: Hash[Symbol, untyped]
+        DEFAULT_SETTINGS: untyped
+
         # @rbs (params: Hash[Symbol, untyped]) -> void
-        # rubocop:enable all
         def initialize: (params: Hash[Symbol, untyped]) -> void
 
         # @rbs () -> ::Application::Dto::ContentApi::CreateFieldInputDto
@@ -16,6 +18,17 @@ module Presentation
 
         # @rbs (params: Hash[Symbol, untyped]) -> void
         private def self.validate: (params: Hash[Symbol, untyped]) -> void
+
+        private
+
+        # @rbs (params: Hash[Symbol, untyped]) -> void
+        def apply_attributes: (params: Hash[Symbol, untyped]) -> void
+
+        # @rbs (params: Hash[Symbol, untyped]) -> Hash[Symbol, untyped]
+        def normalize_params: (params: Hash[Symbol, untyped]) -> Hash[Symbol, untyped]
+
+        # @rbs () -> Hash[Symbol, untyped]
+        def dto_params: () -> Hash[Symbol, untyped]
       end
     end
   end

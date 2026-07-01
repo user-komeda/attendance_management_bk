@@ -2,9 +2,12 @@
 
 # rbs_inline: enabled
 
+require_relative '../../mapper/content_api_mapper'
+
 module Infrastructure
   module Entity
     module WorkSpace
+      # WorkSpace に紐づく ContentApi の永続化データを Domain Entity に変換する ROM Struct です。
       class ContentApiEntity < BaseEntity
         # @rbs!
         #   attr_reader id: String
@@ -20,34 +23,20 @@ module Infrastructure
 
         # @rbs () -> ::Domain::Entity::WorkSpace::ContentApiEntity
         def to_domain
-          ::Domain::Entity::WorkSpace::ContentApiEntity.build_with_id(
-            id: id,
-            work_space_id: work_space_id,
-            name: name,
-            endpoint: endpoint,
-            api_type: api_type
-          )
+          ::Infrastructure::Mapper::ContentApiMapper.work_space_content_api_domain_from_struct(struct: self)
         end
 
         # @rbs (struct: untyped) -> ::Domain::Entity::WorkSpace::ContentApiEntity
         def self.struct_to_domain(struct:)
-          new(
-            id: struct.id,
-            work_space_id: struct.work_space_id,
-            name: struct.name,
-            endpoint: struct.endpoint,
-            api_type: struct.api_type
-          ).to_domain
+          ::Infrastructure::Mapper::ContentApiMapper.work_space_content_api_domain_from_struct(struct: struct)
         end
 
         # @rbs (content_api_entity: ::Domain::Entity::WorkSpace::ContentApiEntity) -> ContentApiEntity
         def self.build_from_domain_entity(content_api_entity:)
           new(
-            id: ::UtilMethod.nil_or_empty?(content_api_entity.id) ? SecureRandom.uuid : content_api_entity.id.value,
-            work_space_id: content_api_entity.work_space_id.value,
-            name: content_api_entity.name,
-            endpoint: content_api_entity.endpoint,
-            api_type: content_api_entity.api_type
+            ::Infrastructure::Mapper::ContentApiMapper.work_space_content_api_infra_attributes_from_domain(
+              domain: content_api_entity
+            )
           )
         end
       end

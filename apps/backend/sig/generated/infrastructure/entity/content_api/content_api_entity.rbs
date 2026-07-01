@@ -3,6 +3,7 @@
 module Infrastructure
   module Entity
     module ContentApi
+      # ContentApi の永続化データを Domain Entity に変換する ROM Struct です。
       class ContentApiEntity < BaseEntity
         attr_reader id: String
 
@@ -22,6 +23,9 @@ module Infrastructure
 
         # @rbs (struct: untyped) -> ::Domain::Entity::ContentApi::ContentApiEntity
         def self.struct_to_domain_with_fields: (struct: untyped) -> ::Domain::Entity::ContentApi::ContentApiEntity
+
+        # @rbs (struct: untyped) -> Array[::Domain::Entity::ContentApi::FieldEntity]
+        def self.build_fields: (struct: untyped) -> Array[::Domain::Entity::ContentApi::FieldEntity]
 
         # @rbs (content_api_entity: ::Domain::Entity::ContentApi::ContentApiEntity) -> ContentApiEntity
         def self.build_from_domain_entity: (content_api_entity: ::Domain::Entity::ContentApi::ContentApiEntity) -> ContentApiEntity

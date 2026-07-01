@@ -4,11 +4,13 @@ module Application
   module Dto
     module WorkSpace
       class GetAllWorkSpaceInputDto < InputBaseDto
-        attr_reader page: untyped
+        # rubocop:disable all
+        attr_reader page: Integer
 
-        attr_reader per_page: untyped
+        # rubocop:disable all
+        attr_reader per_page: Integer
 
-        attr_reader search_query: untyped
+        attr_reader search_query: String?
 
         # @rbs (page: Integer, per_page: Integer, search_query: String?) -> void
         def initialize: (page: Integer, per_page: Integer, search_query: String?) -> void

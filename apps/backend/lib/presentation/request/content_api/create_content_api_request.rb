@@ -27,28 +27,23 @@ module Presentation
           )
         end
 
-        # @rbs (
-        #   params: {
-        #     work_space_id: String,
-        #     name: String,
-        #     endpoint: String,
-        #     api_type: String
-        #   }
-        # ) -> CreateContentApiRequest
+        # @rbs (params: Hash[Symbol, untyped]) -> CreateContentApiRequest
         def self.build(params:)
           validate(params: params)
-          CreateContentApiRequest.new(params: params)
+          CreateContentApiRequest.new(params: {
+                                        work_space_id: params[:work_space_id],
+                                        name: params[:name],
+                                        endpoint: params[:endpoint],
+                                        api_type: params[:api_type]
+                                      })
         end
 
         class << self
           private
 
-          # @rbs (params: { work_space_id: String, name: String, endpoint: String, api_type: String }) -> void
+          # @rbs (params: Hash[Symbol, untyped]) -> void
           def validate(params:)
-            result = ContentApiBaseRequest::CREATE_CONTRACT.new.call(params)
-            return unless result.failure?
-
-            raise ::Presentation::Exception::BadRequestException.new(message: result.errors.to_h.to_json)
+            validate_or_raise!(contract: ContentApiBaseRequest::CREATE_CONTRACT, params: params)
           end
         end
       end

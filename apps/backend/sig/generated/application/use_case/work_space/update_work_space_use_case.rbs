@@ -9,6 +9,8 @@ module Application
 
         private
 
+        def with_transaction: () ?{ (?) -> untyped } -> untyped
+
         def update_workspace: (work_space: untyped, input_dto: untyped) -> untyped
 
         def build_dto: (workspace: untyped) -> untyped
@@ -16,6 +18,8 @@ module Application
         def fetch_workspace: (id: untyped) -> untyped
 
         def validate_uniqueness!: (new_slug: untyped, current_slug: untyped) -> untyped
+
+        def validate_uniqueness: (new_slug: untyped, current_slug: untyped) -> untyped
       end
     end
   end

@@ -155,6 +155,13 @@ RSpec.describe Application::UseCase::Auth::VerifyJwtUseCase do
       end
     end
 
+    context 'when bff payload is not a hash' do
+      it 'raises InvalidToken from validate_bff_token! guard clause' do
+        expect { use_case.send(:validate_bff_token!, payload: 'invalid', typ: 'bff_assertion') }
+          .to raise_error(Application::Exception::InvalidToken, 'invalid bff token')
+      end
+    end
+
     context 'when validate_type is called with unknown type' do
       it 'raises InvalidToken from validate_type else branch' do
         allow(JWT).to receive(:decode).and_return([valid_user_payload, {}])

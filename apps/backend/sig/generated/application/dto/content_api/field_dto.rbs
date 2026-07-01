@@ -4,25 +4,30 @@ module Application
   module Dto
     module ContentApi
       class FieldDto < BaseDto
-        attr_reader id: untyped
+        # rubocop:disable all
+        attr_reader id: String
 
-        attr_reader content_api_id: untyped
+        # rubocop:disable all
+        attr_reader content_api_id: String
 
-        attr_reader field_id: untyped
+        # rubocop:disable all
+        attr_reader field_id: String
 
-        attr_reader display_name: untyped
+        # rubocop:disable all
+        attr_reader display_name: String
 
-        attr_reader field_type: untyped
+        # rubocop:disable all
+        attr_reader field_type: String
 
-        attr_reader required: untyped
+        attr_reader required: bool
 
-        attr_reader unique_value: untyped
+        attr_reader unique_value: bool
 
-        attr_reader order_index: untyped
+        attr_reader is_active: bool
 
-        attr_reader is_active: untyped
+        attr_reader order_index: Integer
 
-        attr_reader settings: untyped
+        attr_reader settings: Hash[Symbol, untyped]
 
         # @rbs (params: Hash[Symbol, untyped]) -> void
         def initialize: (params: Hash[Symbol, untyped]) -> void
@@ -32,6 +37,9 @@ module Application
 
         # @rbs (Array[::Domain::Entity::ContentApi::FieldEntity] field_entities) -> Array[FieldDto]
         def self.build_from_array: (Array[::Domain::Entity::ContentApi::FieldEntity] field_entities) -> Array[FieldDto]
+
+        # @rbs (field_entity: ::Domain::Entity::ContentApi::FieldEntity) -> Hash[Symbol, untyped]
+        private def self.entity_to_params: (field_entity: ::Domain::Entity::ContentApi::FieldEntity) -> Hash[Symbol, untyped]
       end
     end
   end

@@ -2,9 +2,12 @@
 
 # rbs_inline: enabled
 
+require_relative '../../mapper/field_mapper'
+
 module Infrastructure
   module Entity
     module ContentApi
+      # ContentApi Field の永続化データを Domain Entity に変換する ROM Struct です。
       class FieldEntity < BaseEntity
         # @rbs!
         #   attr_reader id: String
@@ -30,52 +33,21 @@ module Infrastructure
 
         # @rbs () -> ::Domain::Entity::ContentApi::FieldEntity
         def to_domain
-          ::Domain::Entity::ContentApi::FieldEntity.build_with_id(
-            id: id,
-            content_api_id: content_api_id,
-            field_id: field_id,
-            display_name: display_name,
-            field_type: field_type,
-            required: required,
-            unique_value: unique_value,
-            order_index: order_index,
-            is_active: is_active,
-            settings: settings
-          )
+          ::Infrastructure::Mapper::FieldMapper.field_domain_from_struct(struct: self)
         end
 
         # @rbs (struct: untyped) -> ::Domain::Entity::ContentApi::FieldEntity
         def self.struct_to_domain(struct:)
-          new(
-            id: struct.id,
-            content_api_id: struct.content_api_id,
-            field_id: struct.field_id,
-            display_name: struct.display_name,
-            field_type: struct.field_type,
-            required: struct.required,
-            unique_value: struct.unique_value,
-            order_index: struct.order_index,
-            is_active: struct.is_active,
-            settings: struct.settings
-          ).to_domain
+          ::Infrastructure::Mapper::FieldMapper.field_domain_from_struct(struct: struct)
         end
 
         # @rbs (field_entity: ::Domain::Entity::ContentApi::FieldEntity, content_api_id: String) -> FieldEntity
         def self.build_from_domain_entity(field_entity:, content_api_id:)
-          # :nocov:
-          resolved_id = ::UtilMethod.nil_or_empty?(field_entity.id) ? SecureRandom.uuid : field_entity.id&.value
-          # :nocov:
           new(
-            id: resolved_id,
-            content_api_id: content_api_id,
-            field_id: field_entity.field_id,
-            display_name: field_entity.display_name,
-            field_type: field_entity.field_type,
-            required: field_entity.required,
-            unique_value: field_entity.unique_value,
-            order_index: field_entity.order_index,
-            is_active: field_entity.is_active,
-            settings: field_entity.settings
+            **::Infrastructure::Mapper::FieldMapper.field_infra_attributes_from_domain(
+              domain: field_entity,
+              content_api_id: content_api_id
+            )
           )
         end
       end

@@ -14,6 +14,7 @@
 ## 絶対禁止事項（lintエラー修正時）
 
 - `# rubocop:disable` コメントの追加は禁止（RBS注釈行を除く）
+- RBSコメントに対するエラーに対しては `# rubocop:disable all` を使用して無視してください
 - `.rubocop.yml` の変更は禁止
 - `// eslint-disable` コメントの追加は禁止
 - lintエラーは必ずコード自体を修正して解決すること

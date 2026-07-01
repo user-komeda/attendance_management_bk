@@ -7,6 +7,9 @@ module Infrastructure
         # @rbs (content_api_entity: ::Domain::Entity::ContentApi::ContentApiEntity) -> ::Domain::Entity::ContentApi::ContentApiEntity
         def create: (content_api_entity: ::Domain::Entity::ContentApi::ContentApiEntity) -> ::Domain::Entity::ContentApi::ContentApiEntity
 
+        # @rbs (work_space_id: String) -> Array[::Domain::Entity::ContentApi::ContentApiEntity]
+        def get_by_work_space_id: (work_space_id: String) -> Array[::Domain::Entity::ContentApi::ContentApiEntity]
+
         # @rbs (id: String) -> ::Domain::Entity::ContentApi::ContentApiEntity?
         def find_by_id: (id: String) -> ::Domain::Entity::ContentApi::ContentApiEntity?
 
@@ -19,13 +22,22 @@ module Infrastructure
         # @rbs (work_space_id: String, endpoint: String) -> ::Domain::Entity::ContentApi::ContentApiEntity?
         def find_by_work_space_and_endpoint: (work_space_id: String, endpoint: String) -> ::Domain::Entity::ContentApi::ContentApiEntity?
 
+        # @rbs (content_api_id: String) -> Array[::Domain::Entity::ContentApi::FieldEntity]
+        def get_fields_by_content_api_id: (content_api_id: String) -> Array[::Domain::Entity::ContentApi::FieldEntity]
+
         private
 
+        # rubocop:disable all
         # @rbs (caller: untyped, domain: ::Domain::Entity::ContentApi::ContentApiEntity, field_entities: Array[::Domain::Entity::ContentApi::FieldEntity]) -> ::Domain::Entity::ContentApi::ContentApiEntity
-        def build_entity_with_fields: (caller: untyped, domain: ::Domain::Entity::ContentApi::ContentApiEntity, field_entities: Array[::Domain::Entity::ContentApi::FieldEntity]) -> ::Domain::Entity::ContentApi::ContentApiEntity
+        # rubocop:enable all
+        def rebuild_with_fields: (caller: untyped, domain: ::Domain::Entity::ContentApi::ContentApiEntity, field_entities: Array[::Domain::Entity::ContentApi::FieldEntity]) -> ::Domain::Entity::ContentApi::ContentApiEntity
 
-        # @rbs (caller: untyped, content_api_id: String, field_entities: Array[::Domain::Entity::ContentApi::FieldEntity]) -> Array[::Domain::Entity::ContentApi::FieldEntity]
-        def bulk_create_fields: (caller: untyped, content_api_id: String, field_entities: Array[::Domain::Entity::ContentApi::FieldEntity]) -> Array[::Domain::Entity::ContentApi::FieldEntity]
+        # rubocop:disable all
+        # @rbs (content_api_id: String, field_entities: Array[::Domain::Entity::ContentApi::FieldEntity], caller: untyped?) -> Array[::Domain::Entity::ContentApi::FieldEntity]
+        # rubocop:enable all
+        def bulk_create_fields: (content_api_id: String, field_entities: Array[::Domain::Entity::ContentApi::FieldEntity], caller: untyped?) -> Array[::Domain::Entity::ContentApi::FieldEntity]
+
+        def rom_caller: () -> untyped
       end
     end
   end

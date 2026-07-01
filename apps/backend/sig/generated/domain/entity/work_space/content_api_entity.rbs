@@ -17,9 +17,10 @@ module Domain
 
         attr_reader api_type: String
 
-        # @rbs (work_space_id: ::Domain::ValueObject::IdentityId, name: String, endpoint: String, api_type: String, ?id: ::Domain::ValueObject::IdentityId?) -> void
+        # rubocop:disable all
+        # @rbs (work_space_id: ::Domain::ValueObject::IdentityId, name: String, endpoint: String, api_type: String, id: ::Domain::ValueObject::IdentityId?) -> void
         # rubocop:enable all
-        def initialize: (work_space_id: ::Domain::ValueObject::IdentityId, name: String, endpoint: String, api_type: String, ?id: ::Domain::ValueObject::IdentityId?) -> void
+        def initialize: (work_space_id: ::Domain::ValueObject::IdentityId, name: String, endpoint: String, api_type: String, id: ::Domain::ValueObject::IdentityId?) -> void
 
         # @rbs (work_space_id: String, name: String, endpoint: String, api_type: String) -> ContentApiEntity
         def self.build: (work_space_id: String, name: String, endpoint: String, api_type: String) -> ContentApiEntity

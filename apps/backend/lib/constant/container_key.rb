@@ -7,37 +7,44 @@ module Constant
     # @rbs Key = Struct.new(:key, keyword_init: true)
     Key = Struct.new(:key, keyword_init: true)
 
+    module_function
+
+    # @rbs (value: String) -> Key
+    def key(value:)
+      Key.new(key: value)
+    end
+
     module ApplicationKey
       # @rbs USER_USE_CASE: Hash[Symbol, Key]
       USER_USE_CASE = {
-        get_all: Key.new(key: 'application.use_case.user.get_all_user_use_case'),
-        get_detail: Key.new(key: 'application.use_case.user.get_detail_user_use_case'),
-        create_user: Key.new(key: 'application.use_case.user.create_user_use_case'),
-        update_user: Key.new(key: 'application.use_case.user.update_user_use_case')
+        get_all: ContainerKey.key(value: 'application.use_case.user.get_all_user_use_case'),
+        get_detail: ContainerKey.key(value: 'application.use_case.user.get_detail_user_use_case'),
+        create_user: ContainerKey.key(value: 'application.use_case.user.create_user_use_case'),
+        update_user: ContainerKey.key(value: 'application.use_case.user.update_user_use_case')
       }.freeze
 
       # @rbs AUTH_USE_CASE: Hash[Symbol, Key]
       AUTH_USE_CASE = {
-        signin: Key.new(key: 'application.use_case.auth.signin_use_case'),
-        signup: Key.new(key: 'application.use_case.auth.signup_use_case'),
-        verify_jwt: Key.new(key: 'application.use_case.auth.verify_jwt_use_case')
+        signin: ContainerKey.key(value: 'application.use_case.auth.signin_use_case'),
+        signup: ContainerKey.key(value: 'application.use_case.auth.signup_use_case'),
+        verify_jwt: ContainerKey.key(value: 'application.use_case.auth.verify_jwt_use_case')
       }.freeze
 
       # @rbs WORK_SPACE_USE_CASE: Hash[Symbol, Key]
       WORK_SPACE_USE_CASE = {
-        get_all: Key.new(key: 'application.use_case.work_space.get_all_work_space_use_case'),
-        get_detail: Key.new(key: 'application.use_case.work_space.get_detail_work_space_use_case'),
-        create_work_space: Key.new(key: 'application.use_case.work_space.create_work_space_use_case'),
-        update_work_space: Key.new(key: 'application.use_case.work_space.update_work_space_use_case'),
-        delete_work_space: Key.new(key: 'application.use_case.work_space.delete_work_space_use_case')
+        get_all: ContainerKey.key(value: 'application.use_case.work_space.get_all_work_space_use_case'),
+        get_detail: ContainerKey.key(value: 'application.use_case.work_space.get_detail_work_space_use_case'),
+        create_work_space: ContainerKey.key(value: 'application.use_case.work_space.create_work_space_use_case'),
+        update_work_space: ContainerKey.key(value: 'application.use_case.work_space.update_work_space_use_case'),
+        delete_work_space: ContainerKey.key(value: 'application.use_case.work_space.delete_work_space_use_case')
       }.freeze
 
       # @rbs CONTENT_API_USE_CASE: Hash[Symbol, Key]
       CONTENT_API_USE_CASE = {
-        get_detail: Key.new(key: 'application.use_case.content_api.get_detail_content_api_use_case'),
-        create_content_api: Key.new(key: 'application.use_case.content_api.create_content_api_use_case'),
-        update_content_api: Key.new(key: 'application.use_case.content_api.update_content_api_use_case'),
-        delete_content_api: Key.new(key: 'application.use_case.content_api.delete_content_api_use_case')
+        get_detail: ContainerKey.key(value: 'application.use_case.content_api.get_detail_content_api_use_case'),
+        create_content_api: ContainerKey.key(value: 'application.use_case.content_api.create_content_api_use_case'),
+        update_content_api: ContainerKey.key(value: 'application.use_case.content_api.update_content_api_use_case'),
+        delete_content_api: ContainerKey.key(value: 'application.use_case.content_api.delete_content_api_use_case')
       }.freeze
     end
 
@@ -45,23 +52,23 @@ module Constant
     module ServiceKey
       # @rbs USER_SERVICE: Hash[Symbol, Key]
       USER_SERVICE = {
-        user: Key.new(key: 'domain.service.user.user_service')
+        user: ContainerKey.key(value: 'domain.service.user.user_service')
       }.freeze
 
       # @rbs AUTH_SERVICE: Hash[Symbol, Key]
       AUTH_SERVICE = {
-        auth: Key.new(key: 'domain.service.auth.auth_service')
+        auth: ContainerKey.key(value: 'domain.service.auth.auth_service')
       }.freeze
 
       # @rbs WORK_SPACE_SERVICE: Hash[Symbol, Key]
       WORK_SPACE_SERVICE = {
-        work_space: Key.new(key: 'domain.service.work_space.work_space_service'),
-        member_ships: Key.new(key: 'domain.service.work_space.member_ships_service')
+        work_space: ContainerKey.key(value: 'domain.service.work_space.work_space_service'),
+        member_ships: ContainerKey.key(value: 'domain.service.work_space.member_ships_service')
       }.freeze
 
       # @rbs CONTENT_API_SERVICE: Hash[Symbol, Key]
       CONTENT_API_SERVICE = {
-        content_api: Key.new(key: 'domain.service.content_api.content_api_service')
+        content_api: ContainerKey.key(value: 'domain.service.content_api.content_api_service')
       }.freeze
     end
 
@@ -69,26 +76,26 @@ module Constant
     module DomainRepositoryKey
       # @rbs USER_DOMAIN_REPOSITORY: Hash[Symbol, Key]
       USER_DOMAIN_REPOSITORY = {
-        user: Key.new(key: 'domain.repository.user.user_repository')
+        user: ContainerKey.key(value: 'domain.repository.user.user_repository')
       }.freeze
 
       # @rbs AUTH_DOMAIN_REPOSITORY: Hash[Symbol, Key]
       AUTH_DOMAIN_REPOSITORY = {
-        auth: Key.new(key: 'domain.repository.auth.auth_repository')
+        auth: ContainerKey.key(value: 'domain.repository.auth.auth_repository')
       }.freeze
 
       # @rbs WORK_SPACE_DOMAIN_REPOSITORY: Hash[Symbol, Key]
       WORK_SPACE_DOMAIN_REPOSITORY = {
-        work_space: Key.new(key: 'domain.repository.work_space.work_space_repository'),
-        member_ships: Key.new(key: 'domain.repository.work_space.member_ships_repository'),
-        content_api: Key.new(key: 'domain.repository.work_space.content_api_repository'),
-        field: Key.new(key: 'domain.repository.work_space.field_repository')
+        work_space: ContainerKey.key(value: 'domain.repository.work_space.work_space_repository'),
+        member_ships: ContainerKey.key(value: 'domain.repository.work_space.member_ships_repository'),
+        content_api: ContainerKey.key(value: 'domain.repository.work_space.content_api_repository'),
+        field: ContainerKey.key(value: 'domain.repository.work_space.field_repository')
       }.freeze
 
       # @rbs CONTENT_API_DOMAIN_REPOSITORY: Hash[Symbol, Key]
       CONTENT_API_DOMAIN_REPOSITORY = {
-        content_api: Key.new(key: 'domain.repository.content_api.content_api_repository'),
-        field: Key.new(key: 'domain.repository.content_api.field_repository')
+        content_api: ContainerKey.key(value: 'domain.repository.content_api.content_api_repository'),
+        field: ContainerKey.key(value: 'domain.repository.content_api.field_repository')
       }.freeze
     end
 
@@ -96,26 +103,26 @@ module Constant
     module RepositoryKey
       # @rbs USER_REPOSITORY: Hash[Symbol, Key]
       USER_REPOSITORY = {
-        user: Key.new(key: 'infrastructure.repository.user.user_repository')
+        user: ContainerKey.key(value: 'infrastructure.repository.user.user_repository')
       }.freeze
 
       # @rbs AUTH_REPOSITORY: Hash[Symbol, Key]
       AUTH_REPOSITORY = {
-        auth: Key.new(key: 'infrastructure.repository.auth.auth_repository')
+        auth: ContainerKey.key(value: 'infrastructure.repository.auth.auth_repository')
       }.freeze
 
       # @rbs WORK_SPACE_REPOSITORY: Hash[Symbol, Key]
       WORK_SPACE_REPOSITORY = {
-        work_space: Key.new(key: 'infrastructure.repository.work_space.work_space_repository'),
-        member_ships: Key.new(key: 'infrastructure.repository.work_space.member_ships_repository'),
-        content_api: Key.new(key: 'infrastructure.repository.work_space.content_api_repository'),
-        field: Key.new(key: 'infrastructure.repository.work_space.field_repository')
+        work_space: ContainerKey.key(value: 'infrastructure.repository.work_space.work_space_repository'),
+        member_ships: ContainerKey.key(value: 'infrastructure.repository.work_space.member_ships_repository'),
+        content_api: ContainerKey.key(value: 'infrastructure.repository.work_space.content_api_repository'),
+        field: ContainerKey.key(value: 'infrastructure.repository.work_space.field_repository')
       }.freeze
 
       # @rbs CONTENT_API_REPOSITORY: Hash[Symbol, Key]
       CONTENT_API_REPOSITORY = {
-        content_api: Key.new(key: 'infrastructure.repository.content_api.content_api_repository'),
-        field: Key.new(key: 'infrastructure.repository.content_api.field_repository')
+        content_api: ContainerKey.key(value: 'infrastructure.repository.content_api.content_api_repository'),
+        field: ContainerKey.key(value: 'infrastructure.repository.content_api.field_repository')
       }.freeze
     end
 
@@ -123,26 +130,26 @@ module Constant
     module RomRepositoryKey
       # @rbs USER_ROM_REPOSITORY: Hash[Symbol, Key]
       USER_ROM_REPOSITORY = {
-        user: Key.new(key: 'infrastructure.repository.rom.user.user_rom_repository')
+        user: ContainerKey.key(value: 'infrastructure.repository.rom.user.user_rom_repository')
       }.freeze
 
       # @rbs AUTH_ROM_REPOSITORY: Hash[Symbol, Key]
       AUTH_ROM_REPOSITORY = {
-        auth: Key.new(key: 'infrastructure.repository.rom.auth.auth_rom_repository')
+        auth: ContainerKey.key(value: 'infrastructure.repository.rom.auth.auth_rom_repository')
       }.freeze
 
       # @rbs WORK_SPACE_ROM_REPOSITORY: Hash[Symbol, Key]
       WORK_SPACE_ROM_REPOSITORY = {
-        work_space: Key.new(key: 'infrastructure.repository.rom.work_space.work_space_rom_repository'),
-        member_ships: Key.new(key: 'infrastructure.repository.rom.work_space.member_ships_rom_repository'),
-        content_api: Key.new(key: 'infrastructure.repository.rom.work_space.content_api_rom_repository'),
-        field: Key.new(key: 'infrastructure.repository.rom.work_space.field_rom_repository')
+        work_space: ContainerKey.key(value: 'infrastructure.repository.rom.work_space.work_space_rom_repository'),
+        member_ships: ContainerKey.key(value: 'infrastructure.repository.rom.work_space.member_ships_rom_repository'),
+        content_api: ContainerKey.key(value: 'infrastructure.repository.rom.work_space.content_api_rom_repository'),
+        field: ContainerKey.key(value: 'infrastructure.repository.rom.work_space.field_rom_repository')
       }.freeze
 
       # @rbs CONTENT_API_ROM_REPOSITORY: Hash[Symbol, Key]
       CONTENT_API_ROM_REPOSITORY = {
-        content_api: Key.new(key: 'infrastructure.repository.rom.content_api.content_api_rom_repository'),
-        field: Key.new(key: 'infrastructure.repository.rom.content_api.field_rom_repository')
+        content_api: ContainerKey.key(value: 'infrastructure.repository.rom.content_api.content_api_rom_repository'),
+        field: ContainerKey.key(value: 'infrastructure.repository.rom.content_api.field_rom_repository')
       }.freeze
     end
   end

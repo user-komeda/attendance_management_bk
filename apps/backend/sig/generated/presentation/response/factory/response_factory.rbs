@@ -4,35 +4,20 @@ module Presentation
   module Response
     module Factory
       class ResponseFactory
-        # @rbs (
-        #   response: untyped,
-        #   ?status_code: Integer,
-        #   ?id: String,
-        #   ?data: Hash[Symbol, untyped] | Array[Hash[Symbol, untyped]],
-        #   resource_name: String?
-        # ) -> String?
-        def self.create_response:
+        # rubocop:disable all
+        # @rbs (response: untyped, ?status_code: Integer, ?id: String, ?data: Hash[Symbol, untyped] | Array[Hash[Symbol, untyped]], resource_name: String?) -> String?
+        # rubocop:enable all
+        def self.create_response: (response: untyped, resource_name: String?, ?status_code: Integer, ?id: String, ?data: Hash[Symbol, untyped] | Array[Hash[Symbol, untyped]]) -> String?
 
-        # @rbs (
-        #   response: untyped,
-        #   payload: ::Presentation::Controller::ControllerPayLoad,
-        #   resource_name: String?
-        # ) -> untyped
-        def self.responder:
+        # rubocop:disable all
+        # @rbs (response: untyped, payload: ::Presentation::Controller::ControllerPayLoad, resource_name: String?) -> untyped
+        # rubocop:enable all
+        def self.responder: (response: untyped, payload: ::Presentation::Controller::ControllerPayLoad, resource_name: String?) -> untyped
 
-        # @rbs (
-        #   response: untyped,
-        #   payload: ::Presentation::Controller::ControllerPayLoad,
-        #   resource_name: String?
-        # ) -> Hash[Integer, ^() -> untyped]
-        def self.success_responders:
-
-        # @rbs (
-        #   payload: ::Presentation::Controller::ControllerPayLoad,
-        #   response: untyped,
-        #   resource_name: String?
-        # ) -> untyped
-        def self.build_created_responder:
+        # rubocop:disable all
+        # @rbs (payload: ::Presentation::Controller::ControllerPayLoad, response: untyped, resource_name: String?) -> untyped
+        # rubocop:enable all
+        def self.build_created_responder: (payload: ::Presentation::Controller::ControllerPayLoad, response: untyped, resource_name: String?) -> untyped
       end
     end
   end

@@ -12,11 +12,8 @@ module Application
         # @rbs (arg: ::Application::Dto::ContentApi::CreateContentApiWithFieldsInputDto) -> ::Application::Dto::ContentApi::ContentApiWithFieldsDto
         def execute_create: (arg: ::Application::Dto::ContentApi::CreateContentApiWithFieldsInputDto) -> ::Application::Dto::ContentApi::ContentApiWithFieldsDto
 
-        # @rbs (
-        #   content_api_service: untyped,
-        #   content_api_entity: ::Domain::Entity::ContentApi::ContentApiEntity
-        # ) -> void
-        def validate_uniqueness:
+        # @rbs (content_api_service: untyped, content_api_entity: untyped) -> void
+        def validate_uniqueness: (content_api_service: untyped, content_api_entity: untyped) -> void
       end
     end
   end

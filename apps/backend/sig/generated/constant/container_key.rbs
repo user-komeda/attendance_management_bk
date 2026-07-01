@@ -10,6 +10,9 @@ module Constant
                   | ({ ?key: untyped }) -> instance
     end
 
+    # @rbs (value: String) -> Key
+    def self?.key: (value: String) -> Key
+
     module ApplicationKey
       # @rbs USER_USE_CASE: Hash[Symbol, Key]
       USER_USE_CASE: untyped

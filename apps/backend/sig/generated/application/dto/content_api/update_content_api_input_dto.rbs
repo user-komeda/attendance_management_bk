@@ -4,11 +4,14 @@ module Application
   module Dto
     module ContentApi
       class UpdateContentApiInputDto < InputBaseDto
-        attr_reader name: untyped
+        # rubocop:disable all
+        attr_reader name: String
 
-        attr_reader endpoint: untyped
+        # rubocop:disable all
+        attr_reader endpoint: String
 
-        attr_reader api_type: untyped
+        # rubocop:disable all
+        attr_reader api_type: String
 
         # @rbs (params: Hash[Symbol, untyped]) -> void
         def initialize: (params: Hash[Symbol, untyped]) -> void

@@ -6,12 +6,7 @@ module Presentation
   module Request
     module ContentApi
       class UpdateContentApiWithFieldsRequest < ContentApiWithFieldsBaseRequest
-        # @rbs (
-        #   id: String,
-        #   work_space_id: String,
-        #   content_api: UpdateContentApiRequest,
-        #   fields: Array[CreateFieldRequest]
-        # ) -> void
+        # @rbs (id: String, work_space_id: String, content_api: untyped, fields: Array[untyped]) -> void
         def initialize(id:, work_space_id:, content_api:, fields:)
           super()
           @id = id

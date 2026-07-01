@@ -8,9 +8,7 @@ module Application
       class UpdateWorkSpaceUseCase < WorkSpaceBaseUseCase
         # @rbs (arg: ::Application::Dto::WorkSpace::UpdateWorkSpaceInputDto) -> ::Application::Dto::WorkSpace::WorkSpaceDto
         def invoke(arg:)
-          rom = resolve('db.config')
-
-          rom.gateways[:default].transaction do
+          with_transaction do
             work_space = fetch_workspace(id: arg.id)
             validate_uniqueness!(new_slug: arg.slug, current_slug: work_space.slug)
 
@@ -20,6 +18,10 @@ module Application
         end
 
         private
+
+        def with_transaction(&)
+          resolve('db.config').gateways[:default].transaction(&)
+        end
 
         def update_workspace(work_space:, input_dto:)
           work_space_repository = resolve(WORK_SPACE_REPOSITORY)
@@ -34,7 +36,7 @@ module Application
         def fetch_workspace(id:)
           work_space_repository = resolve(WORK_SPACE_REPOSITORY)
           work_space = work_space_repository.find_by_slug(slug: id)
-          raise ::Application::Exception::NotFoundException.new(message: 'workspace not found') if work_space.nil?
+          raise ::Application::Exception::NotFoundException.new(message: 'workspace not found') unless work_space
 
           work_space
         end
@@ -46,6 +48,10 @@ module Application
           return unless work_space_service.exists_by_slug?(slug: new_slug)
 
           raise ::Application::Exception::DuplicatedException.new(message: 'workspace already exists')
+        end
+
+        def validate_uniqueness(new_slug:, current_slug:)
+          validate_uniqueness!(new_slug: new_slug, current_slug: current_slug)
         end
       end
     end

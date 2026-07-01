@@ -45,11 +45,9 @@ module Application
           work_space_repository.create(workspace_entity: input_dto.convert_to_entity)
         end
 
-        # @rbs (
-        #   input_dto: ::Application::Dto::WorkSpace::CreateWorkSpaceInputDto,
-        #   user_id: String,
-        #   workspace_id: String
-        # ) -> ::Domain::Entity::WorkSpace::MemberShipsEntity
+        # rubocop:disable all
+        # @rbs (input_dto: ::Application::Dto::WorkSpace::CreateWorkSpaceInputDto, user_id: String, workspace_id: String) -> ::Domain::Entity::WorkSpace::MemberShipsEntity
+        # rubocop:enable all
         def create_memberships(input_dto:, user_id:, workspace_id:)
           member_ships_repository = resolve(MEMBER_SHIPS_REPOSITORY)
           member_ships_repository.create(member_ships_entity: input_dto.create_member_ships_entity(

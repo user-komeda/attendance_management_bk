@@ -6,16 +6,12 @@ module Application
   module Dto
     module ContentApi
       class CreateContentApiWithFieldsInputDto < InputBaseDto
-        attr_reader :content_api, :fields # : ::Application::Dto::ContentApi::CreateContentApiInputDto
+        # rubocop:disable all
+        attr_reader :content_api #: ::Application::Dto::ContentApi::CreateContentApiInputDto
+        attr_reader :fields #: Array[::Application::Dto::ContentApi::CreateFieldInputDto]
+        # rubocop:enable all
 
-        # : Array[::Application::Dto::ContentApi::CreateFieldInputDto]
-
-        # @rbs (
-        #   params: {
-        #     content_api: ::Application::Dto::ContentApi::CreateContentApiInputDto,
-        #     fields: Array[::Application::Dto::ContentApi::CreateFieldInputDto]
-        #   }
-        # ) -> void
+        # @rbs (params: { content_api: CreateContentApiInputDto, fields: Array[CreateFieldInputDto] }) -> void
         def initialize(params:)
           super()
           @content_api = params[:content_api]

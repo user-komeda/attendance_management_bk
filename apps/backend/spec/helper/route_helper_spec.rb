@@ -29,4 +29,18 @@ RSpec.describe RouteHelper do
       end
     end
   end
+
+  describe '#build_base_path' do
+    it 'returns empty string when resource_name is empty and parent is nil' do
+      result = helper.send(:build_base_path, resource_name: '', parent: nil)
+
+      expect(result).to eq('')
+    end
+  end
+
+  describe '#define_route' do
+    it 'raises when action is not defined' do
+      expect { helper.send(:define_route, :unknown, nil) }.to raise_error(NoMatchingPatternError)
+    end
+  end
 end

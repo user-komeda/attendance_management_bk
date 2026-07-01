@@ -15,12 +15,10 @@ module Application
         # @rbs (input_dto: ::Application::Dto::WorkSpace::CreateWorkSpaceInputDto) -> ::Domain::Entity::WorkSpace::WorkSpaceEntity
         def create_workspace: (input_dto: ::Application::Dto::WorkSpace::CreateWorkSpaceInputDto) -> ::Domain::Entity::WorkSpace::WorkSpaceEntity
 
-        # @rbs (
-        #   input_dto: ::Application::Dto::WorkSpace::CreateWorkSpaceInputDto,
-        #   user_id: String,
-        #   workspace_id: String
-        # ) -> ::Domain::Entity::WorkSpace::MemberShipsEntity
-        def create_memberships:
+        # rubocop:disable all
+        # @rbs (input_dto: ::Application::Dto::WorkSpace::CreateWorkSpaceInputDto, user_id: String, workspace_id: String) -> ::Domain::Entity::WorkSpace::MemberShipsEntity
+        # rubocop:enable all
+        def create_memberships: (input_dto: ::Application::Dto::WorkSpace::CreateWorkSpaceInputDto, user_id: String, workspace_id: String) -> ::Domain::Entity::WorkSpace::MemberShipsEntity
       end
     end
   end

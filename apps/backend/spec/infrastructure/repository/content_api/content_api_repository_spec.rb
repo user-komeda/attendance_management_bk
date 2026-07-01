@@ -51,16 +51,15 @@ RSpec.describe Infrastructure::Repository::ContentApi::ContentApiRepository do
 
   describe '#find_by_id' do
     context 'when found' do
-      def struct_with_fields
-        instance_double(ROM::Struct, fields: [field_infra_entity]).tap do |s|
-          allow(s).to receive_messages(
-            id: content_api_id,
-            work_space_id: work_space_id,
-            name: 'Articles',
-            endpoint: 'articles',
-            api_type: 'list'
-          )
-        end
+      let(:struct_with_fields) do
+        Struct.new(:id, :work_space_id, :name, :endpoint, :api_type, :fields, keyword_init: true).new(
+          id: content_api_id,
+          work_space_id: work_space_id,
+          name: 'Articles',
+          endpoint: 'articles',
+          api_type: 'list',
+          fields: [field_infra_entity]
+        )
       end
 
       before do
@@ -118,6 +117,58 @@ RSpec.describe Infrastructure::Repository::ContentApi::ContentApiRepository do
       it 'returns nil' do
         expect(repository.find_by_work_space_and_endpoint(work_space_id: work_space_id, endpoint: 'articles')).to be_nil
       end
+    end
+  end
+
+  describe '#get_by_work_space_id' do
+    let(:result) { [infra_entity] }
+
+    before do
+      allow(rom_repo).to receive(:get_by_work_space_id)
+        .with(work_space_id: work_space_id)
+        .and_return(result)
+    end
+
+    it 'returns rom repository result' do
+      expect(repository.get_by_work_space_id(work_space_id: work_space_id)).to eq(result)
+    end
+
+    it 'calls rom repository with workspace id' do
+      repository.get_by_work_space_id(work_space_id: work_space_id)
+      expect(rom_repo).to have_received(:get_by_work_space_id).with(work_space_id: work_space_id)
+    end
+  end
+
+  describe '#get_fields_by_content_api_id' do
+    let(:field_struct) { field_infra_entity }
+
+    def field_domain
+      Infrastructure::Mapper::FieldMapper.field_domain_from_struct(struct: field_struct)
+    end
+
+    before do
+      allow(rom_repo).to receive(:get_by_content_api_id)
+        .with(content_api_id)
+        .and_return([field_struct])
+      allow(Infrastructure::Mapper::FieldMapper)
+        .to receive(:field_domain_from_struct)
+        .with(struct: field_struct)
+        .and_return(field_domain)
+    end
+
+    it 'maps rom structs to domain field entities' do
+      expect(repository.get_fields_by_content_api_id(content_api_id: content_api_id)).to eq([field_domain])
+    end
+
+    it 'calls rom repository to get fields' do
+      repository.get_fields_by_content_api_id(content_api_id: content_api_id)
+      expect(rom_repo).to have_received(:get_by_content_api_id).with(content_api_id)
+    end
+
+    it 'delegates conversion to field mapper' do
+      repository.get_fields_by_content_api_id(content_api_id: content_api_id)
+      expect(Infrastructure::Mapper::FieldMapper)
+        .to have_received(:field_domain_from_struct).with(struct: field_struct)
     end
   end
 

@@ -36,9 +36,41 @@ RSpec.describe 'Router / SinatraSettings / SinatraErrorHandler integration', typ
       expect(last_response.status).to eq(200)
     end
 
+    context 'when in production env' do
+      around do |example|
+        previous_env = ENV.fetch('RACK_ENV', nil)
+        ENV['RACK_ENV'] = 'production'
+        example.run
+      ensure
+        ENV['RACK_ENV'] = previous_env
+      end
+
+      it 'returns 404' do
+        get '/swagger/token'
+        expect(last_response.status).to eq(404)
+      end
+    end
+
     it 'returns user_token and bff_token in non-production env' do
       get '/swagger/token'
       expect(JSON.parse(last_response.body)).to include('user_token', 'bff_token')
+    end
+  end
+
+  describe 'GET /openapi/* (router static file serving coverage)' do
+    it 'returns 404 when file does not exist' do
+      get '/openapi/not_found.yaml'
+      expect(last_response.status).to eq(404)
+    end
+
+    it 'returns 200 when file exists' do
+      get '/openapi/openapi.yaml'
+      expect(last_response.status).to eq(200)
+    end
+
+    it 'returns yaml content-type when file exists' do
+      get '/openapi/openapi.yaml'
+      expect(last_response.headers['Content-Type']).to include('application/yaml')
     end
   end
 

@@ -6,6 +6,10 @@ RSpec.describe ContainerInflector do
   subject(:inflector) { described_class.new }
 
   describe '#camelize' do
+    it 'converts Api part to API' do
+      expect(inflector.camelize('Api')).to eq('API')
+    end
+
     it 'keeps non-Api parts unchanged' do
       expect(inflector.camelize('work_space')).to eq('WorkSpace')
     end

@@ -8,8 +8,7 @@ module Application
       class CreateContentApiUseCase < ContentApiBaseUseCase
         # @rbs (arg: ::Application::Dto::ContentApi::CreateContentApiWithFieldsInputDto) -> ::Application::Dto::ContentApi::ContentApiWithFieldsDto
         def invoke(arg:)
-          rom = resolve('db.config')
-          rom.gateways[:default].transaction do
+          with_transaction do
             execute_create(arg: arg)
           end
         end
@@ -21,8 +20,8 @@ module Application
           content_api_repository = resolve(CONTENT_API_REPOSITORY)
           content_api_service = resolve(CONTENT_API_SERVICE)
 
-          work_space = content_api_service.find_work_space_by_slug(slug: arg.work_space_slug)
-          raise ::Application::Exception::NotFoundException.new(message: 'workspace not found') if work_space.nil?
+          work_space = find_workspace_by_slug!(content_api_service: content_api_service,
+                                               work_space_slug: arg.work_space_slug)
 
           content_api_entity = arg.convert_to_entity(work_space_id: work_space.id.value)
 
@@ -35,22 +34,18 @@ module Application
           )
         end
 
-        # @rbs (
-        #   content_api_service: untyped,
-        #   content_api_entity: ::Domain::Entity::ContentApi::ContentApiEntity
-        # ) -> void
+        # @rbs (content_api_service: untyped, content_api_entity: untyped) -> void
         def validate_uniqueness(content_api_service:, content_api_entity:)
-          if content_api_service.endpoint_exists?(
+          validate_endpoint_uniqueness!(
+            content_api_service: content_api_service,
             work_space_id: content_api_entity.work_space_id.value,
-            endpoint: content_api_entity.endpoint
+            endpoint: content_api_entity.endpoint,
+            exclude_id: nil
           )
-            raise ::Application::Exception::DuplicatedException.new(message: 'endpoint already exists')
-          end
-
-          field_ids = content_api_entity.fields.map(&:field_id)
-          return unless content_api_service.duplicate_field_id?(field_ids: field_ids)
-
-          raise ::Application::Exception::DuplicatedException.new(message: 'field_id must be unique')
+          validate_field_id_uniqueness!(
+            content_api_service: content_api_service,
+            field_ids: content_api_entity.fields.map(&:field_id)
+          )
         end
       end
     end

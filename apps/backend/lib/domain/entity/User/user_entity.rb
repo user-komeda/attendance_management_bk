@@ -10,19 +10,16 @@ module Domain
         UN = ::Domain::ValueObject::User::UserName.freeze
         UE = ::Domain::ValueObject::User::UserEmail.freeze
 
-        attr_reader :id, :user_name, :email, :session_version
+        # rubocop:disable all
+        attr_reader :id #: ::Domain::ValueObject::IdentityId
+        attr_reader :user_name #: ::Domain::ValueObject::User::UserName
+        attr_reader :email #: ::Domain::ValueObject::User::UserEmail
+        attr_reader :session_version #: Integer?
+        # rubocop:enable all
 
-        # : ::Domain::ValueObject::IdentityId
-        # : ::Domain::ValueObject::User::UserName
-        # : ::Domain::ValueObject::User::UserEmail
-        # : Integer?
-
-        # @rbs (
-        #   user_name: ::Domain::ValueObject::User::UserName,
-        #   email: ::Domain::ValueObject::User::UserEmail,
-        #   session_version: Integer?,
-        #   ?id: ::Domain::ValueObject::IdentityId?
-        # ) -> void
+        # rubocop:disable all
+        # @rbs (user_name: ::Domain::ValueObject::User::UserName, email: ::Domain::ValueObject::User::UserEmail, session_version: Integer?, id: ::Domain::ValueObject::IdentityId?) -> void
+        # rubocop:enable all
         def initialize(user_name:, email:, session_version: nil, id: nil)
           @id = id
           @user_name = user_name
@@ -40,19 +37,16 @@ module Domain
 
         def self.build(first_name:, last_name:, email:, session_version: nil)
           new(
+            id: nil,
             user_name: UN.build(first_name, last_name),
             email: UE.build(email),
             session_version: session_version
           )
         end
 
-        # @rbs (
-        #   id: String,
-        #   first_name: String,
-        #   last_name: String,
-        #   email: String,
-        #   session_version: Integer
-        # ) -> UserEntity
+        # rubocop:disable all
+        # @rbs (id: String, first_name: String, last_name: String, email: String, session_version: Integer) -> UserEntity
+        # rubocop:enable all
         def self.build_with_id(id:, first_name:, last_name:, email:, session_version:)
           new(
             id: ID.build(id),
@@ -62,17 +56,9 @@ module Domain
           )
         end
 
-        # @rbs (
-        #   user: Domain::Entity::User::UserEntity,
-        #   auth_user: Domain::Entity::Auth::AuthUserEntity
-        # ) -> {
-        #   user_name: Domain::ValueObject::User::UserName,
-        #   email: Domain::ValueObject::User::UserEmail,
-        #   auth_user: {
-        #     email: Domain::ValueObject::User::UserEmail,
-        #     password_digest: Domain::ValueObject::AuthUser::PasswordDigest
-        #   }
-        # }
+        # rubocop:disable all
+        # @rbs (user: Domain::Entity::User::UserEntity, auth_user: Domain::Entity::Auth::AuthUserEntity) -> Hash[Symbol, untyped]
+        # rubocop:enable all
         def self.build_with_auth_user(user:, auth_user:)
           {
             user_name: user.user_name,

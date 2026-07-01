@@ -43,7 +43,6 @@ RSpec.describe Presentation::Controller::ContentApi::ContentApiController do
     )
   end
 
-
   before do
     allow(controller).to receive(:resolve).and_return(mock_use_case)
   end
@@ -117,18 +116,16 @@ RSpec.describe Presentation::Controller::ContentApi::ContentApiController do
   end
 
   describe '#destroy' do
-    def mock_delete_use_case
-      instance_double(Application::UseCase::ContentApi::DeleteContentApiUseCase)
-    end
+    let(:mock_delete_use_case) { instance_double(Application::UseCase::ContentApi::DeleteContentApiUseCase) }
 
     before do
       allow(controller).to receive(:resolve).and_return(mock_delete_use_case)
-      allow(mock_delete_use_case).to receive(:invoke)
+      allow(mock_delete_use_case).to receive(:invoke).with(arg: content_api_id, work_space_id: work_space_id)
     end
 
     it 'deletes a content_api' do
       controller.destroy(content_api_id, work_space_id)
-      expect(mock_delete_use_case).to have_received(:invoke)
+      expect(mock_delete_use_case).to have_received(:invoke).with(arg: content_api_id, work_space_id: work_space_id)
     end
 
     it 'raises ArgumentError with empty id' do

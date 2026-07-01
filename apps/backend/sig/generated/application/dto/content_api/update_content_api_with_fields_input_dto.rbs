@@ -4,13 +4,15 @@ module Application
   module Dto
     module ContentApi
       class UpdateContentApiWithFieldsInputDto < InputBaseDto
-        attr_reader id: untyped
+        # rubocop:disable all
+        attr_reader id: String
 
-        attr_reader work_space_id: untyped
+        # rubocop:disable all
+        attr_reader work_space_id: String
 
-        attr_reader content_api: untyped
+        attr_reader content_api: ::Application::Dto::ContentApi::UpdateContentApiInputDto
 
-        attr_reader fields: untyped
+        attr_reader fields: Array[::Application::Dto::ContentApi::CreateFieldInputDto]
 
         # @rbs (params: Hash[Symbol, untyped]) -> void
         def initialize: (params: Hash[Symbol, untyped]) -> void

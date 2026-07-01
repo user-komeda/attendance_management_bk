@@ -6,7 +6,9 @@ module Application
   module Dto
     module ContentApi
       class CreateContentApiInputDto < InputBaseDto
-        attr_reader :work_space_id, :name, :endpoint, :api_type # : String
+        # rubocop:disable all
+        attr_reader :work_space_id, :name, :endpoint, :api_type #: String
+        # rubocop:enable all
 
         # @rbs (params: Hash[Symbol, untyped]) -> void
         def initialize(params:)
@@ -23,7 +25,8 @@ module Application
             work_space_id: work_space_id,
             name: name,
             endpoint: endpoint,
-            api_type: api_type
+            api_type: api_type,
+            fields: []
           )
         end
 

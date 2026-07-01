@@ -4,21 +4,16 @@ module Application
   module Dto
     module ContentApi
       class ContentApiWithFieldsDto < BaseDto
-        attr_reader content_api: untyped
+        # rubocop:disable all
+        attr_reader content_api: ::Application::Dto::ContentApi::ContentApiDto
 
-        attr_reader fields: untyped
+        attr_reader fields: Array[::Application::Dto::ContentApi::FieldDto]
 
-        # @rbs (
-        #   content_api: ::Application::Dto::ContentApi::ContentApiDto,
-        #   fields: Array[::Application::Dto::ContentApi::FieldDto]
-        # ) -> void
-        def initialize:
+        # @rbs (content_api: ContentApiDto, fields: Array[FieldDto]) -> void
+        def initialize: (content_api: ContentApiDto, fields: Array[FieldDto]) -> void
 
-        # @rbs (
-        #   content_api_entity: ::Domain::Entity::ContentApi::ContentApiEntity,
-        #   field_entities: Array[::Domain::Entity::ContentApi::FieldEntity]
-        # ) -> ContentApiWithFieldsDto
-        def self.build:
+        # @rbs (content_api_entity: untyped, field_entities: Array[untyped]) -> ContentApiWithFieldsDto
+        def self.build: (content_api_entity: untyped, field_entities: Array[untyped]) -> ContentApiWithFieldsDto
       end
     end
   end

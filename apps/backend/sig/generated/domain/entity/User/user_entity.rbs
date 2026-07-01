@@ -10,48 +10,34 @@ module Domain
 
         UE: untyped
 
-        attr_reader id: untyped
+        # rubocop:disable all
+        attr_reader id: ::Domain::ValueObject::IdentityId
 
-        attr_reader user_name: untyped
+        attr_reader user_name: ::Domain::ValueObject::User::UserName
 
-        attr_reader email: untyped
+        attr_reader email: ::Domain::ValueObject::User::UserEmail
 
-        attr_reader session_version: untyped
+        attr_reader session_version: Integer?
 
-        # @rbs (
-        #   user_name: ::Domain::ValueObject::User::UserName,
-        #   email: ::Domain::ValueObject::User::UserEmail,
-        #   session_version: Integer?,
-        #   ?id: ::Domain::ValueObject::IdentityId?
-        # ) -> void
-        def initialize:
+        # rubocop:disable all
+        # @rbs (user_name: ::Domain::ValueObject::User::UserName, email: ::Domain::ValueObject::User::UserEmail, session_version: Integer?, id: ::Domain::ValueObject::IdentityId?) -> void
+        # rubocop:enable all
+        def initialize: (user_name: ::Domain::ValueObject::User::UserName, email: ::Domain::ValueObject::User::UserEmail, session_version: Integer?, id: ::Domain::ValueObject::IdentityId?) -> void
 
         # @rbs (first_name: String?, last_name: String?, email: String?) -> void
         def change: (first_name: String?, last_name: String?, email: String?) -> void
 
         def self.build: (first_name: untyped, last_name: untyped, email: untyped, ?session_version: untyped) -> untyped
 
-        # @rbs (
-        #   id: String,
-        #   first_name: String,
-        #   last_name: String,
-        #   email: String,
-        #   session_version: Integer
-        # ) -> UserEntity
-        def self.build_with_id:
+        # rubocop:disable all
+        # @rbs (id: String, first_name: String, last_name: String, email: String, session_version: Integer) -> UserEntity
+        # rubocop:enable all
+        def self.build_with_id: (id: String, first_name: String, last_name: String, email: String, session_version: Integer) -> UserEntity
 
-        # @rbs (
-        #   user: Domain::Entity::User::UserEntity,
-        #   auth_user: Domain::Entity::Auth::AuthUserEntity
-        # ) -> {
-        #   user_name: Domain::ValueObject::User::UserName,
-        #   email: Domain::ValueObject::User::UserEmail,
-        #   auth_user: {
-        #     email: Domain::ValueObject::User::UserEmail,
-        #     password_digest: Domain::ValueObject::AuthUser::PasswordDigest
-        #   }
-        # }
-        def self.build_with_auth_user:
+        # rubocop:disable all
+        # @rbs (user: Domain::Entity::User::UserEntity, auth_user: Domain::Entity::Auth::AuthUserEntity) -> Hash[Symbol, untyped]
+        # rubocop:enable all
+        def self.build_with_auth_user: (user: Domain::Entity::User::UserEntity, auth_user: Domain::Entity::Auth::AuthUserEntity) -> Hash[Symbol, untyped]
 
         private
 

@@ -6,7 +6,9 @@ module Application
   module Dto
     module ContentApi
       class UpdateContentApiInputDto < InputBaseDto
-        attr_reader :name, :endpoint, :api_type # : String
+        # rubocop:disable all
+        attr_reader :name, :endpoint, :api_type #: String
+        # rubocop:enable all
 
         # @rbs (params: Hash[Symbol, untyped]) -> void
         def initialize(params:)

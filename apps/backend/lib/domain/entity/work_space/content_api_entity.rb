@@ -8,21 +8,17 @@ module Domain
       class ContentApiEntity < DomainEntity
         ID = ::Domain::ValueObject::IdentityId.freeze
 
-        attr_reader :id, :work_space_id, :name, :endpoint, :api_type
+        # rubocop:disable all
+        attr_reader :id #: ::Domain::ValueObject::IdentityId
+        attr_reader :work_space_id #: ::Domain::ValueObject::IdentityId
+        attr_reader :name #: String
+        attr_reader :endpoint #: String
+        attr_reader :api_type #: String
+        # rubocop:enable all
 
-        # : ::Domain::ValueObject::IdentityId
-        # : ::Domain::ValueObject::IdentityId
-        # : String
-        # : String
-        # : String
-
-        # @rbs (
-        #   work_space_id: ::Domain::ValueObject::IdentityId,
-        #   name: String,
-        #   endpoint: String,
-        #   api_type: String,
-        #   ?id: ::Domain::ValueObject::IdentityId?
-        # ) -> void
+        # rubocop:disable all
+        # @rbs (work_space_id: ::Domain::ValueObject::IdentityId, name: String, endpoint: String, api_type: String, id: ::Domain::ValueObject::IdentityId?) -> void
+        # rubocop:enable all
         def initialize(work_space_id:, name:, endpoint:, api_type:, id: nil)
           super()
           @id = id
@@ -35,6 +31,7 @@ module Domain
         # @rbs (work_space_id: String, name: String, endpoint: String, api_type: String) -> ContentApiEntity
         def self.build(work_space_id:, name:, endpoint:, api_type:)
           new(
+            id: nil,
             work_space_id: ID.build(work_space_id),
             name: name,
             endpoint: endpoint,
@@ -42,13 +39,7 @@ module Domain
           )
         end
 
-        # @rbs (
-        #   id: String,
-        #   work_space_id: String,
-        #   name: String,
-        #   endpoint: String,
-        #   api_type: String
-        # ) -> ContentApiEntity
+        # @rbs (id: String, work_space_id: String, name: String, endpoint: String, api_type: String) -> ContentApiEntity
         def self.build_with_id(id:, work_space_id:, name:, endpoint:, api_type:)
           new(
             id: ID.build(id),

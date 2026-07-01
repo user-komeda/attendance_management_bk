@@ -8,14 +8,14 @@ module Domain
       class ContentApiEntity < DomainEntity
         ID = ::Domain::ValueObject::IdentityId.freeze
 
-        attr_reader :id, :work_space_id, :name, :endpoint, :api_type, :fields
-
-        # : ::Domain::ValueObject::IdentityId
-        # : ::Domain::ValueObject::IdentityId
-        # : String
-        # : String
-        # : String
-        # : Array[::Domain::Entity::ContentApi::FieldEntity]
+        # rubocop:disable all
+        attr_reader :id #: ::Domain::ValueObject::IdentityId
+        attr_reader :work_space_id #: ::Domain::ValueObject::IdentityId
+        attr_reader :name #: String
+        attr_reader :endpoint #: String
+        attr_reader :api_type #: String
+        attr_reader :fields #: Array[::Domain::Entity::ContentApi::FieldEntity]
+        # rubocop:enable all
 
         # @rbs (params: Hash[Symbol, untyped]) -> void
         def initialize(params:)
@@ -28,27 +28,33 @@ module Domain
           @fields = params.fetch(:fields, [])
         end
 
-        # @rbs (params: Hash[Symbol, untyped]) -> ContentApiEntity
-        def self.build(work_space_id:, name:, endpoint:, api_type:, fields: [])
-          new(params: {
-                work_space_id: ID.build(work_space_id),
-                name: name,
-                endpoint: endpoint,
-                api_type: api_type,
-                fields: fields
-              })
+        # rubocop:disable all
+        # @rbs (work_space_id: String, name: String, endpoint: String, api_type: String, fields: Array[::Domain::Entity::ContentApi::FieldEntity]) -> ContentApiEntity
+        # rubocop:enable all
+        def self.build(**params)
+          new(params: build_params(params: params))
         end
 
-        # @rbs (params: Hash[Symbol, untyped]) -> ContentApiEntity
-        def self.build_with_id(attrs)
-          new(params: {
-                id: ID.build(attrs.fetch(:id)),
-                work_space_id: ID.build(attrs.fetch(:work_space_id)),
-                name: attrs.fetch(:name),
-                endpoint: attrs.fetch(:endpoint),
-                api_type: attrs.fetch(:api_type),
-                fields: attrs.fetch(:fields, [])
-              })
+        # rubocop:disable all
+        # @rbs (id: String, work_space_id: String, name: String, endpoint: String, api_type: String, fields: Array[::Domain::Entity::ContentApi::FieldEntity]) -> ContentApiEntity
+        # rubocop:enable all
+        def self.build_with_id(**params)
+          new(params: build_params(params: params).merge(id: ID.build(params.fetch(:id))))
+        end
+
+        class << self
+          private
+
+          # @rbs (params: Hash[Symbol, untyped]) -> Hash[Symbol, untyped]
+          def build_params(params:)
+            {
+              work_space_id: ID.build(params.fetch(:work_space_id)),
+              name: params.fetch(:name),
+              endpoint: params.fetch(:endpoint),
+              api_type: params.fetch(:api_type),
+              fields: params.fetch(:fields, [])
+            }
+          end
         end
       end
     end

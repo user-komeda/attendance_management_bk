@@ -6,26 +6,34 @@ module Domain
       class ContentApiEntity < DomainEntity
         ID: untyped
 
-        attr_reader id: untyped
+        # rubocop:disable all
+        attr_reader id: ::Domain::ValueObject::IdentityId
 
-        attr_reader work_space_id: untyped
+        attr_reader work_space_id: ::Domain::ValueObject::IdentityId
 
-        attr_reader name: untyped
+        attr_reader name: String
 
-        attr_reader endpoint: untyped
+        attr_reader endpoint: String
 
-        attr_reader api_type: untyped
+        attr_reader api_type: String
 
-        attr_reader fields: untyped
+        attr_reader fields: Array[::Domain::Entity::ContentApi::FieldEntity]
 
         # @rbs (params: Hash[Symbol, untyped]) -> void
         def initialize: (params: Hash[Symbol, untyped]) -> void
 
-        # @rbs (params: Hash[Symbol, untyped]) -> ContentApiEntity
-        def self.build: (params: Hash[Symbol, untyped]) -> ContentApiEntity
+        # rubocop:disable all
+        # @rbs (work_space_id: String, name: String, endpoint: String, api_type: String, fields: Array[::Domain::Entity::ContentApi::FieldEntity]) -> ContentApiEntity
+        # rubocop:enable all
+        def self.build: (work_space_id: String, name: String, endpoint: String, api_type: String, fields: Array[::Domain::Entity::ContentApi::FieldEntity]) -> ContentApiEntity
 
-        # @rbs (params: Hash[Symbol, untyped]) -> ContentApiEntity
-        def self.build_with_id: (params: Hash[Symbol, untyped]) -> ContentApiEntity
+        # rubocop:disable all
+        # @rbs (id: String, work_space_id: String, name: String, endpoint: String, api_type: String, fields: Array[::Domain::Entity::ContentApi::FieldEntity]) -> ContentApiEntity
+        # rubocop:enable all
+        def self.build_with_id: (id: String, work_space_id: String, name: String, endpoint: String, api_type: String, fields: Array[::Domain::Entity::ContentApi::FieldEntity]) -> ContentApiEntity
+
+        # @rbs (params: Hash[Symbol, untyped]) -> Hash[Symbol, untyped]
+        private def self.build_params: (params: Hash[Symbol, untyped]) -> Hash[Symbol, untyped]
       end
     end
   end

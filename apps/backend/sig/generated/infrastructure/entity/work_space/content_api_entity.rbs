@@ -3,6 +3,7 @@
 module Infrastructure
   module Entity
     module WorkSpace
+      # WorkSpace に紐づく ContentApi の永続化データを Domain Entity に変換する ROM Struct です。
       class ContentApiEntity < BaseEntity
         attr_reader id: String
 

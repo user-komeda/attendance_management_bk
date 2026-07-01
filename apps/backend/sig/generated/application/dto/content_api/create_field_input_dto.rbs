@@ -4,21 +4,27 @@ module Application
   module Dto
     module ContentApi
       class CreateFieldInputDto < InputBaseDto
-        attr_reader field_id: untyped
+        # @rbs DEFAULT_SETTINGS: Hash[Symbol, untyped]
+        DEFAULT_SETTINGS: untyped
 
-        attr_reader display_name: untyped
+        # rubocop:disable all
+        attr_reader field_id: String
 
-        attr_reader field_type: untyped
+        # rubocop:disable all
+        attr_reader display_name: String
 
-        attr_reader required: untyped
+        # rubocop:disable all
+        attr_reader field_type: String
 
-        attr_reader unique_value: untyped
+        attr_reader required: bool
 
-        attr_reader is_active: untyped
+        attr_reader unique_value: bool
 
-        attr_reader order_index: untyped
+        attr_reader is_active: bool
 
-        attr_reader settings: untyped
+        attr_reader order_index: Integer
+
+        attr_reader settings: Hash[Symbol, untyped]
 
         # @rbs (params: Hash[Symbol, untyped]) -> void
         def initialize: (params: Hash[Symbol, untyped]) -> void
@@ -29,6 +35,15 @@ module Application
         private
 
         def build_field_params: () -> untyped
+
+        # @rbs (content_api_id: String, field_params: Hash[Symbol, untyped]) -> ::Domain::Entity::ContentApi::FieldEntity
+        def build_entity: (content_api_id: String, field_params: Hash[Symbol, untyped]) -> ::Domain::Entity::ContentApi::FieldEntity
+
+        # @rbs (field_params: Hash[Symbol, untyped]) -> ::Domain::Entity::ContentApi::FieldEntity
+        def build_without_content_api_id: (field_params: Hash[Symbol, untyped]) -> ::Domain::Entity::ContentApi::FieldEntity
+
+        # @rbs (content_api_id: String, field_params: Hash[Symbol, untyped]) -> ::Domain::Entity::ContentApi::FieldEntity
+        def build_with_content_api_id: (content_api_id: String, field_params: Hash[Symbol, untyped]) -> ::Domain::Entity::ContentApi::FieldEntity
       end
     end
   end

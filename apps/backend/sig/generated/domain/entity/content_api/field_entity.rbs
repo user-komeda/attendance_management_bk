@@ -27,10 +27,8 @@ module Domain
 
         attr_reader settings: Hash[Symbol, untyped]
 
-        # rubocop:disable all
-        # @rbs (content_api_id: ::Domain::ValueObject::IdentityId, field_id: String, display_name: String, field_type: String, required: bool, unique_value: bool, order_index: Integer, is_active: bool, settings: Hash[Symbol, untyped], ?id: ::Domain::ValueObject::IdentityId?) -> void
-        # rubocop:enable all
-        def initialize: (content_api_id: ::Domain::ValueObject::IdentityId, field_id: String, display_name: String, field_type: String, required: bool, unique_value: bool, order_index: Integer, is_active: bool, settings: Hash[Symbol, untyped], ?id: ::Domain::ValueObject::IdentityId?) -> void
+        # @rbs (params: Hash[Symbol, untyped]) -> void
+        def initialize: (params: Hash[Symbol, untyped]) -> void
 
         # rubocop:disable all
         # @rbs (content_api_id: String, field_id: String, display_name: String, field_type: String, required: bool, unique_value: bool, order_index: Integer, is_active: bool, settings: Hash[Symbol, untyped]) -> FieldEntity
@@ -46,6 +44,11 @@ module Domain
         # @rbs (id: String, content_api_id: String, field_id: String, display_name: String, field_type: String, required: bool, unique_value: bool, order_index: Integer, is_active: bool, settings: Hash[Symbol, untyped]) -> FieldEntity
         # rubocop:enable all
         def self.build_with_id: (id: String, content_api_id: String, field_id: String, display_name: String, field_type: String, required: bool, unique_value: bool, order_index: Integer, is_active: bool, settings: Hash[Symbol, untyped]) -> FieldEntity
+
+        # rubocop:disable all
+        # @rbs (params: Hash[Symbol, untyped], content_api_id: ::Domain::ValueObject::IdentityId) -> Hash[Symbol, untyped]
+        # rubocop:enable all
+        private def self.build_params: (params: Hash[Symbol, untyped], content_api_id: ::Domain::ValueObject::IdentityId) -> Hash[Symbol, untyped]
       end
     end
   end

@@ -4,37 +4,26 @@ module Presentation
   module Response
     module ContentApi
       class ContentResponse < Presentation::Response::BaseResponse
-        # rubocop:disable Layout/LeadingCommentSpace
         attr_reader id: untyped
 
-        # rubocop:disable Layout/LeadingCommentSpace
         attr_reader content_api_id: untyped
 
-        # rubocop:disable Layout/LeadingCommentSpace
         attr_reader content_id: untyped
 
-        # rubocop:disable Layout/LeadingCommentSpace
         attr_reader status: untyped
 
-        # rubocop:disable Layout/LeadingCommentSpace
         attr_reader data: untyped
 
-        # rubocop:disable Layout/LeadingCommentSpace
         attr_reader published_at: untyped
 
-        # rubocop:disable Layout/LeadingCommentSpace
         attr_reader closed_at: untyped
 
-        # rubocop:disable Layout/LeadingCommentSpace
         attr_reader created_by_id: untyped
 
-        # rubocop:disable Layout/LeadingCommentSpace
         attr_reader updated_by_id: untyped
 
-        # rubocop:disable Layout/LineLength
-        # @rbs (id: String, content_api_id: String, content_id: String, status: String, data: Hash[Symbol, untyped], published_at: untyped, closed_at: untyped, created_by_id: String?, updated_by_id: String?) -> void
-        # rubocop:enable Layout/LineLength
-        def initialize: (id: String, content_api_id: String, content_id: String, status: String, data: Hash[Symbol, untyped], published_at: untyped, closed_at: untyped, created_by_id: String?, updated_by_id: String?) -> void
+        # @rbs (params: Hash[Symbol, untyped]) -> void
+        def initialize: (params: Hash[Symbol, untyped]) -> void
 
         # @rbs (content: untyped) -> Hash[Symbol, untyped]
         def self.build: (content: untyped) -> Hash[Symbol, untyped]
@@ -42,10 +31,8 @@ module Presentation
         # @rbs (content_list: Array[untyped]) -> Array[Hash[Symbol, untyped]]
         def self.build_from_array: (content_list: Array[untyped]) -> Array[Hash[Symbol, untyped]]
 
-        # rubocop:disable Layout/LineLength
-        # @rbs () -> {id: String, content_api_id: String, content_id: String, status: String, data: Hash[Symbol, untyped], published_at: untyped, closed_at: untyped, created_by_id: String?, updated_by_id: String?}
-        # rubocop:enable Layout/LineLength
-        def to_h: () -> { id: String, content_api_id: String, content_id: String, status: String, data: Hash[Symbol, untyped], published_at: untyped, closed_at: untyped, created_by_id: String?, updated_by_id: String? }
+        # @rbs () -> Hash[Symbol, untyped]
+        def to_h: () -> Hash[Symbol, untyped]
       end
     end
   end

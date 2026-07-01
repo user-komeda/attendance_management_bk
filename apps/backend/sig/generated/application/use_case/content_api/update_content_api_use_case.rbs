@@ -12,11 +12,34 @@ module Application
         # @rbs (dto: ::Application::Dto::ContentApi::UpdateContentApiWithFieldsInputDto) -> ::Application::Dto::ContentApi::ContentApiWithFieldsDto
         def execute_update: (dto: ::Application::Dto::ContentApi::UpdateContentApiWithFieldsInputDto) -> ::Application::Dto::ContentApi::ContentApiWithFieldsDto
 
-        # @rbs (content_api_service: untyped, content_api: untyped, dto: ::Application::Dto::ContentApi::UpdateContentApiWithFieldsInputDto, id: String) -> void
-        def validate_update_uniqueness: (content_api_service: untyped, content_api: untyped, dto: ::Application::Dto::ContentApi::UpdateContentApiWithFieldsInputDto, id: String) -> void
+        # @rbs (dto: ::Application::Dto::ContentApi::UpdateContentApiWithFieldsInputDto) -> ::Application::UseCase::ContentApi::UpdateContentApiContext
+        def build_update_context: (dto: ::Application::Dto::ContentApi::UpdateContentApiWithFieldsInputDto) -> ::Application::UseCase::ContentApi::UpdateContentApiContext
 
-        # @rbs (content_api: untyped, dto: ::Application::Dto::ContentApi::UpdateContentApiWithFieldsInputDto, id: String) -> ::Domain::Entity::ContentApi::ContentApiEntity
-        def build_updated_entity: (content_api: untyped, dto: ::Application::Dto::ContentApi::UpdateContentApiWithFieldsInputDto, id: String) -> ::Domain::Entity::ContentApi::ContentApiEntity
+        # rubocop:disable all
+        # @rbs (dto: ::Application::Dto::ContentApi::UpdateContentApiWithFieldsInputDto, context: ::Application::UseCase::ContentApi::UpdateContentApiContext) -> void
+        # rubocop:enable all
+        def validate_update_context!: (dto: ::Application::Dto::ContentApi::UpdateContentApiWithFieldsInputDto, context: ::Application::UseCase::ContentApi::UpdateContentApiContext) -> void
+
+        # @rbs (context: ::Application::UseCase::ContentApi::UpdateContentApiContext) -> ::Application::Dto::ContentApi::ContentApiWithFieldsDto
+        def update_and_build_response: (context: ::Application::UseCase::ContentApi::UpdateContentApiContext) -> ::Application::Dto::ContentApi::ContentApiWithFieldsDto
+
+        # @rbs (content_api_service: untyped, content_api: untyped, dto: untyped, id: String) -> void
+        def validate_update_uniqueness: (content_api_service: untyped, content_api: untyped, dto: untyped, id: String) -> void
+
+        # @rbs (content_api: untyped, id: String, content_api_dto: untyped, field_entities: Array[untyped]) -> ::Domain::Entity::ContentApi::ContentApiEntity
+        def build_updated_entity: (content_api: untyped, id: String, content_api_dto: untyped, field_entities: Array[untyped]) -> ::Domain::Entity::ContentApi::ContentApiEntity
+
+        # @rbs () -> untyped
+        def content_api_repository: () -> untyped
+
+        # @rbs () -> untyped
+        def content_api_service: () -> untyped
+
+        # @rbs (content_api_service: untyped, content_api: untyped, work_space_id: String) -> void
+        def validate_workspace: (content_api_service: untyped, content_api: untyped, work_space_id: String) -> void
+
+        # @rbs (content_api_service: untyped, content_api: untyped, work_space_id: String) -> void
+        def validate_workspace!: (content_api_service: untyped, content_api: untyped, work_space_id: String) -> void
       end
     end
   end

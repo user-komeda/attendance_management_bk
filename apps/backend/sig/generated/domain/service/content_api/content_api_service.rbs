@@ -15,6 +15,11 @@ module Domain
 
         # @rbs (slug: String) -> Domain::Entity::WorkSpace::WorkSpaceEntity?
         def find_work_space_by_slug: (slug: String) -> Domain::Entity::WorkSpace::WorkSpaceEntity?
+
+        private
+
+        # @rbs (work_space_id: String, endpoint: String) -> untyped
+        def find_by_work_space_and_endpoint: (work_space_id: String, endpoint: String) -> untyped
       end
     end
   end

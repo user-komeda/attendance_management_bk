@@ -13,12 +13,9 @@ module Presentation
         # : Hash[Symbol, String]
         # : Array[String]
 
-        # @rbs (
-        #   id: String,
-        #   work_spaces: Hash[Symbol, String],
-        #   member_ships: Hash[Symbol, String],
-        #   content_api_names: Array[String]
-        # ) -> void
+        # rubocop:disable all
+        # @rbs (id: String, work_spaces: Hash[Symbol, String], member_ships: Hash[Symbol, String], content_api_names: Array[String]) -> void
+        # rubocop:enable all
         def initialize(id:, work_spaces:, member_ships:, content_api_names:)
           super()
           @id = id
@@ -27,12 +24,9 @@ module Presentation
           @content_api_names = content_api_names
         end
 
-        # @rbs (
-        #   id: String,
-        #   member_ships: Application::Dto::WorkSpace::MemberShipsDto,
-        #   work_spaces: Application::Dto::WorkSpace::WorkSpaceDto,
-        #   content_api_names: Array[String]
-        # ) -> Hash[Symbol, untyped]
+        # rubocop:disable all
+        # @rbs (id: String, member_ships: Application::Dto::WorkSpace::MemberShipsDto, work_spaces: Application::Dto::WorkSpace::WorkSpaceDto, content_api_names: Array[String]) -> Hash[Symbol, untyped]
+        # rubocop:enable all
         def self.build(id:, member_ships:, work_spaces:, content_api_names:)
           new(
             id: id,

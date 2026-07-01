@@ -6,7 +6,8 @@ module Application
   module Dto
     module WorkSpace
       class UpdateWorkSpaceInputDto < InputBaseDto
-        attr_reader :id, :name, :slug # :String
+        # rubocop:disable all
+        attr_reader :id, :name, :slug #: String
         # rubocop:enable all
 
         # @rbs (id: String, name: String, slug: String) -> void

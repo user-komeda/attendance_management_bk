@@ -6,35 +6,17 @@ module Presentation
   module Request
     module ContentApi
       class CreateFieldRequest < FieldBaseRequest
+        # @rbs DEFAULT_SETTINGS: Hash[Symbol, untyped]
+        DEFAULT_SETTINGS = { default: nil }.compact.freeze
         # @rbs (params: Hash[Symbol, untyped]) -> void
-        # rubocop:enable all
         def initialize(params:)
           super()
-          @field_id = params[:field_id]
-          @display_name = params[:display_name]
-          @field_type = params[:field_type]
-          @required = params.fetch(:required, false)
-          @unique_value = params.fetch(:unique_value, false)
-          @order_index = params.fetch(:order_index, 0)
-          @is_active = params.fetch(:is_active, true)
-          default_settings = {} # : Hash[Symbol, untyped]
-          @settings = params.fetch(:settings, default_settings)
+          apply_attributes(params: normalize_params(params: params))
         end
 
         # @rbs () -> ::Application::Dto::ContentApi::CreateFieldInputDto
         def convert_to_dto
-          CREATE_INPUT_DTO.new(
-            params: {
-              field_id: @field_id,
-              display_name: @display_name,
-              field_type: @field_type,
-              required: @required,
-              unique_value: @unique_value,
-              order_index: @order_index,
-              is_active: @is_active,
-              settings: @settings
-            }
-          )
+          CREATE_INPUT_DTO.new(params: dto_params)
         end
 
         # @rbs (params: Hash[Symbol, untyped]) -> CreateFieldRequest
@@ -48,11 +30,34 @@ module Presentation
 
           # @rbs (params: Hash[Symbol, untyped]) -> void
           def validate(params:)
-            result = FieldBaseRequest::CREATE_CONTRACT.new.call(params)
-            return unless result.failure?
-
-            raise ::Presentation::Exception::BadRequestException.new(message: result.errors.to_h.to_json)
+            validate_or_raise!(contract: FieldBaseRequest::CREATE_CONTRACT, params: params)
           end
+        end
+
+        private
+
+        # @rbs (params: Hash[Symbol, untyped]) -> void
+        def apply_attributes(params:)
+          @params = params
+        end
+
+        # @rbs (params: Hash[Symbol, untyped]) -> Hash[Symbol, untyped]
+        def normalize_params(params:)
+          {
+            field_id: params[:field_id],
+            display_name: params[:display_name],
+            field_type: params[:field_type],
+            required: params.fetch(:required, false),
+            unique_value: params.fetch(:unique_value, false),
+            order_index: params.fetch(:order_index, 0),
+            is_active: params.fetch(:is_active, true),
+            settings: params.fetch(:settings, DEFAULT_SETTINGS)
+          }
+        end
+
+        # @rbs () -> Hash[Symbol, untyped]
+        def dto_params
+          @params
         end
       end
     end

@@ -3,6 +3,7 @@
 module Infrastructure
   module Entity
     module ContentApi
+      # ContentApi Field の永続化データを Domain Entity に変換する ROM Struct です。
       class FieldEntity < BaseEntity
         attr_reader id: String
 

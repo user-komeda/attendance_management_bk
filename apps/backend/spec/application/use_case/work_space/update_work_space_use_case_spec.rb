@@ -92,4 +92,14 @@ RSpec.describe Application::UseCase::WorkSpace::UpdateWorkSpaceUseCase do
       end
     end
   end
+
+  describe '#validate_uniqueness' do
+    it 'delegates to validate_uniqueness! private method' do
+      allow(use_case).to receive(:validate_uniqueness!).and_return(nil)
+
+      use_case.send(:validate_uniqueness, new_slug: 'new-slug', current_slug: 'old-slug')
+
+      expect(use_case).to have_received(:validate_uniqueness!).with(new_slug: 'new-slug', current_slug: 'old-slug')
+    end
+  end
 end

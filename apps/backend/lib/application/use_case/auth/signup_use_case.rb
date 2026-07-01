@@ -19,42 +19,37 @@ module Application
         # @rbs (input_dto: ::Application::Dto::Auth::SignupInputDto) -> untyped
         def check_duplicate!(input_dto:)
           service_caller = resolve(SERVICE_KEY)
-          return unless service_caller.exist?(email: input_dto.email)
+          email = input_dto.email
+          return unless service_caller.exist?(email: email)
 
           raise ::Application::Exception::DuplicatedException.new(message: 'User already exists')
         end
 
-        # @rbs (
-        #   input_dto: ::Application::Dto::Auth::SignupInputDto
-        # ) -> {
-        #   user_entity: Domain::Entity::User::UserEntity,
-        #   auth_user_entity: Domain::Entity::Auth::AuthUserEntity
-        # }
+        # @rbs (input_dto: ::Application::Dto::Auth::SignupInputDto) -> untyped
+        def check_duplicate(input_dto:)
+          check_duplicate!(input_dto: input_dto)
+        end
+
+        # @rbs (input_dto: ::Application::Dto::Auth::SignupInputDto) -> Hash[Symbol, untyped]
         def build_entities(input_dto:)
-          user_entity = UserEntity.build(
+          email = input_dto.email
+
+          user_entity = ::Domain::Entity::User::UserEntity.build(
             first_name: input_dto.first_name,
             last_name: input_dto.last_name,
-            email: input_dto.email
+            email: email
           )
 
-          auth_user_entity = AuthUserEntity.build(
-            {
-              password: input_dto.password,
-              email: input_dto.email
-            }
-          )
+          auth_user_entity = ::Domain::Entity::Auth::AuthUserEntity.build(attrs: {
+                                                                            password: input_dto.password,
+                                                                            email: email
+                                                                          })
           { user_entity: user_entity, auth_user_entity: auth_user_entity }
         end
 
-        # @rbs (
-        #   user_entity: Domain::Entity::User::UserEntity,
-        #   auth_user_entity: Domain::Entity::Auth::AuthUserEntity
-        # ) -> {
-        #   user_entity: Domain::Entity::User::UserEntity,
-        #   auth_user_entity: Domain::Entity::Auth::AuthUserEntity
-        # }
+        # @rbs (user_entity: ::Domain::Entity::User::UserEntity, auth_user_entity: untyped) -> Hash[Symbol, untyped]
         def persist(user_entity:, auth_user_entity:)
-          user_with_auth_user = UserEntity.build_with_auth_user(
+          user_with_auth_user = ::Domain::Entity::User::UserEntity.build_with_auth_user(
             user: user_entity,
             auth_user: auth_user_entity
           )
@@ -62,12 +57,7 @@ module Application
           user_repository.create_with_auth_user(user_with_auth_user: user_with_auth_user)
         end
 
-        # @rbs (
-        #   result: {
-        #     user_entity: Domain::Entity::User::UserEntity,
-        #     auth_user_entity: Domain::Entity::Auth::AuthUserEntity
-        #   }
-        # ) -> Application::Dto::Auth::AuthOutputDto
+        # @rbs (result: Hash[Symbol, untyped]) -> Application::Dto::Auth::AuthOutputDto
         def build_output_dto(result:)
           AUTH_OUTPUT_DTO.build(
             id: result[:user_entity].id.value,
