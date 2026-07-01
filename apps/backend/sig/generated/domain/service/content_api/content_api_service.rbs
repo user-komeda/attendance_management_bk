@@ -1,0 +1,26 @@
+# Generated from lib/domain/service/content_api/content_api_service.rb with RBS::Inline
+
+module Domain
+  module Service
+    module ContentApi
+      class ContentApiService < ContentApiBaseService
+        # @rbs (work_space_id: String, endpoint: String) -> bool
+        def endpoint_exists?: (work_space_id: String, endpoint: String) -> bool
+
+        # @rbs (work_space_id: String, endpoint: String, exclude_id: String) -> bool
+        def endpoint_exists_excluding?: (work_space_id: String, endpoint: String, exclude_id: String) -> bool
+
+        # @rbs (field_ids: Array[String]) -> bool
+        def duplicate_field_id?: (field_ids: Array[String]) -> bool
+
+        # @rbs (slug: String) -> Domain::Entity::WorkSpace::WorkSpaceEntity?
+        def find_work_space_by_slug: (slug: String) -> Domain::Entity::WorkSpace::WorkSpaceEntity?
+
+        private
+
+        # @rbs (work_space_id: String, endpoint: String) -> untyped
+        def find_by_work_space_and_endpoint: (work_space_id: String, endpoint: String) -> untyped
+      end
+    end
+  end
+end

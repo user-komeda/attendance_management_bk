@@ -1,0 +1,12 @@
+# Generated from lib/application/use_case/content_api/delete_content_api_use_case.rb with RBS::Inline
+
+module Application
+  module UseCase
+    module ContentApi
+      class DeleteContentApiUseCase < ContentApiBaseUseCase
+        # @rbs (arg: String, work_space_id: String) -> void
+        def invoke: (arg: String, work_space_id: String) -> void
+      end
+    end
+  end
+end

@@ -1,0 +1,8 @@
+module Infrastructure
+  module Repository
+    module ContentApi
+      class ContentApiBaseRepository < RepositoryBase
+      end
+    end
+  end
+end

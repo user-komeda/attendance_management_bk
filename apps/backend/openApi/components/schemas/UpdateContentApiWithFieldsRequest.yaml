@@ -1,0 +1,35 @@
+type: object
+description: コンテンツAPI更新リクエスト
+properties:
+  name:
+    type: string
+    description: コンテンツAPIの名前
+  endpoint:
+    type: string
+    description: エンドポイント名
+  api_type:
+    type: string
+    description: APIタイプ
+  fields:
+    type: array
+    items:
+      type: object
+      properties:
+        field_id:
+          type: string
+        display_name:
+          type: string
+        field_type:
+          type: string
+        required:
+          type: boolean
+        unique_value:
+          type: boolean
+        order_index:
+          type: integer
+        is_active:
+          type: boolean
+        settings:
+          type: object
+          additionalProperties: true
+      required: [ field_id, display_name, field_type ]

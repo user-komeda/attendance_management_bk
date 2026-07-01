@@ -1,0 +1,17 @@
+# Generated from lib/infrastructure/mapper/field_mapper.rb with RBS::Inline
+
+module Infrastructure
+  module Mapper
+    # ContentApi Field の Infrastructure オブジェクトと Domain Entity の変換を担当します。
+    class FieldMapper
+      # @rbs (struct: untyped) -> ::Domain::Entity::ContentApi::FieldEntity
+      def self.field_domain_from_struct: (struct: untyped) -> ::Domain::Entity::ContentApi::FieldEntity
+
+      # @rbs (domain: ::Domain::Entity::ContentApi::FieldEntity, content_api_id: String) -> Hash[Symbol, untyped]
+      def self.field_infra_attributes_from_domain: (domain: ::Domain::Entity::ContentApi::FieldEntity, content_api_id: String) -> Hash[Symbol, untyped]
+
+      # @rbs (domain: ::Domain::Entity::ContentApi::FieldEntity) -> String
+      private def self.resolved_field_id: (domain: ::Domain::Entity::ContentApi::FieldEntity) -> String
+    end
+  end
+end

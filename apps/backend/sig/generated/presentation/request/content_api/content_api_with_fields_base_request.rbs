@@ -1,0 +1,16 @@
+# Generated from lib/presentation/request/content_api/content_api_with_fields_base_request.rb with RBS::Inline
+
+module Presentation
+  module Request
+    module ContentApi
+      class ContentApiWithFieldsBaseRequest < BaseRequest
+        # rubocop:disable all
+        attr_reader content_api: CreateContentApiRequest
+
+        attr_reader fields: Array[CreateFieldRequest]
+
+        CREATE_INPUT_DTO: untyped
+      end
+    end
+  end
+end

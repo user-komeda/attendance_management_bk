@@ -68,7 +68,7 @@ RSpec.describe 'WorkSpace API integration', type: :request do
       post '/work_spaces', { name: 'WS1', slug: "ws1-#{SecureRandom.uuid}" }.to_json, auth_headers
     end
 
-    it 'returns a list of workspaces' do
+    it 'returns a list of contentApi' do
       get '/work_spaces', nil, auth_headers
       expect_workspace_list
     end
@@ -88,13 +88,14 @@ RSpec.describe 'WorkSpace API integration', type: :request do
   end
 
   describe 'GET /work_spaces/:id' do
-    let(:workspace_id) do
-      post '/work_spaces', { name: 'WS Detail', slug: "ws-detail-#{SecureRandom.uuid}" }.to_json, auth_headers
+    let(:workspace_slug) { "ws-detail-#{SecureRandom.hex(4)}" }
+    let!(:workspace_id) do
+      post '/work_spaces', { name: 'WS Detail', slug: workspace_slug }.to_json, auth_headers
       JSON.parse(last_response.body)['id']
     end
 
     it 'returns workspace details' do
-      get "/work_spaces/#{workspace_id}", nil, auth_headers
+      get "/work_spaces/#{workspace_slug}", nil, auth_headers
       aggregate_failures do
         expect(last_response.status).to eq(200)
         expect(JSON.parse(last_response.body)['id']).to eq(workspace_id)
@@ -102,38 +103,40 @@ RSpec.describe 'WorkSpace API integration', type: :request do
     end
 
     it 'returns 404 for non-existent workspace' do
-      get "/work_spaces/#{SecureRandom.uuid}", nil, auth_headers
+      get '/work_spaces/nonexistent-slug', nil, auth_headers
       expect(last_response.status).to eq(404)
     end
   end
 
   describe 'PATCH /work_spaces/:id' do
-    let(:workspace_id) do
-      post '/work_spaces', { name: 'Old Name', slug: "old-slug-#{SecureRandom.uuid}" }.to_json, auth_headers
-      JSON.parse(last_response.body)['id']
+    let(:workspace_slug) { "old-slug-#{SecureRandom.hex(4)}" }
+
+    before do
+      post '/work_spaces', { name: 'Old Name', slug: workspace_slug }.to_json, auth_headers
     end
 
     it 'updates the workspace' do
-      patch "/work_spaces/#{workspace_id}", { name: 'New Name' }.to_json, auth_headers
+      patch "/work_spaces/#{workspace_slug}", { name: 'New Name' }.to_json, auth_headers
       expect(last_response.status).to eq(204)
     end
   end
 
   describe 'DELETE /work_spaces/:id' do
-    let(:workspace_id) do
-      post '/work_spaces', { name: 'To Be Deleted', slug: "delete-#{SecureRandom.uuid}" }.to_json, auth_headers
-      JSON.parse(last_response.body)['id']
+    let(:workspace_slug) { "delete-#{SecureRandom.hex(4)}" }
+
+    before do
+      post '/work_spaces', { name: 'To Be Deleted', slug: workspace_slug }.to_json, auth_headers
     end
 
     it 'deletes the workspace' do
-      delete "/work_spaces/#{workspace_id}", nil, auth_headers
-      expect_deleted_workspace(workspace_id)
+      delete "/work_spaces/#{workspace_slug}", nil, auth_headers
+      expect_deleted_workspace(workspace_slug)
     end
 
-    def expect_deleted_workspace(id)
+    def expect_deleted_workspace(slug)
       aggregate_failures do
         expect(last_response.status).to eq(204)
-        get "/work_spaces/#{id}", nil, auth_headers
+        get "/work_spaces/#{slug}", nil, auth_headers
         expect(last_response.status).to eq(404)
       end
     end

@@ -1,0 +1,23 @@
+# Generated from lib/presentation/controller/content_api/content_api_controller_base.rb with RBS::Inline
+
+module Presentation
+  module Controller
+    module ContentApi
+      class ContentApiControllerBase < Presentation::Controller::ControllerBase
+        CONTENT_API_USE_CASE: untyped
+
+        USE_CASE_CONTAINER: untyped
+
+        CONTENT_API_RESPONSE: untyped
+
+        CONTENT_API_WITH_FIELDS_RESPONSE: untyped
+
+        BASE_REQUEST: untyped
+
+        CREATE_REQUEST: untyped
+
+        UPDATE_REQUEST: untyped
+      end
+    end
+  end
+end

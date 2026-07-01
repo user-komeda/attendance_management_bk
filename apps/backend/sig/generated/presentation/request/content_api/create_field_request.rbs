@@ -1,0 +1,35 @@
+# Generated from lib/presentation/request/content_api/create_field_request.rb with RBS::Inline
+
+module Presentation
+  module Request
+    module ContentApi
+      class CreateFieldRequest < FieldBaseRequest
+        # @rbs DEFAULT_SETTINGS: Hash[Symbol, untyped]
+        DEFAULT_SETTINGS: untyped
+
+        # @rbs (params: Hash[Symbol, untyped]) -> void
+        def initialize: (params: Hash[Symbol, untyped]) -> void
+
+        # @rbs () -> ::Application::Dto::ContentApi::CreateFieldInputDto
+        def convert_to_dto: () -> ::Application::Dto::ContentApi::CreateFieldInputDto
+
+        # @rbs (params: Hash[Symbol, untyped]) -> CreateFieldRequest
+        def self.build: (params: Hash[Symbol, untyped]) -> CreateFieldRequest
+
+        # @rbs (params: Hash[Symbol, untyped]) -> void
+        private def self.validate: (params: Hash[Symbol, untyped]) -> void
+
+        private
+
+        # @rbs (params: Hash[Symbol, untyped]) -> void
+        def apply_attributes: (params: Hash[Symbol, untyped]) -> void
+
+        # @rbs (params: Hash[Symbol, untyped]) -> Hash[Symbol, untyped]
+        def normalize_params: (params: Hash[Symbol, untyped]) -> Hash[Symbol, untyped]
+
+        # @rbs () -> Hash[Symbol, untyped]
+        def dto_params: () -> Hash[Symbol, untyped]
+      end
+    end
+  end
+end

@@ -1,0 +1,20 @@
+# Generated from lib/application/dto/content_api/content_api_with_fields_dto.rb with RBS::Inline
+
+module Application
+  module Dto
+    module ContentApi
+      class ContentApiWithFieldsDto < BaseDto
+        # rubocop:disable all
+        attr_reader content_api: ::Application::Dto::ContentApi::ContentApiDto
+
+        attr_reader fields: Array[::Application::Dto::ContentApi::FieldDto]
+
+        # @rbs (content_api: ContentApiDto, fields: Array[FieldDto]) -> void
+        def initialize: (content_api: ContentApiDto, fields: Array[FieldDto]) -> void
+
+        # @rbs (content_api_entity: untyped, field_entities: Array[untyped]) -> ContentApiWithFieldsDto
+        def self.build: (content_api_entity: untyped, field_entities: Array[untyped]) -> ContentApiWithFieldsDto
+      end
+    end
+  end
+end

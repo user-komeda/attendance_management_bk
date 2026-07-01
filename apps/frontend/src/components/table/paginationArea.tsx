@@ -1,12 +1,9 @@
-import { PaginationProps } from '~/components/table/BasicDataTable'
-import { Button } from '~/components/ui/button'
-
-type PaginationSelectProps = Pick<
+import {
+  PaginationButtonsProps,
   PaginationProps,
-  'pagination' | 'handlePageSizeChange'
->
-
-type PaginationButtonsProps = Omit<PaginationProps, 'handlePageSizeChange'>
+  PaginationSelectProps,
+} from '~/components/table/type/type'
+import { Button } from '~/components/ui/button'
 
 const PaginationSelect = (props: PaginationSelectProps) => {
   const { pagination, handlePageSizeChange } = props

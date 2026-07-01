@@ -5,15 +5,15 @@ module Domain
     module Auth
       class AuthUserEntity
         # rubocop:disable all
-        attr_reader id: Domain::ValueObject::IdentityId?
+        attr_reader id: ::Domain::ValueObject::IdentityId?
 
         attr_reader user_id: String?
 
-        attr_reader email: Domain::ValueObject::User::UserEmail
-
-        attr_reader password_digest: Domain::ValueObject::AuthUser::PasswordDigest
-
         attr_reader provider: String?
+
+        attr_reader email: ::Domain::ValueObject::User::UserEmail
+
+        attr_reader password_digest: ::Domain::ValueObject::AuthUser::PasswordDigest
 
         attr_reader is_active: bool?
 
@@ -25,10 +25,8 @@ module Domain
 
         ID: untyped
 
-        # rubocop:disable Layout/LineLength
-        # @rbs ({id: Domain::ValueObject::IdentityId?, user_id: String?, email: Domain::ValueObject::User::UserEmail, password_digest: Domain::ValueObject::AuthUser::PasswordDigest, provider: String?, is_active: bool?, last_login_at: Time?}) -> void
-        # rubocop:enable Layout/LineLength
-        def initialize: ({ id: Domain::ValueObject::IdentityId?, user_id: String?, email: Domain::ValueObject::User::UserEmail, password_digest: Domain::ValueObject::AuthUser::PasswordDigest, provider: String?, is_active: bool?, last_login_at: Time? }) -> void
+        # @rbs (attrs: Hash[Symbol, untyped]) -> void
+        def initialize: (attrs: Hash[Symbol, untyped]) -> void
 
         # @rbs (String password) -> bool
         def password_match?: (String password) -> bool
@@ -36,15 +34,13 @@ module Domain
         # @rbs () -> bool
         def active?: () -> bool
 
-        # rubocop:disable Layout/LineLength
-        # @rbs ({?user_id: String, email: String, password: String, ?provider: String, ?is_active: bool, ?last_login_at: Time?}) -> AuthUserEntity
-        # rubocop:enable Layout/LineLength
-        def self.build: ({ ?user_id: String, email: String, password: String, ?provider: String, ?is_active: bool, ?last_login_at: Time? }) -> AuthUserEntity
+        # @rbs (attrs: Hash[Symbol, untyped]) -> AuthUserEntity
+        def self.build: (attrs: Hash[Symbol, untyped]) -> AuthUserEntity
 
-        # rubocop:disable Layout/LineLength
-        # @rbs ({id: String, user_id: String, email: String, password: String, provider: String, is_active: bool, last_login_at: Time?}) -> AuthUserEntity
-        # rubocop:enable Layout/LineLength
-        def self.build_with_id: ({ id: String, user_id: String, email: String, password: String, provider: String, is_active: bool, last_login_at: Time? }) -> AuthUserEntity
+        # rubocop:disable all
+        # @rbs (id: String, user_id: String, email: String, password: String, provider: String, is_active: bool, last_login_at: Time?) -> AuthUserEntity
+        # rubocop:enable all
+        def self.build_with_id: (id: String, user_id: String, email: String, password: String, provider: String, is_active: bool, last_login_at: Time?) -> AuthUserEntity
       end
     end
   end

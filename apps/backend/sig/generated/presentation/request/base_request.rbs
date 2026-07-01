@@ -3,6 +3,8 @@
 module Presentation
   module Request
     class BaseRequest
+      ABSTRACT_ERROR_MESSAGE: ::String
+
       # @rbs () -> ::Application::Dto::InputBaseDto
       def convert_to_dto: () -> ::Application::Dto::InputBaseDto
 
@@ -11,6 +13,15 @@ module Presentation
 
       # @rbs (Hash[Symbol, untyped] params) -> void
       def self.validate: (Hash[Symbol, untyped] params) -> void
+
+      # @rbs (contract: untyped, params: Hash[Symbol, untyped]) -> void
+      def self.validate_or_raise!: (contract: untyped, params: Hash[Symbol, untyped]) -> void
+
+      # @rbs (contract: untyped, params: Hash[Symbol, untyped]) -> untyped
+      private def self.contract_result: (contract: untyped, params: Hash[Symbol, untyped]) -> untyped
+
+      # @rbs (result: untyped) -> String
+      private def self.contract_error_message: (result: untyped) -> String
     end
   end
 end

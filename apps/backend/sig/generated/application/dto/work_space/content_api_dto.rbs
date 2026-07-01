@@ -1,0 +1,30 @@
+# Generated from lib/application/dto/work_space/content_api_dto.rb with RBS::Inline
+
+module Application
+  module Dto
+    module WorkSpace
+      class ContentApiDto < BaseDto
+        # rubocop:disable all
+        attr_reader id: String
+
+        # rubocop:disable all
+        attr_reader work_space_id: String
+
+        # rubocop:disable all
+        attr_reader name: String
+
+        # rubocop:disable all
+        attr_reader endpoint: String
+
+        # rubocop:disable all
+        attr_reader api_type: String
+
+        # @rbs (id: String, work_space_id: String, name: String, endpoint: String, api_type: String) -> void
+        def initialize: (id: String, work_space_id: String, name: String, endpoint: String, api_type: String) -> void
+
+        # @rbs (::Domain::Entity::WorkSpace::ContentApiEntity content_api_entity) -> ContentApiDto
+        def self.build: (::Domain::Entity::WorkSpace::ContentApiEntity content_api_entity) -> ContentApiDto
+      end
+    end
+  end
+end

@@ -4,8 +4,16 @@ module Application
   module UseCase
     module WorkSpace
       class GetDetailWorkSpaceUseCase < WorkSpaceBaseUseCase
-        # @rbs (args: String) -> ::Application::Dto::WorkSpace::WorkSpaceWithMemberShipsDto
-        def invoke: (args: String) -> ::Application::Dto::WorkSpace::WorkSpaceWithMemberShipsDto
+        # @rbs (arg: String) -> ::Application::Dto::WorkSpace::WorkSpaceWithMemberShipsDto
+        def invoke: (arg: String) -> ::Application::Dto::WorkSpace::WorkSpaceWithMemberShipsDto
+
+        private
+
+        # @rbs (String) -> untyped
+        def find_work_space: (String) -> untyped
+
+        # @rbs (untyped) -> ::Application::Dto::WorkSpace::WorkSpaceWithMemberShipsDto
+        def build_dto: (untyped) -> ::Application::Dto::WorkSpace::WorkSpaceWithMemberShipsDto
       end
     end
   end

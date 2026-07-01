@@ -24,26 +24,26 @@ RSpec.describe 'WorkSpaceId', type: :openapi do
     insert_workspace_owner(conn, user_id)
 
     conn[:work_spaces].insert(
-      id: workspace_id,
+      id: SecureRandom.uuid,
       name: 'Workspace',
-      slug: "workspace-#{SecureRandom.uuid}"
+      slug: workspace_id
     )
 
     conn[:member_ships].insert(
       id: SecureRandom.uuid,
       user_id: user_id,
-      work_space_id: workspace_id,
+      work_space_id: conn[:work_spaces].where(slug: workspace_id).get(:id),
       role: 'owner',
       status: 'active'
     )
   end
 
   describe 'PATCH /work_spaces/:id' do
-    let(:workspace_id) { SecureRandom.uuid }
+    let(:workspace_id) { "workspace-#{SecureRandom.hex(4)}" }
     let(:update_properties) do
       {
         name: 'New Workspace',
-        slug: "new-workspace-#{SecureRandom.uuid}"
+        slug: "new-workspace-#{SecureRandom.hex(4)}"
       }
     end
 
@@ -69,13 +69,13 @@ RSpec.describe 'WorkSpaceId', type: :openapi do
     end
 
     it 'returns 404 for nonexistent workspace' do
-      patch "/work_spaces/#{SecureRandom.uuid}", update_properties.to_json, json_headers
+      patch '/work_spaces/nonexistent-slug', update_properties.to_json, json_headers
       expect(last_response.status).to eq(404)
     end
   end
 
   describe 'GET /work_spaces/:id' do
-    let(:workspace_id) { SecureRandom.uuid }
+    let(:workspace_id) { "workspace-#{SecureRandom.hex(4)}" }
 
     before do
       insert_workspace_with_membership(conn, workspace_id: workspace_id)
@@ -88,13 +88,13 @@ RSpec.describe 'WorkSpaceId', type: :openapi do
     end
 
     it 'returns 404 for nonexistent workspace' do
-      get "/work_spaces/#{SecureRandom.uuid}"
+      get '/work_spaces/nonexistent-slug'
       expect(last_response.status).to eq(404)
     end
   end
 
   describe 'DELETE /work_spaces/:id' do
-    let(:workspace_id) { SecureRandom.uuid }
+    let(:workspace_id) { "workspace-#{SecureRandom.hex(4)}" }
 
     before do
       insert_workspace_with_membership(conn, workspace_id: workspace_id)
@@ -106,7 +106,7 @@ RSpec.describe 'WorkSpaceId', type: :openapi do
     end
 
     it 'returns 404 for nonexistent workspace' do
-      delete "/work_spaces/#{SecureRandom.uuid}"
+      delete '/work_spaces/nonexistent-slug'
       expect(last_response.status).to eq(404)
     end
   end

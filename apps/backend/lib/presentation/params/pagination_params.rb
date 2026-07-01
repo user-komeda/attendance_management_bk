@@ -17,9 +17,12 @@ module Presentation
 
       # @rbs (Hash[Symbol, untyped] params) -> PaginationParams
       def self.build(params)
+        page = params[:page]
+        per_page = params[:per_page]
+
         new(
-          page: params[:page] ? params[:page].to_i : Constant::Pagination::DEFAULT_PAGE_NUMBER,
-          per_page: params[:per_page] ? params[:per_page].to_i : Constant::Pagination::DEFAULT_PAGE_SIZE
+          page: page ? page.to_i : Constant::Pagination::DEFAULT_PAGE_NUMBER,
+          per_page: per_page ? per_page.to_i : Constant::Pagination::DEFAULT_PAGE_SIZE
         )
       end
     end

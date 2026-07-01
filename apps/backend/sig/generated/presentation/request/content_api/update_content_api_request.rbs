@@ -1,0 +1,18 @@
+# Generated from lib/presentation/request/content_api/update_content_api_request.rb with RBS::Inline
+
+module Presentation
+  module Request
+    module ContentApi
+      class UpdateContentApiRequest < ContentApiBaseRequest
+        # @rbs (params: Hash[Symbol, untyped]) -> void
+        def initialize: (params: Hash[Symbol, untyped]) -> void
+
+        # @rbs () -> ::Application::Dto::ContentApi::UpdateContentApiInputDto
+        def convert_to_dto: () -> ::Application::Dto::ContentApi::UpdateContentApiInputDto
+
+        # @rbs (params: Hash[Symbol, untyped]) -> UpdateContentApiRequest
+        def self.build: (params: Hash[Symbol, untyped]) -> UpdateContentApiRequest
+      end
+    end
+  end
+end

@@ -1,0 +1,15 @@
+# Generated from lib/domain/repository/content_api/field_repository.rb with RBS::Inline
+
+module Domain
+  module Repository
+    module ContentApi
+      class FieldRepository < FieldRepositoryBase
+        # @rbs (content_api_id: String, field_entities: Array[::Domain::Entity::ContentApi::FieldEntity]) -> Array[::Domain::Entity::ContentApi::FieldEntity]
+        def bulk_create: (content_api_id: String, field_entities: Array[::Domain::Entity::ContentApi::FieldEntity]) -> Array[::Domain::Entity::ContentApi::FieldEntity]
+
+        # @rbs (content_api_id: String) -> Array[::Domain::Entity::ContentApi::FieldEntity]
+        def get_by_content_api_id: (content_api_id: String) -> Array[::Domain::Entity::ContentApi::FieldEntity]
+      end
+    end
+  end
+end

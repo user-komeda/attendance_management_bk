@@ -108,6 +108,7 @@ export default defineConfig(
       ...vitest.configs.recommended.rules,
       'vitest/valid-title': ['error', { ignoreTypeOfDescribeName: true }],
       'max-lines': ['error', 205],
+      'max-lines-per-function': 'off',
     },
   },
   {
@@ -115,6 +116,7 @@ export default defineConfig(
     extends: [playwright.configs['flat/recommended']],
     rules: {
       'max-lines': ['error', 205],
+      'max-lines-per-function': 'off',
     },
   },
 )

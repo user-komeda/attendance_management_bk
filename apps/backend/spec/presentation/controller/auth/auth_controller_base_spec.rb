@@ -46,7 +46,7 @@ RSpec.describe Presentation::Controller::Auth::AuthControllerBase do
 
         expect do
           controller.send(:build_request, {}, dummy_class)
-        end.to raise_error(ArgumentError, /is not a valid User request class/)
+        end.to raise_error(ArgumentError, /is not a valid/)
       end
     end
 

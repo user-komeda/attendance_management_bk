@@ -43,7 +43,7 @@ RSpec.describe Application::UseCase::Auth::SigninUseCase do
       end
 
       it 'returns AuthOutputDto with id and user_id' do
-        result = use_case.invoke(args: input_dto)
+        result = use_case.invoke(arg: input_dto)
 
         expect(result).to have_attributes(
           id: '00000000-0000-0000-0000-000000000001',
@@ -52,12 +52,12 @@ RSpec.describe Application::UseCase::Auth::SigninUseCase do
       end
 
       it 'calls find_by_email with the given email' do
-        use_case.invoke(args: input_dto)
+        use_case.invoke(arg: input_dto)
         expect(auth_repo).to have_received(:find_by_email).with(email: input_dto.email)
       end
 
       it 'calls can_login? with the auth_user and password' do
-        use_case.invoke(args: input_dto)
+        use_case.invoke(arg: input_dto)
         expect(service_caller).to have_received(:can_login?).with(auth_user: auth_user, password: input_dto.password)
       end
     end
@@ -71,7 +71,7 @@ RSpec.describe Application::UseCase::Auth::SigninUseCase do
       end
 
       it 'raises AuthenticationFailedException' do
-        expect { use_case.invoke(args: input_dto) }
+        expect { use_case.invoke(arg: input_dto) }
           .to raise_error(Application::Exception::AuthenticationFailedException)
       end
     end
@@ -93,7 +93,7 @@ RSpec.describe Application::UseCase::Auth::SigninUseCase do
       end
 
       it 'raises AuthenticationFailedException' do
-        expect { use_case.invoke(args: input_dto) }
+        expect { use_case.invoke(arg: input_dto) }
           .to raise_error(Application::Exception::AuthenticationFailedException)
       end
     end

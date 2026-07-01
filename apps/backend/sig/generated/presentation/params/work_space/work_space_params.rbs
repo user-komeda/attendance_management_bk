@@ -14,6 +14,9 @@ module Presentation
 
         # @rbs (Hash[Symbol, untyped] params) -> WorkSpaceParams
         def self.build: (Hash[Symbol, untyped] params) -> WorkSpaceParams
+
+        # @rbs () -> ::Application::Dto::WorkSpace::GetAllWorkSpaceInputDto
+        def convert_to_dto: () -> ::Application::Dto::WorkSpace::GetAllWorkSpaceInputDto
       end
     end
   end

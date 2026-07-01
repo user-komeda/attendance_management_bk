@@ -68,7 +68,7 @@ RSpec.describe Application::UseCase::Auth::SignupUseCase do
       end
 
       it 'returns AuthOutputDto with id and user_id' do
-        result = use_case.invoke(args: input_dto)
+        result = use_case.invoke(arg: input_dto)
 
         expect(result).to have_attributes(
           id: '00000000-0000-0000-0000-000000000009',
@@ -77,7 +77,7 @@ RSpec.describe Application::UseCase::Auth::SignupUseCase do
       end
 
       it 'persists via user repository' do
-        use_case.invoke(args: input_dto)
+        use_case.invoke(arg: input_dto)
         expect(user_repo).to have_received(:create_with_auth_user).once
       end
     end
@@ -87,9 +87,17 @@ RSpec.describe Application::UseCase::Auth::SignupUseCase do
       let(:dependencies) { { described_class::SERVICE_KEY => service_caller } }
 
       it 'raises DuplicatedException' do
-        expect { use_case.invoke(args: input_dto) }
+        expect { use_case.invoke(arg: input_dto) }
           .to raise_error(Application::Exception::DuplicatedException)
       end
+    end
+  end
+
+  describe '#check_duplicate' do
+    let(:service_caller) { instance_double(Domain::Service::Auth::AuthService, exist?: false) }
+
+    it 'does not raise when the user does not exist' do
+      expect { use_case.send(:check_duplicate, input_dto: input_dto) }.not_to raise_error
     end
   end
 end

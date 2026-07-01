@@ -1,5 +1,5 @@
 type: object
-description: メンバーシップ情報を含むワークスペース作成レスポンス
+description: メンバーシップ情報を含むワークスペース詳細レスポンス
 properties:
   id:
     type: string
@@ -9,4 +9,10 @@ properties:
     $ref: './WorkSpace.yaml'
   member_ships:
     $ref: './MemberShips.yaml'
-required: [id, work_spaces, member_ships]
+  content_api_names:
+    type: array
+    items:
+      type: string
+    description: ワークスペース内のコンテンツAPIの名前リスト
+    example: [ 'articles', 'products' ]
+required: [ id, work_spaces, member_ships, content_api_names ]

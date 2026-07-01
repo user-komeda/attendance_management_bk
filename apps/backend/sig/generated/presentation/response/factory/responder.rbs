@@ -4,10 +4,21 @@ module Presentation
   module Response
     module Factory
       class Responder
+        ABSTRACT_MESSAGE: ::String
+
         # rubocop:disable all
-        # @rbs (response: untyped, payload: ::Presentation::Controller::ControllerPayLoad,resource_name: String?) -> untyped
+        # @rbs (response: untyped, payload: ::Presentation::Controller::ControllerPayLoad, resource_name: String?) -> untyped
         # rubocop:enable all
         def self.build_responder: (response: untyped, payload: ::Presentation::Controller::ControllerPayLoad, resource_name: String?) -> untyped
+
+        # @rbs (payload: ::Presentation::Controller::ControllerPayLoad) -> void
+        private def self.validate_payload: (payload: ::Presentation::Controller::ControllerPayLoad) -> void
+
+        # @rbs (response: untyped, resource_name: String?) -> void
+        private def self.touch_arguments: (response: untyped, resource_name: String?) -> void
+
+        # @rbs (payload: ::Presentation::Controller::ControllerPayLoad) -> void
+        private def self.validate_payload!: (payload: ::Presentation::Controller::ControllerPayLoad) -> void
       end
     end
   end

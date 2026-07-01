@@ -20,7 +20,7 @@ vi.mock(import('jose'), () => ({
   }),
 }))
 
-// eslint-disable-next-line max-lines-per-function
+ 
 describe('createJwt', () => {
   beforeEach(() => {
     vi.spyOn(env, 'getEnv').mockReturnValue({

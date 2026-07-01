@@ -51,7 +51,8 @@ RSpec.describe Presentation::Controller::Auth::AuthController do
 
   describe '#signin' do
     let(:signin_params) { { email: 'test@example.com', password: 'Password123!' } }
-    let(:signin_request_double) { instance_double(Presentation::Request::Auth::SigninRequest) }
+    let(:signin_input_dto) { instance_double(Application::Dto::Auth::SigninInputDto) }
+    let(:signin_request_double) { instance_double(Presentation::Request::Auth::SigninRequest, convert_to_dto: signin_input_dto) }
     let(:use_case_result) { instance_double(Application::Dto::Auth::AuthOutputDto, id: 'auth-2', user_id: 'user-2') }
 
     before do
@@ -60,7 +61,7 @@ RSpec.describe Presentation::Controller::Auth::AuthController do
         .and_return(signin_request_double)
 
       allow(controller).to receive(:invoke_use_case)
-        .with(:signin, signin_request_double)
+        .with(:signin, signin_input_dto)
         .and_return(use_case_result)
     end
 
@@ -71,7 +72,7 @@ RSpec.describe Presentation::Controller::Auth::AuthController do
 
     it 'invokes signin use case' do
       controller.signin(signin_params)
-      expect(controller).to have_received(:invoke_use_case).with(:signin, signin_request_double)
+      expect(controller).to have_received(:invoke_use_case).with(:signin, signin_input_dto)
     end
   end
 end

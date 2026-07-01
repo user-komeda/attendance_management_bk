@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test'
 
-// eslint-disable-next-line max-lines-per-function
+ 
 test.describe('E2E Authentication Tests', () => {
   test('未ログインでトップページにアクセスするとログイン画面にリダイレクトされること', async ({
     page,

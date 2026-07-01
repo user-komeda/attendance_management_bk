@@ -75,6 +75,12 @@ RSpec.describe Infrastructure::Repository::WorkSpace::WorkSpaceRepository do
       result = repository.get_by_id(id: workspace_id)
       expect(result.id.value).to eq(workspace_id)
     end
+
+    it 'returns nil when workspace not found' do
+      allow(rom_repo).to receive(:rom_get_by_id).with(id: workspace_id).and_return(nil)
+      result = repository.get_by_id(id: workspace_id)
+      expect(result).to be_nil
+    end
   end
 
   describe '#create' do

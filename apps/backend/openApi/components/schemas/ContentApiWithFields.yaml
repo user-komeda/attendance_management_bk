@@ -1,0 +1,10 @@
+type: object
+description: コンテンツAPIとフィールド一覧
+properties:
+  content_api:
+    $ref: './ContentApi.yaml'
+  fields:
+    type: array
+    items:
+      $ref: './Field.yaml'
+required: [ content_api, fields ]

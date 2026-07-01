@@ -24,7 +24,7 @@ interface MockRedisClient {
   expire: ReturnType<typeof vi.fn>
 }
 
-// eslint-disable-next-line max-lines-per-function
+ 
 describe('redisClient', () => {
   let mockClient: MockRedisClient
 

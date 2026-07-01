@@ -17,6 +17,7 @@
     "check": "yarn generate:api-types && yarn concurrently 'yarn typecheck' 'yarn lint' 'yarn format' 'yarn test' 'yarn test:e2e'"
   },
   "dependencies": {
+    "@corvu/resizable": "^0.2.5",
     "@kobalte/core": "^0.13.11",
     "@solidjs/router": "^0.16.1",
     "@solidjs/start": "^1.3.2",
@@ -27,6 +28,7 @@
     "clsx": "^2.1.1",
     "dotenv": "^17.4.2",
     "jose": "^6.2.3",
+    "lucide-solid": "^1.21.0",
     "solid-js": "^1.9.13",
     "tailwind-merge": "^3.6.0",
     "tailwindcss": "4.3.1",

@@ -4,13 +4,17 @@ module Application
   module Dto
     module User
       class UpdateUserInputDto < InputBaseDto
-        attr_reader id: untyped
+        # rubocop:disable all
+        attr_reader id: String
 
-        attr_reader first_name: untyped
+        # rubocop:disable all
+        attr_reader first_name: String
 
-        attr_reader last_name: untyped
+        # rubocop:disable all
+        attr_reader last_name: String
 
-        attr_reader email: untyped
+        # rubocop:disable all
+        attr_reader email: String
 
         # @rbs (id: String, first_name: String, last_name: String, email: String) -> void
         def initialize: (id: String, first_name: String, last_name: String, email: String) -> void

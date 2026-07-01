@@ -1,0 +1,26 @@
+# Generated from lib/presentation/response/content_api/content_api_with_fields_response.rb with RBS::Inline
+
+module Presentation
+  module Response
+    module ContentApi
+      class ContentApiWithFieldsResponse < Presentation::Response::BaseResponse
+        # rubocop:disable all
+        attr_reader content_api: Hash[Symbol, untyped]
+
+        attr_reader fields: Array[Hash[Symbol, untyped]]
+
+        # @rbs (content_api: Hash[Symbol, untyped], fields: Array[Hash[Symbol, untyped]]) -> void
+        def initialize: (content_api: Hash[Symbol, untyped], fields: Array[Hash[Symbol, untyped]]) -> void
+
+        # @rbs (content_api_with_fields: untyped) -> Hash[Symbol, untyped]
+        def self.build: (content_api_with_fields: untyped) -> Hash[Symbol, untyped]
+
+        # @rbs () -> {content_api: Hash[Symbol, untyped], fields: Array[Hash[Symbol, untyped]]}
+        def to_h: () -> { content_api: Hash[Symbol, untyped], fields: Array[Hash[Symbol, untyped]] }
+
+        # @rbs (untyped field) -> Hash[Symbol, untyped]
+        private def self.field_to_h: (untyped field) -> Hash[Symbol, untyped]
+      end
+    end
+  end
+end

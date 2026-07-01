@@ -6,13 +6,13 @@ module Application
   module Dto
     module WorkSpace
       class CreateWorkSpaceInputDto < InputBaseDto
-        attr_reader :name, :slug # :String
+        # rubocop:disable all
+        attr_reader :name, :slug #: String
         # rubocop:enable all
 
         # @rbs (params: Hash[Symbol, String]) -> void
         def initialize(params:)
           super()
-          @id = params[:id]
           @name = params[:name]
           @slug = params[:slug]
         end

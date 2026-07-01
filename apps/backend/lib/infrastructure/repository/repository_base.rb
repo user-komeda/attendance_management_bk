@@ -7,29 +7,43 @@ module Infrastructure
     class RepositoryBase
       include ContainerHelper
 
+      ABSTRACT_REPOSITORY_MESSAGE = 'RepositoryBase subclasses must implement this method'
+
       # @rbs () -> Array[::Domain::Entity::DomainEntity]
       def get_all
-        raise NotImplementedError
+        raise NotImplementedError, "#{self.class} #{ABSTRACT_REPOSITORY_MESSAGE}"
       end
 
       # @rbs (String id) -> ::Domain::Entity::DomainEntity?
-      def get_by_id(id)
-        raise NotImplementedError
+      def get_by_id(_id)
+        raise NotImplementedError, "#{self.class} #{ABSTRACT_REPOSITORY_MESSAGE}"
       end
 
       # @rbs (::Domain::Entity::DomainEntity entity) -> ::Domain::Entity::DomainEntity
-      def create(entity)
-        raise NotImplementedError
+      def create(_entity)
+        raise NotImplementedError, "#{self.class} #{ABSTRACT_REPOSITORY_MESSAGE}"
       end
 
       # @rbs (::Domain::Entity::DomainEntity entity) -> ::Domain::Entity::DomainEntity
-      def update(entity)
-        raise NotImplementedError
+      def update(_entity)
+        raise NotImplementedError, "#{self.class} #{ABSTRACT_REPOSITORY_MESSAGE}"
       end
 
       # @rbs (::Domain::Entity::DomainEntity entity) -> void
-      def delete(entity)
-        raise NotImplementedError
+      def delete(_entity)
+        raise NotImplementedError, "#{self.class} #{ABSTRACT_REPOSITORY_MESSAGE}"
+      end
+
+      private
+
+      # @rbs () -> void
+      def raise_repository_not_implemented
+        raise_repository_not_implemented!
+      end
+
+      # @rbs () -> void
+      def raise_repository_not_implemented!
+        raise NotImplementedError, "#{self.class} #{ABSTRACT_REPOSITORY_MESSAGE}"
       end
     end
   end

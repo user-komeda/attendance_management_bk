@@ -37,3 +37,5 @@ node_modules/
 /playwright/.cache/
 /playwright/.auth/
 /coverage.txt
+/frontend-server-err.log
+/frontend-server.log

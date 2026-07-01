@@ -1,0 +1,66 @@
+# frozen_string_literal: true
+
+create_table :contents, id: :uuid do |t|
+  t.references :content_api,
+               type: :uuid,
+               null: false,
+               foreign_key: { on_delete: :cascade }
+
+  t.string :content_id, null: false
+  t.string :status, null: false, default: 'draft'
+
+  t.jsonb :data, null: false, default: {}
+
+  t.datetime :published_at
+  t.datetime :closed_at
+
+  t.references :created_by,
+               type: :uuid
+
+  t.references :updated_by,
+               type: :uuid
+
+  t.check_constraint "status IN ('draft', 'published', 'closed')",
+                     name: 'chk_contents_status'
+
+  t.check_constraint "content_id ~ '^[a-zA-Z0-9_-]{1,64}$'",
+                     name: 'chk_contents_content_id_format'
+
+  t.check_constraint "jsonb_typeof(data) = 'object'",
+                     name: 'chk_contents_data_object'
+
+  t.datetime :created_at, null: false, default: -> { 'CURRENT_TIMESTAMP' }
+  t.datetime :updated_at, null: false, default: -> { 'CURRENT_TIMESTAMP' }
+end
+
+add_foreign_key :contents,
+                :users,
+                column: :created_by_id,
+                name: 'fk_contents_created_by_id'
+
+add_foreign_key :contents,
+                :users,
+                column: :updated_by_id,
+                name: 'fk_contents_updated_by_id'
+
+add_index :contents,
+          %i[content_api_id content_id],
+          unique: true,
+          name: 'idx_contents_content_api_id_content_id'
+
+add_index :contents,
+          :content_api_id,
+          name: 'idx_contents_content_api_id'
+
+add_index :contents,
+          :status,
+          name: 'idx_contents_status'
+
+add_index :contents,
+          :published_at,
+          name: 'idx_contents_published_at'
+
+add_index :contents,
+          :data,
+          using: :gin,
+          name: 'idx_contents_data_gin'

@@ -1,4 +1,4 @@
-import { render, screen } from '@solidjs/testing-library'
+import { fireEvent, render, screen } from '@solidjs/testing-library'
 import { createSignal, type JSX } from 'solid-js'
 import { describe, it, expect, vi } from 'vitest'
 
@@ -9,7 +9,19 @@ vi.mock('~/components/ui/dialog', () => ({
     open: boolean
     onOpenChange: (v: boolean) => void
     children: JSX.Element
-  }) => <div>{props.open ? props.children : null}</div>,
+  }) => (
+    <div>
+      <button
+        type="button"
+        onClick={() => {
+          props.onOpenChange(false)
+        }}
+      >
+        close dialog
+      </button>
+      {props.open ? props.children : null}
+    </div>
+  ),
   DialogContent: (props: { children: JSX.Element }) => (
     <div data-testid="dialog-content">{props.children}</div>
   ),
@@ -27,7 +39,7 @@ vi.mock('~/components/ui/dialog', () => ({
   ),
 }))
 
-// eslint-disable-next-line max-lines-per-function
+ 
 describe('CommonDialog', () => {
   it('openがtrueのときコンテンツを表示すること', () => {
     const [open, setOpen] = createSignal(true)
@@ -81,5 +93,23 @@ describe('CommonDialog', () => {
     ))
 
     expect(screen.queryByTestId('dialog-footer')).not.toBeInTheDocument()
+  })
+
+  it('DialogからonOpenChangeが呼ばれたときopenを更新すること', () => {
+    const [open, setOpen] = createSignal(true)
+
+    render(() => (
+      <CommonDialog
+        open={open}
+        onOpenChange={setOpen}
+        title={<span>タイトル</span>}
+      >
+        <p>コンテンツ</p>
+      </CommonDialog>
+    ))
+
+    fireEvent.click(screen.getByRole('button', { name: 'close dialog' }))
+
+    expect(open()).toBe(false)
   })
 })

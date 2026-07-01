@@ -4,26 +4,26 @@ module Presentation
   module Response
     module WorkSpace
       class WorkSpaceWithMemberShipsResponse < BaseResponse
-        # rubocop:disable all
-        attr_reader id: String
+        attr_reader id: untyped
 
-        attr_reader member_ships: Hash[Symbol, String]
+        attr_reader member_ships: untyped
 
-        attr_reader work_spaces: Hash[Symbol, String]
+        attr_reader work_spaces: untyped
 
-        # rubocop:enable all
-        # @rbs (id: String, work_spaces: Hash[Symbol, String], member_ships: Hash[Symbol, String]) -> void
-        # rubocop:enable all
-        def initialize: (id: String, work_spaces: Hash[Symbol, String], member_ships: Hash[Symbol, String]) -> void
+        attr_reader content_api_names: untyped
 
         # rubocop:disable all
-        # @rbs (id: String, member_ships: Application::Dto::WorkSpace::MemberShipsDto, work_spaces: Application::Dto::WorkSpace::WorkSpaceDto) -> Hash[Symbol, untyped]
+        # @rbs (id: String, work_spaces: Hash[Symbol, String], member_ships: Hash[Symbol, String], content_api_names: Array[String]) -> void
         # rubocop:enable all
-        def self.build: (id: String, member_ships: Application::Dto::WorkSpace::MemberShipsDto, work_spaces: Application::Dto::WorkSpace::WorkSpaceDto) -> Hash[Symbol, untyped]
+        def initialize: (id: String, work_spaces: Hash[Symbol, String], member_ships: Hash[Symbol, String], content_api_names: Array[String]) -> void
 
         # rubocop:disable all
-        # @rbs () -> {id: String, work_spaces: Hash[Symbol, String], member_ships: Hash[Symbol, String] }
-        def to_h: () -> { id: String, work_spaces: Hash[Symbol, String], member_ships: Hash[Symbol, String] }
+        # @rbs (id: String, member_ships: Application::Dto::WorkSpace::MemberShipsDto, work_spaces: Application::Dto::WorkSpace::WorkSpaceDto, content_api_names: Array[String]) -> Hash[Symbol, untyped]
+        # rubocop:enable all
+        def self.build: (id: String, member_ships: Application::Dto::WorkSpace::MemberShipsDto, work_spaces: Application::Dto::WorkSpace::WorkSpaceDto, content_api_names: Array[String]) -> Hash[Symbol, untyped]
+
+        # @rbs () -> Hash[Symbol, untyped]
+        def to_h: () -> Hash[Symbol, untyped]
       end
     end
   end

@@ -1,0 +1,20 @@
+# frozen_string_literal: true
+
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+create_table :content_apis, id: :uuid do |t|
+  t.references :work_space, type: :uuid, null: false, foreign_key: { on_delete: :cascade }
+
+  t.string :name,     null: false
+  t.string :endpoint, null: false
+  t.string :api_type, null: false
+
+  t.check_constraint "api_type IN ('list', 'object')", name: 'chk_content_apis_api_type'
+  t.check_constraint "endpoint ~ '^[a-z0-9_-]{3,32}$'", name: 'chk_content_apis_endpoint_format'
+
+  t.datetime :created_at, null: false, default: -> { 'CURRENT_TIMESTAMP' }
+  t.datetime :updated_at, null: false, default: -> { 'CURRENT_TIMESTAMP' }
+end
+
+add_index :content_apis, %i[work_space_id endpoint], unique: true

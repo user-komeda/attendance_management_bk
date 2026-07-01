@@ -1,0 +1,25 @@
+# Generated from lib/presentation/response/content_api/content_api_with_contents_response.rb with RBS::Inline
+
+module Presentation
+  module Response
+    module ContentApi
+      class ContentApiWithContentsResponse < Presentation::Response::BaseResponse
+        # rubocop:disable all
+        attr_reader id: String
+
+        attr_reader content_api: Hash[Symbol, untyped]
+
+        attr_reader contents: Array[Hash[Symbol, untyped]]
+
+        # @rbs (id: String, content_api: Hash[Symbol, untyped], contents: Array[Hash[Symbol, untyped]]) -> void
+        def initialize: (id: String, content_api: Hash[Symbol, untyped], contents: Array[Hash[Symbol, untyped]]) -> void
+
+        # @rbs (id: String, content_api: untyped, contents: Array[untyped]) -> Hash[Symbol, untyped]
+        def self.build: (id: String, content_api: untyped, contents: Array[untyped]) -> Hash[Symbol, untyped]
+
+        # @rbs () -> {id: String, content_api: Hash[Symbol, untyped], contents: Array[Hash[Symbol, untyped]]}
+        def to_h: () -> { id: String, content_api: Hash[Symbol, untyped], contents: Array[Hash[Symbol, untyped]] }
+      end
+    end
+  end
+end

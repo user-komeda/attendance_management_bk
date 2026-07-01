@@ -5,12 +5,12 @@ import { describe, it, expect, vi } from 'vitest'
 
 import { useCreateWorkspace } from '~/hooks/home/useCreateWorkspace'
 import {
-  useHomeWorkspaces,
-  type HomeWorkspacesContextValue,
-} from '~/provider/homeWorkspacesProvider'
+  useWorkspace,
+  WorkspaceContextValue,
+} from '~/provider/workspacesProvider'
 
-vi.mock('~/provider/homeWorkspacesProvider', () => ({
-  useHomeWorkspaces: vi.fn(),
+vi.mock('~/provider/workspacesProvider', () => ({
+  useWorkspace: vi.fn(),
 }))
 
 vi.mock('@solidjs/router', async (importOriginal) => {
@@ -21,13 +21,13 @@ vi.mock('@solidjs/router', async (importOriginal) => {
   }
 })
 
-// eslint-disable-next-line max-lines-per-function
+ 
 describe('useCreateWorkspace', () => {
-  it('成功時にモーダルを閉じてワークスペースを再取得すること', async () => {
-    const fetchWorkspaces = vi.fn()
-    vi.mocked(useHomeWorkspaces).mockReturnValue({
-      fetchWorkspaces,
-    } as unknown as HomeWorkspacesContextValue)
+  it('成功時にモーダルを閉じてワークスペ�Eスを�E取得すること', async () => {
+    const refetchWorkspaces = vi.fn()
+    vi.mocked(useWorkspace).mockReturnValue({
+      refetchWorkspaces,
+    } as unknown as WorkspaceContextValue)
 
     // Create a reactive state for submission result
     const [result, setResult] = createSignal<{ ok: boolean } | null>(null)
@@ -49,11 +49,11 @@ describe('useCreateWorkspace', () => {
       await new Promise((r) => setTimeout(r, 0))
 
       expect(hook.isOpen()).toBe(false)
-      expect(fetchWorkspaces).toHaveBeenCalled()
+      expect(refetchWorkspaces).toHaveBeenCalled()
     })
   })
 
-  it('pending中はhandleCloseを呼んでもモーダルが閉じないこと', () => {
+  it('pending中はhandleCloseを呼んでもモーダルが閉じなぁE��と', () => {
     vi.mocked(useSubmission).mockReturnValue({
       result: null,
       pending: true,

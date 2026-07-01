@@ -30,25 +30,12 @@ module Infrastructure
 
         # @rbs (struct: untyped) -> ::Domain::Entity::WorkSpace::MemberShipsEntity
         def self.struct_to_domain(struct:)
-          member_ships_entity = new(
-            id: struct.id,
-            work_space_id: struct.work_space_id,
-            user_id: struct.user_id,
-            role: struct.role,
-            status: struct.status
-          )
-          member_ships_entity.to_domain
+          new(**struct_attributes(struct:)).to_domain
         end
 
         # @rbs (member_ships_entity: ::Domain::Entity::WorkSpace::MemberShipsEntity) -> MemberShipsEntity
         def self.build_from_domain_entity(member_ships_entity:)
-          new(
-            id: extract_id(member_ships_entity: member_ships_entity),
-            user_id: member_ships_entity.user_id.value,
-            work_space_id: member_ships_entity.work_space_id.value,
-            role: extract_role(member_ships_entity: member_ships_entity),
-            status: extract_status(member_ships_entity: member_ships_entity)
-          )
+          new(**domain_attributes(member_ships_entity: member_ships_entity))
         end
 
         class << self
@@ -56,19 +43,39 @@ module Infrastructure
 
           # @rbs (member_ships_entity: ::Domain::Entity::WorkSpace::MemberShipsEntity) -> String
           def extract_id(member_ships_entity:)
-            ::UtilMethod.nil_or_empty?(member_ships_entity.id) ? SecureRandom.uuid : member_ships_entity.id.value
+            member_ship_id = member_ships_entity.id
+
+            ::UtilMethod.nil_or_empty?(member_ship_id) ? SecureRandom.uuid : member_ship_id.value
           end
 
-          # @rbs (member_ships_entity: ::Domain::Entity::WorkSpace::MemberShipsEntity) -> String
-          def extract_role(member_ships_entity:)
+          # @rbs (struct: untyped) -> Hash[Symbol, String]
+          def struct_attributes(struct:)
+            {
+              id: struct.id,
+              work_space_id: struct.work_space_id,
+              user_id: struct.user_id,
+              role: struct.role,
+              status: struct.status
+            }
+          end
+
+          # @rbs (member_ships_entity: ::Domain::Entity::WorkSpace::MemberShipsEntity) -> Hash[Symbol, String]
+          def domain_attributes(member_ships_entity:)
             role = member_ships_entity.role
-            role.nil? ? 'owner' : role.value
+            status = member_ships_entity.status
+
+            {
+              id: extract_id(member_ships_entity: member_ships_entity),
+              user_id: member_ships_entity.user_id.value,
+              work_space_id: member_ships_entity.work_space_id.value,
+              role: extract_or_default(value_object: role, default_value: 'owner'),
+              status: extract_or_default(value_object: status, default_value: 'active')
+            }
           end
 
-          # @rbs (member_ships_entity: ::Domain::Entity::WorkSpace::MemberShipsEntity) -> String
-          def extract_status(member_ships_entity:)
-            status = member_ships_entity.status
-            status.nil? ? 'active' : status.value
+          # @rbs (value_object: untyped, default_value: String) -> String
+          def extract_or_default(value_object:, default_value:)
+            value_object ? value_object.value : default_value
           end
         end
       end

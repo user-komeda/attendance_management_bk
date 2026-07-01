@@ -53,8 +53,11 @@ RSpec.describe Application::UseCase::WorkSpace::CreateWorkSpaceUseCase do
       end
 
       it 'returns WorkSpaceWithMemberShipsDto' do
-        result = use_case.invoke(args: input_dto)
-        expect(result.work_spaces.name).to eq('Test WorkSpace')
+        result = use_case.invoke(arg: input_dto)
+        aggregate_failures do
+          expect(result.work_spaces.name).to eq('Test WorkSpace')
+          expect(result.content_api_names).to eq([])
+        end
       end
     end
 
@@ -64,7 +67,7 @@ RSpec.describe Application::UseCase::WorkSpace::CreateWorkSpaceUseCase do
       end
 
       it 'raises DuplicatedException' do
-        expect { use_case.invoke(args: input_dto) }
+        expect { use_case.invoke(arg: input_dto) }
           .to raise_error(Application::Exception::DuplicatedException, 'workspace already exists')
       end
     end

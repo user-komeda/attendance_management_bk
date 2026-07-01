@@ -4,11 +4,15 @@ module Application
   module UseCase
     module Auth
       class VerifyJwtUseCase < AuthBaseUseCase
+        JWT_ALGORITHM: ::String
+
         def invoke: (token: untyped, type: untyped) -> untyped
 
         private
 
         def decode_and_validate_payload: (untyped token, untyped type) -> untyped
+
+        def decode_options: () -> untyped
 
         def secret_for: (untyped type) -> untyped
 
@@ -17,6 +21,12 @@ module Application
         def validate_expiration: (untyped exp_val) -> untyped
 
         def validate_type: (untyped payload, untyped type) -> untyped
+
+        def validator_for: (untyped type) -> untyped
+
+        def validate_user_token!: (payload: untyped, typ: untyped) -> untyped
+
+        def validate_bff_token!: (payload: untyped, typ: untyped) -> untyped
       end
     end
   end

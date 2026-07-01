@@ -25,6 +25,15 @@ module Presentation
             search_query: params[:search_query]
           )
         end
+
+        # @rbs () -> ::Application::Dto::WorkSpace::GetAllWorkSpaceInputDto
+        def convert_to_dto
+          Application::Dto::WorkSpace::GetAllWorkSpaceInputDto.build(
+            page: pagination.page,
+            per_page: pagination.per_page,
+            search_query: search_query
+          )
+        end
       end
     end
   end
