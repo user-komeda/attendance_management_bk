@@ -5,20 +5,23 @@ module Application
     module WorkSpace
       class WorkSpaceWithMemberShipsDto < BaseDto
         # rubocop:disable all
-        attr_reader member_ships: MemberShipsDto
+        attr_reader member_ships: untyped
 
         attr_reader work_spaces: WorkSpaceDto
 
         attr_reader content_api_names: Array[String]
 
-        # @rbs (member_ships: MemberShipsDto, work_spaces: WorkSpaceDto, content_api_names: Array[String]) -> void
-        # rubocop:enable all
-        def initialize: (member_ships: MemberShipsDto, work_spaces: WorkSpaceDto, content_api_names: Array[String]) -> void
+        attr_reader content_apis: Array[Hash[Symbol, String]]
 
         # rubocop:disable all
-        # @rbs (work_space_entity: ::Domain::Entity::WorkSpace::WorkSpaceEntity, member_ships: ::Domain::Entity::WorkSpace::MemberShipsEntity, content_apis: Array[::Domain::Entity::WorkSpace::ContentApiEntity]) -> WorkSpaceWithMemberShipsDto
+        # @rbs (member_ships: untyped, work_spaces: WorkSpaceDto, content_api_names: Array[String], content_apis: Array[Hash[Symbol, String]]) -> void
         # rubocop:enable all
-        def self.build: (work_space_entity: ::Domain::Entity::WorkSpace::WorkSpaceEntity, member_ships: ::Domain::Entity::WorkSpace::MemberShipsEntity, content_apis: Array[::Domain::Entity::WorkSpace::ContentApiEntity]) -> WorkSpaceWithMemberShipsDto
+        def initialize: (member_ships: untyped, work_spaces: WorkSpaceDto, content_api_names: Array[String], content_apis: Array[Hash[Symbol, String]]) -> void
+
+        # rubocop:disable all
+        # @rbs (work_space_entity: ::Domain::Entity::WorkSpace::WorkSpaceEntity, member_ships: untyped, content_apis: Array[::Domain::Entity::WorkSpace::ContentApiEntity]) -> WorkSpaceWithMemberShipsDto
+        # rubocop:enable all
+        def self.build: (work_space_entity: ::Domain::Entity::WorkSpace::WorkSpaceEntity, member_ships: untyped, content_apis: Array[::Domain::Entity::WorkSpace::ContentApiEntity]) -> WorkSpaceWithMemberShipsDto
       end
     end
   end

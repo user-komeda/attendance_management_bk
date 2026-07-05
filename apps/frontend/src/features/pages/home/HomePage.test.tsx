@@ -12,7 +12,6 @@ vi.mock('~/features/components/home/homeTable', () => ({
   HomeTable: () => null,
 }))
 
- 
 describe('HomePage', () => {
   const mockWorkspaces = {
     data: [
@@ -36,7 +35,6 @@ describe('HomePage', () => {
     vi.clearAllMocks()
   })
 
-   
   describe('fetchWorkspacesRequest', () => {
     it('search queryを指定した場合、search_query付きでリクエストすること', async () => {
       vi.mocked(bffFetchWrapper).mockResolvedValue({

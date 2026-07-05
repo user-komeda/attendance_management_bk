@@ -2,7 +2,7 @@ import { APIEvent } from '@solidjs/start/server/spa'
 import * as v from 'valibot'
 
 import getCurrentUserId from '~/lib/getCurrentUserId'
-import { CreateContentApiSchema } from '~/schema/contentApi/createContentApiSchhema'
+import { CreateContentApiWithFieldsSchema } from '~/schema/contentApi/createContentApiWithFieldsSchhema'
 import { createError } from '~/util/error'
 import fetchWrapper from '~/util/fetchWrapper'
 
@@ -27,7 +27,8 @@ export const POST = async (event: APIEvent) => {
   }
 
   const body = await event.request.json()
-  const result = v.safeParse(CreateContentApiSchema, body)
+  console.log(body)
+  const result = v.safeParse(CreateContentApiWithFieldsSchema, body)
 
   if (!result.success) {
     return new Response(JSON.stringify({ error: createError(result.issues) }), {
@@ -36,12 +37,13 @@ export const POST = async (event: APIEvent) => {
   }
 
   const res = await fetchWrapper({
-    path: `work_spaces/${slug}/content_apis`,
+    path: `work_spaces/${slug}/content_api`,
     method: 'POST',
     data: {
       name: result.output.name,
       endpoint: result.output.endpoint,
       apiType: result.output.apiType,
+      fields: result.output.fields,
     },
     userId,
   })

@@ -19,7 +19,6 @@ vi.mock('~/util/bffFetchWrapper', () => ({
   default: vi.fn(),
 }))
 
- 
 describe('useRequireAuth', () => {
   const mockNavigate = vi.fn()
 

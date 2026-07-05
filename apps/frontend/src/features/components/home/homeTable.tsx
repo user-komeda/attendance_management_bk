@@ -60,7 +60,7 @@ export const HomeTable = () => {
           table={table}
           columns={columns}
           paginationData={paginationData}
-          getRowHref={(row) => `/workspaces/${row.id}`}
+          getRowHref={(row) => `/workspaces/${row.slug}`}
         />
       </Show>
     </div>

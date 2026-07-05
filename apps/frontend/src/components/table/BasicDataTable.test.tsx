@@ -17,7 +17,6 @@ vi.mock('@solidjs/router', async (importOriginal) => {
   }
 })
 
- 
 describe('BasicDataTable', () => {
   interface TestData {
     id: string

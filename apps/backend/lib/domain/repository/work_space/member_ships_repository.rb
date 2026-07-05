@@ -18,10 +18,10 @@ module Domain
           caller.create(member_ships_entity: member_ships_entity)
         end
 
-        # @rbs (user_id: String, work_space_id: String) -> Domain::Entity::WorkSpace::MemberShipsEntity
-        def get_by_user_id_and_work_space_id(user_id:, work_space_id:)
+        # @rbs (work_space_id: String) -> Array[Domain::Entity::WorkSpace::MemberShipsEntity]
+        def get_by_work_space_id(work_space_id:)
           caller = resolve(REPOSITORY_KEY)
-          caller.get_by_user_id_and_work_space_id(user_id: user_id, work_space_id: work_space_id)
+          caller.get_by_work_space_id(work_space_id: work_space_id)
         end
       end
     end

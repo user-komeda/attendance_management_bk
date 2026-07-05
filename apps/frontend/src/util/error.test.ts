@@ -3,7 +3,6 @@ import { describe, it, expect } from 'vitest'
 import { ActionResult } from '~/types/action'
 import { findError, findActionMessage, createError } from '~/util/error'
 
- 
 describe('error utils', () => {
   describe('findError', () => {
     it('resultがundefinedの場合はundefinedを返すこと', () => {

@@ -63,5 +63,9 @@ RSpec.describe Application::Dto::WorkSpace::WorkSpaceWithMemberShipsDto do
     it 'contains content_api_names' do
       expect(dto.content_api_names).to eq(['articles'])
     end
+
+    it 'contains content_apis with api_type' do
+      expect(dto.content_apis).to eq([{ name: 'articles', api_type: 'list' }])
+    end
   end
 end

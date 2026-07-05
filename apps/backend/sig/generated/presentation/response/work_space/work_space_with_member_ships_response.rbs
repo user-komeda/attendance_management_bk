@@ -12,15 +12,17 @@ module Presentation
 
         attr_reader content_api_names: untyped
 
-        # rubocop:disable all
-        # @rbs (id: String, work_spaces: Hash[Symbol, String], member_ships: Hash[Symbol, String], content_api_names: Array[String]) -> void
-        # rubocop:enable all
-        def initialize: (id: String, work_spaces: Hash[Symbol, String], member_ships: Hash[Symbol, String], content_api_names: Array[String]) -> void
+        attr_reader content_apis: untyped
 
         # rubocop:disable all
-        # @rbs (id: String, member_ships: Application::Dto::WorkSpace::MemberShipsDto, work_spaces: Application::Dto::WorkSpace::WorkSpaceDto, content_api_names: Array[String]) -> Hash[Symbol, untyped]
+        # @rbs (id: String, work_spaces: Hash[Symbol, String], member_ships: untyped, content_api_names: Array[String], content_apis: Array[Hash[Symbol, String]]) -> void
         # rubocop:enable all
-        def self.build: (id: String, member_ships: Application::Dto::WorkSpace::MemberShipsDto, work_spaces: Application::Dto::WorkSpace::WorkSpaceDto, content_api_names: Array[String]) -> Hash[Symbol, untyped]
+        def initialize: (id: String, work_spaces: Hash[Symbol, String], member_ships: untyped, content_api_names: Array[String], content_apis: Array[Hash[Symbol, String]]) -> void
+
+        # rubocop:disable all
+        # @rbs (id: String, member_ships: untyped, work_spaces: Application::Dto::WorkSpace::WorkSpaceDto, content_api_names: Array[String], content_apis: Array[Hash[Symbol, String]]) -> Hash[Symbol, untyped]
+        # rubocop:enable all
+        def self.build: (id: String, member_ships: untyped, work_spaces: Application::Dto::WorkSpace::WorkSpaceDto, content_api_names: Array[String], content_apis: Array[Hash[Symbol, String]]) -> Hash[Symbol, untyped]
 
         # @rbs () -> Hash[Symbol, untyped]
         def to_h: () -> Hash[Symbol, untyped]

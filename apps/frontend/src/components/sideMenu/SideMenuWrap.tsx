@@ -5,18 +5,18 @@ import { SideMenuWithTooltip } from '~/components/sideMenu/sideMenuWithTooltip'
 import { Flex } from '~/components/ui/flex'
 
 export interface Item {
-  text: string
+  text?: string
   title?: string
-  icon: Component
-  href: string
+  icon?: Component
+  href?: string
   color?: string
+  titleOnly?: boolean
 
   /**
    * この item 以降を下側に分離する
    */
   separate?: boolean
 }
-
 interface Props {
   items: Accessor<Item[]>
   isTooltip: boolean

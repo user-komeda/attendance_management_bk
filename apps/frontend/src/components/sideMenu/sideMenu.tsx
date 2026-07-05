@@ -5,7 +5,23 @@ import { buttonVariants } from '~/components/ui/button'
 import { cn } from '~/lib/utils'
 
 export const SideMenu = (props: Item) => {
-  const { title, text, icon: Icon, href } = props
+  const { title, text, icon: Icon, href, titleOnly } = props
+
+  if (titleOnly) {
+    return (
+      <div class="space-y-1">
+        {title && (
+          <div class="text-muted-foreground px-3 pt-4 pb-1 text-xs font-semibold">
+            {title}
+          </div>
+        )}
+      </div>
+    )
+  }
+
+  if (Icon === undefined || href === undefined || text === undefined) {
+    return null
+  }
 
   return (
     <div class="space-y-1">

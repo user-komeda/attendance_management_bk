@@ -21,7 +21,7 @@ export const fetchWorkspaceDetailRequest = async (
   if (!result.ok || result.data === undefined) {
     throw new Error('Failed to load workspace detail')
   }
-
+  console.log(result)
   return result.data
 }
 

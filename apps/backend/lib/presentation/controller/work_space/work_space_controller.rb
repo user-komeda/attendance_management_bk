@@ -71,7 +71,8 @@ module Presentation
             id: work_spaces.id,
             member_ships: result.member_ships,
             work_spaces: work_spaces,
-            content_api_names: result.content_api_names
+            content_api_names: result.content_api_names,
+            content_apis: result.content_apis
           )
         end
       end

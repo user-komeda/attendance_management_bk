@@ -20,7 +20,6 @@ vi.mock(import('jose'), () => ({
   }),
 }))
 
- 
 describe('createJwt', () => {
   beforeEach(() => {
     vi.spyOn(env, 'getEnv').mockReturnValue({

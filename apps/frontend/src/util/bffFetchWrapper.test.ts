@@ -2,7 +2,6 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 
 import bffFetchWrapper from '~/util/bffFetchWrapper'
 
- 
 describe(bffFetchWrapper, () => {
   beforeEach(() => {
     vi.stubGlobal('fetch', vi.fn())

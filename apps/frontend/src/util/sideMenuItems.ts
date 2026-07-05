@@ -1,30 +1,107 @@
+import type { Component } from 'solid-js'
+import type { Accessor } from 'solid-js'
+
 import {
   AppWindow,
-  Bell,
+  Box,
   Image,
-  KeyRound,
   List,
   MessageSquare,
-  Plus,
-  RadioTower,
+  Settings,
   User,
-  UserCircle,
   Users,
 } from 'lucide-solid'
-import { Accessor } from 'solid-js'
 
-import type { Item } from '~/components/sideMenu/SideMenuWrap'
+import type { ListWorkSpacesResponse } from '~/schema/api/workSpaces'
+import type { WorkSpaceWithMemberShips } from '~/schema/api/workSpaces'
 
-import { ListWorkSpacesResponse } from '~/schema/api/workSpaces'
-import { getWorkspaceColor } from '~/util/workspaceColor'
+export interface Item {
+  title?: string
+  text?: string
+  icon?: Component
+  href?: string
+  color?: string
+  titleOnly?: boolean
+}
 
 export interface ApiContentMenuItem {
   text: string
   href: string
   title?: string
+  apiType: 'list' | 'object'
 }
 
-const fixedSideMenuItems: Item[] = [
+const workspaceColors = [
+  'bg-red-500',
+  'bg-orange-500',
+  'bg-amber-500',
+  'bg-yellow-500',
+  'bg-lime-500',
+  'bg-green-500',
+  'bg-emerald-500',
+  'bg-teal-500',
+  'bg-cyan-500',
+  'bg-sky-500',
+  'bg-blue-500',
+  'bg-indigo-500',
+  'bg-violet-500',
+  'bg-purple-500',
+  'bg-fuchsia-500',
+  'bg-pink-500',
+  'bg-rose-500',
+]
+
+const getWorkspaceColor = (slug: string) => {
+  const hash = Array.from(slug).reduce((acc, char) => {
+    return acc + char.charCodeAt(0)
+  }, 0)
+
+  return workspaceColors[hash % workspaceColors.length]
+}
+
+const fixedSideIconItems: Item[] = [
+  {
+    text: '設定',
+    icon: Settings,
+    href: '/settings',
+  },
+]
+
+const getApiContentIcon = (apiType: ApiContentMenuItem['apiType']) => {
+  if (apiType === 'object') {
+    return Box
+  }
+
+  return List
+}
+
+const buildApiContentMenuItems = (
+  workspaceDetail: WorkSpaceWithMemberShips,
+): ApiContentMenuItem[] => {
+  const slug = workspaceDetail.workSpaces.slug
+
+  return workspaceDetail.contentApis.map((contentApi) => ({
+    text: contentApi.name,
+    href: `/workspaces/${slug}/apis/${contentApi.name}`,
+    apiType: contentApi.apiType,
+  }))
+}
+
+const getMemberCountText = (workspaceDetail: WorkSpaceWithMemberShips) => {
+  return `${workspaceDetail.memberShips.length}人のメンバー`
+}
+
+const getRoleCountText = (workspaceDetail: WorkSpaceWithMemberShips) => {
+  const roles = new Set(
+    workspaceDetail.memberShips.map((memberShip) => memberShip.role),
+  )
+
+  return `${roles.size}個のロール`
+}
+
+const buildFixedSideMenuItems = (
+  workspaceDetail: WorkSpaceWithMemberShips,
+): Item[] => [
   {
     title: 'メディア',
     text: '8件のアイテム',
@@ -39,58 +116,35 @@ const fixedSideMenuItems: Item[] = [
   },
   {
     title: '権限管理',
-    text: '1人のメンバー',
+    text: getMemberCountText(workspaceDetail),
     icon: User,
     href: '/members',
   },
   {
-    text: '1個のロール',
+    text: getRoleCountText(workspaceDetail),
     icon: Users,
     href: '/roles',
-  },
-  {
-    text: '1個のAPIキー',
-    icon: KeyRound,
-    href: '/api-keys',
-  },
-]
-
-const fixedSideIconItems: Item[] = [
-  {
-    text: 'ワークスペース追加',
-    icon: Plus,
-    href: '/contentApi/new',
-  },
-  {
-    separate: true,
-    text: '通知',
-    icon: Bell,
-    href: '/notifications',
-  },
-  {
-    text: 'アクティビティ',
-    icon: RadioTower,
-    href: '/activities',
-  },
-  {
-    text: 'アカウント',
-    icon: UserCircle,
-    href: '/account',
-    color: 'bg-blue-700 text-blue-500',
   },
 ]
 
 export const buildSideMenuItems = (
-  apiContentItems: ApiContentMenuItem[],
-): Item[] => [
-  ...apiContentItems.map((item, index) => ({
-    title: index === 0 ? 'APIコンテンツ' : undefined,
-    text: item.text,
-    icon: List,
-    href: item.href,
-  })),
-  ...fixedSideMenuItems,
-]
+  workspaceDetail: WorkSpaceWithMemberShips,
+): Item[] => {
+  const apiContentItems = buildApiContentMenuItems(workspaceDetail)
+
+  return [
+    {
+      title: 'コンテンツ（API）',
+      titleOnly: true,
+    },
+    ...apiContentItems.map((item) => ({
+      text: item.text,
+      icon: getApiContentIcon(item.apiType),
+      href: item.href,
+    })),
+    ...buildFixedSideMenuItems(workspaceDetail),
+  ]
+}
 
 export const buildSideIconItems = (
   workspaces: Accessor<ListWorkSpacesResponse['data'] | undefined>,

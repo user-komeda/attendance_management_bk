@@ -13,7 +13,6 @@ vi.mock('~/provider/workspacesProvider', () => ({
   useWorkspace: vi.fn(),
 }))
 
- 
 describe('useSearchWorkspaces', () => {
   it('updates keyword when contentApi meta changes', async () => {
     const refetchWorkspaces = vi.fn()

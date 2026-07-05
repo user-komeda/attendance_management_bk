@@ -9,10 +9,11 @@ import {
 } from '~/hooks/contentApi/types/types'
 import {
   CreateContentApiBasicSchema,
-  CreateContentApiSchema,
   CreateContentApiTypeSchema,
 } from '~/schema/contentApi/createContentApiSchhema'
+import { CreateFieldsSchema } from '~/schema/field/createFieldSchema'
 import { createError } from '~/util/error'
+import { formDataToObject } from '~/util/formDataToObject'
 
 const stepConfigs = {
   basic: {
@@ -24,7 +25,7 @@ const stepConfigs = {
     keys: { apiType: true },
   },
   schema: {
-    schema: CreateContentApiSchema,
+    schema: CreateFieldsSchema,
     keys: {},
   },
 } as const satisfies Record<CreateContentApiStep, StepConfig>
@@ -35,7 +36,7 @@ const stepEntries = Object.entries(stepConfigs) as [
 ][]
 
 const getFormValues = (form: HTMLFormElement) => {
-  return Object.fromEntries(new FormData(form))
+  return formDataToObject(new FormData(form))
 }
 
 const firstErrorStep = (
@@ -64,6 +65,8 @@ const validateStep = (
     setStepResult(undefined)
     return true
   }
+
+  console.log(result.issues)
 
   setStepResult({
     ok: false,

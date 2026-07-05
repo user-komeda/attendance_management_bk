@@ -5,9 +5,11 @@ import type { FormDataActionOf } from '~/types/action'
 
 import { CreateContentApiResult } from '~/hooks/contentApi/types/types'
 import { useCreateContentApiStep } from '~/hooks/contentApi/useCreateContentApiStep'
-import { CreateContentApiSchema } from '~/schema/contentApi/createContentApiSchhema'
+import { CreateContentApiWithFieldsSchema } from '~/schema/contentApi/createContentApiWithFieldsSchhema'
 
-type CreateContentApiAction = FormDataActionOf<typeof CreateContentApiSchema>
+type CreateContentApiAction = FormDataActionOf<
+  typeof CreateContentApiWithFieldsSchema
+>
 
 export const useCreateContentApi = (props: {
   action: CreateContentApiAction

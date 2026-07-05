@@ -67,7 +67,8 @@ RSpec.describe Presentation::Controller::WorkSpace::WorkSpaceController do
         Application::Dto::WorkSpace::WorkSpaceWithMemberShipsDto,
         work_spaces: ws_dto,
         member_ships: ms_dto,
-        content_api_names: ['articles']
+        content_api_names: ['articles'],
+        content_apis: [{ name: 'articles', api_type: 'list' }]
       )
     end
 
@@ -88,10 +89,21 @@ RSpec.describe Presentation::Controller::WorkSpace::WorkSpaceController do
 
   def expect_show_response(result)
     aggregate_failures do
+      expect_show_base_fields(result)
+      expect_show_content_apis(result)
+    end
+  end
+
+  def expect_show_base_fields(result)
+    aggregate_failures do
       expect(result[:id]).to eq(workspace_id)
       expect(result[:work_spaces][:name]).to eq('Test')
       expect(result[:member_ships][:role]).to eq('owner')
     end
+  end
+
+  def expect_show_content_apis(result)
+    expect(result[:content_apis]).to eq([{ name: 'articles', api_type: 'list' }])
   end
 
   describe '#create' do
@@ -108,7 +120,8 @@ RSpec.describe Presentation::Controller::WorkSpace::WorkSpaceController do
         Application::Dto::WorkSpace::WorkSpaceWithMemberShipsDto,
         work_spaces: ws_dto,
         member_ships: ms_dto,
-        content_api_names: []
+        content_api_names: [],
+        content_apis: []
       )
       allow(controller).to receive(:resolve).and_return(mock_use_case)
       allow(mock_use_case).to receive(:invoke).and_return(dto)

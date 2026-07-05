@@ -32,7 +32,6 @@ vi.mock('~/components/CommonDialog', () => ({
   ),
 }))
 
- 
 describe('HomeTableHeader', () => {
   const mockSetKeyword = vi.fn()
   const mockHandleSearch = vi.fn()

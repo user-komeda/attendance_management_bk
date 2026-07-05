@@ -8,7 +8,6 @@ vi.mock('~/hooks/useRedirectAuth', () => ({
   default: vi.fn(),
 }))
 
- 
 describe('RequireAuth', () => {
   it('ロード中の場合はLoadingを表示すること', () => {
     vi.mocked(useRedirectAuth).mockReturnValue({

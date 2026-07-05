@@ -54,7 +54,7 @@ RSpec.describe 'WorkSpace API integration', type: :request do
     end
 
     def membership_role_from_body
-      JSON.parse(last_response.body).dig('member_ships', 'role')
+      JSON.parse(last_response.body).dig('member_ships', 0, 'role')
     end
 
     it 'returns 400 for invalid params' do

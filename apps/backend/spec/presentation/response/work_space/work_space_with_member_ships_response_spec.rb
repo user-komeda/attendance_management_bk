@@ -30,7 +30,8 @@ RSpec.describe Presentation::Response::WorkSpace::WorkSpaceWithMemberShipsRespon
   describe '.build' do
     subject(:result) do
       described_class.build(id: workspace_id, work_spaces: ws_dto, member_ships: ms_dto,
-                            content_api_names: ['articles'])
+                            content_api_names: ['articles'],
+                            content_apis: [{ name: 'articles', api_type: 'list' }])
     end
 
     it 'returns id' do
@@ -47,6 +48,10 @@ RSpec.describe Presentation::Response::WorkSpace::WorkSpaceWithMemberShipsRespon
 
     it 'returns content_api_names' do
       expect(result[:content_api_names]).to eq(['articles'])
+    end
+
+    it 'returns content_apis' do
+      expect(result[:content_apis]).to eq([{ name: 'articles', api_type: 'list' }])
     end
   end
 end

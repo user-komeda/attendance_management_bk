@@ -28,6 +28,7 @@ const actionWrapperWithParam = <S extends v.GenericSchema, Param>({
       const parsed = parseFormData(schema, formData)
 
       if (!parsed.success) {
+        console.log(formData)
         return parsed.result
       }
 

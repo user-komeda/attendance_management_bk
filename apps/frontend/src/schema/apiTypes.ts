@@ -128,6 +128,42 @@ export interface paths {
     patch: operations['updateWorkSpace']
     trace?: never
   }
+  '/work_spaces/{work_space_id}/content_api': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get?: never
+    put?: never
+    /** コンテンツAPIの作成 */
+    post: operations['createContentApi']
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/work_spaces/{work_space_id}/content_api/{id}': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    /** コンテンツAPI詳細の取得 */
+    get: operations['getContentApi']
+    put?: never
+    post?: never
+    /** コンテンツAPIの削除 */
+    delete: operations['deleteContentApi']
+    options?: never
+    head?: never
+    /** コンテンツAPIの更新 */
+    patch: operations['updateContentApi']
+    trace?: never
+  }
 }
 export type webhooks = Record<string, never>
 export interface components {
@@ -220,7 +256,7 @@ export interface components {
       /** @example active */
       status: string
     }
-    /** @description メンバーシップ情報を含むワークスペース作成レスポンス */
+    /** @description メンバーシップ情報を含むワークスペース詳細レスポンス */
     WorkSpaceWithMemberShips: {
       /**
        * Format: uuid
@@ -228,7 +264,29 @@ export interface components {
        */
       id: string
       work_spaces: components['schemas']['WorkSpace']
-      member_ships: components['schemas']['MemberShips']
+      member_ships: components['schemas']['MemberShips'][]
+      /**
+       * @description ワークスペース内のコンテンツAPIの名前リスト
+       * @example [
+       *       "articles",
+       *       "products"
+       *     ]
+       */
+      content_api_names: string[]
+      /**
+       * @description ワークスペース内のコンテンツAPI情報
+       * @example [
+       *       {
+       *         "name": "articles",
+       *         "api_type": "list"
+       *       }
+       *     ]
+       */
+      content_apis: {
+        name: string
+        /** @enum {string} */
+        api_type: 'list' | 'object'
+      }[]
     }
     /** @description メンバーシップ情報 */
     MemberShips: {
@@ -295,7 +353,7 @@ export interface components {
        * @description 現在適用されている検索クエリ
        * @example test
        */
-      search_query?: string
+      search_query?: string | null
     }
     /** @description エラー情報 */
     Error: {
@@ -315,6 +373,109 @@ export interface components {
         message: string
       }[]
     }
+    /** @description コンテンツAPIの基本情報 */
+    ContentApi: {
+      /** @description コンテンツAPIのID */
+      id: string
+      /** @description 所属ワークスペースのID */
+      work_space_id: string
+      /**
+       * @description コンテンツAPIの名前
+       * @example articles
+       */
+      name: string
+      /**
+       * @description エンドポイント名
+       * @example articles
+       */
+      endpoint: string
+      /**
+       * @description APIタイプ
+       * @example collection
+       */
+      api_type: string
+    }
+    /** @description フィールド情報 */
+    Field: {
+      /** @description フィールドのID */
+      id: string
+      /** @description 所属コンテンツAPIのID */
+      content_api_id: string
+      /** @description フィールドの識別子 */
+      field_id: string
+      /** @description 表示名 */
+      display_name: string
+      /** @description フィールドタイプ */
+      field_type: string
+      /** @description 必須フラグ */
+      required: boolean
+      /** @description ユニーク値フラグ */
+      unique_value: boolean
+      /** @description 表示順 */
+      order_index: number
+      /** @description 有効フラグ */
+      is_active: boolean
+      /** @description 追加設定 */
+      settings?: {
+        [key: string]: unknown
+      }
+    }
+    /** @description コンテンツAPIとフィールド一覧 */
+    ContentApiWithFields: {
+      content_api: components['schemas']['ContentApi']
+      fields: components['schemas']['Field'][]
+    }
+    /** @description コンテンツAPI作成リクエスト */
+    CreateContentApiWithFieldsRequest: {
+      /**
+       * @description コンテンツAPIの名前
+       * @example articles
+       */
+      name: string
+      /**
+       * @description エンドポイント名
+       * @example articles
+       */
+      endpoint: string
+      /**
+       * @description APIタイプ
+       * @example collection
+       */
+      api_type: string
+      fields: {
+        field_id: string
+        display_name: string
+        field_type: string
+        required?: boolean
+        unique_value?: boolean
+        order_index?: number
+        is_active?: boolean
+        settings?: {
+          [key: string]: unknown
+        }
+      }[]
+    }
+    /** @description コンテンツAPI更新リクエスト */
+    UpdateContentApiWithFieldsRequest: {
+      /** @description コンテンツAPIの名前 */
+      name?: string
+      /** @description エンドポイント名 */
+      endpoint?: string
+      /** @description APIタイプ */
+      api_type?: string
+      fields?: {
+        field_id: string
+        display_name: string
+        field_type: string
+        required?: boolean
+        unique_value?: boolean
+        order_index?: number
+        is_active?: boolean
+        settings?: {
+          [key: string]: unknown
+        }
+      }[]
+    }
   }
   responses: never
   parameters: {
@@ -322,12 +483,16 @@ export interface components {
     UserId: string
     /** @description ワークスペースID(UUID) */
     WorkSpaceId: string
+    /** @description コンテンツAPIのID */
+    ContentApiId: string
     /** @description ページ番号 */
     Page: number
     /** @description 1ページあたりの件数 */
     PerPage: number
     /** @description 検索クエリ（名前などでフィルタリング） */
     SearchQuery: string
+    /** @description ワークスペースID(slug) */
+    WorkSpaceSlug: string
   }
   requestBodies: never
   headers: never
@@ -499,6 +664,15 @@ export interface operations {
       }
       /** @description リクエスト内容が不正です */
       400: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+      /** @description メールアドレスが既に登録されています */
+      409: {
         headers: {
           [name: string]: unknown
         }
@@ -759,6 +933,189 @@ export interface operations {
         }
       }
       /** @description ワークスペースが見つかりません */
+      404: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+      /** @description サーバー内部エラー */
+      default: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+    }
+  }
+  createContentApi: {
+    parameters: {
+      query?: never
+      header?: never
+      path: {
+        /** @description ワークスペースID(slug) */
+        work_space_id: components['parameters']['WorkSpaceSlug']
+      }
+      cookie?: never
+    }
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CreateContentApiWithFieldsRequest']
+      }
+    }
+    responses: {
+      /** @description コンテンツAPIが正常に作成されました */
+      201: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['ContentApiWithFields']
+        }
+      }
+      /** @description バリデーションエラー */
+      400: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+      /** @description サーバー内部エラー */
+      default: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+    }
+  }
+  getContentApi: {
+    parameters: {
+      query?: never
+      header?: never
+      path: {
+        /** @description ワークスペースID(slug) */
+        work_space_id: components['parameters']['WorkSpaceSlug']
+        /** @description コンテンツAPIのID */
+        id: components['parameters']['ContentApiId']
+      }
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description 正常にコンテンツAPI情報を返却します */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['ContentApiWithFields']
+        }
+      }
+      /** @description コンテンツAPIが見つかりません */
+      404: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+      /** @description サーバー内部エラー */
+      default: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+    }
+  }
+  deleteContentApi: {
+    parameters: {
+      query?: never
+      header?: never
+      path: {
+        /** @description ワークスペースID(slug) */
+        work_space_id: components['parameters']['WorkSpaceSlug']
+        /** @description コンテンツAPIのID */
+        id: components['parameters']['ContentApiId']
+      }
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description コンテンツAPIが正常に削除されました */
+      204: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
+      }
+      /** @description コンテンツAPIが見つかりません */
+      404: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+      /** @description サーバー内部エラー */
+      default: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+    }
+  }
+  updateContentApi: {
+    parameters: {
+      query?: never
+      header?: never
+      path: {
+        /** @description ワークスペースID(slug) */
+        work_space_id: components['parameters']['WorkSpaceSlug']
+        /** @description コンテンツAPIのID */
+        id: components['parameters']['ContentApiId']
+      }
+      cookie?: never
+    }
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['UpdateContentApiWithFieldsRequest']
+      }
+    }
+    responses: {
+      /** @description コンテンツAPIが正常に更新されました */
+      204: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
+      }
+      /** @description バリデーションエラー */
+      400: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+      /** @description コンテンツAPIが見つかりません */
       404: {
         headers: {
           [name: string]: unknown

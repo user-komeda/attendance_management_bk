@@ -1,17 +1,17 @@
 import { useParams } from '@solidjs/router'
 
 import { CreateForm } from '~/features/components/workspaces/contentApi/createForm'
-import { CreateContentApiSchema } from '~/schema/contentApi/createContentApiSchhema'
+import { CreateContentApiWithFieldsSchema } from '~/schema/contentApi/createContentApiWithFieldsSchhema'
 import actionWrapperWithParam from '~/util/actionWrapperWithParams'
 
 const createContentApi = actionWrapperWithParam<
-  typeof CreateContentApiSchema,
+  typeof CreateContentApiWithFieldsSchema,
   string
 >({
   // v8 ignore next
   path: (slug) => `/api/workspaces/${slug}/contentApi`,
   method: 'POST',
-  schema: CreateContentApiSchema,
+  schema: CreateContentApiWithFieldsSchema,
   redirectUrl: '/',
   name: 'api-content',
 })

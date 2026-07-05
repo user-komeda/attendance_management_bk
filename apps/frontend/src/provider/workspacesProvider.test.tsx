@@ -17,7 +17,6 @@ vi.mock('~/util/bffFetchWrapper', () => ({
   }),
 }))
 
- 
 describe('homeWorkspacesProvider', () => {
   it('useHomeWorkspaces throws error when used outside provider', () => {
     expect(() => useWorkspace()).toThrow(

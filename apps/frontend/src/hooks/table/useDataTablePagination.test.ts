@@ -3,7 +3,6 @@ import { describe, it, expect, vi } from 'vitest'
 
 import { useDataTablePagination } from '~/hooks/table/useDataTablePagination'
 
- 
 describe('useDataTablePagination', () => {
   const defaultMeta = {
     page: 1,

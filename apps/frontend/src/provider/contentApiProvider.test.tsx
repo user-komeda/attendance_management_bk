@@ -16,7 +16,6 @@ vi.mock('~/util/bffFetchWrapper', () => ({
   }),
 }))
 
- 
 describe('contentApiProvider', () => {
   it('useContentApi throws error when used outside provider', () => {
     expect(() => useContentApi()).toThrow(

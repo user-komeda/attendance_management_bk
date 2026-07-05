@@ -21,7 +21,6 @@ vi.mock('@solidjs/router', async (importOriginal) => {
   }
 })
 
- 
 describe('useCreateWorkspace', () => {
   it('成功時にモーダルを閉じてワークスペ�Eスを�E取得すること', async () => {
     const refetchWorkspaces = vi.fn()

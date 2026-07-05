@@ -12,9 +12,7 @@ vi.mock('~/util/fetchWrapper', () => ({
   default: vi.fn(),
 }))
 
- 
 describe('contentApi api', () => {
-   
   describe('GET', () => {
     it('未ログインの場合は401を返すこと', async () => {
       vi.mocked(getCurrentUserId).mockResolvedValue(null)
@@ -66,7 +64,6 @@ describe('contentApi api', () => {
     })
   })
 
-   
   describe('POST', () => {
     it('未ログインの場合は401を返すこと', async () => {
       vi.mocked(getCurrentUserId).mockResolvedValue(null)

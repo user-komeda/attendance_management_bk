@@ -24,7 +24,7 @@ module Application
             content_apis = [] # : Array[::Domain::Entity::WorkSpace::ContentApiEntity]
 
             WORK_SPACE_WITH_MEMBER_SHIPS_DTO.build(work_space_entity: created_workspace,
-                                                   member_ships: created_member_ships,
+                                                   member_ships: [created_member_ships],
                                                    content_apis: content_apis)
           end
         end

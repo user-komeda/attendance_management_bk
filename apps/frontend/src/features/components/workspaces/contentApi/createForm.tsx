@@ -6,12 +6,15 @@ import { BasicInfo } from '~/features/components/workspaces/contentApi/basicInfo
 import { SchemaConfig } from '~/features/components/workspaces/contentApi/schemaConfig'
 import { TypeSelect } from '~/features/components/workspaces/contentApi/typeSelect'
 import { useCreateContentApi } from '~/hooks/contentApi/useCreateContentApi'
-import { CreateContentApiSchema } from '~/schema/contentApi/createContentApiSchhema'
+import { CreateContentApiWithFieldsSchema } from '~/schema/contentApi/createContentApiWithFieldsSchhema'
+import { createEffect } from 'solid-js'
 
 export type ApiType = 'list' | 'object'
-type CreateContentApiAction = FormDataActionOf<typeof CreateContentApiSchema>
+type CreateContentApiAction = FormDataActionOf<
+  typeof CreateContentApiWithFieldsSchema
+>
 export type CreateContentApiResult = ActionResultOf<
-  typeof CreateContentApiSchema
+  typeof CreateContentApiWithFieldsSchema
 >
 
 // eslint-disable-next-line max-lines-per-function
@@ -20,6 +23,10 @@ export const CreateForm = (props: { action: CreateContentApiAction }) => {
     useCreateContentApi({
       action: props.action,
     })
+
+  createEffect(() => {
+    console.log(submission.result)
+  })
 
   return (
     <form

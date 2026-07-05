@@ -9,6 +9,7 @@ import {
 } from '~/types/action'
 import bffFetchWrapper from '~/util/bffFetchWrapper'
 import { createError } from '~/util/error'
+import { formDataToObject } from '~/util/formDataToObject'
 
 export const handleFetchResult = async <S extends v.GenericSchema>({
   path,
@@ -41,9 +42,10 @@ export const parseFormData = <S extends v.GenericSchema>(
   schema: S,
   formData: FormData,
 ): ParseFormDataResult<S> => {
-  const rawData = Object.fromEntries(formData.entries())
+  const rawData = formDataToObject(formData)
+  console.log(rawData)
   const result = v.safeParse(schema, rawData)
-
+  console.log(result.issues)
   if (!result.success) {
     return {
       success: false,

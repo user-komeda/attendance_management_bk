@@ -24,11 +24,8 @@ module Application
 
         # @rbs (untyped) -> ::Application::Dto::WorkSpace::WorkSpaceWithMemberShipsDto
         def build_dto(work_space)
-          user_id = ContextHelper.get_context(:auth_context)[:user_id]
           work_space_id = work_space.id.value
-          member_ships = resolve(MEMBER_SHIPS_REPOSITORY).get_by_user_id_and_work_space_id(
-            user_id: user_id, work_space_id: work_space_id
-          )
+          member_ships = resolve(MEMBER_SHIPS_REPOSITORY).get_by_work_space_id(work_space_id: work_space_id)
           content_apis = resolve(CONTENT_API_REPOSITORY).get_by_work_space_id(work_space_id: work_space_id)
           WORK_SPACE_WITH_MEMBER_SHIPS_DTO.build(
             work_space_entity: work_space,

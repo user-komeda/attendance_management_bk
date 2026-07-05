@@ -9,8 +9,15 @@ export type FieldKeyOf<Schema extends v.GenericSchema> = Extract<
   string
 >
 
+export interface FieldErrorPathItem {
+  key: string | number
+}
+
+export type FieldErrorPath = FieldErrorPathItem[]
+
 interface ActionFieldError<Key extends string = string> {
   key: Key
+  path?: FieldErrorPath
   message: string
 }
 

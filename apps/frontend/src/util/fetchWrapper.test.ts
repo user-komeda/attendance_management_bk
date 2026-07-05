@@ -5,7 +5,6 @@ import * as env from '~/env'
 import * as createJwt from '~/lib/createJwt'
 import fetchWrapper from '~/util/fetchWrapper'
 
- 
 describe(fetchWrapper, () => {
   beforeEach(() => {
     vi.stubGlobal('fetch', vi.fn())

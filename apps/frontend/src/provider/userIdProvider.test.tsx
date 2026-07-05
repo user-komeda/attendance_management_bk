@@ -3,7 +3,6 @@ import { describe, it, expect } from 'vitest'
 
 import { useUserId, UserIdProvider } from '~/provider/userIdProvider'
 
- 
 describe('UserIdProvider', () => {
   it('provides userId and can update it', () => {
     const TestComponent = () => {

@@ -20,7 +20,6 @@ vi.mock(import('vinxi/http'), () => ({
   useSession: vi.fn(),
 }))
 
- 
 describe(createSession, () => {
   beforeEach(() => {
     vi.clearAllMocks()

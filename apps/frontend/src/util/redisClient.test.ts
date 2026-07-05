@@ -24,7 +24,6 @@ interface MockRedisClient {
   expire: ReturnType<typeof vi.fn>
 }
 
- 
 describe('redisClient', () => {
   let mockClient: MockRedisClient
 

@@ -1,6 +1,5 @@
 import { test, expect } from '@playwright/test'
 
- 
 test.describe('E2E Authentication Tests', () => {
   test('未ログインでトップページにアクセスするとログイン画面にリダイレクトされること', async ({
     page,

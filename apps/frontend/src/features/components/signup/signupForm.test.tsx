@@ -17,7 +17,6 @@ vi.mock(import('@solidjs/router'), async () => {
   }
 })
 
- 
 describe(SignupForm, () => {
   it('should render signup form', () => {
     vi.mocked(useSubmission).mockReturnValue({

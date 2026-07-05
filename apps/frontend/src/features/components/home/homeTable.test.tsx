@@ -30,7 +30,6 @@ vi.mock('~/components/table/BasicDataTable', () => ({
   },
 }))
 
- 
 describe('HomeTable', () => {
   beforeEach(() => {
     basicDataTableMock.props = undefined

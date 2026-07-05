@@ -76,7 +76,7 @@ RSpec.describe Infrastructure::Repository::Rom::WorkSpace::MemberShipsRomReposit
     end
   end
 
-  describe '#get_by_user_id_and_work_space_id' do
+  describe '#get_by_work_space_id' do
     let(:fake_memberships) do
       entity = Infrastructure::Entity::WorkSpace::MemberShipsEntity.new(
         id: SecureRandom.uuid, user_id: user_id, work_space_id: workspace_id, role: 'owner', status: 'active'
@@ -86,17 +86,14 @@ RSpec.describe Infrastructure::Repository::Rom::WorkSpace::MemberShipsRomReposit
 
     before { allow(repo).to receive(:member_ships).and_return(fake_memberships) }
 
-    it 'returns one infra entity' do
-      result = repo.get_by_user_id_and_work_space_id(user_id: user_id, work_space_id: workspace_id)
-      expect_infra_entity(result)
+    it 'returns infra entities' do
+      result = repo.get_by_work_space_id(work_space_id: workspace_id)
+      expect(result).to all(be_a(Infrastructure::Entity::WorkSpace::MemberShipsEntity))
     end
-  end
 
-  def expect_infra_entity(result)
-    aggregate_failures do
-      expect(result).to be_a(Infrastructure::Entity::WorkSpace::MemberShipsEntity)
-      expect(result.user_id).to eq(user_id)
-      expect(result.work_space_id).to eq(workspace_id)
+    it 'returns entities with expected workspace id' do
+      result = repo.get_by_work_space_id(work_space_id: workspace_id)
+      expect(result.map(&:work_space_id)).to eq([workspace_id])
     end
   end
 end

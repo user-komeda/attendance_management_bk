@@ -14,7 +14,6 @@ vi.mock('@solidjs/router', async (importOriginal) => {
   }
 })
 
- 
 describe('PaginationArea', () => {
   interface TestData {
     id: number

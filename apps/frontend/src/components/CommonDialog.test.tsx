@@ -39,7 +39,6 @@ vi.mock('~/components/ui/dialog', () => ({
   ),
 }))
 
- 
 describe('CommonDialog', () => {
   it('openがtrueのときコンテンツを表示すること', () => {
     const [open, setOpen] = createSignal(true)
