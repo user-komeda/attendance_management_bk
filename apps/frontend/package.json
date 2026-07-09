@@ -52,7 +52,7 @@
     "eslint-import-resolver-typescript": "4.4.5",
     "eslint-plugin-import": "2.32.0",
     "eslint-plugin-no-relative-import-paths": "1.6.1",
-    "eslint-plugin-playwright": "2.10.4",
+    "eslint-plugin-playwright": "2.10.5",
     "eslint-plugin-solid": "0.14.5",
     "eslint-plugin-testing-library": "7.16.2",
     "eslint-plugin-unused-imports": "4.4.1",
