@@ -1,11 +1,11 @@
 import { createEffect, createSignal } from 'solid-js'
 
-import { useHomeWorkspaces } from '~/provider/homeWorkspacesProvider'
+import { useWorkspace } from '~/provider/workspacesProvider'
 
 const DEFAULT_PAGE = 1
 
 export const useSearchWorkspaces = () => {
-  const { fetchWorkspaces, workspaces } = useHomeWorkspaces()
+  const { refetchWorkspaces, workspaces } = useWorkspace()
 
   const [keyword, setKeyword] = createSignal('')
   const [isSearching, setIsSearching] = createSignal(false)
@@ -18,7 +18,7 @@ export const useSearchWorkspaces = () => {
     setIsSearching(true)
 
     try {
-      await fetchWorkspaces({
+      await refetchWorkspaces({
         searchQuery: keyword().trim(),
         page: DEFAULT_PAGE,
       })

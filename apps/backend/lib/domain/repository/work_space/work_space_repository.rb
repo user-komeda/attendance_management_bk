@@ -13,7 +13,7 @@ module Domain
         end
 
         # rubocop:disable all
-        # @rbs (workspace_ids: Array[String], page: Integer, per_page: Integer, search_query: String?) -> { data: Array[::Domain::Entity::WorkSpace::WorkSpaceEntity], total_count: Integer }
+        # @rbs (workspace_ids: Array[String], page: Integer, per_page: Integer, search_query: String?) -> Hash[Symbol, untyped]
         # rubocop:enable all
         def find_by_ids_with_pagination(workspace_ids:, page:, per_page:, search_query: nil)
           caller = resolve(REPOSITORY_KEY)

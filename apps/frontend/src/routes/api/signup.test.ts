@@ -9,7 +9,6 @@ import fetchWrapper from '~/util/fetchWrapper'
 vi.mock(import('~/util/fetchWrapper'))
 vi.mock(import('~/lib/createSeession'))
 
-// eslint-disable-next-line max-lines-per-function
 describe('signup API', () => {
   beforeEach(() => {
     vi.clearAllMocks()

@@ -2,11 +2,15 @@ module ROM
   module Types
     # Placeholder for ROM::Types::String
     String: untyped
+
     # Placeholder for ROM::Types::Bool
     Bool: untyped
 
     # Placeholder for ROM::Types::Bool
     Integer: untyped
+
+    # Placeholder for ROM::Types::Hash
+    Hash: untyped
   end
 
   module SQL

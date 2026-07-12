@@ -4,10 +4,12 @@ module Application
   module UseCase
     module WorkSpace
       class UpdateWorkSpaceUseCase < WorkSpaceBaseUseCase
-        # @rbs (args: ::Application::Dto::WorkSpace::UpdateWorkSpaceInputDto) -> ::Application::Dto::WorkSpace::WorkSpaceDto
-        def invoke: (args: ::Application::Dto::WorkSpace::UpdateWorkSpaceInputDto) -> ::Application::Dto::WorkSpace::WorkSpaceDto
+        # @rbs (arg: ::Application::Dto::WorkSpace::UpdateWorkSpaceInputDto) -> ::Application::Dto::WorkSpace::WorkSpaceDto
+        def invoke: (arg: ::Application::Dto::WorkSpace::UpdateWorkSpaceInputDto) -> ::Application::Dto::WorkSpace::WorkSpaceDto
 
         private
+
+        def with_transaction: () ?{ (?) -> untyped } -> untyped
 
         def update_workspace: (work_space: untyped, input_dto: untyped) -> untyped
 
@@ -16,6 +18,8 @@ module Application
         def fetch_workspace: (id: untyped) -> untyped
 
         def validate_uniqueness!: (new_slug: untyped, current_slug: untyped) -> untyped
+
+        def validate_uniqueness: (new_slug: untyped, current_slug: untyped) -> untyped
       end
     end
   end

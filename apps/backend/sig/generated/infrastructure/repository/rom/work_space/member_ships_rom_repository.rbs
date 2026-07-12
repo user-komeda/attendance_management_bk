@@ -11,8 +11,8 @@ module Infrastructure
           # @rbs (::Infrastructure::Entity::WorkSpace::MemberShipsEntity entity) -> untyped
           def rom_create: (::Infrastructure::Entity::WorkSpace::MemberShipsEntity entity) -> untyped
 
-          # @rbs (user_id: String, work_space_id: String) -> Infrastructure::Entity::WorkSpace::MemberShipsEntity?
-          def get_by_user_id_and_work_space_id: (user_id: String, work_space_id: String) -> Infrastructure::Entity::WorkSpace::MemberShipsEntity?
+          # @rbs (work_space_id: String) -> Array[Infrastructure::Entity::WorkSpace::MemberShipsEntity]
+          def get_by_work_space_id: (work_space_id: String) -> Array[Infrastructure::Entity::WorkSpace::MemberShipsEntity]
         end
       end
     end

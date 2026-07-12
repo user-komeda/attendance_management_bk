@@ -5,6 +5,8 @@ module Infrastructure
     class RepositoryBase
       include ContainerHelper
 
+      ABSTRACT_REPOSITORY_MESSAGE: ::String
+
       # @rbs () -> Array[::Domain::Entity::DomainEntity]
       def get_all: () -> Array[::Domain::Entity::DomainEntity]
 
@@ -19,6 +21,14 @@ module Infrastructure
 
       # @rbs (::Domain::Entity::DomainEntity entity) -> void
       def delete: (::Domain::Entity::DomainEntity entity) -> void
+
+      private
+
+      # @rbs () -> void
+      def raise_repository_not_implemented: () -> void
+
+      # @rbs () -> void
+      def raise_repository_not_implemented!: () -> void
     end
   end
 end

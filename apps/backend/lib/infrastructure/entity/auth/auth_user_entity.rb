@@ -25,15 +25,13 @@ module Infrastructure
         # @rbs () -> ::Domain::Entity::Auth::AuthUserEntity
         def to_domain
           ::Domain::Entity::Auth::AuthUserEntity.build_with_id(
-            {
-              id: id,
-              user_id: user_id,
-              email: email,
-              password: password_digest,
-              provider: provider,
-              last_login_at: last_login_at,
-              is_active: is_active
-            }
+            id: id,
+            user_id: user_id,
+            email: email,
+            password: password_digest,
+            provider: provider,
+            last_login_at: last_login_at,
+            is_active: is_active
           )
         end
 

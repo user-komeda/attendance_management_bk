@@ -8,6 +8,7 @@ module VerifyJwt
   PUBLIC_PATH = %w[/swagger /swagger/token /health /openapi].freeze
   BFF_JWT_PATH = %w[/signin /signup].freeze
 
+
   def self.skip_jwt_verification?(path)
     PUBLIC_PATH.include?(path) || path.start_with?('/openapi/')
   end
@@ -17,21 +18,13 @@ module VerifyJwt
   end
 
   def self.verify_user_jwt(token)
-    if ENV['RACK_ENV'] == 'test'
-      return Struct.new(:user_id).new('04e8496c-6b8c-4f4f-9746-2d96a10f13ec') if token.nil?
-
-      begin
-        return verify_jwt(token, type: :user)
-      rescue StandardError => _e
-        return Struct.new(:user_id).new(token)
-      end
-    end
+    return verify_user_jwt_in_test(token) if test_env?
 
     verify_jwt(token, type: :user)
   end
 
   def self.verify_bff_jwt(token)
-    return if ENV['RACK_ENV'] == 'test'
+    return if test_env?
 
     verify_jwt(token, type: :bff)
   end
@@ -48,6 +41,18 @@ module VerifyJwt
     return nil unless bearer&.start_with?('Bearer ')
 
     bearer.split(' ', 2)[1]
+  end
+
+  def self.test_env?
+    ENV['RACK_ENV'] == 'test'
+  end
+
+  def self.verify_user_jwt_in_test(token)
+    return Struct.new(:user_id).new('04e8496c-6b8c-4f4f-9746-2d96a10f13ec') if token.nil?
+
+    verify_jwt(token, type: :user)
+  rescue StandardError
+    Struct.new(:user_id).new(token)
   end
 end
 # :nocov:

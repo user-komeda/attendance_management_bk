@@ -1,13 +1,28 @@
 module Dry
   module Validation
+    class RuleDSL
+      def value: () -> untyped
+
+      def key: () -> untyped
+    end
+
     class Contract
       def self.params: () { () -> void } -> untyped
+
       def self.required: (Symbol) -> untyped
+
       def self.optional: (Symbol) -> untyped
+
+      def self.rule: (Symbol) { () [self: RuleDSL] -> void } -> void
 
       # Chainable rule builders (DSL usually used within `params` block)
       def filled: (*untyped) -> untyped
-      def value: (*untyped) -> untyped
+
+      def value: () -> untyped
+
+      def key: () -> untyped
+
+      def rule: (Symbol) { () -> void } -> void
     end
   end
 end

@@ -1,0 +1,32 @@
+# Generated from lib/presentation/request/content_api/field_base_request.rb with RBS::Inline
+
+module Presentation
+  module Request
+    module ContentApi
+      class FieldBaseRequest < BaseRequest
+        # rubocop:disable all
+        attr_reader field_id: String
+
+        # rubocop:disable all
+        attr_reader display_name: String
+
+        # rubocop:disable all
+        attr_reader field_type: String
+
+        attr_reader required: bool
+
+        attr_reader unique_value: bool
+
+        attr_reader is_active: bool
+
+        attr_reader order_index: Integer
+
+        attr_reader settings: Hash[Symbol, untyped]
+
+        CREATE_INPUT_DTO: untyped
+
+        CREATE_CONTRACT: untyped
+      end
+    end
+  end
+end

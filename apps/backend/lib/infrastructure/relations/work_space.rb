@@ -8,6 +8,7 @@ module Infrastructure
       schema(:work_spaces, infer: true) do
         associations do
           has_many :member_ships
+          has_many :content_apis
         end
       end
 

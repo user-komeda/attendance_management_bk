@@ -36,24 +36,24 @@ RSpec.describe Application::UseCase::WorkSpace::UpdateWorkSpaceUseCase do
         workspace_entity = Domain::Entity::WorkSpace::WorkSpaceEntity.build_with_id(
           id: workspace_id, name: 'Old Name', slug: 'old-slug'
         )
-        allow(work_space_repo).to receive(:get_by_id).with(id: workspace_id).and_return(workspace_entity)
+        allow(work_space_repo).to receive(:find_by_slug).with(slug: workspace_id).and_return(workspace_entity)
         allow(work_space_service).to receive(:exists_by_slug?).and_return(false)
         allow(work_space_repo).to receive(:update).and_return(workspace_entity)
       end
 
       it 'returns updated WorkSpaceDto' do
-        result = use_case.invoke(args: input_dto)
+        result = use_case.invoke(arg: input_dto)
         expect(result.name).to eq('Updated WorkSpace')
       end
     end
 
     context 'when workspace does not exist' do
       before do
-        allow(work_space_repo).to receive(:get_by_id).with(id: workspace_id).and_return(nil)
+        allow(work_space_repo).to receive(:find_by_slug).with(slug: workspace_id).and_return(nil)
       end
 
       it 'raises NotFoundException' do
-        expect { use_case.invoke(args: input_dto) }
+        expect { use_case.invoke(arg: input_dto) }
           .to raise_error(Application::Exception::NotFoundException, 'workspace not found')
       end
     end
@@ -63,12 +63,12 @@ RSpec.describe Application::UseCase::WorkSpace::UpdateWorkSpaceUseCase do
         workspace_entity = Domain::Entity::WorkSpace::WorkSpaceEntity.build_with_id(
           id: workspace_id, name: 'Old Name', slug: 'old-slug'
         )
-        allow(work_space_repo).to receive(:get_by_id).with(id: workspace_id).and_return(workspace_entity)
+        allow(work_space_repo).to receive(:find_by_slug).with(slug: workspace_id).and_return(workspace_entity)
         allow(work_space_service).to receive(:exists_by_slug?).and_return(true)
       end
 
       it 'raises DuplicatedException' do
-        expect { use_case.invoke(args: input_dto) }
+        expect { use_case.invoke(arg: input_dto) }
           .to raise_error(Application::Exception::DuplicatedException, 'workspace already exists')
       end
     end
@@ -81,15 +81,25 @@ RSpec.describe Application::UseCase::WorkSpace::UpdateWorkSpaceUseCase do
         input = Application::Dto::WorkSpace::UpdateWorkSpaceInputDto.new(
           id: workspace_id, name: 'New Name', slug: 'old-slug'
         )
-        allow(work_space_repo).to receive(:get_by_id).with(id: workspace_id).and_return(workspace_entity)
+        allow(work_space_repo).to receive(:find_by_slug).with(slug: workspace_id).and_return(workspace_entity)
         allow(work_space_repo).to receive(:update).and_return(workspace_entity)
         allow(work_space_service).to receive(:exists_by_slug?)
-        use_case.invoke(args: input)
+        use_case.invoke(arg: input)
       end
 
       it 'does not check slug uniqueness' do
         expect(work_space_service).not_to have_received(:exists_by_slug?)
       end
+    end
+  end
+
+  describe '#validate_uniqueness' do
+    it 'delegates to validate_uniqueness! private method' do
+      allow(use_case).to receive(:validate_uniqueness!).and_return(nil)
+
+      use_case.send(:validate_uniqueness, new_slug: 'new-slug', current_slug: 'old-slug')
+
+      expect(use_case).to have_received(:validate_uniqueness!).with(new_slug: 'new-slug', current_slug: 'old-slug')
     end
   end
 end

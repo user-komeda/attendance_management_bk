@@ -8,6 +8,8 @@ module Application
 
         MEMBER_SHIPS_REPOSITORY: untyped
 
+        CONTENT_API_REPOSITORY: untyped
+
         WORK_SPACE_SERVICE: untyped
 
         WORK_SPACE_DTO: untyped
@@ -17,6 +19,8 @@ module Application
         WORK_SPACE_WITH_STATUS_DTO: untyped
 
         WORK_SPACE_WITH_MEMBER_SHIPS_DTO: untyped
+
+        CONTENT_API_DTO: untyped
       end
     end
   end

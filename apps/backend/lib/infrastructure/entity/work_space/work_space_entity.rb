@@ -31,8 +31,10 @@ module Infrastructure
 
         # @rbs (workspace_entity: ::Domain::Entity::WorkSpace::WorkSpaceEntity) -> WorkSpaceEntity
         def self.build_from_domain_entity(workspace_entity:)
+          workspace_id = workspace_entity.id
+
           new(
-            id: ::UtilMethod.nil_or_empty?(workspace_entity.id&.value) ? SecureRandom.uuid : workspace_entity.id.value,
+            id: ::UtilMethod.nil_or_empty?(workspace_id&.value) ? SecureRandom.uuid : workspace_id.value,
             name: workspace_entity.name,
             slug: workspace_entity.slug
           )

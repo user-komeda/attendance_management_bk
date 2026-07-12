@@ -1,0 +1,44 @@
+# Generated from lib/infrastructure/repository/content_api/content_api_repository.rb with RBS::Inline
+
+module Infrastructure
+  module Repository
+    module ContentApi
+      class ContentApiRepository < ContentApiBaseRepository
+        # @rbs (content_api_entity: ::Domain::Entity::ContentApi::ContentApiEntity) -> ::Domain::Entity::ContentApi::ContentApiEntity
+        def create: (content_api_entity: ::Domain::Entity::ContentApi::ContentApiEntity) -> ::Domain::Entity::ContentApi::ContentApiEntity
+
+        # @rbs (work_space_id: String) -> Array[::Domain::Entity::ContentApi::ContentApiEntity]
+        def get_by_work_space_id: (work_space_id: String) -> Array[::Domain::Entity::ContentApi::ContentApiEntity]
+
+        # @rbs (id: String) -> ::Domain::Entity::ContentApi::ContentApiEntity?
+        def find_by_id: (id: String) -> ::Domain::Entity::ContentApi::ContentApiEntity?
+
+        # @rbs (content_api_entity: ::Domain::Entity::ContentApi::ContentApiEntity) -> ::Domain::Entity::ContentApi::ContentApiEntity
+        def update: (content_api_entity: ::Domain::Entity::ContentApi::ContentApiEntity) -> ::Domain::Entity::ContentApi::ContentApiEntity
+
+        # @rbs (id: String) -> void
+        def delete_by_id: (id: String) -> void
+
+        # @rbs (work_space_id: String, endpoint: String) -> ::Domain::Entity::ContentApi::ContentApiEntity?
+        def find_by_work_space_and_endpoint: (work_space_id: String, endpoint: String) -> ::Domain::Entity::ContentApi::ContentApiEntity?
+
+        # @rbs (content_api_id: String) -> Array[::Domain::Entity::ContentApi::FieldEntity]
+        def get_fields_by_content_api_id: (content_api_id: String) -> Array[::Domain::Entity::ContentApi::FieldEntity]
+
+        private
+
+        # rubocop:disable all
+        # @rbs (caller: untyped, domain: ::Domain::Entity::ContentApi::ContentApiEntity, field_entities: Array[::Domain::Entity::ContentApi::FieldEntity]) -> ::Domain::Entity::ContentApi::ContentApiEntity
+        # rubocop:enable all
+        def rebuild_with_fields: (caller: untyped, domain: ::Domain::Entity::ContentApi::ContentApiEntity, field_entities: Array[::Domain::Entity::ContentApi::FieldEntity]) -> ::Domain::Entity::ContentApi::ContentApiEntity
+
+        # rubocop:disable all
+        # @rbs (content_api_id: String, field_entities: Array[::Domain::Entity::ContentApi::FieldEntity], caller: untyped?) -> Array[::Domain::Entity::ContentApi::FieldEntity]
+        # rubocop:enable all
+        def bulk_create_fields: (content_api_id: String, field_entities: Array[::Domain::Entity::ContentApi::FieldEntity], caller: untyped?) -> Array[::Domain::Entity::ContentApi::FieldEntity]
+
+        def rom_caller: () -> untyped
+      end
+    end
+  end
+end

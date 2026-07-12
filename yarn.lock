@@ -803,7 +803,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@corvu/utils@npm:~0.4.0, @corvu/utils@npm:~0.4.1":
+"@corvu/resizable@npm:^0.2.5":
+  version: 0.2.5
+  resolution: "@corvu/resizable@npm:0.2.5"
+  dependencies:
+    "@corvu/utils": "npm:~0.4.2"
+  peerDependencies:
+    solid-js: ^1.8
+  checksum: 10c0/1fabb490c27d0e5ff05177c094f4d5286085863f638c6c4fc0ccc3dce32101b1cf95c97ec12ce7f66c822afbc8cb10d888bd04341b6d467b45232d1e3f1e918d
+  languageName: node
+  linkType: hard
+
+"@corvu/utils@npm:~0.4.0, @corvu/utils@npm:~0.4.1, @corvu/utils@npm:~0.4.2":
   version: 0.4.2
   resolution: "@corvu/utils@npm:0.4.2"
   dependencies:
@@ -6740,6 +6751,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "frontend@workspace:apps/frontend"
   dependencies:
+    "@corvu/resizable": "npm:^0.2.5"
     "@eslint/js": "npm:9.39.4"
     "@kobalte/core": "npm:^0.13.11"
     "@playwright/test": "npm:1.61.1"
@@ -6773,6 +6785,7 @@ __metadata:
     infisicalLauncher: "git+ssh://git@github.com:user-komeda/infisicalLauncher.git"
     jose: "npm:^6.2.3"
     jsdom: "npm:29.1.1"
+    lucide-solid: "npm:^1.21.0"
     openapi-typescript: "npm:7.13.0"
     prettier: "npm:3.9.4"
     prettier-plugin-tailwindcss: "npm:0.8.0"
@@ -8385,6 +8398,15 @@ __metadata:
   dependencies:
     yallist: "npm:^3.0.2"
   checksum: 10c0/89b2ef2ef45f543011e38737b8a8622a2f8998cddf0e5437174ef8f1f70a8b9d14a918ab3e232cb3ba343b7abddffa667f0b59075b2b80e6b4d63c3de6127482
+  languageName: node
+  linkType: hard
+
+"lucide-solid@npm:^1.21.0":
+  version: 1.21.0
+  resolution: "lucide-solid@npm:1.21.0"
+  peerDependencies:
+    solid-js: ^1.4.7
+  checksum: 10c0/c6a4ff7cecdae527d67d652f4beb09826e66d0597e41f4465377cc377818588e8378108c28f67aff68b2f2c81f25ea7dc1973afcf399bf73fa2c568549a0c58e
   languageName: node
   linkType: hard
 

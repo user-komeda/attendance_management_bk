@@ -1,7 +1,7 @@
-import { useHomeWorkspaces } from '~/provider/homeWorkspacesProvider'
+import { useWorkspace } from '~/provider/workspacesProvider'
 
 export const usePagination = () => {
-  const { fetchWorkspaces, workspaces } = useHomeWorkspaces()
+  const { refetchWorkspaces, workspaces } = useWorkspace()
 
   const currentSearchQuery = () => {
     const searchQuery = workspaces()?.meta.searchQuery?.trim()
@@ -10,7 +10,7 @@ export const usePagination = () => {
   }
 
   const handlePageChange = async (page: number, perPage: number) => {
-    await fetchWorkspaces({
+    await refetchWorkspaces({
       page,
       perPage,
       searchQuery: currentSearchQuery(),
@@ -18,7 +18,7 @@ export const usePagination = () => {
   }
 
   const handlePageSizeChange = async (perPage: number) => {
-    await fetchWorkspaces({
+    await refetchWorkspaces({
       page: 1,
       perPage,
       searchQuery: currentSearchQuery(),

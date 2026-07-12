@@ -1,0 +1,14 @@
+# Generated from lib/infrastructure/repository/rom/work_space/content_api_rom_repository.rb with RBS::Inline
+
+module Infrastructure
+  module Repository
+    module Rom
+      module WorkSpace
+        class ContentApiRomRepository < ContentApiBaseRomRepository
+          # @rbs (work_space_id: String) -> Array[::Domain::Entity::WorkSpace::ContentApiEntity]
+          def get_by_work_space_id: (work_space_id: String) -> Array[::Domain::Entity::WorkSpace::ContentApiEntity]
+        end
+      end
+    end
+  end
+end

@@ -34,10 +34,7 @@ module Presentation
 
           # @rbs (params:{ id: String, name: String, slug: String }) -> void
           def validate(params:)
-            result = WorkSpaceBaseRequest::UPDATE_CONTRACT.new.call(params)
-            return unless result.failure?
-
-            raise ::Presentation::Exception::BadRequestException.new(message: result.errors.to_h.to_json)
+            validate_or_raise!(contract: WorkSpaceBaseRequest::UPDATE_CONTRACT, params: params)
           end
         end
       end

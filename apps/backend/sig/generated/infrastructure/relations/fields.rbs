@@ -1,0 +1,10 @@
+# Generated from lib/infrastructure/relations/fields.rb with RBS::Inline
+
+module Infrastructure
+  module Relations
+    class Fields
+      # @rbs (String content_api_id) -> ROM::Relation[untyped]
+      def by_content_api_id: (String content_api_id) -> ROM::Relation[untyped]
+    end
+  end
+end

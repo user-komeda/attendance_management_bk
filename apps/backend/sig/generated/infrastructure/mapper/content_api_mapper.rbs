@@ -1,0 +1,28 @@
+# Generated from lib/infrastructure/mapper/content_api_mapper.rb with RBS::Inline
+
+module Infrastructure
+  module Mapper
+    # ContentApi 系の Infrastructure オブジェクトと Domain Entity の変換を担当します。
+    class ContentApiMapper
+      # @rbs (struct: untyped) -> ::Domain::Entity::ContentApi::ContentApiEntity
+      def self.content_api_domain_from_struct: (struct: untyped) -> ::Domain::Entity::ContentApi::ContentApiEntity
+
+      # @rbs (struct: untyped, fields: Array[::Domain::Entity::ContentApi::FieldEntity]) -> ::Domain::Entity::ContentApi::ContentApiEntity
+      def self.content_api_domain_from_struct_with_fields: (struct: untyped, fields: Array[::Domain::Entity::ContentApi::FieldEntity]) -> ::Domain::Entity::ContentApi::ContentApiEntity
+
+      # rubocop:disable all
+      # @rbs (domain: ::Domain::Entity::ContentApi::ContentApiEntity, fields: Array[::Domain::Entity::ContentApi::FieldEntity]) -> ::Domain::Entity::ContentApi::ContentApiEntity
+      # rubocop:enable all
+      def self.content_api_domain_with_fields: (domain: ::Domain::Entity::ContentApi::ContentApiEntity, fields: Array[::Domain::Entity::ContentApi::FieldEntity]) -> ::Domain::Entity::ContentApi::ContentApiEntity
+
+      # @rbs (domain: ::Domain::Entity::ContentApi::ContentApiEntity) -> Hash[Symbol, String]
+      def self.content_api_infra_attributes_from_domain: (domain: ::Domain::Entity::ContentApi::ContentApiEntity) -> Hash[Symbol, String]
+
+      # @rbs (struct: untyped) -> ::Domain::Entity::WorkSpace::ContentApiEntity
+      def self.work_space_content_api_domain_from_struct: (struct: untyped) -> ::Domain::Entity::WorkSpace::ContentApiEntity
+
+      # @rbs (domain: ::Domain::Entity::WorkSpace::ContentApiEntity) -> Hash[Symbol, String]
+      def self.work_space_content_api_infra_attributes_from_domain: (domain: ::Domain::Entity::WorkSpace::ContentApiEntity) -> Hash[Symbol, String]
+    end
+  end
+end

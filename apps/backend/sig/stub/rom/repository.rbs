@@ -1,15 +1,29 @@
 module ROM
   class Repository[T]
     def self.[]: (Symbol) -> untyped
+
     def self.commands: (*Symbol | Hash[Symbol, Symbol]) -> void
 
+    def self.struct_namespace: (untyped) -> void
+
+    def self.relations: (*Symbol) -> void
+
     def users: () -> ::Infrastructure::Relations::Users
+
     def auth_users: () -> ::Infrastructure::Relations::AuthUsers
+
     def work_spaces: () -> ::Infrastructure::Relations::WorkSpace
+
     def member_ships: () -> ::Infrastructure::Relations::MemberShips
 
+    def content_apis: () -> ::Infrastructure::Relations::ContentApis
+
+    def fields: () -> ::Infrastructure::Relations::Fields
+
     def create: (untyped) -> untyped
+
     def update: (untyped, untyped) -> untyped
+
     def delete: (untyped) -> untyped
 
     def self.include: (untyped) -> void

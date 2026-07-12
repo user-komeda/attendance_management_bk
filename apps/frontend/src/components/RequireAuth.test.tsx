@@ -8,7 +8,6 @@ vi.mock('~/hooks/useRedirectAuth', () => ({
   default: vi.fn(),
 }))
 
-// eslint-disable-next-line max-lines-per-function
 describe('RequireAuth', () => {
   it('ロード中の場合はLoadingを表示すること', () => {
     vi.mocked(useRedirectAuth).mockReturnValue({

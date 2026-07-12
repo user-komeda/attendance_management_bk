@@ -1,0 +1,21 @@
+module Infrastructure
+  module Relations
+    class ContentApis < ::ROM::Relation[untyped]
+      # Class-level ROM DSL macro available on this relation
+      def self.schema: (Symbol, ?infer: bool) ?{ () -> void } -> void
+
+      # Instance methods typically available on relations
+      def where: (**untyped) -> ContentApis
+
+      def map_to: (untyped) -> ContentApis
+
+      def by_pk: (untyped) -> ContentApis
+
+      def one: () -> untyped
+
+      def first: () -> untyped
+
+      def to_a: () -> Array[untyped]
+    end
+  end
+end

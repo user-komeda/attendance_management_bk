@@ -1,10 +1,8 @@
 import { render, waitFor } from '@solidjs/testing-library'
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 
-import {
-  HomePage,
-  fetchWorkspacesRequest,
-} from '~/features/pages/home/HomePage'
+import { HomePage } from '~/features/pages/home/HomePage'
+import { fetchWorkspacesRequest } from '~/provider/workspacesProvider'
 import { type ListWorkSpacesResponse } from '~/schema/api/workSpaces'
 import bffFetchWrapper from '~/util/bffFetchWrapper'
 
@@ -14,7 +12,6 @@ vi.mock('~/features/components/home/homeTable', () => ({
   HomeTable: () => null,
 }))
 
-// eslint-disable-next-line max-lines-per-function
 describe('HomePage', () => {
   const mockWorkspaces = {
     data: [
@@ -38,7 +35,6 @@ describe('HomePage', () => {
     vi.clearAllMocks()
   })
 
-  // eslint-disable-next-line max-lines-per-function
   describe('fetchWorkspacesRequest', () => {
     it('search queryを指定した場合、search_query付きでリクエストすること', async () => {
       vi.mocked(bffFetchWrapper).mockResolvedValue({
@@ -114,7 +110,13 @@ describe('HomePage', () => {
         data: mockWorkspaces,
       })
 
-      render(() => <HomePage />)
+      const { WorkspaceProvider } =
+        await import('~/provider/workspacesProvider')
+      render(() => (
+        <WorkspaceProvider>
+          <HomePage />
+        </WorkspaceProvider>
+      ))
 
       await waitFor(() => {
         expect(bffFetchWrapper).toHaveBeenCalledWith({

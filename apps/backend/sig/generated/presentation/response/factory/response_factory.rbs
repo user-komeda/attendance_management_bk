@@ -4,24 +4,19 @@ module Presentation
   module Response
     module Factory
       class ResponseFactory
-        # rubocop:disable Layout/LineLength
+        # rubocop:disable all
         # @rbs (response: untyped, ?status_code: Integer, ?id: String, ?data: Hash[Symbol, untyped] | Array[Hash[Symbol, untyped]], resource_name: String?) -> String?
-        # rubocop:enable Layout/LineLength
+        # rubocop:enable all
         def self.create_response: (response: untyped, resource_name: String?, ?status_code: Integer, ?id: String, ?data: Hash[Symbol, untyped] | Array[Hash[Symbol, untyped]]) -> String?
 
-        # rubocop:disable Layout/LineLength
+        # rubocop:disable all
         # @rbs (response: untyped, payload: ::Presentation::Controller::ControllerPayLoad, resource_name: String?) -> untyped
-        # rubocop:enable Layout/LineLength
+        # rubocop:enable all
         def self.responder: (response: untyped, payload: ::Presentation::Controller::ControllerPayLoad, resource_name: String?) -> untyped
 
-        # rubocop:disable Layout/LineLength
-        # @rbs (response: untyped, payload: ::Presentation::Controller::ControllerPayLoad, resource_name: String?) -> Hash[Integer, ^() -> untyped]
-        # rubocop:enable Layout/LineLength
-        def self.success_responders: (response: untyped, payload: ::Presentation::Controller::ControllerPayLoad, resource_name: String?) -> Hash[Integer, ^() -> untyped]
-
-        # rubocop:disable Layout/LineLength
+        # rubocop:disable all
         # @rbs (payload: ::Presentation::Controller::ControllerPayLoad, response: untyped, resource_name: String?) -> untyped
-        # rubocop:enable Layout/LineLength
+        # rubocop:enable all
         def self.build_created_responder: (payload: ::Presentation::Controller::ControllerPayLoad, response: untyped, resource_name: String?) -> untyped
       end
     end

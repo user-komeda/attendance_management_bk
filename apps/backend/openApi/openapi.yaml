@@ -20,6 +20,8 @@ tags:
     description: 認証に関する操作（サインアップ/サインイン）
   - name: workspace
     description: ワークスペースに関する操作
+  - name: content_api
+    description: コンテンツAPIに関する操作
 
 security:
   - bearerAuth: [ ]
@@ -42,6 +44,12 @@ paths:
 
   "/work_spaces/{id}":
     $ref: './paths/work_space_id.yaml'
+
+  "/work_spaces/{work_space_id}/content_api":
+    $ref: './paths/content_api.yaml'
+
+  "/work_spaces/{work_space_id}/content_api/{id}":
+    $ref: './paths/content_api_id.yaml'
 
 components:
   schemas:
@@ -79,11 +87,23 @@ components:
       $ref: './components/schemas/PaginationMeta.yaml'
     Error:
       $ref: './components/schemas/Error.yaml'
+    ContentApi:
+      $ref: './components/schemas/ContentApi.yaml'
+    Field:
+      $ref: './components/schemas/Field.yaml'
+    ContentApiWithFields:
+      $ref: './components/schemas/ContentApiWithFields.yaml'
+    CreateContentApiWithFieldsRequest:
+      $ref: './components/schemas/CreateContentApiWithFieldsRequest.yaml'
+    UpdateContentApiWithFieldsRequest:
+      $ref: './components/schemas/UpdateContentApiWithFieldsRequest.yaml'
   parameters:
     UserId:
       $ref: './components/parameters/UserId.yaml'
     WorkSpaceId:
       $ref: './components/parameters/WorkSpaceId.yaml'
+    ContentApiId:
+      $ref: './components/parameters/ContentApiId.yaml'
     Page:
       $ref: './components/parameters/Page.yaml'
     PerPage:

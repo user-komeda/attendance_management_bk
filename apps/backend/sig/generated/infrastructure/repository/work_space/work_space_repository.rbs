@@ -8,9 +8,9 @@ module Infrastructure
         def find_by_ids: (workspace_ids: Array[String]) -> Array[Domain::Entity::WorkSpace::WorkSpaceEntity]
 
         # rubocop:disable all
-        # @rbs (workspace_ids: Array[String], page: Integer, per_page: Integer, search_query: String?) -> { data: Array[Domain::Entity::WorkSpace::WorkSpaceEntity], total_count: Integer }
+        # @rbs (workspace_ids: Array[String], page: Integer, per_page: Integer, search_query: String?) -> Hash[Symbol, untyped]
         # rubocop:enable all
-        def find_by_ids_with_pagination: (workspace_ids: Array[String], page: Integer, per_page: Integer, search_query: String?) -> { data: Array[Domain::Entity::WorkSpace::WorkSpaceEntity], total_count: Integer }
+        def find_by_ids_with_pagination: (workspace_ids: Array[String], page: Integer, per_page: Integer, search_query: String?) -> Hash[Symbol, untyped]
 
         # @rbs (slug: String) -> Domain::Entity::WorkSpace::WorkSpaceEntity
         def find_by_slug: (slug: String) -> Domain::Entity::WorkSpace::WorkSpaceEntity

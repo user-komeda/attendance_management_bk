@@ -9,9 +9,9 @@ module Infrastructure
           def find_by_ids: (workspace_ids: Array[String]) -> Array[Infrastructure::Entity::WorkSpace::WorkSpaceEntity]
 
           # rubocop:disable all
-          # @rbs (workspace_ids: Array[String], page: Integer, per_page: Integer, search_query: String?) -> { data: Array[Infrastructure::Entity::WorkSpace::WorkSpaceEntity], total_count: Integer }
+          # @rbs (workspace_ids: Array[String], page: Integer, per_page: Integer, search_query: String?) -> Hash[Symbol, untyped]
           # rubocop:enable all
-          def find_by_ids_with_pagination: (workspace_ids: Array[String], page: Integer, per_page: Integer, search_query: String?) -> { data: Array[Infrastructure::Entity::WorkSpace::WorkSpaceEntity], total_count: Integer }
+          def find_by_ids_with_pagination: (workspace_ids: Array[String], page: Integer, per_page: Integer, search_query: String?) -> Hash[Symbol, untyped]
 
           # @rbs (slug: String) -> Infrastructure::Entity::WorkSpace::WorkSpaceEntity?
           def find_by_slug: (slug: String) -> Infrastructure::Entity::WorkSpace::WorkSpaceEntity?
@@ -26,6 +26,14 @@ module Infrastructure
           def rom_update: (workspace_entity: Infrastructure::Entity::WorkSpace::WorkSpaceEntity) -> untyped
 
           def rom_delete: (id: untyped) -> untyped
+
+          private
+
+          def base_query: (workspace_ids: untyped) -> untyped
+
+          def apply_search_filter: (query: untyped, search_query: untyped) -> untyped
+
+          def sort_query: (query: untyped) -> untyped
         end
       end
     end

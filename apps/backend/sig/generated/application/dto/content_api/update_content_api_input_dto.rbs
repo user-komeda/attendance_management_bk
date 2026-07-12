@@ -1,0 +1,21 @@
+# Generated from lib/application/dto/content_api/update_content_api_input_dto.rb with RBS::Inline
+
+module Application
+  module Dto
+    module ContentApi
+      class UpdateContentApiInputDto < InputBaseDto
+        # rubocop:disable all
+        attr_reader name: String
+
+        # rubocop:disable all
+        attr_reader endpoint: String
+
+        # rubocop:disable all
+        attr_reader api_type: String
+
+        # @rbs (params: Hash[Symbol, untyped]) -> void
+        def initialize: (params: Hash[Symbol, untyped]) -> void
+      end
+    end
+  end
+end

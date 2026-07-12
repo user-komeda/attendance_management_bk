@@ -1,0 +1,22 @@
+# frozen_string_literal: true
+
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+create_table :api_key_permissions, id: :uuid do |t|
+  t.references :api_key,     type: :uuid, null: false, foreign_key: { on_delete: :cascade }
+  t.references :content_api, type: :uuid, null: false, foreign_key: { on_delete: :cascade }
+
+  t.boolean :can_get,    null: false, default: false
+  t.boolean :can_post,   null: false, default: false
+  t.boolean :can_put,    null: false, default: false
+  t.boolean :can_patch,  null: false, default: false
+  t.boolean :can_delete, null: false, default: false
+
+  t.datetime :created_at, null: false, default: -> { 'CURRENT_TIMESTAMP' }
+  t.datetime :updated_at, null: false, default: -> { 'CURRENT_TIMESTAMP' }
+end
+
+add_index :api_key_permissions, %i[api_key_id content_api_id], unique: true
+add_index :api_key_permissions, :api_key_id, name: 'idx_api_key_permissions_api_key_id'
+add_index :api_key_permissions, :content_api_id, name: 'idx_api_key_permissions_content_api_id'

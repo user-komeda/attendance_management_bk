@@ -9,23 +9,25 @@ module Presentation
         # @rbs (Hash[Symbol, untyped] params) -> Hash[Symbol, untyped]
         def index(params)
           work_space_params = WORK_SPACE_PARAMS.build(params)
-          pagination = work_space_params.pagination
+          input_dto = work_space_params.convert_to_dto
 
-          result = invoke_use_case(
-            :get_all, page: pagination.page, per_page: pagination.per_page,
-                      search_query: work_space_params.search_query
-          )
+          result = invoke_use_case(:get_all, input_dto)
 
-          build_index_response(result, pagination, work_space_params.search_query)
+          build_index_response(result, work_space_params)
         end
 
-        def build_index_response(result, pagination, search_query)
+        def build_index_response(result, work_space_params)
+          pagination = work_space_params.pagination
+          data = result.fetch(:data)
+          statuses = data.map(&:status)
+          work_spaces = data.map(&:work_spaces)
+
           WORK_SPACE_WITH_STATUS_RESPONSE.build_from_array(
-            status_list: result[:data].map(&:status),
-            work_spaces: result[:data].map(&:work_spaces),
+            status_list: statuses,
+            work_spaces: work_spaces,
             pagination: { page: pagination.page, per_page: pagination.per_page },
             total_count: result[:total_count],
-            search_query: search_query
+            search_query: work_space_params.search_query
           )
         end
 
@@ -34,22 +36,7 @@ module Presentation
           raise ArgumentError if ::UtilMethod.nil_or_empty?(id)
 
           work_space_with_member_ships = invoke_use_case(:get_detail, id)
-          WORK_SPACE_WITH_MEMBER_SHIPS_RESPONSE.build(
-            id: work_space_with_member_ships.work_spaces.id,
-            work_spaces: work_space_with_member_ships.work_spaces,
-            member_ships: work_space_with_member_ships.member_ships
-          )
-        end
-
-        # @rbs (Hash[Symbol, untyped] params) -> Hash[Symbol, String]
-        def create(params)
-          create_work_space_request = build_request(params, CREATE_REQUEST)
-          result = invoke_use_case(:create_work_space, create_work_space_request.convert_to_dto)
-          WORK_SPACE_WITH_MEMBER_SHIPS_RESPONSE.build(
-            id: result.work_spaces.id,
-            member_ships: result.member_ships,
-            work_spaces: result.work_spaces
-          )
+          build_work_space_with_member_ships_response(work_space_with_member_ships)
         end
 
         # @rbs (Hash[Symbol, untyped] params, String id) -> Hash[Symbol, String]
@@ -65,6 +52,28 @@ module Presentation
           raise ArgumentError if ::UtilMethod.nil_or_empty?(id)
 
           invoke_use_case(:delete_work_space, id)
+        end
+
+        # @rbs (Hash[Symbol, untyped] params) -> Hash[Symbol, String]
+        def create(params)
+          create_work_space_request = build_request(params, CREATE_REQUEST)
+          result = invoke_use_case(:create_work_space, create_work_space_request.convert_to_dto)
+          build_work_space_with_member_ships_response(result)
+        end
+
+        private
+
+        # @rbs (untyped result) -> Hash[Symbol, String]
+        def build_work_space_with_member_ships_response(result)
+          work_spaces = result.work_spaces
+
+          WORK_SPACE_WITH_MEMBER_SHIPS_RESPONSE.build(
+            id: work_spaces.id,
+            member_ships: result.member_ships,
+            work_spaces: work_spaces,
+            content_api_names: result.content_api_names,
+            content_apis: result.content_apis
+          )
         end
       end
     end

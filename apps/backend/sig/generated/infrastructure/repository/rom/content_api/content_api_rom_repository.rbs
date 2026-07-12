@@ -1,0 +1,38 @@
+# Generated from lib/infrastructure/repository/rom/content_api/content_api_rom_repository.rb with RBS::Inline
+
+module Infrastructure
+  module Repository
+    module Rom
+      module ContentApi
+        class ContentApiRomRepository < ContentApiBaseRomRepository
+          # @rbs (work_space_id: String) -> Array[::Domain::Entity::ContentApi::ContentApiEntity]
+          def get_by_work_space_id: (work_space_id: String) -> Array[::Domain::Entity::ContentApi::ContentApiEntity]
+
+          # @rbs (content_api_entity: Infrastructure::Entity::ContentApi::ContentApiEntity) -> untyped
+          def rom_create: (content_api_entity: Infrastructure::Entity::ContentApi::ContentApiEntity) -> untyped
+
+          # @rbs (id: String) -> untyped
+          def rom_get_by_id: (id: String) -> untyped
+
+          # @rbs (content_api_entity: Infrastructure::Entity::ContentApi::ContentApiEntity) -> untyped
+          def rom_update: (content_api_entity: Infrastructure::Entity::ContentApi::ContentApiEntity) -> untyped
+
+          # @rbs (id: String) -> void
+          def rom_delete: (id: String) -> void
+
+          # @rbs (content_api_id: String) -> void
+          def rom_delete_fields_by_content_api_id: (content_api_id: String) -> void
+
+          # @rbs (Array[Infrastructure::Entity::ContentApi::FieldEntity] field_entities) -> Array[untyped]
+          def rom_bulk_create: (Array[Infrastructure::Entity::ContentApi::FieldEntity] field_entities) -> Array[untyped]
+
+          # @rbs (work_space_id: String, endpoint: String) -> untyped
+          def rom_find_by_work_space_and_endpoint: (work_space_id: String, endpoint: String) -> untyped
+
+          # @rbs (String content_api_id) -> Array[Infrastructure::Entity::ContentApi::FieldEntity]
+          def get_by_content_api_id: (String content_api_id) -> Array[Infrastructure::Entity::ContentApi::FieldEntity]
+        end
+      end
+    end
+  end
+end

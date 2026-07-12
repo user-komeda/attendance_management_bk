@@ -14,21 +14,12 @@ module Infrastructure
           end
 
           # rubocop:disable all
-          # @rbs (workspace_ids: Array[String], page: Integer, per_page: Integer, search_query: String?) -> { data: Array[Infrastructure::Entity::WorkSpace::WorkSpaceEntity], total_count: Integer }
+          # @rbs (workspace_ids: Array[String], page: Integer, per_page: Integer, search_query: String?) -> Hash[Symbol, untyped]
           # rubocop:enable all
           def find_by_ids_with_pagination(workspace_ids:, page:, per_page:, search_query: nil)
-            query = work_spaces.map_to(Entity::WorkSpace::WorkSpaceEntity).by_ids(workspace_ids)
-            # @type var query: untyped
-
-            if search_query && !search_query.empty?
-              sequel = Object.const_get('Sequel')
-              # @type var sequel: untyped
-              query = query.where(sequel.ilike(:name, "%#{search_query}%"))
-            end
-
-            query = query.order(:name, :id)
-
-            # @type var total_count: Integer
+            query = base_query(workspace_ids: workspace_ids)
+            query = apply_search_filter(query: query, search_query: search_query)
+            query = sort_query(query: query)
             total_count = query.count
             data = query.limit(per_page).offset((page - 1) * per_page).to_a
 
@@ -59,6 +50,23 @@ module Infrastructure
 
           def rom_delete(id:)
             delete(id)
+          end
+
+          private
+
+          def base_query(workspace_ids:)
+            work_spaces.map_to(Entity::WorkSpace::WorkSpaceEntity).by_ids(workspace_ids)
+          end
+
+          def apply_search_filter(query:, search_query:)
+            return query unless search_query && !search_query.empty?
+
+            sequel = Object.const_get('Sequel')
+            query.where(sequel.ilike(:name, "%#{search_query}%"))
+          end
+
+          def sort_query(query:)
+            query.order(:name, :id)
           end
         end
       end

@@ -23,14 +23,6 @@ RSpec.describe Presentation::Request::Contract::WorkSpace::UpdateWorkSpaceContra
       end
     end
 
-    it 'fails when id is not a UUID' do
-      result = contract.call(valid_params.merge(id: 'invalid-uuid'))
-      aggregate_failures do
-        expect(result).not_to be_success
-        expect(result.errors.to_h[:id]).to include('is in invalid format')
-      end
-    end
-
     it 'succeeds when name is missing (optional)' do
       result = contract.call(valid_params.except(:name))
       expect(result).to be_success

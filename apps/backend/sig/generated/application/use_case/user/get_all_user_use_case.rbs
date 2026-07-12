@@ -4,8 +4,8 @@ module Application
   module UseCase
     module User
       class GetAllUserUseCase < UserBaseUseCase
-        # @rbs () -> Array[::Application::Dto::User::UserDto]
-        def invoke: () -> Array[::Application::Dto::User::UserDto]
+        # @rbs (?arg: nil) -> Array[::Application::Dto::User::UserDto]
+        def invoke: (?arg: nil) -> Array[::Application::Dto::User::UserDto]
       end
     end
   end

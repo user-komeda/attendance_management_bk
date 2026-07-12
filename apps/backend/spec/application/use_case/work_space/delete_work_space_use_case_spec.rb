@@ -22,23 +22,23 @@ RSpec.describe Application::UseCase::WorkSpace::DeleteWorkSpaceUseCase do
   describe '#invoke' do
     context 'when workspace exists' do
       before do
-        allow(work_space_repo).to receive(:get_by_id).with(id: workspace_id).and_return(workspace_entity)
+        allow(work_space_repo).to receive(:find_by_slug).with(slug: workspace_id).and_return(workspace_entity)
         allow(work_space_repo).to receive(:delete_by_id).with(id: workspace_id)
       end
 
       it 'deletes the workspace' do
-        use_case.invoke(args: workspace_id)
+        use_case.invoke(arg: workspace_id)
         expect(work_space_repo).to have_received(:delete_by_id).with(id: workspace_id)
       end
     end
 
     context 'when workspace does not exist' do
       before do
-        allow(work_space_repo).to receive(:get_by_id).with(id: workspace_id).and_return(nil)
+        allow(work_space_repo).to receive(:find_by_slug).with(slug: workspace_id).and_return(nil)
       end
 
       it 'raises NotFoundException' do
-        expect { use_case.invoke(args: workspace_id) }
+        expect { use_case.invoke(arg: workspace_id) }
           .to raise_error(Application::Exception::NotFoundException, 'workspace not found')
       end
     end

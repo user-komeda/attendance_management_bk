@@ -1,0 +1,11 @@
+# Generated from lib/domain/repository/content_api/field_repository_base.rb with RBS::Inline
+
+module Domain
+  module Repository
+    module ContentApi
+      class FieldRepositoryBase < BaseRepository
+        REPOSITORY_KEY: untyped
+      end
+    end
+  end
+end

@@ -44,22 +44,22 @@ RSpec.describe Infrastructure::Repository::WorkSpace::MemberShipsRepository do
     end
   end
 
-  describe '#get_by_user_id_and_work_space_id' do
+  describe '#get_by_work_space_id' do
     let(:infra_ent) { infra_entity }
 
-    it 'returns a domain entity' do
-      allow(rom_repo).to receive(:get_by_user_id_and_work_space_id)
-        .with(user_id: user_id, work_space_id: workspace_id).and_return(infra_ent)
-      result = repository.get_by_user_id_and_work_space_id(user_id: user_id, work_space_id: workspace_id)
-      expect(result.id.value).to eq(infra_ent.id)
+    it 'returns domain entities' do
+      allow(rom_repo).to receive(:get_by_work_space_id)
+        .with(work_space_id: workspace_id).and_return([infra_ent])
+      result = repository.get_by_work_space_id(work_space_id: workspace_id)
+      expect(result.map { |member_ship| member_ship.id.value }).to eq([infra_ent.id])
     end
 
-    it 'returns nil if not found' do
-      allow(rom_repo).to receive(:get_by_user_id_and_work_space_id)
-        .with(user_id: user_id, work_space_id: workspace_id)
-        .and_return(nil)
-      result = repository.get_by_user_id_and_work_space_id(user_id: user_id, work_space_id: workspace_id)
-      expect(result).to be_nil
+    it 'returns empty array if not found' do
+      allow(rom_repo).to receive(:get_by_work_space_id)
+        .with(work_space_id: workspace_id)
+        .and_return([])
+      result = repository.get_by_work_space_id(work_space_id: workspace_id)
+      expect(result).to eq([])
     end
   end
 

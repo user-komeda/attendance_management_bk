@@ -7,7 +7,7 @@ module Presentation
     module Factory
       class CreatedResponder < Responder
         # rubocop:disable all
-        # @rbs (response: untyped, payload: ::Presentation::Controller::ControllerPayLoad,resource_name: String) -> untyped
+        # @rbs (response: untyped, payload: ::Presentation::Controller::ControllerPayLoad, resource_name: String) -> untyped
         # rubocop:enable all
         def self.build_responder(response:, payload:, resource_name:)
           response.status = payload.status_code

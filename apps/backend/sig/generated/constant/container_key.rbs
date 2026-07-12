@@ -10,6 +10,9 @@ module Constant
                   | ({ ?key: untyped }) -> instance
     end
 
+    # @rbs (value: String) -> Key
+    def self?.key: (value: String) -> Key
+
     module ApplicationKey
       # @rbs USER_USE_CASE: Hash[Symbol, Key]
       USER_USE_CASE: untyped
@@ -19,6 +22,9 @@ module Constant
 
       # @rbs WORK_SPACE_USE_CASE: Hash[Symbol, Key]
       WORK_SPACE_USE_CASE: untyped
+
+      # @rbs CONTENT_API_USE_CASE: Hash[Symbol, Key]
+      CONTENT_API_USE_CASE: untyped
     end
 
     # ドメインサービス層のキー
@@ -31,6 +37,9 @@ module Constant
 
       # @rbs WORK_SPACE_SERVICE: Hash[Symbol, Key]
       WORK_SPACE_SERVICE: untyped
+
+      # @rbs CONTENT_API_SERVICE: Hash[Symbol, Key]
+      CONTENT_API_SERVICE: untyped
     end
 
     # ドメインリポジトリ（Interface）のキー
@@ -43,6 +52,9 @@ module Constant
 
       # @rbs WORK_SPACE_DOMAIN_REPOSITORY: Hash[Symbol, Key]
       WORK_SPACE_DOMAIN_REPOSITORY: untyped
+
+      # @rbs CONTENT_API_DOMAIN_REPOSITORY: Hash[Symbol, Key]
+      CONTENT_API_DOMAIN_REPOSITORY: untyped
     end
 
     # インフラストラクチャ層（Repository実装）のキー
@@ -55,6 +67,9 @@ module Constant
 
       # @rbs WORK_SPACE_REPOSITORY: Hash[Symbol, Key]
       WORK_SPACE_REPOSITORY: untyped
+
+      # @rbs CONTENT_API_REPOSITORY: Hash[Symbol, Key]
+      CONTENT_API_REPOSITORY: untyped
     end
 
     # ROM (ROM-rb) リポジトリのキー
@@ -67,6 +82,9 @@ module Constant
 
       # @rbs WORK_SPACE_ROM_REPOSITORY: Hash[Symbol, Key]
       WORK_SPACE_ROM_REPOSITORY: untyped
+
+      # @rbs CONTENT_API_ROM_REPOSITORY: Hash[Symbol, Key]
+      CONTENT_API_ROM_REPOSITORY: untyped
     end
   end
 end

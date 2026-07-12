@@ -21,6 +21,14 @@ RSpec.describe Application::UseCase::WorkSpace::GetAllWorkSpaceUseCase do
 
   private
 
+  def input_dto
+    Application::Dto::WorkSpace::GetAllWorkSpaceInputDto.build(
+      page: Constant::Pagination::DEFAULT_PAGE_NUMBER,
+      per_page: Constant::Pagination::DEFAULT_PAGE_SIZE,
+      search_query: nil
+    )
+  end
+
   def workspace_entity
     Domain::Entity::WorkSpace::WorkSpaceEntity.build_with_id(
       id: workspace_id,
@@ -32,22 +40,22 @@ RSpec.describe Application::UseCase::WorkSpace::GetAllWorkSpaceUseCase do
   describe '#invoke' do
     it 'returns data' do
       mock_repos(workspace_id, 'active', [workspace_entity], 1)
-      expect(use_case.invoke[:data].first.work_spaces.id).to eq(workspace_id)
+      expect(use_case.invoke(arg: input_dto)[:data].first.work_spaces.id).to eq(workspace_id)
     end
 
     it 'returns total_count' do
       mock_repos(workspace_id, 'active', [workspace_entity], 1)
-      expect(use_case.invoke[:total_count]).to eq(1)
+      expect(use_case.invoke(arg: input_dto)[:total_count]).to eq(1)
     end
 
     it 'returns empty data when no memberships' do
       allow(membership_repo).to receive(:work_space_ids_via_membership_by_user_id).with(user_id: user_id).and_return([])
-      expect(use_case.invoke[:data]).to eq([])
+      expect(use_case.invoke(arg: input_dto)[:data]).to eq([])
     end
 
     it 'returns zero total_count when no memberships' do
       allow(membership_repo).to receive(:work_space_ids_via_membership_by_user_id).with(user_id: user_id).and_return([])
-      expect(use_case.invoke[:total_count]).to eq(0)
+      expect(use_case.invoke(arg: input_dto)[:total_count]).to eq(0)
     end
   end
 

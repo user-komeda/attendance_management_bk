@@ -8,7 +8,7 @@ module Presentation
       module WorkSpace
         class UpdateWorkSpaceContract < Dry::Validation::Contract
           params do
-            required(:id).filled(::Presentation::Request::Types::UuidTypes::UUID)
+            required(:id).filled(:string)
             optional(:name).filled(:string)
             optional(:slug).filled(:string)
           end

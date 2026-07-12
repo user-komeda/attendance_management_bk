@@ -6,7 +6,7 @@ import {
   ListWorkSpacesResponse,
   WorkSpaceWithMemberShips,
 } from '~/schema/api/workSpaces'
-import { CreateWorkspaceSchema } from '~/schema/createWorkspaceSchema'
+import { CreateWorkspaceSchema } from '~/schema/workspace/createWorkspaceSchema'
 import { createError } from '~/util/error'
 import fetchWrapper from '~/util/fetchWrapper'
 

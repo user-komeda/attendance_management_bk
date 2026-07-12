@@ -18,10 +18,10 @@ module Infrastructure
             create(entity)
           end
 
-          # @rbs (user_id: String, work_space_id: String) -> Infrastructure::Entity::WorkSpace::MemberShipsEntity?
-          def get_by_user_id_and_work_space_id(user_id:, work_space_id:)
-            # @type var res: Infrastructure::Entity::WorkSpace::MemberShipsEntity?
-            member_ships.map_to(Entity::WorkSpace::MemberShipsEntity).by_user_id(user_id).by_work_space_id(work_space_id).one
+          # @rbs (work_space_id: String) -> Array[Infrastructure::Entity::WorkSpace::MemberShipsEntity]
+          def get_by_work_space_id(work_space_id:)
+            # @type var res: Array[Infrastructure::Entity::WorkSpace::MemberShipsEntity]
+            member_ships.map_to(Entity::WorkSpace::MemberShipsEntity).by_work_space_id(work_space_id).to_a
           end
         end
       end

@@ -16,7 +16,7 @@ module Presentation
         # @rbs (Hash[Symbol, untyped] params) -> Hash[Symbol, String]
         def signin(params)
           signin_request = build_request(params, SIGNIN_REQUEST)
-          response = invoke_use_case(:signin, signin_request)
+          response = invoke_use_case(:signin, signin_request.convert_to_dto)
           AUTH_RESPONSE.build(id: response.id, user_id: response.user_id)
         end
       end

@@ -4,8 +4,8 @@ module Application
   module UseCase
     module WorkSpace
       class DeleteWorkSpaceUseCase < WorkSpaceBaseUseCase
-        # @rbs (args: String) -> void
-        def invoke: (args: String) -> void
+        # @rbs (arg: String) -> void
+        def invoke: (arg: String) -> void
       end
     end
   end

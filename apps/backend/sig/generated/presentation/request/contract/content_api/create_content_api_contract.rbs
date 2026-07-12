@@ -1,0 +1,12 @@
+# Generated from lib/presentation/request/contract/content_api/create_content_api_contract.rb with RBS::Inline
+
+module Presentation
+  module Request
+    module Contract
+      module ContentApi
+        class CreateContentApiContract < Dry::Validation::Contract
+        end
+      end
+    end
+  end
+end

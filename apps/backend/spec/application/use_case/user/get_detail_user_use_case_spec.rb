@@ -23,7 +23,7 @@ RSpec.describe Application::UseCase::User::GetDetailUserUseCase do
     end
 
     it 'returns user dto' do
-      dto = use_case.invoke(args: '10')
+      dto = use_case.invoke(arg: '10')
       expect(dto).to have_attributes(id: '10', first_name: 'Taro', last_name: 'Yamada', email: 'taro@example.com')
     end
   end
@@ -35,7 +35,7 @@ RSpec.describe Application::UseCase::User::GetDetailUserUseCase do
     end
 
     it 'raises not found' do
-      expect { use_case.invoke(args: '999') }.to raise_error(Application::Exception::NotFoundException)
+      expect { use_case.invoke(arg: '999') }.to raise_error(Application::Exception::NotFoundException)
     end
   end
 end
