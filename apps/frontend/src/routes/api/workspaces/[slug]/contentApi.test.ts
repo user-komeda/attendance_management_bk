@@ -61,6 +61,13 @@ describe('POST /api/workspaces/[slug]/contentApi', () => {
         name: 'test',
         endpoint: 'test-endpoint',
         apiType: 'list',
+        fields: [
+          {
+            fieldId: 'field1',
+            displayName: 'Field 1',
+            fieldType: 'text',
+          },
+        ],
       }) as never,
     )
     expect(res.status).toBe(500)
@@ -80,6 +87,13 @@ describe('POST /api/workspaces/[slug]/contentApi', () => {
         name: 'test',
         endpoint: 'test-endpoint',
         apiType: 'list',
+        fields: [
+          {
+            fieldId: 'field1',
+            displayName: 'Field 1',
+            fieldType: 'text',
+          },
+        ],
       }) as never,
     )
     expect(res.status).toBe(200)

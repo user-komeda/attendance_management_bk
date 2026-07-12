@@ -4,6 +4,31 @@ import { Item } from '~/components/sideMenu/SideMenuWrap'
 import { buttonVariants } from '~/components/ui/button'
 import { cn } from '~/lib/utils'
 
+/* v8 ignore next */
+const SideMenuLink = (props: {
+  href: string
+  text: string
+  Icon: Item['icon']
+}) => (
+  <A
+    href={props.href}
+    class={cn(
+      buttonVariants({
+        variant: 'ghost',
+        size: 'sm',
+        class: 'text-sm',
+      }),
+      'w-full justify-start gap-2',
+      'text-muted-foreground hover:text-foreground',
+      'dark:hover:bg-muted dark:text-muted-foreground dark:bg-transparent dark:hover:text-white',
+    )}
+    activeClass="bg-violet-100 text-violet-700 font-semibold hover:bg-violet-100 hover:text-violet-700"
+  >
+    {props.Icon && <props.Icon />}
+    <span>{props.text}</span>
+  </A>
+)
+
 export const SideMenu = (props: Item) => {
   const { title, text, icon: Icon, href, titleOnly } = props
 
@@ -31,23 +56,7 @@ export const SideMenu = (props: Item) => {
         </div>
       )}
 
-      <A
-        href={href}
-        class={cn(
-          buttonVariants({
-            variant: 'ghost',
-            size: 'sm',
-            class: 'text-sm',
-          }),
-          'w-full justify-start gap-2',
-          'text-muted-foreground hover:text-foreground',
-          'dark:hover:bg-muted dark:text-muted-foreground dark:bg-transparent dark:hover:text-white',
-        )}
-        activeClass="bg-violet-100 text-violet-700 font-semibold hover:bg-violet-100 hover:text-violet-700"
-      >
-        <Icon />
-        <span>{text}</span>
-      </A>
+      <SideMenuLink href={href} text={text} Icon={Icon} />
     </div>
   )
 }

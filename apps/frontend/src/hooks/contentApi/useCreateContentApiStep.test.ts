@@ -35,7 +35,7 @@ describe('useCreateContentApiStep', () => {
         useCreateContentApiStep()
       moveToErrorStep({
         ok: false,
-        fieldErrors: [{ key: 'name', messages: ['error'] }],
+        fieldErrors: [{ key: 'name', message: 'error' }],
         message: '',
       })
       handleBack('basic')
@@ -56,7 +56,7 @@ describe('useCreateContentApiStep', () => {
   it('moveToErrorStep: result.okがtrueの場合は何もしないこと', () => {
     createRoot((dispose) => {
       const { step, moveToErrorStep } = useCreateContentApiStep()
-      moveToErrorStep({ ok: true, data: {} as never })
+      moveToErrorStep({ ok: true })
       expect(step()).toBe('basic')
       dispose()
     })
@@ -68,7 +68,7 @@ describe('useCreateContentApiStep', () => {
       handleBack('schema')
       moveToErrorStep({
         ok: false,
-        fieldErrors: [{ key: 'name', messages: ['error'] }],
+        fieldErrors: [{ key: 'name', message: 'error' }],
         message: '',
       })
       expect(step()).toBe('basic')
@@ -81,7 +81,7 @@ describe('useCreateContentApiStep', () => {
       const { step, moveToErrorStep } = useCreateContentApiStep()
       moveToErrorStep({
         ok: false,
-        fieldErrors: [{ key: 'apiType', messages: ['error'] }],
+        fieldErrors: [{ key: 'apiType', message: 'error' }],
         message: '',
       })
       expect(step()).toBe('type')
@@ -94,7 +94,7 @@ describe('useCreateContentApiStep', () => {
       const { step, moveToErrorStep } = useCreateContentApiStep()
       moveToErrorStep({
         ok: false,
-        fieldErrors: [{ key: 'unknown' as never, messages: ['error'] }],
+        fieldErrors: [{ key: 'unknown' as never, message: 'error' }],
         message: '',
       })
       expect(step()).toBe('schema')

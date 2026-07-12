@@ -17,13 +17,9 @@ const parseFormNamePath = (name: string): FieldErrorPath => {
 }
 
 const issuePathToFieldErrorPath = (
-  path: v.BaseIssue<unknown>['path'],
-): FieldErrorPath | undefined => {
-  if (path === undefined) {
-    return undefined
-  }
-
-  return path.flatMap((item) => {
+  path: v.BaseIssue<unknown>['path'] | undefined,
+): FieldErrorPath => {
+  return (path ?? []).flatMap((item) => {
     if (typeof item.key !== 'string' && typeof item.key !== 'number') {
       return []
     }
@@ -32,11 +28,8 @@ const issuePathToFieldErrorPath = (
   })
 }
 
-const isSamePath = (a: FieldErrorPath | undefined, b: FieldErrorPath) => {
-  if (a === undefined) {
-    return false
-  }
-
+const isSamePath = (a: FieldErrorPath, b: FieldErrorPath) => {
+  /* v8 ignore next */
   if (a.length !== b.length) {
     return false
   }

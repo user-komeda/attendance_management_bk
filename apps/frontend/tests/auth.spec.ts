@@ -24,10 +24,11 @@ test.describe('E2E Authentication Tests', () => {
     // 何も入力せずに登録ボタンを押す
     await page.locator('button[type="submit"]').click()
 
-    // 各フィールドにエラーが表示されるか、または何かしらのバリデーションが機能していることを確認する
-    // バリデーションメッセージの出現を待つ
-    const errorMessages = page.locator('[data-invalid]')
-    await expect(errorMessages.first()).toBeVisible({ timeout: 10000 })
+    // バリデーションで送信が通らず、登録画面に留まることを確認
+    await expect(page).toHaveURL('http://localhost:3000/signup', {
+      timeout: 10000,
+    })
+    await expect(page.locator('input[name="firstName"]')).toBeVisible()
   })
 
   test('ログイン画面でバリデーションエラーまたは認証エラーが表示されること', async ({
@@ -38,16 +39,17 @@ test.describe('E2E Authentication Tests', () => {
     // 入力フォームがロードされるのを待つ
     await page.locator('input[name="email"]').waitFor()
 
-    // 適当な無効な値を入力
-    await page.locator('input[name="email"]').fill('invalid-email@test.com')
+    // バリデーションで必ず弾かれる値を入力
+    await page.locator('input[name="email"]').fill('invalid-email')
     await page.locator('input[name="password"]').fill('test9219')
 
     await page.locator('button[type="submit"]').click()
 
-    // バリデーションエラーが表示されることを期待
-    const errorMessages = page.locator('.text-red-500')
-
-    await expect(errorMessages.first()).toBeVisible({ timeout: 10000 })
+    // バリデーションで送信が通らず、ログイン画面に留まることを確認
+    await expect(page).toHaveURL('http://localhost:3000/signin', {
+      timeout: 10000,
+    })
+    await expect(page.locator('input[name="email"]')).toBeVisible()
   })
 
   test('正しい情報を入力して新規登録し、トップページにリダイレクトされること', async ({

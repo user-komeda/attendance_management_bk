@@ -10,6 +10,10 @@ import { cn } from '~/lib/utils'
 export const SideMenuWithTooltip = (props: Item) => {
   const { text, icon: Icon, href, color } = props
 
+  if (Icon === undefined || href === undefined || text === undefined) {
+    return null
+  }
+
   return (
     <Tooltip openDelay={0} closeDelay={0} placement="right">
       <TooltipTrigger

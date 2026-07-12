@@ -7,7 +7,6 @@ import { SchemaConfig } from '~/features/components/workspaces/contentApi/schema
 import { TypeSelect } from '~/features/components/workspaces/contentApi/typeSelect'
 import { useCreateContentApi } from '~/hooks/contentApi/useCreateContentApi'
 import { CreateContentApiWithFieldsSchema } from '~/schema/contentApi/createContentApiWithFieldsSchhema'
-import { createEffect } from 'solid-js'
 
 export type ApiType = 'list' | 'object'
 type CreateContentApiAction = FormDataActionOf<
@@ -23,10 +22,6 @@ export const CreateForm = (props: { action: CreateContentApiAction }) => {
     useCreateContentApi({
       action: props.action,
     })
-
-  createEffect(() => {
-    console.log(submission.result)
-  })
 
   return (
     <form

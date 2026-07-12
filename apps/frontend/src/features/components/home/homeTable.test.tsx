@@ -196,6 +196,6 @@ describe('HomeTable', () => {
       | ((row: typeof workspace) => string)
       | undefined
 
-    expect(getRowHref?.(workspace)).toBe('/workspaces/workspace-1')
+    expect(getRowHref?.(workspace)).toBe('/workspaces/ws-1')
   })
 })

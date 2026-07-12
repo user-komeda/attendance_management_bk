@@ -4,6 +4,39 @@ import { describe, it, expect, vi } from 'vitest'
 
 import AuthLayout from '~/routes/(auth)'
 
+const mockWorkspaceDetail = { value: undefined as unknown }
+const mockWorkspaceList = { value: [] as unknown[] }
+
+vi.mock('~/provider/workspacesProvider', () => ({
+  WorkspaceProvider: (props: { children: import('solid-js').JSX.Element }) => (
+    <>{props.children}</>
+  ),
+  useWorkspace: () => ({
+    workspaces: () => ({ data: mockWorkspaceList.value }),
+  }),
+}))
+
+vi.mock('~/provider/workspacesDetailProvider', () => ({
+  WorkspaceDetailProvider: (props: {
+    children: import('solid-js').JSX.Element
+    slug?: string
+  }) => <>{props.children}</>,
+  useWorkspaceDetail: () => ({
+    workspaceDetail: () => mockWorkspaceDetail.value,
+  }),
+}))
+
+vi.mock('~/components/sideMenu/SideMenuWrap', () => ({
+  SideMenuWrap: (props: { isTooltip: boolean }) => (
+    <div data-testid={props.isTooltip ? 'icon-menu' : 'detail-menu'} />
+  ),
+}))
+
+vi.mock('~/util/sideMenuItems', () => ({
+  buildSideIconItems: () => [{ key: 'icon' }],
+  buildSideMenuItems: () => [{ key: 'menu' }],
+}))
+
 vi.mock('~/util/bffFetchWrapper', () => ({
   default: vi.fn().mockResolvedValue({
     ok: true,
@@ -35,6 +68,9 @@ vi.mock('@solidjs/router', async (importOriginal) => {
 
 describe('AuthLayout', () => {
   it('renders children with UserIdProvider and RequireAuth', async () => {
+    mockPathname.value = '/'
+    mockWorkspaceDetail.value = undefined
+
     render(() => (
       <MemoryRouter>
         <Route
@@ -49,10 +85,13 @@ describe('AuthLayout', () => {
     ))
 
     expect(await screen.findByText('Authenticated Content')).toBeInTheDocument()
+    expect(screen.getByTestId('icon-menu')).toBeInTheDocument()
+    expect(screen.queryByTestId('detail-menu')).not.toBeInTheDocument()
   })
 
   it('pathname が / 以外の場合はサイドメニューを表示すること', async () => {
     mockPathname.value = '/apis/blogs'
+    mockWorkspaceDetail.value = { id: 'workspace-id' }
 
     render(() => (
       <MemoryRouter>
@@ -68,6 +107,9 @@ describe('AuthLayout', () => {
     ))
 
     expect(await screen.findByText('Blog Content')).toBeInTheDocument()
+    expect(screen.getByTestId('icon-menu')).toBeInTheDocument()
+    expect(screen.getByTestId('detail-menu')).toBeInTheDocument()
     mockPathname.value = '/'
+    mockWorkspaceDetail.value = undefined
   })
 })

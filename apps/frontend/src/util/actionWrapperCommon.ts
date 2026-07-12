@@ -43,9 +43,7 @@ export const parseFormData = <S extends v.GenericSchema>(
   formData: FormData,
 ): ParseFormDataResult<S> => {
   const rawData = formDataToObject(formData)
-  console.log(rawData)
   const result = v.safeParse(schema, rawData)
-  console.log(result.issues)
   if (!result.success) {
     return {
       success: false,

@@ -1,8 +1,7 @@
 import * as v from 'valibot'
 
-import { CreateContentApiSchema } from '~/schema/contentApi/createContentApiSchhema'
-import { ActionResultOf, FieldKeyOf } from '~/types/action'
 import { CreateContentApiWithFieldsSchema } from '~/schema/contentApi/createContentApiWithFieldsSchhema'
+import { ActionResultOf, FieldKeyOf } from '~/types/action'
 
 export type CreateContentApiStep = 'basic' | 'type' | 'schema'
 export type CreateContentApiResult = ActionResultOf<

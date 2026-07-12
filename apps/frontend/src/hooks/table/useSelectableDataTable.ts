@@ -10,6 +10,7 @@ import { useDataTablePagination } from '~/hooks/table/useDataTablePagination'
 
 type PaginationData = ReturnType<typeof useDataTablePagination>
 
+// eslint-disable-next-line max-lines-per-function
 export const useSelectableDataTable = <TData, TValue>(
   params: UseDataTableProps<TData, TValue>,
   paginationData: PaginationData,

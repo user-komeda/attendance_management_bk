@@ -17,9 +17,12 @@ vi.mock('~/util/bffFetchWrapper', () => ({
 
 const mockWorkspaceDetail = {
   id: 'ws-1',
-  name: 'Workspace 1',
-  slug: 'ws-1',
-  status: 'active',
+  workSpaces: {
+    id: 'ws-1',
+    name: 'Workspace 1',
+    slug: 'ws-1',
+  },
+  role: 'owner',
   memberShips: [],
 }
 
@@ -65,7 +68,7 @@ describe('WorkspaceDetailProvider', () => {
     return (
       <div>
         <div data-testid="detail">
-          {ctx?.workspaceDetail()?.name ?? 'loading'}
+          {ctx?.workspaceDetail()?.workSpaces.name ?? 'loading'}
         </div>
         <div data-testid="loading">
           {String(ctx?.isLoadingWorkspaceDetail())}
@@ -154,7 +157,9 @@ describe('useWorkspaceDetail', () => {
     const TestComponent = () => {
       const ctx = useWorkspaceDetail()
       return (
-        <div data-testid="ctx">{ctx.workspaceDetail()?.name ?? 'loading'}</div>
+        <div data-testid="ctx">
+          {ctx.workspaceDetail()?.workSpaces.name ?? 'loading'}
+        </div>
       )
     }
 

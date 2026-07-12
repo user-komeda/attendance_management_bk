@@ -1,36 +1,17 @@
-import { GripVertical, Plus, Settings, X } from 'lucide-solid'
+import { Plus } from 'lucide-solid'
 import { For, Show } from 'solid-js'
 
 import type { Accessor } from 'solid-js'
 import type { CreateContentApiResult } from '~/features/components/workspaces/contentApi/createForm'
 
-import { FormInputText } from '~/components/formInputText'
 import { Card, CardContent } from '~/components/ui/card'
-import {
-  Select,
-  SelectContent,
-  SelectHiddenSelect,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '~/components/ui/select'
 import { Switch, SwitchControl, SwitchThumb } from '~/components/ui/switch'
+import {
+  FieldHeader,
+  FieldInputs,
+} from '~/features/components/workspaces/contentApi/schemaConfigParts'
 import { useFieldArray } from '~/hooks/useFieldArray'
-import { findActionMessage, findError } from '~/util/error'
-
-interface FieldTypeOption {
-  value: string
-  label: string
-}
-
-const fieldTypeOptions: FieldTypeOption[] = [
-  { value: 'text', label: 'テキスト' },
-  { value: 'textarea', label: 'テキストエリア' },
-  { value: 'richEditor', label: 'リッチエディタ' },
-  { value: 'image', label: '画像' },
-  { value: 'number', label: '数値' },
-  { value: 'boolean', label: '真偽値' },
-]
+import { findActionMessage } from '~/util/error'
 
 const SchemaDescription = () => (
   <div class="mb-10 text-center text-sm leading-7 text-slate-500">
@@ -48,114 +29,6 @@ const SchemaDescription = () => (
       </button>
       から。
     </p>
-  </div>
-)
-
-const FieldHeader = (props: {
-  fieldKey: string
-  canRemove: Accessor<boolean>
-  onRemove: () => void
-}) => (
-  <div class="mb-4 flex items-center justify-between px-2">
-    <span class="text-xs text-indigo-300">{props.fieldKey}</span>
-
-    <div class="flex items-center gap-5 text-sm text-indigo-400">
-      <button
-        type="button"
-        class="inline-flex items-center gap-1 hover:text-indigo-600"
-      >
-        <Settings class="size-4" />
-        詳細設定
-      </button>
-
-      <button
-        type="button"
-        class="inline-flex items-center gap-1 hover:text-indigo-600 disabled:cursor-not-allowed disabled:opacity-40"
-        disabled={!props.canRemove()}
-        onClick={props.onRemove}
-      >
-        <X class="size-4" />
-        削除
-      </button>
-    </div>
-  </div>
-)
-
-const FieldTypeSelect = (props: {
-  id: string
-  name: string
-  result: CreateContentApiResult | undefined
-}) => {
-  const errorMessage = () => findError(props.result, props.name)
-
-  return (
-    <div class="space-y-2">
-      <label for={props.id} class="text-base font-bold text-slate-950">
-        種類
-      </label>
-
-      <Select<FieldTypeOption>
-        name={props.name}
-        options={fieldTypeOptions}
-        optionValue="value"
-        optionTextValue="label"
-        placeholder="未選択"
-        /* v8 ignore next 3 */
-        itemComponent={(props) => (
-          <SelectItem item={props.item}>{props.item.rawValue.label}</SelectItem>
-        )}
-      >
-        <SelectHiddenSelect />
-
-        <SelectTrigger
-          id={props.id}
-          class="h-10 border-rose-500 bg-rose-50 text-sm focus:ring-rose-500"
-        >
-          <SelectValue<FieldTypeOption>>
-            {(state) => state.selectedOption()?.label}
-          </SelectValue>
-        </SelectTrigger>
-
-        <SelectContent />
-      </Select>
-
-      <Show when={errorMessage()}>
-        {(message) => <p class="text-xs text-rose-500">{message()}</p>}
-      </Show>
-    </div>
-  )
-}
-
-const FieldInputs = (props: {
-  index: number
-  result: Accessor<CreateContentApiResult | undefined>
-}) => (
-  <div class="grid grid-cols-[24px_1fr_1fr_1fr] gap-6 px-2">
-    <div class="flex items-center pt-9 text-slate-400">
-      <GripVertical class="size-4" />
-    </div>
-
-    {/* v8 ignore next */}
-    <FormInputText
-      label="フィールドID"
-      name={`fields[${props.index}][fieldId]`}
-      result={props.result()}
-      placeHolder="例: title"
-    />
-
-    {/* v8 ignore next */}
-    <FormInputText
-      name={`fields[${props.index}][displayName]`}
-      label="表示名"
-      placeHolder="例: タイトル"
-      result={props.result()}
-    />
-
-    <FieldTypeSelect
-      id={`fields-${props.index}-fieldType`}
-      name={`fields[${props.index}][fieldType]`}
-      result={props.result()}
-    />
   </div>
 )
 
@@ -192,6 +65,7 @@ const FieldConfig = (props: {
   </div>
 )
 
+// eslint-disable-next-line max-lines-per-function
 export const SchemaConfig = (props: {
   result: Accessor<CreateContentApiResult | undefined>
 }) => {

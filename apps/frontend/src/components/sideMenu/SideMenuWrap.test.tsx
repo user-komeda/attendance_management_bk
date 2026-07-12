@@ -10,10 +10,18 @@ vi.mock('@solidjs/router', async (importOriginal) => {
     ...actual,
     A: (props: {
       href: string
-      children?: import('solid-js').JSX.Element
+      children?:
+        | import('solid-js').JSX.Element
+        | (() => import('solid-js').JSX.Element)
       class?: string
       activeClass?: string
-    }) => <a href={props.href}>{props.children}</a>,
+    }) => (
+      <a href={props.href}>
+        {typeof props.children === 'function'
+          ? props.children()
+          : props.children}
+      </a>
+    ),
     useLocation: () => ({ pathname: '/' }),
   }
 })

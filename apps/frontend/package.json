@@ -14,7 +14,7 @@
     "test:e2e:ui": "yarn playwright test --ui",
     "generate:api-types": "openapi-typescript ../backend/openApi/openapi.yaml -o src/schema/apiTypes.ts && yarn generate:api-aliases",
     "generate:api-aliases": "node scripts/generate-api-aliases.mjs",
-    "check": "yarn generate:api-types && yarn concurrently 'yarn typecheck' 'yarn lint' 'yarn format' 'yarn test' 'yarn test:e2e'"
+    "check": "yarn generate:api-types && yarn typecheck && yarn lint && yarn format && yarn test && yarn test:e2e"
   },
   "dependencies": {
     "@corvu/resizable": "^0.2.5",

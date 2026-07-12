@@ -6,6 +6,7 @@ import { CreateContentApiWithFieldsSchema } from '~/schema/contentApi/createCont
 import { createError } from '~/util/error'
 import fetchWrapper from '~/util/fetchWrapper'
 
+// eslint-disable-next-line max-lines-per-function
 export const POST = async (event: APIEvent) => {
   const userId = await getCurrentUserId()
 
@@ -27,7 +28,6 @@ export const POST = async (event: APIEvent) => {
   }
 
   const body = await event.request.json()
-  console.log(body)
   const result = v.safeParse(CreateContentApiWithFieldsSchema, body)
 
   if (!result.success) {

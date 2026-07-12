@@ -1,18 +1,20 @@
 import { render, screen } from '@solidjs/testing-library'
 import { describe, it, expect, vi } from 'vitest'
 
+import type { JSX } from 'solid-js'
+
 import { TypeSelect } from '~/features/components/workspaces/contentApi/typeSelect'
 
 vi.mock('~/components/ui/flex', () => ({
-  Flex: (props: { children: unknown }) => <div>{props.children}</div>,
+  Flex: (props: { children: JSX.Element }) => <div>{props.children}</div>,
 }))
 
 vi.mock('~/components/ui/radio-group', () => ({
-  RadioGroup: (props: { children: unknown }) => <div>{props.children}</div>,
-  RadioGroupItem: (props: { children: unknown; value: string }) => (
+  RadioGroup: (props: { children: JSX.Element }) => <div>{props.children}</div>,
+  RadioGroupItem: (props: { children: JSX.Element; value: string }) => (
     <div data-testid={`radio-${props.value}`}>{props.children}</div>
   ),
-  RadioGroupItemLabel: (props: { children: unknown }) => (
+  RadioGroupItemLabel: (props: { children: JSX.Element }) => (
     <label>{props.children}</label>
   ),
 }))

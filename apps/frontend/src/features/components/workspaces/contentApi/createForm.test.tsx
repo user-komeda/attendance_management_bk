@@ -1,6 +1,8 @@
 import { fireEvent, render, screen } from '@solidjs/testing-library'
 import { describe, it, expect, vi } from 'vitest'
 
+import type { JSX } from 'solid-js'
+
 import { CreateForm } from '~/features/components/workspaces/contentApi/createForm'
 
 const mockUseCreateContentApi = vi.hoisted(() => vi.fn())
@@ -23,9 +25,9 @@ vi.mock('~/features/components/workspaces/contentApi/schemaConfig', () => ({
 
 vi.mock('~/components/ui/button', () => ({
   Button: (props: {
-    children: unknown
+    children: JSX.Element
     onClick?: () => void
-    type?: string
+    type?: 'button' | 'menu' | 'submit' | 'reset'
     disabled?: boolean
   }) => (
     <button
@@ -39,7 +41,7 @@ vi.mock('~/components/ui/button', () => ({
 }))
 
 vi.mock('~/components/ui/flex', () => ({
-  Flex: (props: { children: unknown }) => <div>{props.children}</div>,
+  Flex: (props: { children: JSX.Element }) => <div>{props.children}</div>,
 }))
 
 const mockAction = {} as never

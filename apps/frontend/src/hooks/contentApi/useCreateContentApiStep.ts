@@ -66,8 +66,6 @@ const validateStep = (
     return true
   }
 
-  console.log(result.issues)
-
   setStepResult({
     ok: false,
     fieldErrors: createError<CreateContentApiFieldKey>(result.issues),

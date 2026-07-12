@@ -30,11 +30,7 @@ const AuthLayoutContent = (props: AuthLayoutContentProps) => {
   const sideMenuItems = createMemo(() => {
     const detail = workspaceDetail()
 
-    if (detail === undefined) {
-      return []
-    }
-
-    return buildSideMenuItems(detail)
+    return detail ? buildSideMenuItems(detail) : []
   })
 
   return (

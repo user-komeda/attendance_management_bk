@@ -33,6 +33,32 @@ const apiTypes = [
   description: string
 }[]
 
+const SelectContent = ({ item }: { item: (typeof apiTypes)[number] }) => {
+  return (
+    <RadioGroupItem
+      value={item.value}
+      class="h-[250px] rounded border border-slate-200 text-left transition-colors hover:bg-slate-50 data-[checked]:border-indigo-600"
+    >
+      <RadioGroupItemLabel class="h-full w-full cursor-pointer p-6">
+        <Flex
+          flexDirection="col"
+          justifyContent="center"
+          alignItems="center"
+          class="h-full"
+        >
+          <h3 class="mb-6 text-center text-base font-bold text-slate-950">
+            {item.title}
+          </h3>
+
+          <p class="w-full text-sm leading-6 text-slate-500">
+            {item.description}
+          </p>
+        </Flex>
+      </RadioGroupItemLabel>
+    </RadioGroupItem>
+  )
+}
+
 export const TypeSelect = (props: {
   result: Accessor<CreateContentApiResult | undefined>
 }) => {
@@ -50,31 +76,7 @@ export const TypeSelect = (props: {
         defaultValue="list"
         class="mx-auto grid max-w-[680px] grid-cols-2 gap-20"
       >
-        <For each={apiTypes}>
-          {(item) => (
-            <RadioGroupItem
-              value={item.value}
-              class="h-[250px] rounded border border-slate-200 text-left transition-colors hover:bg-slate-50 data-[checked]:border-indigo-600"
-            >
-              <RadioGroupItemLabel class="h-full w-full cursor-pointer p-6">
-                <Flex
-                  flexDirection="col"
-                  justifyContent="center"
-                  alignItems="center"
-                  class="h-full"
-                >
-                  <h3 class="mb-6 text-center text-base font-bold text-slate-950">
-                    {item.title}
-                  </h3>
-
-                  <p class="w-full text-sm leading-6 text-slate-500">
-                    {item.description}
-                  </p>
-                </Flex>
-              </RadioGroupItemLabel>
-            </RadioGroupItem>
-          )}
-        </For>
+        <For each={apiTypes}>{(item) => <SelectContent item={item} />}</For>
       </RadioGroup>
 
       <Show when={errorMessage()}>

@@ -6,7 +6,7 @@ import { CreateWorkspaceSchema } from '~/schema/workspace/createWorkspaceSchema'
 import actionWrapper from '~/util/actionWrapper'
 
 const action = actionWrapper<typeof CreateWorkspaceSchema>({
-  path: '/api/contentApi',
+  path: '/api/workspaces',
   method: 'POST',
   schema: CreateWorkspaceSchema,
   name: 'createWorkspace',

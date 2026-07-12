@@ -1,17 +1,21 @@
-import { render, screen } from '@solidjs/testing-library'
+import { fireEvent, render, screen } from '@solidjs/testing-library'
 import { describe, it, expect, vi } from 'vitest'
+
+import type { JSX } from 'solid-js'
 
 import { SchemaConfig } from '~/features/components/workspaces/contentApi/schemaConfig'
 
 vi.mock('~/components/ui/card', () => ({
-  Card: (props: { children: unknown }) => <div>{props.children}</div>,
-  CardContent: (props: { children: unknown }) => <div>{props.children}</div>,
+  Card: (props: { children: JSX.Element }) => <div>{props.children}</div>,
+  CardContent: (props: { children: JSX.Element }) => (
+    <div>{props.children}</div>
+  ),
 }))
 
 vi.mock('~/components/ui/text-field', () => ({
-  TextField: (props: { children: unknown }) => <div>{props.children}</div>,
-  TextFieldLabel: (props: { children: unknown; for?: string }) => (
-    <label htmlFor={props.for}>{props.children}</label>
+  TextField: (props: { children: JSX.Element }) => <div>{props.children}</div>,
+  TextFieldLabel: (props: { children: JSX.Element; for?: string }) => (
+    <label for={props.for}>{props.children}</label>
   ),
   TextFieldInput: (props: { id?: string; name?: string; type?: string }) => (
     <input
@@ -21,26 +25,31 @@ vi.mock('~/components/ui/text-field', () => ({
       type={props.type}
     />
   ),
-  TextFieldErrorMessage: (props: { children: unknown }) => (
+  TextFieldErrorMessage: (props: { children: JSX.Element }) => (
     <span data-testid="error">{props.children}</span>
   ),
 }))
 
 vi.mock('~/components/ui/select', () => ({
   Select: (props: {
-    children: unknown
-    itemComponent?: (p: { item: { rawValue: { label: string } } }) => unknown
+    children: JSX.Element
+    itemComponent?: (p: {
+      item: { rawValue: { label: string } }
+    }) => JSX.Element
   }) => {
     props.itemComponent?.({ item: { rawValue: { label: 'テキスト' } } })
     return <div>{props.children}</div>
   },
   SelectContent: () => <div />,
-  SelectItem: (props: { children: unknown }) => <div>{props.children}</div>,
-  SelectTrigger: (props: { children: unknown }) => <div>{props.children}</div>,
+  SelectHiddenSelect: () => <select />,
+  SelectItem: (props: { children: JSX.Element }) => <div>{props.children}</div>,
+  SelectTrigger: (props: { children: JSX.Element }) => (
+    <div>{props.children}</div>
+  ),
   SelectValue: (props: {
     children: (state: {
       selectedOption: () => { label: string } | undefined
-    }) => unknown
+    }) => string | JSX.Element
   }) => (
     <div>
       {props.children({ selectedOption: () => ({ label: 'テキスト' }) })}
@@ -50,7 +59,15 @@ vi.mock('~/components/ui/select', () => ({
 }))
 
 vi.mock('~/components/ui/switch', () => ({
-  Switch: () => <input type="checkbox" data-testid="switch" />,
+  Switch: (props: { children: JSX.Element; name?: string; value?: string }) => (
+    <div data-testid={`switch-${props.name}`} data-value={props.value}>
+      {props.children}
+    </div>
+  ),
+  SwitchControl: (props: { children: JSX.Element }) => (
+    <div>{props.children}</div>
+  ),
+  SwitchThumb: () => <span>thumb</span>,
 }))
 
 vi.mock('lucide-solid', () => ({
@@ -64,8 +81,10 @@ describe('SchemaConfig', () => {
   it('フィールド入力フォームを表示すること', () => {
     render(() => <SchemaConfig result={() => undefined} />)
 
-    expect(screen.getByTestId('input-fieldId')).toBeInTheDocument()
-    expect(screen.getByTestId('input-displayName')).toBeInTheDocument()
+    expect(screen.getByTestId('input-fields[0][fieldId]')).toBeInTheDocument()
+    expect(
+      screen.getByTestId('input-fields[0][displayName]'),
+    ).toBeInTheDocument()
   })
 
   it('エラーメッセージがある場合は表示すること', () => {
@@ -86,5 +105,20 @@ describe('SchemaConfig', () => {
     render(() => <SchemaConfig result={() => undefined} />)
 
     expect(screen.queryByText('エラーが発生しました')).not.toBeInTheDocument()
+  })
+
+  it('フィールド追加と削除ができること', () => {
+    render(() => <SchemaConfig result={() => undefined} />)
+
+    expect(screen.getAllByText('削除')).toHaveLength(1)
+
+    fireEvent.click(screen.getByText('フィールドを追加'))
+
+    expect(screen.getAllByText('削除')).toHaveLength(2)
+
+    const removeButtons = screen.getAllByText('削除')
+    fireEvent.click(removeButtons[0])
+
+    expect(screen.getAllByText('削除')).toHaveLength(1)
   })
 })

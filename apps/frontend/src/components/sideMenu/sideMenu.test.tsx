@@ -10,10 +10,18 @@ vi.mock('@solidjs/router', async (importOriginal) => {
     ...actual,
     A: (props: {
       href: string
-      children?: import('solid-js').JSX.Element
+      children?:
+        | import('solid-js').JSX.Element
+        | (() => import('solid-js').JSX.Element)
       class?: string
       activeClass?: string
-    }) => <a href={props.href}>{props.children}</a>,
+    }) => (
+      <a href={props.href}>
+        {typeof props.children === 'function'
+          ? props.children()
+          : props.children}
+      </a>
+    ),
   }
 })
 
@@ -39,5 +47,29 @@ describe('SideMenu', () => {
   it('titleがない場合はtitleを表示しないこと', () => {
     render(() => <SideMenu text="通知" icon={Bell} href="/notifications" />)
     expect(screen.queryByText('メニュー')).not.toBeInTheDocument()
+  })
+
+  it('titleOnly=trueかつtitleありの場合はタイトルのみ表示すること', () => {
+    render(() => (
+      <SideMenu titleOnly={true} title="セクションタイトル" text="通知" />
+    ))
+
+    expect(screen.getByText('セクションタイトル')).toBeInTheDocument()
+    expect(screen.queryByRole('link')).not.toBeInTheDocument()
+  })
+
+  it('titleOnly=trueかつtitleなしの場合はリンクもタイトルも表示しないこと', () => {
+    const { container } = render(() => <SideMenu titleOnly={true} />)
+
+    expect(screen.queryByRole('link')).not.toBeInTheDocument()
+    expect(container.textContent).toBe('')
+  })
+
+  it('必須props不足時は何も表示しないこと', () => {
+    const { container } = render(() => (
+      <SideMenu text="通知" icon={Bell} href={undefined} />
+    ))
+
+    expect(container.firstChild).toBeNull()
   })
 })
