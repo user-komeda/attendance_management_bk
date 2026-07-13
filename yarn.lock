@@ -8402,11 +8402,11 @@ __metadata:
   linkType: hard
 
 "lucide-solid@npm:^1.21.0":
-  version: 1.23.0
-  resolution: "lucide-solid@npm:1.23.0"
+  version: 1.24.0
+  resolution: "lucide-solid@npm:1.24.0"
   peerDependencies:
     solid-js: ^1.4.7
-  checksum: 10c0/fddf2ea2c062b4adeadd666a094256aed5312ec1365ff792878c690519f28af3eac20d1ba078c59a8679493e94203ebaf2d2c0776d815a77144874e020046128
+  checksum: 10c0/5f6fc73fdbe744bcc6553eb21e8d8ec8f7156dcfde8bfaf55f78c2043c7c4b0109cdfc18d45af6a2edf8043cf086b7d8249b7860d34922b6ef1f3ccbf328d2c9
   languageName: node
   linkType: hard
 
