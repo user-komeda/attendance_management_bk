@@ -1,0 +1,21 @@
+# Generated from lib/presentation/controller/content_api/content_api_controller.rb with RBS::Inline
+
+module Presentation
+  module Controller
+    module ContentApi
+      class ContentApiController < ContentApiControllerBase
+        # @rbs (String id) -> Hash[Symbol, untyped]
+        def show: (String id) -> Hash[Symbol, untyped]
+
+        # @rbs (Hash[Symbol, untyped] params) -> Hash[Symbol, untyped]
+        def create: (Hash[Symbol, untyped] params) -> Hash[Symbol, untyped]
+
+        # @rbs (Hash[Symbol, untyped] params, String id) -> Hash[Symbol, untyped]
+        def update: (Hash[Symbol, untyped] params, String id) -> Hash[Symbol, untyped]
+
+        # @rbs (String id, String work_space_id) -> void
+        def destroy: (String id, String work_space_id) -> void
+      end
+    end
+  end
+end

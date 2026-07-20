@@ -1,0 +1,21 @@
+# Generated from lib/application/use_case/content_api/update_content_api_context.rb with RBS::Inline
+
+module Application
+  module UseCase
+    module ContentApi
+      class UpdateContentApiContext
+        # rubocop:disable all
+        attr_reader id: String
+
+        attr_reader content_api: untyped
+
+        attr_reader content_api_dto: untyped
+
+        attr_reader field_entities: Array[untyped]
+
+        # @rbs (id: String, content_api: untyped, content_api_dto: untyped, field_entities: Array[untyped]) -> void
+        def initialize: (id: String, content_api: untyped, content_api_dto: untyped, field_entities: Array[untyped]) -> void
+      end
+    end
+  end
+end

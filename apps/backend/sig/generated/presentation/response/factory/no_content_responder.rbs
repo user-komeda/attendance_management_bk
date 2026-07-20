@@ -7,6 +7,12 @@ module Presentation
         # @rbs (response: untyped, payload: ::Presentation::Controller::ControllerPayLoad) -> untyped
         # rubocop:enable all
         def self.build_responder: (response: untyped, payload: ::Presentation::Controller::ControllerPayLoad) -> untyped
+
+        # @rbs (response: untyped, payload: ::Presentation::Controller::ControllerPayLoad) -> void
+        private def self.apply_status: (response: untyped, payload: ::Presentation::Controller::ControllerPayLoad) -> void
+
+        # @rbs (response: untyped, payload_id: String?) -> void
+        private def self.apply_etag: (response: untyped, payload_id: String?) -> void
       end
     end
   end

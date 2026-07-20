@@ -1,0 +1,12 @@
+# Generated from lib/application/use_case/content_api/get_detail_content_api_use_case.rb with RBS::Inline
+
+module Application
+  module UseCase
+    module ContentApi
+      class GetDetailContentApiUseCase < ContentApiBaseUseCase
+        # @rbs (arg: String) -> ::Application::Dto::ContentApi::ContentApiWithFieldsDto
+        def invoke: (arg: String) -> ::Application::Dto::ContentApi::ContentApiWithFieldsDto
+      end
+    end
+  end
+end

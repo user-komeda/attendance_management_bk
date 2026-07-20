@@ -26,11 +26,14 @@ module Infrastructure
         # @rbs (member_ships_entity: ::Domain::Entity::WorkSpace::MemberShipsEntity) -> String
         private def self.extract_id: (member_ships_entity: ::Domain::Entity::WorkSpace::MemberShipsEntity) -> String
 
-        # @rbs (member_ships_entity: ::Domain::Entity::WorkSpace::MemberShipsEntity) -> String
-        private def self.extract_role: (member_ships_entity: ::Domain::Entity::WorkSpace::MemberShipsEntity) -> String
+        # @rbs (struct: untyped) -> Hash[Symbol, String]
+        private def self.struct_attributes: (struct: untyped) -> Hash[Symbol, String]
 
-        # @rbs (member_ships_entity: ::Domain::Entity::WorkSpace::MemberShipsEntity) -> String
-        private def self.extract_status: (member_ships_entity: ::Domain::Entity::WorkSpace::MemberShipsEntity) -> String
+        # @rbs (member_ships_entity: ::Domain::Entity::WorkSpace::MemberShipsEntity) -> Hash[Symbol, String]
+        private def self.domain_attributes: (member_ships_entity: ::Domain::Entity::WorkSpace::MemberShipsEntity) -> Hash[Symbol, String]
+
+        # @rbs (value_object: untyped, default_value: String) -> String
+        private def self.extract_or_default: (value_object: untyped, default_value: String) -> String
       end
     end
   end

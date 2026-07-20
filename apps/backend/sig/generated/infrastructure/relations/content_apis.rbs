@@ -1,0 +1,10 @@
+# Generated from lib/infrastructure/relations/content_apis.rb with RBS::Inline
+
+module Infrastructure
+  module Relations
+    class ContentApis
+      # @rbs (String work_space_id) -> ROM::Relation[untyped]
+      def by_work_space_id: (String work_space_id) -> ROM::Relation[untyped]
+    end
+  end
+end

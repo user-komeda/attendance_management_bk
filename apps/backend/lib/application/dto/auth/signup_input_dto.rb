@@ -26,8 +26,10 @@ module Application
 
         # @rbs () -> ::Domain::Entity::Auth::AuthUserEntity
         def convert_to_auth_user_entity
-          ::Domain::Entity::Auth::AuthUserEntity.build(password: password,
-                                                       email: email)
+          ::Domain::Entity::Auth::AuthUserEntity.build(attrs: {
+                                                         password: password,
+                                                         email: email
+                                                       })
         end
       end
     end

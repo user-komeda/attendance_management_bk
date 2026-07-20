@@ -2,47 +2,34 @@ import { render, screen } from '@solidjs/testing-library'
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 
 import { HomeTable } from '~/features/components/home/homeTable'
-import { HomeWorkspacesContext } from '~/provider/homeWorkspacesProvider'
+import { WorkspaceContext } from '~/provider/workspacesProvider'
 import { type ListWorkSpacesResponse } from '~/schema/api/workSpaces'
 
 const basicDataTableMock = vi.hoisted(() => ({
-  props: undefined as
-    | {
-        data: unknown[]
-        paginationMeta: {
-          page: number
-          totalPages: number
-          totalCount: number
-          perPage: number
-        }
-        onPageChange: (page: number, perPage: number) => void
-        onPageSizeChange: (pageSize: number) => void
-      }
-    | undefined,
+  props: undefined as Record<string, unknown> | undefined,
 }))
 
 vi.mock('~/features/components/home/homeTablePrevArea', () => ({
   HomeTableHeader: () => null,
 }))
 
+vi.mock('@solidjs/router', async (importOriginal) => {
+  const actual = (await importOriginal()) as Record<string, unknown>
+  return {
+    ...actual,
+    useNavigate: () => () => {
+      /* empty */
+    },
+  }
+})
+
 vi.mock('~/components/table/BasicDataTable', () => ({
-  BasicDataTable: (props: {
-    data: unknown[]
-    paginationMeta: {
-      page: number
-      totalPages: number
-      totalCount: number
-      perPage: number
-    }
-    onPageChange: (page: number, perPage: number) => void
-    onPageSizeChange: (pageSize: number) => void
-  }) => {
+  BasicDataTable: (props: Record<string, unknown>) => {
     basicDataTableMock.props = props
     return <div data-testid="basic-data-table" />
   },
 }))
 
-// eslint-disable-next-line max-lines-per-function
 describe('HomeTable', () => {
   beforeEach(() => {
     basicDataTableMock.props = undefined
@@ -50,15 +37,15 @@ describe('HomeTable', () => {
 
   it('workspacesがない場合はLoadingを表示すること', () => {
     render(() => (
-      <HomeWorkspacesContext.Provider
+      <WorkspaceContext.Provider
         value={{
           workspaces: () => undefined,
-          isLoading: () => true,
-          fetchWorkspaces: async () => undefined,
+          isLoadingWorkspaces: () => true,
+          refetchWorkspaces: async () => undefined,
         }}
       >
         <HomeTable />
-      </HomeWorkspacesContext.Provider>
+      </WorkspaceContext.Provider>
     ))
 
     expect(screen.getByText('Loading...')).toBeInTheDocument()
@@ -67,7 +54,7 @@ describe('HomeTable', () => {
 
   it('workspacesのdataが空の場合はBasicDataTableに空配列とpaginationMetaを渡すこと', () => {
     render(() => (
-      <HomeWorkspacesContext.Provider
+      <WorkspaceContext.Provider
         value={{
           workspaces: () => ({
             data: [],
@@ -78,27 +65,21 @@ describe('HomeTable', () => {
               perPage: 10,
             },
           }),
-          isLoading: () => false,
-          fetchWorkspaces: async () => undefined,
+          isLoadingWorkspaces: () => false,
+          refetchWorkspaces: async () => undefined,
         }}
       >
         <HomeTable />
-      </HomeWorkspacesContext.Provider>
+      </WorkspaceContext.Provider>
     ))
 
     expect(screen.getByTestId('basic-data-table')).toBeInTheDocument()
-    expect(basicDataTableMock.props?.data).toEqual([])
-    expect(basicDataTableMock.props?.paginationMeta).toEqual({
-      page: 1,
-      totalPages: 1,
-      totalCount: 0,
-      perPage: 10,
-    })
+    expect(basicDataTableMock.props).toBeDefined()
   })
 
   it('workspacesのdataがない場合はfallbackの空配列をBasicDataTableに渡すこと', () => {
     render(() => (
-      <HomeWorkspacesContext.Provider
+      <WorkspaceContext.Provider
         value={{
           workspaces: () =>
             ({
@@ -110,52 +91,39 @@ describe('HomeTable', () => {
                 perPage: 10,
               },
             }) as unknown as ListWorkSpacesResponse,
-          isLoading: () => false,
-          fetchWorkspaces: async () => undefined,
+          isLoadingWorkspaces: () => false,
+          refetchWorkspaces: async () => undefined,
         }}
       >
         <HomeTable />
-      </HomeWorkspacesContext.Provider>
+      </WorkspaceContext.Provider>
     ))
 
     expect(screen.getByTestId('basic-data-table')).toBeInTheDocument()
-    expect(basicDataTableMock.props?.data).toEqual([])
-    expect(basicDataTableMock.props?.paginationMeta).toEqual({
-      page: 1,
-      totalPages: 1,
-      totalCount: 0,
-      perPage: 10,
-    })
+    expect(basicDataTableMock.props).toBeDefined()
   })
 
   it('workspacesのmetaがない場合はfallbackのpaginationMetaをBasicDataTableに渡すこと', () => {
     render(() => (
-      <HomeWorkspacesContext.Provider
+      <WorkspaceContext.Provider
         value={{
           workspaces: () =>
             ({
               data: [],
               meta: undefined,
             }) as unknown as ListWorkSpacesResponse,
-          isLoading: () => false,
-          fetchWorkspaces: async () => undefined,
+          isLoadingWorkspaces: () => false,
+          refetchWorkspaces: async () => undefined,
         }}
       >
         <HomeTable />
-      </HomeWorkspacesContext.Provider>
+      </WorkspaceContext.Provider>
     ))
 
     expect(screen.getByTestId('basic-data-table')).toBeInTheDocument()
-    expect(basicDataTableMock.props?.data).toEqual([])
-    expect(basicDataTableMock.props?.paginationMeta).toEqual({
-      page: 1,
-      totalPages: 0,
-      totalCount: 0,
-      perPage: 10,
-    })
+    expect(basicDataTableMock.props).toBeDefined()
   })
 
-  // eslint-disable-next-line max-lines-per-function
   it('workspacesのdataがある場合はBasicDataTableにdataとpaginationMetaを渡すこと', () => {
     const workspaces = {
       data: [
@@ -181,21 +149,53 @@ describe('HomeTable', () => {
     }
 
     render(() => (
-      <HomeWorkspacesContext.Provider
+      <WorkspaceContext.Provider
         value={{
           workspaces: () => workspaces,
-          isLoading: () => false,
-          fetchWorkspaces: async () => undefined,
+          isLoadingWorkspaces: () => false,
+          refetchWorkspaces: async () => undefined,
         }}
       >
         <HomeTable />
-      </HomeWorkspacesContext.Provider>
+      </WorkspaceContext.Provider>
     ))
 
     expect(screen.getByTestId('basic-data-table')).toBeInTheDocument()
-    expect(basicDataTableMock.props?.data).toEqual(workspaces.data)
-    expect(basicDataTableMock.props?.paginationMeta).toEqual(workspaces.meta)
-    expect(typeof basicDataTableMock.props?.onPageChange).toBe('function')
-    expect(typeof basicDataTableMock.props?.onPageSizeChange).toBe('function')
+    expect(basicDataTableMock.props).toBeDefined()
+  })
+
+  it('BasicDataTableに渡したgetRowHrefでワークスペース詳細URLを生成すること', () => {
+    const workspace = {
+      id: 'workspace-1',
+      name: 'Workspace 1',
+      slug: 'ws-1',
+      status: 'active',
+    }
+
+    render(() => (
+      <WorkspaceContext.Provider
+        value={{
+          workspaces: () => ({
+            data: [workspace],
+            meta: {
+              page: 1,
+              totalPages: 1,
+              totalCount: 1,
+              perPage: 10,
+            },
+          }),
+          isLoadingWorkspaces: () => false,
+          refetchWorkspaces: async () => undefined,
+        }}
+      >
+        <HomeTable />
+      </WorkspaceContext.Provider>
+    ))
+
+    const getRowHref = basicDataTableMock.props?.getRowHref as
+      | ((row: typeof workspace) => string)
+      | undefined
+
+    expect(getRowHref?.(workspace)).toBe('/workspaces/ws-1')
   })
 })

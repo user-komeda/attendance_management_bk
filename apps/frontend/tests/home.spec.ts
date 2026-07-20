@@ -1,6 +1,5 @@
 import { test, expect } from '@playwright/test'
 
-// eslint-disable-next-line max-lines-per-function
 test.describe('Home Page E2E Tests', () => {
   let email: string
   const password = 'Password123!'
@@ -41,10 +40,14 @@ test.describe('Home Page E2E Tests', () => {
     await page.locator('button', { hasText: '追加' }).last().click() // モーダル内の「追加」ボタン
 
     // 作成後、一覧に表示されることを確認
-    await expect(page.locator(`text=${workspaceName}`)).toBeVisible({
+    await expect(
+      page.getByRole('cell', { name: workspaceName, exact: true }),
+    ).toBeVisible({
       timeout: 15000,
     })
-    await expect(page.locator(`text=${workspaceSlug}`)).toBeVisible()
+    await expect(
+      page.getByRole('cell', { name: workspaceSlug, exact: true }),
+    ).toBeVisible()
   })
 
   test('ワークスペースのバリデーションエラーが表示されること', async ({
@@ -60,7 +63,6 @@ test.describe('Home Page E2E Tests', () => {
     await expect(errorMessages.first()).toBeVisible()
   })
 
-  // eslint-disable-next-line max-lines-per-function
   test('ワークスペースの検索ができること', async ({ page }) => {
     // 2つワークスペースを作成
     const ws1 = {
@@ -77,7 +79,9 @@ test.describe('Home Page E2E Tests', () => {
       await page.locator('input[name="name"]').fill(ws.name)
       await page.locator('input[name="slug"]').fill(ws.slug)
       await page.locator('button', { hasText: '追加' }).last().click()
-      await expect(page.locator(`text=${ws.name}`)).toBeVisible({
+      await expect(
+        page.getByRole('cell', { name: ws.name, exact: true }),
+      ).toBeVisible({
         timeout: 15000,
       })
     }
@@ -89,10 +93,14 @@ test.describe('Home Page E2E Tests', () => {
     await page.locator('button', { hasText: '検索' }).click()
 
     // Alpha は表示され、Beta は非表示になることを期待
-    await expect(page.locator('text=Alpha Project')).toBeVisible({
+    await expect(
+      page.getByRole('cell', { name: 'Alpha Project', exact: true }),
+    ).toBeVisible({
       timeout: 15000,
     })
-    await expect(page.locator('text=Beta Project')).not.toBeVisible({
+    await expect(
+      page.getByRole('cell', { name: 'Beta Project', exact: true }),
+    ).not.toBeVisible({
       timeout: 15000,
     })
 
@@ -101,11 +109,14 @@ test.describe('Home Page E2E Tests', () => {
     await page.locator('button', { hasText: '検索' }).click()
 
     // 両方表示されることを期待
-    await expect(page.locator('text=Alpha Project')).toBeVisible()
-    await expect(page.locator('text=Beta Project')).toBeVisible()
+    await expect(
+      page.getByRole('cell', { name: 'Alpha Project', exact: true }),
+    ).toBeVisible()
+    await expect(
+      page.getByRole('cell', { name: 'Beta Project', exact: true }),
+    ).toBeVisible()
   })
 
-  // eslint-disable-next-line max-lines-per-function
   test('ページネーションが正しく動作すること', async ({ page }) => {
     // 6個のワークスペースを作成する
     const wsBaseName = 'Pg'

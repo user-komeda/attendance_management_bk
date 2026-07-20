@@ -2,28 +2,27 @@ import { renderHook } from '@solidjs/testing-library'
 import { describe, it, expect, vi } from 'vitest'
 
 import { usePagination } from '~/hooks/usePagination'
-import { useHomeWorkspaces } from '~/provider/homeWorkspacesProvider'
+import { useWorkspace } from '~/provider/workspacesProvider'
 
-vi.mock('~/provider/homeWorkspacesProvider', () => ({
-  useHomeWorkspaces: vi.fn(),
+vi.mock('~/provider/workspacesProvider', () => ({
+  useWorkspace: vi.fn(),
 }))
 
-// eslint-disable-next-line max-lines-per-function
 describe('usePagination', () => {
   it('handlePageChangeが正しく動作すること', async () => {
-    const fetchWorkspaces = vi.fn()
+    const refetchWorkspaces = vi.fn()
     const workspaces = vi.fn().mockReturnValue({
       meta: { searchQuery: '' },
     })
-    vi.mocked(useHomeWorkspaces).mockReturnValue({
-      fetchWorkspaces,
+    vi.mocked(useWorkspace).mockReturnValue({
+      refetchWorkspaces,
       workspaces,
-    } as unknown as ReturnType<typeof useHomeWorkspaces>)
+    } as unknown as ReturnType<typeof useWorkspace>)
 
     const { result } = renderHook(() => usePagination())
     await result.handlePageChange(2, 10)
 
-    expect(fetchWorkspaces).toHaveBeenCalledWith({
+    expect(refetchWorkspaces).toHaveBeenCalledWith({
       page: 2,
       perPage: 10,
       searchQuery: undefined,
@@ -31,19 +30,19 @@ describe('usePagination', () => {
   })
 
   it('handlePageSizeChangeが正しく動作すること', async () => {
-    const fetchWorkspaces = vi.fn()
+    const refetchWorkspaces = vi.fn()
     const workspaces = vi.fn().mockReturnValue({
       meta: { searchQuery: '' },
     })
-    vi.mocked(useHomeWorkspaces).mockReturnValue({
-      fetchWorkspaces,
+    vi.mocked(useWorkspace).mockReturnValue({
+      refetchWorkspaces,
       workspaces,
-    } as unknown as ReturnType<typeof useHomeWorkspaces>)
+    } as unknown as ReturnType<typeof useWorkspace>)
 
     const { result } = renderHook(() => usePagination())
     await result.handlePageSizeChange(20)
 
-    expect(fetchWorkspaces).toHaveBeenCalledWith({
+    expect(refetchWorkspaces).toHaveBeenCalledWith({
       page: 1,
       perPage: 20,
       searchQuery: undefined,
@@ -51,19 +50,19 @@ describe('usePagination', () => {
   })
 
   it('searchQueryがある場合に正しく動作すること', async () => {
-    const fetchWorkspaces = vi.fn()
+    const refetchWorkspaces = vi.fn()
     const workspaces = vi.fn().mockReturnValue({
       meta: { searchQuery: ' test ' },
     })
-    vi.mocked(useHomeWorkspaces).mockReturnValue({
-      fetchWorkspaces,
+    vi.mocked(useWorkspace).mockReturnValue({
+      refetchWorkspaces,
       workspaces,
-    } as unknown as ReturnType<typeof useHomeWorkspaces>)
+    } as unknown as ReturnType<typeof useWorkspace>)
 
     const { result } = renderHook(() => usePagination())
     await result.handlePageChange(2, 10)
 
-    expect(fetchWorkspaces).toHaveBeenCalledWith({
+    expect(refetchWorkspaces).toHaveBeenCalledWith({
       page: 2,
       perPage: 10,
       searchQuery: 'test',
@@ -71,19 +70,19 @@ describe('usePagination', () => {
   })
 
   it('searchQueryがトリミング後に空になる場合にundefinedを返すこと', async () => {
-    const fetchWorkspaces = vi.fn()
+    const refetchWorkspaces = vi.fn()
     const workspaces = vi.fn().mockReturnValue({
       meta: { searchQuery: '   ' },
     })
-    vi.mocked(useHomeWorkspaces).mockReturnValue({
-      fetchWorkspaces,
+    vi.mocked(useWorkspace).mockReturnValue({
+      refetchWorkspaces,
       workspaces,
-    } as unknown as ReturnType<typeof useHomeWorkspaces>)
+    } as unknown as ReturnType<typeof useWorkspace>)
 
     const { result } = renderHook(() => usePagination())
     await result.handlePageChange(1, 10)
 
-    expect(fetchWorkspaces).toHaveBeenCalledWith({
+    expect(refetchWorkspaces).toHaveBeenCalledWith({
       page: 1,
       perPage: 10,
       searchQuery: undefined,

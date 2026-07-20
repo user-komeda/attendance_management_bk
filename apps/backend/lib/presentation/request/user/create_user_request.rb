@@ -36,10 +36,7 @@ module Presentation
 
           # @rbs (params: { first_name: String, last_name: String, email: String }) -> void
           def validate(params:)
-            result = UserBaseRequest::CREATE_CONTRACT.new.call(params)
-            return unless result.failure?
-
-            raise ::Presentation::Exception::BadRequestException.new(message: result.errors.to_h.to_json)
+            validate_or_raise!(contract: UserBaseRequest::CREATE_CONTRACT, params: params)
           end
         end
       end

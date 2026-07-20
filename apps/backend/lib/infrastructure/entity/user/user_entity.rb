@@ -50,10 +50,13 @@ module Infrastructure
 
         # @rbs (user_entity: Domain::Entity::User::UserEntity) -> UserEntity
         def self.build_from_domain_entity(user_entity:)
+          user_id = user_entity.id
+          user_name = user_entity.user_name
+
           new(
-            id: ::UtilMethod.nil_or_empty?(user_entity.id) ? SecureRandom.uuid : user_entity.id.value,
-            first_name: user_entity.user_name.first_name,
-            last_name: user_entity.user_name.last_name,
+            id: ::UtilMethod.nil_or_empty?(user_id) ? SecureRandom.uuid : user_id.value,
+            first_name: user_name.first_name,
+            last_name: user_name.last_name,
             email: user_entity.email.value,
             session_version: 1
           )
@@ -63,13 +66,19 @@ module Infrastructure
         # @rbs (user_with_auth_user: {user_name: Domain::ValueObject::User::UserName, email: Domain::ValueObject::User::UserEmail, auth_user: {email: Domain::ValueObject::User::UserEmail, password_digest: Domain::ValueObject::AuthUser::PasswordDigest}}) -> {first_name: String, last_name: String, email: String, auth_user: {email: String, password_digest: String}}
         # rubocop:enable Layout/LineLength
         def self.build_with_auth_user(user_with_auth_user:)
+          user_name = user_with_auth_user[:user_name]
+          user_email = user_with_auth_user[:email]
+          auth_user = user_with_auth_user[:auth_user]
+          auth_user_email = auth_user[:email]
+          password_digest = auth_user[:password_digest]
+
           {
-            first_name: user_with_auth_user[:user_name].first_name,
-            last_name: user_with_auth_user[:user_name].last_name,
-            email: user_with_auth_user[:email].value,
+            first_name: user_name.first_name,
+            last_name: user_name.last_name,
+            email: user_email.value,
             auth_user: {
-              email: user_with_auth_user[:auth_user][:email].value,
-              password_digest: user_with_auth_user[:auth_user][:password_digest].value
+              email: auth_user_email.value,
+              password_digest: password_digest.value
             }
           }
         end

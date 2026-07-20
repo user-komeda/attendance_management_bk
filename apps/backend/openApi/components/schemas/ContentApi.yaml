@@ -1,0 +1,22 @@
+type: object
+description: コンテンツAPIの基本情報
+properties:
+  id:
+    type: string
+    description: コンテンツAPIのID
+  work_space_id:
+    type: string
+    description: 所属ワークスペースのID
+  name:
+    type: string
+    description: コンテンツAPIの名前
+    example: articles
+  endpoint:
+    type: string
+    description: エンドポイント名
+    example: articles
+  api_type:
+    type: string
+    description: APIタイプ
+    example: collection
+required: [ id, work_space_id, name, endpoint, api_type ]

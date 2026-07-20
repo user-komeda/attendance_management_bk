@@ -1,8 +1,8 @@
 import { useSubmission } from '@solidjs/router'
 import { createEffect, createSignal } from 'solid-js'
 
-import { useHomeWorkspaces } from '~/provider/homeWorkspacesProvider'
-import { CreateWorkspaceSchema } from '~/schema/createWorkspaceSchema'
+import { useWorkspace } from '~/provider/workspacesProvider'
+import { CreateWorkspaceSchema } from '~/schema/workspace/createWorkspaceSchema'
 import actionWrapper from '~/util/actionWrapper'
 
 const action = actionWrapper<typeof CreateWorkspaceSchema>({
@@ -13,7 +13,7 @@ const action = actionWrapper<typeof CreateWorkspaceSchema>({
 })
 
 export const useCreateWorkspace = () => {
-  const { fetchWorkspaces } = useHomeWorkspaces()
+  const { refetchWorkspaces } = useWorkspace()
 
   const submission = useSubmission(action)
   const [isOpen, setIsOpen] = createSignal(false)
@@ -24,7 +24,7 @@ export const useCreateWorkspace = () => {
     }
 
     setIsOpen(false)
-    void fetchWorkspaces()
+    void refetchWorkspaces()
   })
 
   const handleOpen = () => {

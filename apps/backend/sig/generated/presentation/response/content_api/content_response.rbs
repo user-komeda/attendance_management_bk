@@ -1,0 +1,39 @@
+# Generated from lib/presentation/response/content_api/content_response.rb with RBS::Inline
+
+module Presentation
+  module Response
+    module ContentApi
+      class ContentResponse < Presentation::Response::BaseResponse
+        attr_reader id: untyped
+
+        attr_reader content_api_id: untyped
+
+        attr_reader content_id: untyped
+
+        attr_reader status: untyped
+
+        attr_reader data: untyped
+
+        attr_reader published_at: untyped
+
+        attr_reader closed_at: untyped
+
+        attr_reader created_by_id: untyped
+
+        attr_reader updated_by_id: untyped
+
+        # @rbs (params: Hash[Symbol, untyped]) -> void
+        def initialize: (params: Hash[Symbol, untyped]) -> void
+
+        # @rbs (content: untyped) -> Hash[Symbol, untyped]
+        def self.build: (content: untyped) -> Hash[Symbol, untyped]
+
+        # @rbs (content_list: Array[untyped]) -> Array[Hash[Symbol, untyped]]
+        def self.build_from_array: (content_list: Array[untyped]) -> Array[Hash[Symbol, untyped]]
+
+        # @rbs () -> Hash[Symbol, untyped]
+        def to_h: () -> Hash[Symbol, untyped]
+      end
+    end
+  end
+end

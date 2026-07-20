@@ -20,7 +20,6 @@ vi.mock(import('vinxi/http'), () => ({
   useSession: vi.fn(),
 }))
 
-// eslint-disable-next-line max-lines-per-function
 describe(createSession, () => {
   beforeEach(() => {
     vi.clearAllMocks()

@@ -2,7 +2,6 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 
 import bffFetchWrapper from '~/util/bffFetchWrapper'
 
-// eslint-disable-next-line max-lines-per-function
 describe(bffFetchWrapper, () => {
   beforeEach(() => {
     vi.stubGlobal('fetch', vi.fn())

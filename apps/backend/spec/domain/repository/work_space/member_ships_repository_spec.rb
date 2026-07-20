@@ -36,13 +36,13 @@ RSpec.describe Domain::Repository::WorkSpace::MemberShipsRepository do
     end
   end
 
-  describe '#get_by_user_id_and_work_space_id' do
+  describe '#get_by_work_space_id' do
     it 'delegates to infra repository' do
-      allow(infra_repo).to receive(:get_by_user_id_and_work_space_id)
-        .with(user_id: user_id, work_space_id: workspace_id)
-        .and_return(membership_entity)
-      expect(repository.get_by_user_id_and_work_space_id(user_id: user_id, work_space_id: workspace_id))
-        .to eq(membership_entity)
+      allow(infra_repo).to receive(:get_by_work_space_id)
+        .with(work_space_id: workspace_id)
+        .and_return([membership_entity])
+      expect(repository.get_by_work_space_id(work_space_id: workspace_id))
+        .to eq([membership_entity])
     end
   end
 end

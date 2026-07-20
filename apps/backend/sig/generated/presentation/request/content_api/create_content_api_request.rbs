@@ -1,0 +1,21 @@
+# Generated from lib/presentation/request/content_api/create_content_api_request.rb with RBS::Inline
+
+module Presentation
+  module Request
+    module ContentApi
+      class CreateContentApiRequest < ContentApiBaseRequest
+        # @rbs (params: { work_space_id: String, name: String, endpoint: String, api_type: String }) -> void
+        def initialize: (params: { work_space_id: String, name: String, endpoint: String, api_type: String }) -> void
+
+        # @rbs () -> ::Application::Dto::ContentApi::CreateContentApiInputDto
+        def convert_to_dto: () -> ::Application::Dto::ContentApi::CreateContentApiInputDto
+
+        # @rbs (params: Hash[Symbol, untyped]) -> CreateContentApiRequest
+        def self.build: (params: Hash[Symbol, untyped]) -> CreateContentApiRequest
+
+        # @rbs (params: Hash[Symbol, untyped]) -> void
+        private def self.validate: (params: Hash[Symbol, untyped]) -> void
+      end
+    end
+  end
+end

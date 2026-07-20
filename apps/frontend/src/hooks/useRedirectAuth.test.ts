@@ -19,7 +19,6 @@ vi.mock('~/util/bffFetchWrapper', () => ({
   default: vi.fn(),
 }))
 
-// eslint-disable-next-line max-lines-per-function
 describe('useRequireAuth', () => {
   const mockNavigate = vi.fn()
 

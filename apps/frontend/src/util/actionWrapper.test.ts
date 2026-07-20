@@ -14,7 +14,6 @@ vi.mock('@solidjs/router', () => ({
   redirect: vi.fn((url) => ({ type: 'redirect', url })),
 }))
 
-// eslint-disable-next-line max-lines-per-function
 describe(actionWrapper, () => {
   const schema = v.object({
     name: v.pipe(v.string(), v.nonEmpty()),

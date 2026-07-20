@@ -34,7 +34,7 @@ RSpec.describe Application::UseCase::User::UpdateUserUseCase do
   end
 
   it 'updates and returns user dto' do
-    expect(use_case.invoke(args: build_update_input)).to have_attributes(
+    expect(use_case.invoke(arg: build_update_input)).to have_attributes(
       id: '5', first_name: 'New', last_name: 'Name', email: 'new@example.com'
     )
   end
@@ -47,7 +47,7 @@ RSpec.describe Application::UseCase::User::UpdateUserUseCase do
 
     it 'raises not found' do
       expect do
-        use_case.invoke(args: build_update_input(id: '123', first_name: 'A', last_name: 'B', email: 'a@example.com'))
+        use_case.invoke(arg: build_update_input(id: '123', first_name: 'A', last_name: 'B', email: 'a@example.com'))
       end.to raise_error(Application::Exception::NotFoundException)
     end
   end

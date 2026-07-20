@@ -7,12 +7,15 @@ module Application
   module UseCase
     module Auth
       class VerifyJwtUseCase < AuthBaseUseCase
+        JWT_ALGORITHM = 'HS256'
+
         def invoke(token:, type:)
           payload = decode_and_validate_payload(token, type)
           return true if type == :bff
 
           user_id = payload['sub']
-          ::Application::Dto::Auth::AuthOutputDto.build(id: user_id.to_s, user_id: user_id.to_s)
+          user_id_str = user_id.to_s
+          ::Application::Dto::Auth::AuthOutputDto.build(id: user_id_str, user_id: user_id_str)
         rescue JWT::DecodeError
           raise Exception::InvalidToken.new(message: 'invalid token')
         end
@@ -24,13 +27,7 @@ module Application
             token,
             secret_for(type),
             true,
-            {
-              algorithm: 'HS256',
-              iss: AppEnv.get['JWT_ISSUER'],
-              verify_iss: true,
-              aud: AppEnv.get['JWT_AUDIENCE'],
-              verify_aud: true
-            }
+            decode_options
           )
 
           validate_payload(payload, type)
@@ -38,15 +35,25 @@ module Application
           payload
         end
 
+        def decode_options
+          app_env = AppEnv.get
+
+          {
+            algorithm: JWT_ALGORITHM,
+            iss: app_env['JWT_ISSUER'],
+            verify_iss: true,
+            aud: app_env['JWT_AUDIENCE'],
+            verify_aud: true
+          }
+        end
+
         def secret_for(type)
-          case type
-          when :user
-            AppEnv.get['JWT_SECRET']
-          when :bff
-            AppEnv.get['BFF_JWT_SECRET']
-          else
-            raise Exception::InvalidToken.new(message: 'invalid token type')
-          end
+          app_env = AppEnv.get
+
+          {
+            user: app_env['JWT_SECRET'],
+            bff: app_env['BFF_JWT_SECRET']
+          }.fetch(type) { raise Exception::InvalidToken.new(message: 'invalid token type') }
         end
 
         def validate_payload(payload, type)
@@ -62,16 +69,28 @@ module Application
 
         def validate_type(payload, type)
           typ = payload['typ']
-          case type
-          when :user
-            unless typ == 'access_token' && !payload['sub'].to_s.empty?
-              raise Exception::InvalidToken.new(message: 'invalid user token')
-            end
-          when :bff
-            raise Exception::InvalidToken.new(message: 'invalid bff token') unless typ == 'bff_assertion'
-          else
-            raise Exception::InvalidToken.new(message: 'invalid token type')
-          end
+          validator_for(type).call(payload: payload, typ: typ)
+        end
+
+        def validator_for(type)
+          {
+            user: ->(payload:, typ:) { validate_user_token!(payload: payload, typ: typ) },
+            bff: ->(payload:, typ:) { validate_bff_token!(payload: payload, typ: typ) }
+          }.fetch(type) { raise Exception::InvalidToken.new(message: 'invalid token type') }
+        end
+
+        def validate_user_token!(payload:, typ:)
+          return if typ == 'access_token' && !payload['sub'].to_s.empty?
+
+          raise Exception::InvalidToken.new(message: 'invalid user token')
+        end
+
+        def validate_bff_token!(payload:, typ:)
+          raise Exception::InvalidToken.new(message: 'invalid bff token') unless payload.is_a?(Hash)
+
+          return if typ == 'bff_assertion'
+
+          raise Exception::InvalidToken.new(message: 'invalid bff token')
         end
       end
     end

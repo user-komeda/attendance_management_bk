@@ -4,11 +4,14 @@ module Application
   module Dto
     module WorkSpace
       class UpdateWorkSpaceInputDto < InputBaseDto
-        attr_reader id: untyped
+        # rubocop:disable all
+        attr_reader id: String
 
-        attr_reader name: untyped
+        # rubocop:disable all
+        attr_reader name: String
 
-        attr_reader slug: untyped
+        # rubocop:disable all
+        attr_reader slug: String
 
         # @rbs (id: String, name: String, slug: String) -> void
         def initialize: (id: String, name: String, slug: String) -> void

@@ -38,7 +38,16 @@ export default defineConfig({
         'src/components/ui/**',
         'src/schema/apiTypes.ts',
         'src/schema/api/**',
+        'src/components/table/type/type.ts',
+        'src/hooks/contentApi/types/**',
       ],
+      thresholds: {
+        perFile: true,
+        functions: 95,
+        branches: 95,
+        statements: 95,
+        lines: 95,
+      },
     },
     server: {
       deps: {

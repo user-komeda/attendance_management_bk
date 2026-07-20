@@ -1,0 +1,20 @@
+# Generated from lib/application/use_case/content_api/create_content_api_use_case.rb with RBS::Inline
+
+module Application
+  module UseCase
+    module ContentApi
+      class CreateContentApiUseCase < ContentApiBaseUseCase
+        # @rbs (arg: ::Application::Dto::ContentApi::CreateContentApiWithFieldsInputDto) -> ::Application::Dto::ContentApi::ContentApiWithFieldsDto
+        def invoke: (arg: ::Application::Dto::ContentApi::CreateContentApiWithFieldsInputDto) -> ::Application::Dto::ContentApi::ContentApiWithFieldsDto
+
+        private
+
+        # @rbs (arg: ::Application::Dto::ContentApi::CreateContentApiWithFieldsInputDto) -> ::Application::Dto::ContentApi::ContentApiWithFieldsDto
+        def execute_create: (arg: ::Application::Dto::ContentApi::CreateContentApiWithFieldsInputDto) -> ::Application::Dto::ContentApi::ContentApiWithFieldsDto
+
+        # @rbs (content_api_service: untyped, content_api_entity: untyped) -> void
+        def validate_uniqueness: (content_api_service: untyped, content_api_entity: untyped) -> void
+      end
+    end
+  end
+end

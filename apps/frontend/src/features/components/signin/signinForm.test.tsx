@@ -17,7 +17,6 @@ vi.mock(import('@solidjs/router'), async () => {
   }
 })
 
-// eslint-disable-next-line max-lines-per-function
 describe(SigninForm, () => {
   it('should render (signin) form', () => {
     vi.mocked(useSubmission).mockReturnValue({

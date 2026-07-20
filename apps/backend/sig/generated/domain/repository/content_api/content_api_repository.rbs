@@ -1,0 +1,33 @@
+# Generated from lib/domain/repository/content_api/content_api_repository.rb with RBS::Inline
+
+module Domain
+  module Repository
+    module ContentApi
+      class ContentApiRepository < ContentApiRepositoryBase
+        # @rbs (work_space_id: String) -> Array[::Domain::Entity::ContentApi::ContentApiEntity]
+        def get_by_work_space_id: (work_space_id: String) -> Array[::Domain::Entity::ContentApi::ContentApiEntity]
+
+        # @rbs (content_api_entity: ::Domain::Entity::ContentApi::ContentApiEntity) -> ::Domain::Entity::ContentApi::ContentApiEntity
+        def create: (content_api_entity: ::Domain::Entity::ContentApi::ContentApiEntity) -> ::Domain::Entity::ContentApi::ContentApiEntity
+
+        # @rbs (id: String) -> ::Domain::Entity::ContentApi::ContentApiEntity?
+        def find_by_id: (id: String) -> ::Domain::Entity::ContentApi::ContentApiEntity?
+
+        # @rbs (content_api_entity: ::Domain::Entity::ContentApi::ContentApiEntity) -> ::Domain::Entity::ContentApi::ContentApiEntity
+        def update: (content_api_entity: ::Domain::Entity::ContentApi::ContentApiEntity) -> ::Domain::Entity::ContentApi::ContentApiEntity
+
+        # @rbs (id: String) -> void
+        def delete_by_id: (id: String) -> void
+
+        # @rbs (content_api_id: String, field_entities: Array[::Domain::Entity::ContentApi::FieldEntity]) -> Array[::Domain::Entity::ContentApi::FieldEntity]
+        def bulk_create_fields: (content_api_id: String, field_entities: Array[::Domain::Entity::ContentApi::FieldEntity]) -> Array[::Domain::Entity::ContentApi::FieldEntity]
+
+        # @rbs (content_api_id: String) -> Array[::Domain::Entity::ContentApi::FieldEntity]
+        def get_fields_by_content_api_id: (content_api_id: String) -> Array[::Domain::Entity::ContentApi::FieldEntity]
+
+        # @rbs (work_space_id: String, endpoint: String) -> ::Domain::Entity::ContentApi::ContentApiEntity?
+        def find_by_work_space_and_endpoint: (work_space_id: String, endpoint: String) -> ::Domain::Entity::ContentApi::ContentApiEntity?
+      end
+    end
+  end
+end

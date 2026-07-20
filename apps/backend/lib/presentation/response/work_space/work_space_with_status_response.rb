@@ -37,11 +37,7 @@ module Presentation
         # @rbs (status_list: Array[String], work_spaces: Array[Application::Dto::WorkSpace::WorkSpaceDto], pagination: { page: Integer, per_page: Integer }, total_count: Integer, ?search_query: String?) -> Hash[Symbol, untyped]
         # rubocop:enable all
         def self.build_from_array(status_list:, work_spaces:, pagination:, total_count:, search_query: nil)
-          data = work_spaces.zip(status_list).map do |work_space, status|
-            next if work_space.nil? || status.nil?
-
-            build(status: status, work_space: work_space)
-          end.compact
+          data = build_data(work_spaces: work_spaces, status_list: status_list)
 
           build_paginated_response(
             data: data,
@@ -52,7 +48,20 @@ module Presentation
           )
         end
 
-        # @rbs () -> {id: String, name: String, slug: String ,status: String}
+        # rubocop:disable all
+        # @rbs (work_spaces: Array[Application::Dto::WorkSpace::WorkSpaceDto], status_list: Array[String]) -> Array[Hash[Symbol, String]]
+        # rubocop:enable all
+        def self.build_data(work_spaces:, status_list:)
+          work_spaces.zip(status_list).filter_map do |work_space, status|
+            next if work_space.nil? || status.nil?
+
+            build(status: status, work_space: work_space)
+          end
+        end
+
+        private_class_method :build_data
+
+        # @rbs () -> Hash[Symbol, String]
         def to_h
           {
             id: id,

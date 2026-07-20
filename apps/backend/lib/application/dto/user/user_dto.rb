@@ -24,10 +24,12 @@ module Application
 
         # @rbs (user_entity: Domain::Entity::User::UserEntity) -> UserDto
         def self.build(user_entity:)
+          user_name = user_entity.user_name
+
           new(
             id: user_entity.id.value,
-            first_name: user_entity.user_name.first_name,
-            last_name: user_entity.user_name.last_name,
+            first_name: user_name.first_name,
+            last_name: user_name.last_name,
             email: user_entity.email.value,
             session_version: user_entity.session_version
           )

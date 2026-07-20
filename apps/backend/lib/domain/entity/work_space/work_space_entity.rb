@@ -24,14 +24,14 @@ module Domain
 
         # @rbs (change_name: String?, change_slug: String?) -> void
         def change(change_name:, change_slug:)
-          if UtilMethod.nil_or_empty?(change_name) &&
-             UtilMethod.nil_or_empty?(change_slug)
-            return
-          end
+          change_name_empty = UtilMethod.nil_or_empty?(change_name)
+          change_slug_empty = UtilMethod.nil_or_empty?(change_slug)
 
-          new_name = UtilMethod.nil_or_empty?(change_name) ? name : change_name
+          return if change_name_empty && change_slug_empty
 
-          new_slug = UtilMethod.nil_or_empty?(change_slug) ? slug : change_slug
+          new_name = change_name_empty ? name : change_name
+
+          new_slug = change_slug_empty ? slug : change_slug
 
           @name = new_name
           @slug = new_slug

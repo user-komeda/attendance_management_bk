@@ -3,8 +3,9 @@ import { Show } from 'solid-js'
 
 import { BasicDataTable } from '~/components/table/BasicDataTable'
 import { HomeTableHeader } from '~/features/components/home/homeTablePrevArea'
+import { useDataTable } from '~/hooks/table/useDataTable'
 import { usePagination } from '~/hooks/usePagination'
-import { useHomeWorkspaces } from '~/provider/homeWorkspacesProvider'
+import { useWorkspace } from '~/provider/workspacesProvider'
 import { WorkSpaceWithStatus } from '~/schema/api/workSpaces'
 
 const columns: ColumnDef<WorkSpaceWithStatus>[] = [
@@ -22,9 +23,33 @@ const columns: ColumnDef<WorkSpaceWithStatus>[] = [
   },
 ]
 
+const fallbackPaginationMeta = {
+  page: 1,
+  totalPages: 0,
+  totalCount: 0,
+  perPage: 10,
+}
+
 export const HomeTable = () => {
-  const { workspaces } = useHomeWorkspaces()
+  const { workspaces } = useWorkspace()
   const { handlePageChange, handlePageSizeChange } = usePagination()
+
+  const { table, ...paginationData } = useDataTable<
+    WorkSpaceWithStatus,
+    unknown
+  >({
+    get columns() {
+      return columns
+    },
+    get data() {
+      return workspaces()?.data ?? []
+    },
+    get paginationMeta() {
+      return workspaces()?.meta ?? fallbackPaginationMeta
+    },
+    onPageChange: handlePageChange,
+    onPageSizeChange: handlePageSizeChange,
+  })
 
   return (
     <div>
@@ -32,18 +57,10 @@ export const HomeTable = () => {
 
       <Show when={workspaces()} fallback={<h1>Loading...</h1>}>
         <BasicDataTable
-          data={workspaces()?.data ?? []}
+          table={table}
           columns={columns}
-          paginationMeta={
-            workspaces()?.meta ?? {
-              page: 1,
-              totalPages: 0,
-              totalCount: 0,
-              perPage: 10,
-            }
-          }
-          onPageChange={handlePageChange}
-          onPageSizeChange={handlePageSizeChange}
+          paginationData={paginationData}
+          getRowHref={(row) => `/workspaces/${row.slug}`}
         />
       </Show>
     </div>
