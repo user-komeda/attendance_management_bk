@@ -46,7 +46,7 @@
     "@types/jsdom": "28.0.3",
     "@types/node": "25.9.5",
     "@vitest/coverage-v8": "4.1.10",
-    "@vitest/eslint-plugin": "1.6.20",
+    "@vitest/eslint-plugin": "1.6.21",
     "concurrently": "10.0.3",
     "dotenv-cli": "11.0.0",
     "eslint": "9.39.5",
