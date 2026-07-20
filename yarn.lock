@@ -3145,20 +3145,20 @@ __metadata:
   linkType: hard
 
 "@tabler/icons-solidjs@npm:^3.44.0":
-  version: 3.44.0
-  resolution: "@tabler/icons-solidjs@npm:3.44.0"
+  version: 3.45.0
+  resolution: "@tabler/icons-solidjs@npm:3.45.0"
   dependencies:
-    "@tabler/icons": "npm:3.44.0"
+    "@tabler/icons": "npm:3.45.0"
   peerDependencies:
     solid-js: ^1.4.7
-  checksum: 10c0/0bf6d36eceed077010180fcf225db8bfdf85f2cd6136ca7beb592623668d16f045436f92ce0041f5e807c014392246af1f5b163eec044d34f7e38adcaba3a2cc
+  checksum: 10c0/69f801416ed756af6550e6e5278cdf4ba08d24de6f06939d49778af1f941b57814ad202ca1b4903aef4f1bcf20cb3c9ef3c24894ccea5ad47c4d12338bdabb6a
   languageName: node
   linkType: hard
 
-"@tabler/icons@npm:3.44.0":
-  version: 3.44.0
-  resolution: "@tabler/icons@npm:3.44.0"
-  checksum: 10c0/0d5c1f9d6e68aa04c4a661e96035190e0884e0bc0022d31922efad3cfba210a25b2f013c0b6c0ab6aeb3d5a402a9b85a168966bd11a30ba6087f614f8521ccf3
+"@tabler/icons@npm:3.45.0":
+  version: 3.45.0
+  resolution: "@tabler/icons@npm:3.45.0"
+  checksum: 10c0/efd31c992267538a2390d697ce18cc472e85cbd644494df6a472c0233f3509469cc0eb5bf8091078da6503dfd53451a0f53f13af4f2e96a2c17fcb9af09a95f4
   languageName: node
   linkType: hard
 
