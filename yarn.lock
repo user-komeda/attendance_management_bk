@@ -6798,7 +6798,7 @@ __metadata:
     valibot: "npm:^1.4.1"
     vinxi: "npm:^0.5.11"
     vite: "npm:8.1.5"
-    vite-plugin-solid: "npm:2.11.12"
+    vite-plugin-solid: "npm:2.11.13"
     vitest: "npm:4.1.10"
   languageName: unknown
   linkType: soft
@@ -11768,7 +11768,28 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite-plugin-solid@npm:2.11.12, vite-plugin-solid@npm:^2.11.10":
+"vite-plugin-solid@npm:2.11.13":
+  version: 2.11.13
+  resolution: "vite-plugin-solid@npm:2.11.13"
+  dependencies:
+    "@babel/core": "npm:^7.23.3"
+    "@types/babel__core": "npm:^7.20.4"
+    babel-preset-solid: "npm:^1.8.4"
+    merge-anything: "npm:^5.1.7"
+    solid-refresh: "npm:^0.6.3"
+    vitefu: "npm:^1.0.4"
+  peerDependencies:
+    "@testing-library/jest-dom": ^5.16.6 || ^5.17.0 || ^6.*
+    solid-js: ^1.7.2
+    vite: ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0 || ^9.0.0
+  peerDependenciesMeta:
+    "@testing-library/jest-dom":
+      optional: true
+  checksum: 10c0/fff093ddcf1d25ff45a3ee5ce16567bfe21440ea9d5bf7667ae9ac94f47146437cd9453595f704121517812f4ff1956addad35b79691c3f7f289ab8e04e18f60
+  languageName: node
+  linkType: hard
+
+"vite-plugin-solid@npm:^2.11.10":
   version: 2.11.12
   resolution: "vite-plugin-solid@npm:2.11.12"
   dependencies:
