@@ -3400,21 +3400,31 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/solid-table@npm:^8.21.3":
-  version: 8.21.3
-  resolution: "@tanstack/solid-table@npm:8.21.3"
+"@tanstack/solid-table@npm:^9.0.0":
+  version: 9.0.0
+  resolution: "@tanstack/solid-table@npm:9.0.0"
   dependencies:
-    "@tanstack/table-core": "npm:8.21.3"
+    "@tanstack/store": "npm:^0.11.0"
+    "@tanstack/table-core": "npm:9.0.0"
   peerDependencies:
     solid-js: ">=1.3"
-  checksum: 10c0/ecb0485d94f9ae0840cc3b4777195876b8a8baf87071641a289d5c4d1c9bbb6c77e755d7d2fdf74c1e97df1dee1289b1aa1f075378f4809585c26b5671a5f5d3
+  checksum: 10c0/1b397466f7ebb960c0238b5563fb2e485570b595d18726033d3b76433da5bf749f3b699a739bc0ee2ef9179f3d7d6df9c483ab64792c22ac86ee779ae4d4910d
   languageName: node
   linkType: hard
 
-"@tanstack/table-core@npm:8.21.3":
-  version: 8.21.3
-  resolution: "@tanstack/table-core@npm:8.21.3"
-  checksum: 10c0/40e3560e6d55e07cc047024aa7f83bd47a9323d21920d4adabba8071fd2d21230c48460b26cedf392588f8265b9edc133abb1b0d6d0adf4dae0970032900a8c9
+"@tanstack/store@npm:^0.11.0":
+  version: 0.11.0
+  resolution: "@tanstack/store@npm:0.11.0"
+  checksum: 10c0/6fef9e81d30c3097709cfdd113407578849a7b8a6ce7a674467950620a67047c365552a01747a0f448d16ea4f607e58e97021583523ba5cdabcb1b98d0e2a632
+  languageName: node
+  linkType: hard
+
+"@tanstack/table-core@npm:9.0.0":
+  version: 9.0.0
+  resolution: "@tanstack/table-core@npm:9.0.0"
+  dependencies:
+    "@tanstack/store": "npm:^0.11.0"
+  checksum: 10c0/645d61e392f7ea71ecb5dd82c792847fa0907bfee3805177c77f7e8223efa2abfaa211ac7b9d6a79663407866702c211fde685280db703e852a47539a9754a04
   languageName: node
   linkType: hard
 
@@ -6785,7 +6795,7 @@ __metadata:
     "@solidjs/testing-library": "npm:0.8.10"
     "@tabler/icons-solidjs": "npm:^3.44.0"
     "@tailwindcss/vite": "npm:4.3.3"
-    "@tanstack/solid-table": "npm:^8.21.3"
+    "@tanstack/solid-table": "npm:^9.0.0"
     "@testing-library/dom": "npm:10.4.1"
     "@testing-library/jest-dom": "npm:7.0.0"
     "@testing-library/user-event": "npm:14.6.3"
