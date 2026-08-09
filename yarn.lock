@@ -3044,12 +3044,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@solidjs/router@npm:^0.16.1":
-  version: 0.16.1
-  resolution: "@solidjs/router@npm:0.16.1"
+"@solidjs/router@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "@solidjs/router@npm:1.0.0"
   peerDependencies:
     solid-js: ^1.8.6
-  checksum: 10c0/fbee422f9f2ababe6be3c3ded82d368e4c0e2d40b346c2beb2fd7092d49cec6fc63cd6095c749e4a6c17f947bbae13cf767ba7a86dd2c3d8c0e1edf5f169caf3
+  checksum: 10c0/1c3013e5162f855a1301e550db3b367a108837e56b25c1550ab27a971f4de6a39ff90105c6959f7dc48336402df64b4735d45114bdd7cb03b0407cfa8326ad97
   languageName: node
   linkType: hard
 
@@ -6720,7 +6720,7 @@ __metadata:
     "@eslint/js": "npm:9.39.5"
     "@kobalte/core": "npm:^0.13.11"
     "@playwright/test": "npm:1.62.1"
-    "@solidjs/router": "npm:^0.16.1"
+    "@solidjs/router": "npm:^1.0.0"
     "@solidjs/start": "npm:^1.3.2"
     "@solidjs/testing-library": "npm:0.8.10"
     "@tabler/icons-solidjs": "npm:^3.44.0"
