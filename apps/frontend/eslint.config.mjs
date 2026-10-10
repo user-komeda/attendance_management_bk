@@ -22,6 +22,7 @@ export default defineConfig(
       'src/schema/',
       'scripts/generate-api-aliases.mjs',
       'tailwind.config.mjs',
+      'dist/**',
     ],
   },
   eslint.configs.recommended,
