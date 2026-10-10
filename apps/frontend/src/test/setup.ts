@@ -1,4 +1,4 @@
-import '@testing-library/jest-dom'
+import '@testing-library/jest-dom/vitest'
 import { cleanup } from '@solidjs/testing-library'
 import { afterEach } from 'vitest'
 
@@ -12,12 +12,10 @@ if (
 ) {
   HTMLFormElement.prototype.requestSubmit = function (submitter) {
     if (submitter) {
-      if (
-        !(
-          submitter instanceof HTMLInputElement ||
-          submitter instanceof HTMLButtonElement
-        )
-      ) {
+      if (!(
+        submitter instanceof HTMLInputElement ||
+        submitter instanceof HTMLButtonElement
+      )) {
         throw new TypeError(
           'The specified element is not of type HTMLInputElement or HTMLButtonElement.',
         )

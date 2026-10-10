@@ -1,4 +1,4 @@
-import { ColumnDef } from '@tanstack/solid-table'
+import { ColumnDef, RowData, TableFeatures } from '@tanstack/solid-table'
 
 import { useBaseDataTable } from '~/hooks/table/useBaseDataTable'
 import { useDataTablePagination } from '~/hooks/table/useDataTablePagination'
@@ -7,8 +7,8 @@ import { PaginationMeta } from '~/schema/api/paginationMetas'
 
 type OmitPaginationMeta = Omit<PaginationMeta, 'searchQuery'>
 
-export interface UseDataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[]
+export interface UseDataTableProps<TData extends RowData> {
+  columns: ColumnDef<TableFeatures, TData, unknown>[]
   data: TData[]
   paginationMeta: OmitPaginationMeta
   onPageChange: (page: number, perPage: number) => void
@@ -16,8 +16,8 @@ export interface UseDataTableProps<TData, TValue> {
   selectable?: boolean
 }
 
-export const useDataTable = <TData, TValue>(
-  params: UseDataTableProps<TData, TValue>,
+export const useDataTable = <TData extends RowData>(
+  params: UseDataTableProps<TData>,
 ) => {
   const paginationData = useDataTablePagination({
     paginationMeta: () => params.paginationMeta,
@@ -25,7 +25,9 @@ export const useDataTable = <TData, TValue>(
     onPageSizeChange: params.onPageSizeChange,
   })
 
-  const tableData = params.selectable
+  const tableData:
+    | ReturnType<typeof useBaseDataTable<TData>>
+    | ReturnType<typeof useSelectableDataTable<TData>> = params.selectable
     ? useSelectableDataTable(params, paginationData)
     : useBaseDataTable(params, paginationData)
 

@@ -11,12 +11,17 @@
     "allowJs": true,
     "noEmit": true,
     "strict": true,
-    "types": ["vinxi/types/client", "vite/client", "@testing-library/jest-dom"],
+    "types": [
+      "@solidjs/start/env",
+      "vite/client",
+      "vitest/globals",
+      "@testing-library/jest-dom"
+    ],
     "isolatedModules": true,
     "paths": {
       "~/*": ["./src/*"]
     }
   },
   "include": ["**/*"],
-  "exclude": ["node_modules", "dist", ".vinxi", "out", "coverage"]
+  "exclude": ["node_modules", "dist", "out", "coverage"]
 }

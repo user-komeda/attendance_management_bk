@@ -21,11 +21,11 @@ const toPaginationState = (
   pageSize: paginationMeta.perPage ?? DEFAULT_PAGE_SIZE,
 })
 
-// eslint-disable-next-line max-lines-per-function
 export const useDataTablePagination = ({
   paginationMeta,
   onPageChange,
   onPageSizeChange,
+  // eslint-disable-next-line max-lines-per-function
 }: UseDataTablePaginationParams) => {
   const [pagination, setPagination] = createSignal<PaginationState>(
     toPaginationState(paginationMeta()),

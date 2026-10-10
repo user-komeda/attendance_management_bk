@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from '@solidjs/testing-library'
-import { ColumnDef } from '@tanstack/solid-table'
+import { ColumnDef, TableFeatures } from '@tanstack/solid-table'
 import { describe, it, expect, vi } from 'vitest'
 
 import { BasicDataTable } from '~/components/table/BasicDataTable'
@@ -20,7 +20,7 @@ describe('PaginationArea', () => {
     name: string
   }
 
-  const columns: ColumnDef<TestData, unknown>[] = [
+  const columns: ColumnDef<TableFeatures, TestData, unknown>[] = [
     {
       header: 'ID',
       accessorKey: 'id',

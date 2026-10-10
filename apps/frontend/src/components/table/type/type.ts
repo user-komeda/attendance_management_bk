@@ -1,4 +1,4 @@
-import { ColumnDef } from '@tanstack/solid-table'
+import { ColumnDef, RowData, TableFeatures } from '@tanstack/solid-table'
 
 import { useDataTable } from '~/hooks/table/useDataTable'
 import { useDataTablePagination } from '~/hooks/table/useDataTablePagination'
@@ -14,9 +14,9 @@ export type PaginationButtonsProps = Omit<
 >
 
 export type PaginationProps = ReturnType<typeof useDataTablePagination>
-export interface DataTableProps<TData, TValue> {
-  table: ReturnType<typeof useDataTable<TData, TValue>>['table']
-  columns: ColumnDef<TData, TValue>[]
+export interface DataTableProps<TData extends RowData> {
+  table: ReturnType<typeof useDataTable<TData>>['table']
+  columns: ColumnDef<TableFeatures, TData, unknown>[]
   paginationData: PaginationProps
   getRowHref?: (row: TData) => string
 }

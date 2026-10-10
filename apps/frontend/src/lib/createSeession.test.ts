@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { useSession } from 'vinxi/http'
+import { useSession } from '@solidjs/start/http'
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 
 import createSession from '~/lib/createSeession'
@@ -16,7 +16,7 @@ vi.mock(import('~/util/redisClient'), () => ({
   redisExpire: vi.fn(),
 }))
 
-vi.mock(import('vinxi/http'), () => ({
+vi.mock(import('@solidjs/start/http'), () => ({
   useSession: vi.fn(),
 }))
 

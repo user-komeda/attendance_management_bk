@@ -15,11 +15,11 @@ import {
 import { CreateContentApiResult } from '~/hooks/contentApi/types/types'
 import { findError } from '~/util/error'
 
-// eslint-disable-next-line max-lines-per-function
 export const FieldTypeSelect = (props: {
   id: string
   name: string
   result: CreateContentApiResult | undefined
+  // eslint-disable-next-line max-lines-per-function
 }) => {
   return (
     <div class="space-y-2">

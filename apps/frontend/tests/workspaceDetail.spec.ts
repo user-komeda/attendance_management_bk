@@ -1,31 +1,38 @@
-import { test, expect } from '@playwright/test'
+import { test, expect, Page } from '@playwright/test'
 
 test.describe('Workspace Detail E2E Tests', () => {
   let email: string
   const password = 'Password123!'
 
+  const safeGoto = async (page: Page, url: string) => {
+    await page.goto(url, { waitUntil: 'domcontentloaded' })
+    if (page.url().startsWith('chrome-error://')) {
+      await page.goto(url, { waitUntil: 'domcontentloaded' })
+    }
+    await page.locator('body[data-hydrated="true"]').waitFor()
+  }
+
   test.beforeEach(async ({ page }) => {
     const randomId = Math.random().toString(36).substring(2, 10)
     email = `workspace_detail_test_${randomId}@example.com`
 
-    await page.goto('http://localhost:3000/signup', {
-      waitUntil: 'domcontentloaded',
-    })
-    if (page.url().startsWith('chrome-error://')) {
-      await page.goto('http://localhost:3000/signup', {
-        waitUntil: 'domcontentloaded',
-      })
-    }
+    await safeGoto(page, '/signup')
 
-    await page.locator('input[name="firstName"]').waitFor()
+    await page.locator('input[name="firstName"]').waitFor({ state: 'visible' })
     await page.locator('input[name="firstName"]').fill('Taro')
     await page.locator('input[name="lastName"]').fill('Yamada')
     await page.locator('input[name="email"]').fill(email)
     await page.locator('input[name="password"]').fill(password)
     await page.locator('input[name="confirmPassword"]').fill(password)
-    await page.locator('button[type="submit"]').click()
 
-    await expect(page).toHaveURL('http://localhost:3000/', { timeout: 15000 })
+    const submitBtn = page.locator('button[type="submit"]')
+    await submitBtn.waitFor({ state: 'visible' })
+    await submitBtn.click()
+
+    await expect(page).toHaveURL('/', { timeout: 30000 })
+    await expect(page.locator('button', { hasText: '追加' })).toBeVisible({
+      timeout: 30000,
+    })
   })
 
   test('ワークスペース行を押下すると詳細ページに遷移できること', async ({
@@ -48,12 +55,9 @@ test.describe('Workspace Detail E2E Tests', () => {
 
     await targetCell.click()
 
-    await expect(page).toHaveURL(
-      `http://localhost:3000/workspaces/${workspaceSlug}`,
-      {
-        timeout: 15000,
-      },
-    )
+    await expect(page).toHaveURL(`/workspaces/${workspaceSlug}`, {
+      timeout: 15000,
+    })
     await expect(page.locator('input[name="name"]')).toBeVisible()
   })
 
@@ -74,12 +78,9 @@ test.describe('Workspace Detail E2E Tests', () => {
     await expect(targetCell).toBeVisible({ timeout: 15000 })
     await targetCell.click()
 
-    await expect(page).toHaveURL(
-      `http://localhost:3000/workspaces/${workspaceSlug}`,
-      {
-        timeout: 15000,
-      },
-    )
+    await expect(page).toHaveURL(`/workspaces/${workspaceSlug}`, {
+      timeout: 15000,
+    })
 
     await page.locator('input[name="name"]').fill('記事API')
     await page.locator('input[name="endpoint"]').fill('articles')
@@ -94,7 +95,7 @@ test.describe('Workspace Detail E2E Tests', () => {
 
     await page.getByRole('button', { name: '作成' }).click()
 
-    await expect(page).toHaveURL('http://localhost:3000/', {
+    await expect(page).toHaveURL('/', {
       timeout: 15000,
     })
     await expect(
@@ -114,9 +115,7 @@ test.describe('Workspace Detail E2E Tests', () => {
     await page.locator('button', { hasText: '追加' }).last().click()
     await page.getByRole('cell', { name: workspaceName, exact: true }).click()
 
-    await expect(page).toHaveURL(
-      `http://localhost:3000/workspaces/${workspaceSlug}`,
-    )
+    await expect(page).toHaveURL(`/workspaces/${workspaceSlug}`)
     await expect(page.getByRole('button', { name: '次へ' })).toBeVisible()
 
     await page.getByRole('button', { name: '次へ' }).click()
@@ -153,9 +152,7 @@ test.describe('Workspace Detail E2E Tests', () => {
       })
     })
 
-    await expect(page).toHaveURL(
-      `http://localhost:3000/workspaces/${errorSlug}`,
-    )
+    await expect(page).toHaveURL(`/workspaces/${errorSlug}`)
     await expect(page.getByRole('button', { name: '次へ' })).toBeVisible()
 
     await page.locator('input[name="name"]').fill('失敗確認API')
@@ -171,9 +168,7 @@ test.describe('Workspace Detail E2E Tests', () => {
 
     await page.getByRole('button', { name: '作成' }).click()
 
-    await expect(page).toHaveURL(
-      `http://localhost:3000/workspaces/${errorSlug}`,
-    )
+    await expect(page).toHaveURL(`/workspaces/${errorSlug}`)
     await expect(
       page.locator('p:visible', { hasText: '作成に失敗しました' }).first(),
     ).toBeVisible()
@@ -184,7 +179,7 @@ test.describe('Workspace Detail E2E Tests', () => {
   }) => {
     const notFoundSlug = `not-found-${Math.random().toString(36).substring(2, 7)}`
 
-    await page.goto(`http://localhost:3000/workspaces/${notFoundSlug}`)
+    await safeGoto(page, `/workspaces/${notFoundSlug}`)
 
     await expect(
       page

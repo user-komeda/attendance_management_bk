@@ -1,4 +1,4 @@
-import { ColumnDef } from '@tanstack/solid-table'
+import { ColumnDef, TableFeatures } from '@tanstack/solid-table'
 import { createRoot } from 'solid-js'
 import { describe, it, expect, vi } from 'vitest'
 
@@ -9,7 +9,7 @@ interface TestData {
   name: string
 }
 
-const columns: ColumnDef<TestData, unknown>[] = [
+const columns: ColumnDef<TableFeatures, TestData, unknown>[] = [
   { accessorKey: 'id', header: 'ID' },
   { accessorKey: 'name', header: 'Name' },
 ]
@@ -24,7 +24,7 @@ const paginationMeta = {
 describe('useDataTable', () => {
   it('selectableがfalseの場合はbaseDataTableを返すこと', () => {
     createRoot((dispose) => {
-      const result = useDataTable<TestData, unknown>({
+      const result = useDataTable<TestData>({
         columns,
         data: [{ id: '1', name: 'Test' }],
         paginationMeta,
@@ -40,7 +40,7 @@ describe('useDataTable', () => {
 
   it('selectableがtrueの場合はselectableDataTableを返すこと', () => {
     createRoot((dispose) => {
-      const result = useDataTable<TestData, unknown>({
+      const result = useDataTable<TestData>({
         columns,
         data: [{ id: '1', name: 'Test' }],
         paginationMeta,

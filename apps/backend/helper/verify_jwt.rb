@@ -8,7 +8,6 @@ module VerifyJwt
   PUBLIC_PATH = %w[/swagger /swagger/token /health /openapi].freeze
   BFF_JWT_PATH = %w[/signin /signup].freeze
 
-
   def self.skip_jwt_verification?(path)
     PUBLIC_PATH.include?(path) || path.start_with?('/openapi/')
   end

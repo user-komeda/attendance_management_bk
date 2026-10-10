@@ -1,4 +1,4 @@
-import { ColumnDef } from '@tanstack/solid-table'
+import { ColumnDef, TableFeatures } from '@tanstack/solid-table'
 import { Show } from 'solid-js'
 
 import { BasicDataTable } from '~/components/table/BasicDataTable'
@@ -8,7 +8,7 @@ import { usePagination } from '~/hooks/usePagination'
 import { useWorkspace } from '~/provider/workspacesProvider'
 import { WorkSpaceWithStatus } from '~/schema/api/workSpaces'
 
-const columns: ColumnDef<WorkSpaceWithStatus>[] = [
+const columns: ColumnDef<TableFeatures, WorkSpaceWithStatus, unknown>[] = [
   {
     accessorKey: 'name',
     header: 'ワークスペース名',
@@ -34,10 +34,7 @@ export const HomeTable = () => {
   const { workspaces } = useWorkspace()
   const { handlePageChange, handlePageSizeChange } = usePagination()
 
-  const { table, ...paginationData } = useDataTable<
-    WorkSpaceWithStatus,
-    unknown
-  >({
+  const { table, ...paginationData } = useDataTable<WorkSpaceWithStatus>({
     get columns() {
       return columns
     },

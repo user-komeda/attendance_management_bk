@@ -18,6 +18,7 @@ export default defineConfig({
     conditions: ['development', 'browser'],
     alias: {
       '~': resolve(__dirname, './src'),
+      'server-only': resolve(__dirname, './src/test/serverOnlyStub.ts'),
     },
   },
   test: {

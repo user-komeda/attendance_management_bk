@@ -1,4 +1,4 @@
-import { useSession } from 'vinxi/http'
+import { useSession } from '@solidjs/start/http'
 
 import { getEnv } from '~/env'
 import { redisGet } from '~/util/redisClient'

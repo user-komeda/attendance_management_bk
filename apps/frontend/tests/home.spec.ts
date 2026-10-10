@@ -1,23 +1,38 @@
-import { test, expect } from '@playwright/test'
+import { test, expect, Page } from '@playwright/test'
 
 test.describe('Home Page E2E Tests', () => {
   let email: string
   const password = 'Password123!'
+
+  const safeGoto = async (page: Page, url: string) => {
+    await page.goto(url, { waitUntil: 'domcontentloaded' })
+    if (page.url().startsWith('chrome-error://')) {
+      await page.goto(url, { waitUntil: 'domcontentloaded' })
+    }
+    await page.locator('body[data-hydrated="true"]').waitFor()
+  }
 
   test.beforeEach(async ({ page }) => {
     // 毎回新しいユーザーでテストを行う（データの独立性を保つため）
     const randomId = Math.random().toString(36).substring(2, 10)
     email = `home_test_${randomId}@example.com`
 
-    await page.goto('http://localhost:3000/signup')
+    await safeGoto(page, '/signup')
+    await page.locator('input[name="firstName"]').waitFor({ state: 'visible' })
     await page.locator('input[name="firstName"]').fill('Taro')
     await page.locator('input[name="lastName"]').fill('Yamada')
     await page.locator('input[name="email"]').fill(email)
     await page.locator('input[name="password"]').fill(password)
     await page.locator('input[name="confirmPassword"]').fill(password)
-    await page.locator('button[type="submit"]').click()
 
-    await expect(page).toHaveURL('http://localhost:3000/', { timeout: 15000 })
+    const submitBtn = page.locator('button[type="submit"]')
+    await submitBtn.waitFor({ state: 'visible' })
+    await submitBtn.click()
+
+    await expect(page).toHaveURL('/', { timeout: 30000 })
+    await expect(page.locator('button', { hasText: '追加' })).toBeVisible({
+      timeout: 30000,
+    })
   })
 
   test('ワークスペース一覧が表示されること', async ({ page }) => {
@@ -121,27 +136,16 @@ test.describe('Home Page E2E Tests', () => {
     // 6個のワークスペースを作成する
     const wsBaseName = 'Pg'
     for (let i = 1; i <= 6; i++) {
-      await page
-        .getByRole('button', { name: '追加', exact: true })
-        .first()
-        .click()
+      await page.locator('button', { hasText: '追加' }).first().click()
       await page.locator('input[name="name"]').fill(`${wsBaseName} ${i}`)
       await page
         .locator('input[name="slug"]')
         .fill(`pg-${i}-${Math.random().toString(36).substring(2, 5)}`)
-      const submitButton = page.locator('button[type="submit"]', {
-        hasText: '追加',
-      })
-      await submitButton.click()
+      await page.locator('button', { hasText: '追加' }).last().click()
       await expect(
-        page.getByRole('button', { name: '追加', exact: true }).first(),
-      ).toBeEnabled({ timeout: 15000 })
+        page.getByRole('cell', { name: `${wsBaseName} ${i}`, exact: true }),
+      ).toBeVisible({ timeout: 15000 })
     }
-
-    // 作成後の状態を安定させる
-    await expect(
-      page.getByRole('cell', { name: `${wsBaseName} 6`, exact: true }).first(),
-    ).toBeVisible({ timeout: 15000 })
 
     // 表示件数を5件に変更
     await page.locator('select').selectOption('5')
