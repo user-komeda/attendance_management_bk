@@ -24,7 +24,7 @@ jobs:
           --health-timeout=5s
           --health-retries=5
       redis:
-        image: redis:8.10.0@sha256:c29e49ab2f85760a3827b53882e6dd9f5c6c3f0bb7d724e07bb31cbf275a5236
+        image: redis:8.10.0@sha256:344e3945a0b431c8ff1eecd58c5573538126bd756f02fc7e218ddf1fc2546366
         command: redis-server --requirepass password
         env:
           REDIS_PASSWORD: password
