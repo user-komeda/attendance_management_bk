@@ -1,5 +1,5 @@
+import { useSession } from '@solidjs/start/http'
 import { v4 as uuid } from 'uuid'
-import { useSession } from 'vinxi/http'
 
 import { redisExpire, redisSet, redisSAdd } from '~/util/redisClient'
 

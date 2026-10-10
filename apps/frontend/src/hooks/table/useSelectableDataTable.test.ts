@@ -1,4 +1,8 @@
-import { ColumnDef } from '@tanstack/solid-table'
+import {
+  ColumnDef,
+  RowSelectionState,
+  TableFeatures,
+} from '@tanstack/solid-table'
 import { createRoot } from 'solid-js'
 import { describe, it, expect, vi } from 'vitest'
 
@@ -10,7 +14,7 @@ interface TestData {
   name: string
 }
 
-const columns: ColumnDef<TestData, unknown>[] = [
+const columns: ColumnDef<TableFeatures, TestData, unknown>[] = [
   { accessorKey: 'id', header: 'ID' },
   { accessorKey: 'name', header: 'Name' },
 ]
@@ -92,7 +96,10 @@ describe('useSelectableDataTable', () => {
         paginationData,
       )
 
-      table.setRowSelection((prev) => ({ ...prev, '0': true }))
+      table.setRowSelection((prev: RowSelectionState) => ({
+        ...prev,
+        '0': true,
+      }))
       expect(rowSelection()).toEqual({ '0': true })
       dispose()
     })

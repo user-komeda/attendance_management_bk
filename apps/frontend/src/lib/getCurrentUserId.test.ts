@@ -1,10 +1,10 @@
-import { useSession } from 'vinxi/http'
+import { useSession } from '@solidjs/start/http'
 import { describe, it, expect, vi } from 'vitest'
 
 import getCurrentUserId from '~/lib/getCurrentUserId'
 import { redisGet } from '~/util/redisClient'
 
-vi.mock('vinxi/http', () => ({
+vi.mock('@solidjs/start/http', () => ({
   useSession: vi.fn(),
 }))
 

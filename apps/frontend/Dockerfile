@@ -1,4 +1,4 @@
-FROM ghcr.io/user-komeda/docker_node:sha-7b65646@sha256:618e3e78e6e46af2edfc263f81eb1e23f642c387398424e502562381e2c97a60 AS base
+FROM ghcr.io/user-komeda/docker_node:sha-79897d5@sha256:e61f8ea86e1ca9c598bcec2163cdf0adeb0418b26deb08b637ef4d42bafe79a0 AS base
 
 WORKDIR /app
 
@@ -24,12 +24,14 @@ FROM base AS runner
 WORKDIR /app
 
 # セキュリティ: 実行ユーザー作成
-RUN adduser --system --uid 1001 solidjs
-
+RUN microdnf install -y shadow-utils && \
+    microdnf clean all && \
+    useradd -r -u 1001 solidjs
 # 必要ファイルをコピー
-COPY --from=installer --chown=solidjs /app/apps/frontend/.output/ /app/.output/
-COPY --from=installer --chown=solidjs /app/apps/frontend/package.json /app/
-COPY --from=installer --chown=solidjs /app/node_modules /app/node_modules/
+COPY --from=installer --chown=solidjs:solidjs /app/apps/frontend/dist/ /app/dist/
+COPY --from=installer --chown=solidjs:solidjs /app/apps/frontend/package.json /app/
+COPY --from=installer --chown=solidjs:solidjs /app/node_modules /app/node_modules/
+
 
 USER solidjs
 

@@ -1,7 +1,12 @@
 import {
-  createSolidTable,
-  getCoreRowModel,
+  createTable,
+  RowData,
   RowSelectionState,
+  SolidTable,
+  stockFeatures,
+  TableFeatures,
+  tableFeatures,
+  Updater,
 } from '@tanstack/solid-table'
 import { createSignal } from 'solid-js'
 
@@ -10,14 +15,18 @@ import { useDataTablePagination } from '~/hooks/table/useDataTablePagination'
 
 type PaginationData = ReturnType<typeof useDataTablePagination>
 
-// eslint-disable-next-line max-lines-per-function
-export const useSelectableDataTable = <TData, TValue>(
-  params: UseDataTableProps<TData, TValue>,
+export const useSelectableDataTable = <TData extends RowData>(
+  params: UseDataTableProps<TData>,
   paginationData: PaginationData,
-) => {
+): {
+  table: SolidTable<TableFeatures, TData>
+  rowSelection: () => RowSelectionState
+  // eslint-disable-next-line max-lines-per-function
+} => {
   const [rowSelection, setRowSelection] = createSignal<RowSelectionState>({})
 
-  const table = createSolidTable({
+  const table = createTable<TableFeatures, TData>({
+    features: tableFeatures(stockFeatures),
     get data() {
       return params.data
     },
@@ -32,13 +41,11 @@ export const useSelectableDataTable = <TData, TValue>(
     },
     manualPagination: true,
     enableRowSelection: true,
-    onRowSelectionChange: (updater) => {
+    onRowSelectionChange: (updater: Updater<RowSelectionState>) => {
       setRowSelection((current) =>
         typeof updater === 'function' ? updater(current) : updater,
       )
     },
-    getCoreRowModel: getCoreRowModel(),
-
     get state() {
       return {
         pagination: paginationData.pagination(),

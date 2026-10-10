@@ -1,15 +1,23 @@
-import { createSolidTable, getCoreRowModel } from '@tanstack/solid-table'
+import {
+  createTable,
+  RowData,
+  SolidTable,
+  stockFeatures,
+  TableFeatures,
+  tableFeatures,
+} from '@tanstack/solid-table'
 
 import { UseDataTableProps } from '~/hooks/table/useDataTable'
 import { useDataTablePagination } from '~/hooks/table/useDataTablePagination'
 
 type PaginationData = ReturnType<typeof useDataTablePagination>
 
-export const useBaseDataTable = <TData, TValue>(
-  params: UseDataTableProps<TData, TValue>,
+export const useBaseDataTable = <TData extends RowData>(
+  params: UseDataTableProps<TData>,
   paginationData: PaginationData,
-) => {
-  const table = createSolidTable({
+): { table: SolidTable<TableFeatures, TData> } => {
+  const table = createTable<TableFeatures, TData>({
+    features: tableFeatures(stockFeatures),
     get data() {
       return params.data
     },
@@ -23,8 +31,6 @@ export const useBaseDataTable = <TData, TValue>(
       return paginationData.pageCount()
     },
     manualPagination: true,
-    getCoreRowModel: getCoreRowModel(),
-
     get state() {
       return {
         pagination: paginationData.pagination(),

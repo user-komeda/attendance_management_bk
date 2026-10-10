@@ -1,4 +1,4 @@
-import { MemoryRouter, Route } from '@solidjs/router'
+import { MemoryRouter, Route, RouteSectionProps } from '@solidjs/router'
 import { render, screen } from '@solidjs/testing-library'
 import { describe, it, expect, vi } from 'vitest'
 
@@ -75,7 +75,7 @@ describe('AuthLayout', () => {
       <MemoryRouter>
         <Route
           path="/"
-          component={(props) => (
+          component={(props: RouteSectionProps) => (
             <AuthLayout {...props}>
               <div data-testid="child">Authenticated Content</div>
             </AuthLayout>
@@ -97,7 +97,7 @@ describe('AuthLayout', () => {
       <MemoryRouter>
         <Route
           path="/"
-          component={(props) => (
+          component={(props: RouteSectionProps) => (
             <AuthLayout {...props}>
               <div data-testid="child">Blog Content</div>
             </AuthLayout>

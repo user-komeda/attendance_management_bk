@@ -1,4 +1,9 @@
-# Project Guidelines — Attendance Management (Monorepo)
+ふざけてるのふざけてるのふざけてるの1.
+ルールを固定
+◦
+VITE_ 付きだけをクライアント公開可
+◦
+それ以外は全てサーバー専用# Project Guidelines — Attendance Management (Monorepo)
 
 Last updated: 2026-06-28
 

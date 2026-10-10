@@ -10,6 +10,11 @@ const backendDir = resolve(currentDir, '../backend')
  */
 export default defineConfig({
   testDir: './tests',
+  /* Maximum time one test can run for. */
+  timeout: 60 * 1000,
+  expect: {
+    timeout: 15 * 1000,
+  },
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -22,6 +27,7 @@ export default defineConfig({
   reporter: [['html', { open: 'never' }]],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
+    baseURL: 'http://localhost:5173',
     trace: 'on-first-retry',
   },
 
@@ -37,7 +43,7 @@ export default defineConfig({
   webServer: [
     {
       command: 'yarn dev',
-      url: 'http://localhost:3000',
+      url: 'http://localhost:5173',
       name: 'Frontend',
       timeout: 120 * 1000,
       reuseExistingServer: false,

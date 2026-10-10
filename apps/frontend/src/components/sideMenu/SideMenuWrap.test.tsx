@@ -11,8 +11,7 @@ vi.mock('@solidjs/router', async (importOriginal) => {
     A: (props: {
       href: string
       children?:
-        | import('solid-js').JSX.Element
-        | (() => import('solid-js').JSX.Element)
+        import('solid-js').JSX.Element | (() => import('solid-js').JSX.Element)
       class?: string
       activeClass?: string
     }) => (

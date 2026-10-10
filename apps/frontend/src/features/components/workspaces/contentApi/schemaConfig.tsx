@@ -65,9 +65,9 @@ const FieldConfig = (props: {
   </div>
 )
 
-// eslint-disable-next-line max-lines-per-function
 export const SchemaConfig = (props: {
   result: Accessor<CreateContentApiResult | undefined>
+  // eslint-disable-next-line max-lines-per-function
 }) => {
   const fieldArray = useFieldArray()
   const canRemove = () => fieldArray.fields().length > 1

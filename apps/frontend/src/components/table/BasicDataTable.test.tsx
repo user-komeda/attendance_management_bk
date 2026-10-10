@@ -1,5 +1,9 @@
 import { fireEvent, render, screen } from '@solidjs/testing-library'
-import { ColumnDef, RowSelectionState } from '@tanstack/solid-table'
+import {
+  ColumnDef,
+  RowSelectionState,
+  TableFeatures,
+} from '@tanstack/solid-table'
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 
 import { BasicDataTable } from '~/components/table/BasicDataTable'
@@ -23,7 +27,7 @@ describe('BasicDataTable', () => {
     name: string
   }
 
-  const columns: ColumnDef<TestData, unknown>[] = [
+  const columns: ColumnDef<TableFeatures, TestData, unknown>[] = [
     {
       accessorKey: 'id',
       header: 'ID',
@@ -49,7 +53,7 @@ describe('BasicDataTable', () => {
   }
 
   const TableWrapper = (props: TableWrapperProps) => {
-    const { table, ...paginationData } = useDataTable<TestData, unknown>({
+    const { table, ...paginationData } = useDataTable<TestData>({
       get columns() {
         return columns
       },

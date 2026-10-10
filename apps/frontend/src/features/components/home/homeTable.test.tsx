@@ -193,8 +193,7 @@ describe('HomeTable', () => {
     ))
 
     const getRowHref = basicDataTableMock.props?.getRowHref as
-      | ((row: typeof workspace) => string)
-      | undefined
+      ((row: typeof workspace) => string) | undefined
 
     expect(getRowHref?.(workspace)).toBe('/workspaces/ws-1')
   })

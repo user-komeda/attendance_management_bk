@@ -1,5 +1,11 @@
 import { useNavigate } from '@solidjs/router'
-import { ColumnDef, flexRender, HeaderGroup } from '@tanstack/solid-table'
+import {
+  ColumnDef,
+  flexRender,
+  HeaderGroup,
+  RowData,
+  TableFeatures,
+} from '@tanstack/solid-table'
 import { For, Show } from 'solid-js'
 
 import { FailbackTable } from '~/components/table/failbackTable'
@@ -16,8 +22,8 @@ import {
 } from '~/components/ui/table'
 import { useDataTable } from '~/hooks/table/useDataTable'
 
-const TableHeadersContent = <TData,>(props: {
-  headers: HeaderGroup<TData>[]
+const TableHeadersContent = <TData extends RowData>(props: {
+  headers: HeaderGroup<TableFeatures, TData>[]
 }) => {
   const { headers } = props
   return (
@@ -42,9 +48,9 @@ const TableHeadersContent = <TData,>(props: {
   )
 }
 
-const TableBodyContent = <TData, TValue>(props: {
-  table: ReturnType<typeof useDataTable<TData, TValue>>['table']
-  columns: ColumnDef<TData, TValue>[]
+const TableBodyContent = <TData extends RowData>(props: {
+  table: ReturnType<typeof useDataTable<TData>>['table']
+  columns: ColumnDef<TableFeatures, TData, unknown>[]
   getRowHref?: (row: TData) => string
 }) => {
   const navigate = useNavigate()
@@ -81,8 +87,8 @@ const TableBodyContent = <TData, TValue>(props: {
   )
 }
 
-export function BasicDataTable<TData, TValue>(
-  props: DataTableProps<TData, TValue>,
+export function BasicDataTable<TData extends RowData>(
+  props: DataTableProps<TData>,
 ) {
   return (
     <div class="space-y-4">
