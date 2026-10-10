@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     services:
       postgres:
-        image: postgres:18@sha256:3a82e1f56c8f0f5616a11103ac3d47e632c3938698946a7ad26da0df1334744a
+        image: postgres:18@sha256:5a5a84b19854a9ffaa54082c166ff4ec27473a361e496e5ea167f298f2da9722
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: password
@@ -24,7 +24,7 @@ jobs:
           --health-timeout=5s
           --health-retries=5
       redis:
-        image: redis:8.8.0@sha256:234c902a2db49461a129e2d4aeff85b28cf20187ed274a67f6e50995fa713c7b
+        image: redis:8.10.0@sha256:c29e49ab2f85760a3827b53882e6dd9f5c6c3f0bb7d724e07bb31cbf275a5236
         command: redis-server --requirepass password
         env:
           REDIS_PASSWORD: password
@@ -40,7 +40,7 @@ jobs:
         uses: webfactory/ssh-agent@e83874834305fe9a4a2997156cb26c5de65a8555 # v0.10.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           fetch-depth: 0
 
@@ -49,10 +49,6 @@ jobs:
           node-version: 24
       - name: install libpq-dev
         run: sudo apt-get install -y libpq-dev
-      - name: Install Infisical CLI
-        run: |
-          curl -1sLf https://dl.cloudsmith.io/public/infisical/infisical-cli/setup.deb.sh | sudo -E bash
-          sudo apt-get -o DPkg::Lock::Timeout=60 install -y infisical
 
       - uses: ruby/setup-ruby@v1
         with:
