@@ -2164,8 +2164,8 @@ __metadata:
   linkType: hard
 
 "@solidjs/start@npm:^2.0.5":
-  version: 2.0.5
-  resolution: "@solidjs/start@npm:2.0.5"
+  version: 2.0.6
+  resolution: "@solidjs/start@npm:2.0.6"
   dependencies:
     "@babel/core": "npm:^7.29.7"
     "@babel/traverse": "npm:^7.29.7"
@@ -2185,8 +2185,8 @@ __metadata:
     path-to-regexp: "npm:^8.4.2"
     pathe: "npm:^2.0.3"
     radix3: "npm:^1.1.2"
-    seroval: "npm:^1.6.0"
-    seroval-plugins: "npm:^1.6.0"
+    seroval: "npm:^1.6.8"
+    seroval-plugins: "npm:^1.6.8"
     shiki: "npm:^4.3.1"
     solid-js: "npm:^1.9.15"
     srvx: "npm:^0.12.4"
@@ -2198,7 +2198,7 @@ __metadata:
   peerDependenciesMeta:
     "@solidjs/router":
       optional: true
-  checksum: 10c0/4cbf63ab49aa968ab3a6c45e403350ed6d237fa6fbeee6378f675b6efc28254587eb0d9f3a90808f411c00b2fabd03cdc0dc0f18538fe589bad190ffc8adecfc
+  checksum: 10c0/8421b1d4a3d4a52f05cd1620f6909bd42c03aab1b0d1043d9a25b61a1fcb95927dde6967fc4d6a0cf397ed60fcc4a18487f2dd0e827319b7a8d594f3b1a04215
   languageName: node
   linkType: hard
 
@@ -6846,7 +6846,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"seroval-plugins@npm:^1.6.0, seroval-plugins@npm:~1.6.8":
+"seroval-plugins@npm:^1.6.8, seroval-plugins@npm:~1.6.8":
   version: 1.6.8
   resolution: "seroval-plugins@npm:1.6.8"
   peerDependencies:
@@ -6855,7 +6855,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"seroval@npm:^1.6.0, seroval@npm:~1.6.8":
+"seroval@npm:^1.6.8, seroval@npm:~1.6.8":
   version: 1.6.8
   resolution: "seroval@npm:1.6.8"
   checksum: 10c0/c65f4ca1bd712d89c70c86df41bedc8270ee33cc8365c867761a9fe6310ab3b8c0fc43a48f6c1cea3cf9b5cc362714e7325e5f9275407303e4c51dfcebeb98b2
