@@ -2409,14 +2409,14 @@ __metadata:
   linkType: hard
 
 "@tanstack/solid-table@npm:^9.2.6":
-  version: 9.2.7
-  resolution: "@tanstack/solid-table@npm:9.2.7"
+  version: 9.2.8
+  resolution: "@tanstack/solid-table@npm:9.2.8"
   dependencies:
     "@tanstack/store": "npm:^0.11.2"
-    "@tanstack/table-core": "npm:9.2.6"
+    "@tanstack/table-core": "npm:9.2.8"
   peerDependencies:
     solid-js: ">=1.3"
-  checksum: 10c0/cef168e073bfe4148419da3bed3a201622b6546b0a307fdd3bda28396ea5246f796b2c6915780242427445493ddced98103dcbdd2fb5e32139c0d2d2d792d4db
+  checksum: 10c0/d53d6d67fa70fce8408146228ec0916791b4c05e9cd1cc8f58f084d5a0df4833e424b15f3a7fc402a4761adcaecf4c9d16ce80b2c7a5aca151ab1b9e7c903256
   languageName: node
   linkType: hard
 
@@ -2427,12 +2427,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/table-core@npm:9.2.6":
-  version: 9.2.6
-  resolution: "@tanstack/table-core@npm:9.2.6"
+"@tanstack/table-core@npm:9.2.8":
+  version: 9.2.8
+  resolution: "@tanstack/table-core@npm:9.2.8"
   dependencies:
     "@tanstack/store": "npm:^0.11.2"
-  checksum: 10c0/6834b8501981fb670cf99a18c5b0480d11f5deb5ad19739c0d3c0acb9f6990135623d7674c7bdbfb6b03c11cddfa8af9d98ba2d7a098f48446f2af66dffff244
+  checksum: 10c0/a57aeaadd0779dfeea7eb05d7babeb1d740200dad1294efd6fb1476be723122fb6a0bc169d2ba0f022d2d064f4aa4af3850df9d8b6739fcd97d77695601d6db9
   languageName: node
   linkType: hard
 
