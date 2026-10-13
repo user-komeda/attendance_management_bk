@@ -3309,7 +3309,7 @@ __metadata:
   resolution: "attendance_management_bk@workspace:."
   dependencies:
     concurrently: "npm:^10.0.5"
-    dotenv: "npm:18.0.6"
+    dotenv: "npm:18.0.7"
     infisicalLauncher: "git+ssh://git@github.com:user-komeda/infisicalLauncher.git"
     lefthook: "npm:2.2.1"
     redis: "npm:^6.3.0"
@@ -3847,12 +3847,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dotenv@npm:18.0.6":
-  version: 18.0.6
-  resolution: "dotenv@npm:18.0.6"
+"dotenv@npm:18.0.7, dotenv@npm:^18.0.6":
+  version: 18.0.7
+  resolution: "dotenv@npm:18.0.7"
   bin:
     dotenv: dist/index.cjs
-  checksum: 10c0/fe26487d82e6e1dcedc890bb7176fdb71d5540ebaf8b2adca5996a4891e133d0108699235e81c943ba6f02f00a4775843b96841bf24595b1fa67d9fb2c242efb
+  checksum: 10c0/bda2efbfa3194eec5ae592308db16285a3e163b505282a052ec9e10538be1c6a526f0437b431e78183e9bd367db0ad7c446d0180ab62310bc0a384787bec8894
   languageName: node
   linkType: hard
 
@@ -3867,15 +3867,6 @@ __metadata:
   version: 17.4.2
   resolution: "dotenv@npm:17.4.2"
   checksum: 10c0/164f8e77a646c8446867d5b588d26ea6005c8ea7c5eb41cf926f6113d23f2191355f6e0cfd95ea9bab98394a5b0a3f1e51a8399711b666fe55cc7b0bd745f942
-  languageName: node
-  linkType: hard
-
-"dotenv@npm:^18.0.6":
-  version: 18.0.7
-  resolution: "dotenv@npm:18.0.7"
-  bin:
-    dotenv: dist/index.cjs
-  checksum: 10c0/bda2efbfa3194eec5ae592308db16285a3e163b505282a052ec9e10538be1c6a526f0437b431e78183e9bd367db0ad7c446d0180ab62310bc0a384787bec8894
   languageName: node
   linkType: hard
 
