@@ -2164,8 +2164,8 @@ __metadata:
   linkType: hard
 
 "@solidjs/start@npm:^2.0.5":
-  version: 2.1.0
-  resolution: "@solidjs/start@npm:2.1.0"
+  version: 2.2.0
+  resolution: "@solidjs/start@npm:2.2.0"
   dependencies:
     "@babel/core": "npm:^7.29.7"
     "@babel/traverse": "npm:^7.29.7"
@@ -2185,8 +2185,8 @@ __metadata:
     path-to-regexp: "npm:^8.4.2"
     pathe: "npm:^2.0.3"
     radix3: "npm:^1.1.2"
-    seroval: "npm:^1.6.11"
-    seroval-plugins: "npm:^1.6.11"
+    seroval: "npm:^1.7.0"
+    seroval-plugins: "npm:^1.7.0"
     shiki: "npm:^4.3.1"
     srvx: "npm:^0.12.4"
     terracotta: "npm:^1.2.4"
@@ -2198,7 +2198,7 @@ __metadata:
   peerDependenciesMeta:
     "@solidjs/router":
       optional: true
-  checksum: 10c0/264b2b34e988058b6558fd78d54e65f4a9de96370b05a62c67d958f68a444b1f0e709dfb0397726634ff26de0b29928bfd833469e0d4e1ce3510cbbd8435f724
+  checksum: 10c0/d3c83167bac10952d87d94f7f8bca0a091ab12638c3b7a30d074896a165858e4aa308db8dec04ec397a3eb04121b6cd063f5800b3368e42db0c4135f0a1f34c1
   languageName: node
   linkType: hard
 
@@ -7032,12 +7032,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"seroval-plugins@npm:^1.6.11":
-  version: 1.6.12
-  resolution: "seroval-plugins@npm:1.6.12"
+"seroval-plugins@npm:^1.7.0":
+  version: 1.7.6
+  resolution: "seroval-plugins@npm:1.7.6"
   peerDependencies:
     seroval: ^1.0
-  checksum: 10c0/f51ab035070ca9886c38138b05669c5178cffe84d1cb2234d8e73a28026416ca55da9d36177b811d0557091d655881c44a7e4bea9074064a1c11ee3c7d32d2bd
+  checksum: 10c0/f3acc352c43078c6aef2ed31f457495409e17d3413dd24498a88350905a492ddcf78660806b230abae9b4792a346022517295d40e7cbf2fe20c0e5f61e8dd161
   languageName: node
   linkType: hard
 
@@ -7050,10 +7050,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"seroval@npm:^1.6.11":
-  version: 1.7.0
-  resolution: "seroval@npm:1.7.0"
-  checksum: 10c0/13d560b08add3d62a49ddf7581b4bf975fcc2adb23abf9b005616adfeb951d02429f81bb99379479bd702f364463fab9cf2121fc7970e6df37a2e3a303539721
+"seroval@npm:^1.7.0":
+  version: 1.7.6
+  resolution: "seroval@npm:1.7.6"
+  checksum: 10c0/97110f076f84262783935e60108ae84c80b2d86db1e06d46a6f5f8cf860c571b9f3278c9cabbc327d8369279ebb3ad24f71f1abfa1bad2153866e601bc0b8b0f
   languageName: node
   linkType: hard
 
