@@ -2176,8 +2176,8 @@ __metadata:
   linkType: hard
 
 "@solidjs/start@npm:^2.0.5":
-  version: 2.2.1
-  resolution: "@solidjs/start@npm:2.2.1"
+  version: 2.2.2
+  resolution: "@solidjs/start@npm:2.2.2"
   dependencies:
     "@babel/core": "npm:^7.29.7"
     "@babel/traverse": "npm:^7.29.7"
@@ -2210,7 +2210,7 @@ __metadata:
   peerDependenciesMeta:
     "@solidjs/router":
       optional: true
-  checksum: 10c0/16824ed87b69f299ed5414d98aa8a24714f766d1ff6b0fc7cfffe1c7befb4df8b6f0a65b89ddb1c09828ea47ae11c80b0172de52ff91f19c8ba73551c2b41ce1
+  checksum: 10c0/393e7a800f298d77755534e8f147c526070933b7944272b20d2c6514804ada9eb9850519ec64b7bb2c2cb24ea4ba0ec88310b2b50c4d343cdf8414fbd4f83f9c
   languageName: node
   linkType: hard
 
