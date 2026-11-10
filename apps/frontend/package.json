@@ -22,7 +22,7 @@
     "@solidjs/router": "^1.0.0",
     "@solidjs/start": "^2.0.5",
     "@tabler/icons-solidjs": "^3.49.0",
-    "@tailwindcss/vite": "4.3.4",
+    "@tailwindcss/vite": "4.3.5",
     "@tanstack/solid-table": "^9.2.6",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
@@ -31,7 +31,7 @@
     "lucide-solid": "^1.52.0",
     "solid-js": "^1.9.16",
     "tailwind-merge": "^3.7.0",
-    "tailwindcss": "4.3.4",
+    "tailwindcss": "4.3.5",
     "tailwindcss-animate": "^1.0.7",
     "valibot": "^1.5.0"
   },
