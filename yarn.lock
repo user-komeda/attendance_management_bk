@@ -2956,7 +2956,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/utils@npm:^8.0.0, @typescript-eslint/utils@npm:^8.56.0":
+"@typescript-eslint/utils@npm:^8.56.0":
   version: 8.71.1
   resolution: "@typescript-eslint/utils@npm:8.71.1"
   dependencies:
@@ -4385,20 +4385,24 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-solid@npm:0.18.1":
-  version: 0.18.1
-  resolution: "eslint-plugin-solid@npm:0.18.1"
+"eslint-plugin-solid@npm:0.19.0":
+  version: 0.19.0
+  resolution: "eslint-plugin-solid@npm:0.19.0"
   dependencies:
-    "@typescript-eslint/utils": "npm:^8.0.0"
+    eslint-visitor-keys: "npm:^3.4.3"
     estraverse: "npm:^5.3.0"
     is-html: "npm:^2.0.0"
     kebab-case: "npm:^1.0.2"
     known-css-properties: "npm:^0.30.0"
+    parse5: "npm:^7.3.0"
     style-to-object: "npm:^1.0.6"
+    validate-html-nesting: "npm:^1.2.4"
   peerDependencies:
     eslint: ^9.0.0 || ^10.0.0
-    typescript: ">=4.8.4"
-  checksum: 10c0/c0f55c4fae18793a958200e9c504f415b4940d31949124f77509a2c040aae8013158a43f2cd5f23262079e7d47df372d82adff9d984d89f2f0f45d733b7a6a5c
+  peerDependenciesMeta:
+    eslint:
+      optional: true
+  checksum: 10c0/d1b933efea15a9d677b8550790c67f98bc6feae492a2cb9f1a42acec6a79f83e7473382b4706c2c8221ca14ce4f384fc82027fbf05832d6e0957485f202636bb
   languageName: node
   linkType: hard
 
@@ -4706,7 +4710,7 @@ __metadata:
     eslint-plugin-import: "npm:2.32.0"
     eslint-plugin-no-relative-import-paths: "npm:1.7.3"
     eslint-plugin-playwright: "npm:2.12.2"
-    eslint-plugin-solid: "npm:0.18.1"
+    eslint-plugin-solid: "npm:0.19.0"
     eslint-plugin-testing-library: "npm:7.16.2"
     eslint-plugin-unused-imports: "npm:4.4.1"
     infisicalLauncher: "git+ssh://git@github.com:user-komeda/infisicalLauncher.git"
@@ -6394,7 +6398,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"parse5@npm:^7.1.2":
+"parse5@npm:^7.1.2, parse5@npm:^7.3.0":
   version: 7.3.0
   resolution: "parse5@npm:7.3.0"
   dependencies:
@@ -7837,6 +7841,13 @@ __metadata:
     typescript:
       optional: true
   checksum: 10c0/d49dab2b2fcbb477c894def73466de598b602859a47ab92b26d387c4d2a472cbfd4ef57b49eea91aeeff143c38f5a9523914dc5a73469ec93c7cfd4326eb5fbf
+  languageName: node
+  linkType: hard
+
+"validate-html-nesting@npm:^1.2.4":
+  version: 1.2.4
+  resolution: "validate-html-nesting@npm:1.2.4"
+  checksum: 10c0/6100366bc18f05ebd8c5dc758b43991e279ad73ffdf7e475dc6743b5a4c7ee421458ee43316de4ae05a6fae5046abb8833052eaab103a9e519f44729f1a0615f
   languageName: node
   linkType: hard
 
