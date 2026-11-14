@@ -4728,7 +4728,7 @@ __metadata:
     typescript-eslint: "npm:8.72.2"
     valibot: "npm:^1.5.0"
     vite: "npm:8.3.7"
-    vite-plugin-solid: "npm:2.11.15"
+    vite-plugin-solid: "npm:2.11.16"
     vitest: "npm:5.1.0"
   languageName: unknown
   linkType: soft
@@ -7871,9 +7871,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite-plugin-solid@npm:2.11.15":
-  version: 2.11.15
-  resolution: "vite-plugin-solid@npm:2.11.15"
+"vite-plugin-solid@npm:2.11.16":
+  version: 2.11.16
+  resolution: "vite-plugin-solid@npm:2.11.16"
   dependencies:
     "@babel/core": "npm:^7.23.3"
     "@types/babel__core": "npm:^7.20.4"
@@ -7888,7 +7888,7 @@ __metadata:
   peerDependenciesMeta:
     "@testing-library/jest-dom":
       optional: true
-  checksum: 10c0/3e735ee8ff5e7d0097749d6646d0124a9fda4cf3c632be505680c66ea83d56c3e06dfa4c786ac3c73f618069ba84b6faea31da6587c55df3f2a5590c0cd785f6
+  checksum: 10c0/384920862a7e929572418af6bd565b05a8f9aa10883b1f0825b82e11d7852fb0d088ebe8dd9547f7cbe878fd2c3ddf209d2d5be67e6dfce5eb57177bd36847fb
   languageName: node
   linkType: hard
 
