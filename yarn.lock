@@ -2167,11 +2167,11 @@ __metadata:
   linkType: hard
 
 "@solidjs/router@npm:^1.0.0":
-  version: 1.0.1
-  resolution: "@solidjs/router@npm:1.0.1"
+  version: 1.0.3
+  resolution: "@solidjs/router@npm:1.0.3"
   peerDependencies:
     solid-js: ^1.8.6
-  checksum: 10c0/abd07ee1d5d374b3cd9df744ee53192a55efc77904e57634064a2209cd631d8ec2c823afc73b7c726794934f2434e7b67793f99ef9818d03ed56f069f13fe2b0
+  checksum: 10c0/7d7c1e7524cc1afdab52ed15b702c2de72c689a9e42741f6405793d6242ecf33b082f0f2c797878ecbcd633228df89772430ffa9f932fbb5c5c5f766ac2eea3b
   languageName: node
   linkType: hard
 
