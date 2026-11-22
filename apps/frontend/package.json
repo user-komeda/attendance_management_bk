@@ -41,7 +41,7 @@
     "@solidjs/testing-library": "0.8.10",
     "@testing-library/dom": "10.4.2",
     "@testing-library/jest-dom": "7.0.1",
-    "@testing-library/user-event": "14.6.12",
+    "@testing-library/user-event": "14.6.13",
     "@types/jsdom": "30.0.0",
     "@types/node": "26.6.6",
     "@vitest/coverage-v8": "5.1.1",
