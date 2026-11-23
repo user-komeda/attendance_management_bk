@@ -4405,9 +4405,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-solid@npm:0.20.0":
-  version: 0.20.0
-  resolution: "eslint-plugin-solid@npm:0.20.0"
+"eslint-plugin-solid@npm:0.20.1":
+  version: 0.20.1
+  resolution: "eslint-plugin-solid@npm:0.20.1"
   dependencies:
     eslint-visitor-keys: "npm:^3.4.3"
     estraverse: "npm:^5.3.0"
@@ -4422,7 +4422,7 @@ __metadata:
   peerDependenciesMeta:
     eslint:
       optional: true
-  checksum: 10c0/11d4a16ef303e6bca55464c8d24ad0c1e09e4957a74b604fcc40d4bff9cc9ade0dcf6222066136510b578a7ea566acd2c0d5230babb30a6e53cb091246e0884f
+  checksum: 10c0/5d27aa830f1b97a3007b2add2a4f1326929bef9fdd77110f24d37a1165e09b7fba90adc88ad57cb9ab5bc4fd6152f6e0ccd7db06aec9ece8b918d175030b57b9
   languageName: node
   linkType: hard
 
@@ -4730,7 +4730,7 @@ __metadata:
     eslint-plugin-import: "npm:2.32.0"
     eslint-plugin-no-relative-import-paths: "npm:1.7.3"
     eslint-plugin-playwright: "npm:2.12.2"
-    eslint-plugin-solid: "npm:0.20.0"
+    eslint-plugin-solid: "npm:0.20.1"
     eslint-plugin-testing-library: "npm:7.16.2"
     eslint-plugin-unused-imports: "npm:4.4.1"
     infisicalLauncher: "git+ssh://git@github.com:user-komeda/infisicalLauncher.git"
